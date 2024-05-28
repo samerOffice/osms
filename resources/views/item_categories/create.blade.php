@@ -152,6 +152,14 @@ document.getElementById('itemCategoryForm').addEventListener('submit',function(e
 var itemCategoryFormData = new FormData(this);
 // const submitBtn = document.getElementById('submitBtn');
 
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/submit_item_category',itemCategoryFormData).then(response=>{
   console.log(response);

@@ -222,6 +222,16 @@ document.getElementById('memberForm').addEventListener('submit',function(event){
   event.preventDefault();
 
 var memberFormData = new FormData(this);
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/member_information_store',memberFormData).then(response=>{
   console.log(response);

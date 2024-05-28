@@ -185,7 +185,16 @@ $('#item_category_id').on('change',function(event){
         $('#product_category_id').html('');
         return false;
       }
-  axios.get('sanctum/csrf-cookie').then(response=>{
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/item_category_and_product_category_dependancy',{
         data: selectedItemCategory
       }).then(response=>{
@@ -201,6 +210,15 @@ document.getElementById('productForm').addEventListener('submit',function(event)
 
 var productFormData = new FormData(this);
 // const submitBtn = document.getElementById('submitBtn');
+
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/submit_product',productFormData).then(response=>{
