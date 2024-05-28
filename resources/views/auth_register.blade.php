@@ -324,7 +324,17 @@ $('#division').on('change',function(event){
         $('#district').html('');
         return false;
       }
-  axios.get('sanctum/csrf-cookie').then(response=>{
+
+  // Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+
+axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/division',{
         data: selectedDivision
       }).then(response=>{
@@ -452,7 +462,14 @@ var registerFormData = new FormData(this);
           return false;
       }
 
-   
+ // Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+  
  axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/register',registerFormData).then(response=>{
   window.location.href = myDashboardUrl;
