@@ -101,11 +101,15 @@ header("Location: $redirectRoute");
               <!-- Role select -->
                 <div data-mdb-input-init class="form-outline mb-4">
                     <label for="password">Role <small style="color: red">*</small></label>
-                    <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
+                    {{-- <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
                         <option selected="selected" value="">Select Role</option>
                         @foreach($roles as $role)
                         <option value="{{$role->id}}">{{$role->role_name}}</option>
                         @endforeach
+                      </select> --}}
+                      <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
+                        <option selected="selected" value="">Select Role</option>                      
+                        <option value="{{$roles->id}}">{{$roles->role_name}}</option>
                       </select>
                 </div> 
               </div>

@@ -142,6 +142,66 @@
         </a>
       </li>
 
+
+      <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
+      {{-- @elseif(Request::is('employee_list')) menu-open  --}}
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-user"></i>
+        <p>
+          Employees
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Add new Employee</p>
+            </a>
+          </li>
+          
+          {{-- <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #17a2b8; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Employee List</p>
+            </a>
+          </li> --}}
+          
+        </ul>
+      </li>
+
+
+      <li class="nav-item @if(Request::is('add_branch')) menu-open 
+      @elseif(Request::is('branch_list')) menu-open 
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-user"></i>
+        <p>
+          Branches
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_branch')}}" class="nav-link {{ Request::is('add_branch') ? 'nav-link active' : ''}}" style="{{ Request::is('add_branch') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_branch') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_branch') ? 'color: white; !important' : ''}}">Add new Branch</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{{route('branch_list')}}" class="nav-link {{ Request::is('branch_list') ? 'nav-link active' : ''}}" style="{{ Request::is('branch_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('branch_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('branch_list') ? 'color: white; !important' : ''}}">Branch List</p>
+            </a>
+          </li>
+          
+        </ul>
+      </li>
+
+   
+
       <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>

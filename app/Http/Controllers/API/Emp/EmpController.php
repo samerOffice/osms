@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Emp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +9,34 @@ use Auth;
 
 class EmpController extends Controller
 {
+    
+    public function add_new_employee(){
+            
+        
+        $current_modules = array();
+        $current_modules['module_status'] = '2';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+        
+        $divisions = DB::table('divisions')->get();
+        $roles = DB::table('roles')->get();
+        $designations = DB::table('designations')->get();
+        $business_types = DB::table('business_types')->get();
+
+        
+        return view('employees.add_new_employee_form',compact('current_module','divisions','roles','designations','business_types'));
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function add_additional_member_info(){
 
         $current_modules = array();

@@ -27,24 +27,26 @@ Welcome
         <div class="row mt-4">
           <div class="col-lg-4 col-6">
             <!-- small box -->
-            <div class="small-box" style="background-color: #b9f5ff">
+            <div class="small-box" style="background-color: #ffced5">
               <div class="inner">
                 <br>
                 <br>
-                <h4 align="center">Point of Sale</h4>
+                <h4 align="center">Employee Management</h4>
                 <br>
               </div>
               <div class="icon">
-                <i class="ion ion-bag" style="color: #20ceea"></i>
+                <i class="ion ion-person-add" style="color: #ff5d6c"></i>
               </div>
-              <form action="{{route('posModuleActive')}}" method="post">
+
+              <form action="{{route('empModuleActive')}}" method="post">
                 @csrf
-                <input type="hidden" value="4" name="current_module_status">
+                <input type="hidden" value="2" name="current_module_status">
                 
-              <button type="submit" class="btn" style="background-color: #20ceea; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
+              <button type="submit" class="btn" style="background-color: #ff5d6c; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
             </form>
             </div>
           </div>
+          
           <!-- ./col -->
           <div class="col-lg-4 col-6">
             <!-- small box -->
@@ -71,22 +73,21 @@ Welcome
           <!-- ./col -->
           <div class="col-lg-4 col-6">
             <!-- small box -->
-            <div class="small-box" style="background-color: #ffced5">
+            <div class="small-box" style="background-color: #b9f5ff">
               <div class="inner">
                 <br>
                 <br>
-                <h4 align="center">Employee Management</h4>
+                <h4 align="center">Point of Sale</h4>
                 <br>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add" style="color: #ff5d6c"></i>
+                <i class="ion ion-bag" style="color: #20ceea"></i>
               </div>
-
-              <form action="{{route('empModuleActive')}}" method="post">
+              <form action="{{route('posModuleActive')}}" method="post">
                 @csrf
-                <input type="hidden" value="2" name="current_module_status">
+                <input type="hidden" value="4" name="current_module_status">
                 
-              <button type="submit" class="btn" style="background-color: #ff5d6c; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
+              <button type="submit" class="btn" style="background-color: #20ceea; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
             </form>
             </div>
           </div>

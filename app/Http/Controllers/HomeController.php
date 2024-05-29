@@ -15,7 +15,11 @@ class HomeController extends Controller
     //user registration ui/ux
     public function registration(){
       $divisions = DB::table('divisions')->get();
-      $roles = DB::table('roles')->get();
+
+      $roles = DB::table('roles')
+               ->where('id',2)
+               ->first();
+
       $designations = DB::table('designations')->get();
       $business_types = DB::table('business_types')->get();
       return view('auth_register',compact('divisions','roles','designations','business_types'));
