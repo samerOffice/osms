@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 02:59 PM
+-- Generation Time: May 29, 2024 at 02:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,7 +85,10 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (4, 1, '2024-05-21', '13:18:39', NULL, '2024-05-21 07:18:39', '2024-05-21 07:18:39'),
 (5, 1, '2024-05-21', '13:22:26', NULL, '2024-05-21 07:22:26', '2024-05-21 07:22:26'),
 (6, 2, '2024-05-21', '13:32:43', NULL, '2024-05-21 07:32:43', '2024-05-21 07:32:43'),
-(7, 1, '2024-05-21', '13:36:37', NULL, '2024-05-21 07:36:37', '2024-05-21 07:36:37');
+(7, 1, '2024-05-21', '13:36:37', NULL, '2024-05-21 07:36:37', '2024-05-21 07:36:37'),
+(8, 1, '2024-05-28', '17:44:26', NULL, '2024-05-28 11:44:26', '2024-05-28 11:44:26'),
+(9, 1, '2024-05-28', '18:30:34', NULL, '2024-05-28 12:30:34', '2024-05-28 12:30:34'),
+(10, 1, '2024-05-29', '14:35:13', NULL, '2024-05-29 08:35:13', '2024-05-29 08:35:13');
 
 -- --------------------------------------------------------
 
@@ -111,6 +114,7 @@ CREATE TABLE `attendance_users` (
 
 CREATE TABLE `branches` (
   `id` int(11) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
   `br_name` varchar(500) DEFAULT NULL,
   `br_address` text DEFAULT NULL,
   `br_type` int(11) DEFAULT NULL COMMENT '1=Head Office, 2= Single branch',
@@ -123,19 +127,20 @@ CREATE TABLE `branches` (
 -- Dumping data for table `branches`
 --
 
-INSERT INTO `branches` (`id`, `br_name`, `br_address`, `br_type`, `br_status`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 1, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
-(2, NULL, NULL, NULL, 1, '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
-(3, 'ghgggggg', NULL, 2, 1, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
-(4, 'Mirpur Branch', 'mirpur 12, dhaka', 1, 1, '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
-(5, 'Laalbagh Branch', 'Laalbagh, Dhaka -1200', 2, 1, '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
-(6, 'Mirpur Branch', 'Mirpur 12', 2, 1, '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
-(7, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
-(8, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
-(9, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
-(10, NULL, NULL, 1, 1, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
-(11, NULL, NULL, 1, 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
-(12, 'Meherpur Branch', NULL, 2, 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, `br_status`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, 1, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
+(2, NULL, NULL, NULL, NULL, 1, '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
+(3, NULL, 'ghgggggg', NULL, 2, 1, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
+(4, NULL, 'Mirpur Branch', 'mirpur 12, dhaka', 1, 1, '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
+(5, NULL, 'Laalbagh Branch', 'Laalbagh, Dhaka -1200', 2, 1, '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
+(6, NULL, 'Mirpur Branch', 'Mirpur 12', 2, 1, '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
+(7, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
+(8, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
+(9, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
+(10, NULL, NULL, NULL, 1, 1, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
+(11, 11, NULL, NULL, NULL, 2, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
+(12, NULL, 'Meherpur Branch', NULL, 2, 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(14, 11, NULL, NULL, NULL, 2, '2024-05-29 09:35:30', '2024-05-29 09:35:30');
 
 -- --------------------------------------------------------
 
@@ -239,7 +244,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 2, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -590,7 +595,8 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(163, 'App\\Models\\User', 1, 'myToken', '2e0e14cd869149865706307fbbcf4c560c7222aeb1c60b21a86678deeda3de05', '[\"*\"]', '2024-05-21 07:36:37', NULL, '2024-05-21 07:36:22', '2024-05-21 07:36:37');
+(177, 'App\\Models\\User', 1, 'myToken', '9182f20144185061d1d49197c8e942e7351c0230d029d233566b4fc577a8cf9b', '[\"*\"]', NULL, NULL, '2024-05-29 09:33:47', '2024-05-29 09:33:47'),
+(178, 'App\\Models\\User', 1, 'myToken', '35bf8ffa19e1b974823b0ce8c70359691d02228e0b601275aa01cb91a3f823e8', '[\"*\"]', '2024-05-29 12:37:52', NULL, '2024-05-29 10:24:32', '2024-05-29 12:37:52');
 
 -- --------------------------------------------------------
 
@@ -892,7 +898,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -904,7 +910,7 @@ ALTER TABLE `attendance_users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `business_types`
@@ -988,7 +994,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT for table `roles`
