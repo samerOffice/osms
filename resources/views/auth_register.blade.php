@@ -78,21 +78,22 @@ header("Location: $redirectRoute");
 
             <div class="row">
                 <!-- Company -->
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <button type="button" class="btn btn-lg btn-outline-primary" data-toggle="modal" data-target="#modal-company">
+                    <button type="button" class="btn btn-lg btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-company">
                         Company Details
                     </button>
                 </div> 
                 </div>
+
                 <!-- Branch -->
-                <div class="col-md-6 col-sm-12">
+                {{-- <div class="col-md-6 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
                     <button type="button" class="btn btn-lg btn-outline-info" data-toggle="modal" data-target="#modal-branch">
                         Branch Details
                     </button>
                 </div>
-                </div>
+                </div> --}}
                 
             </div>
 
@@ -225,7 +226,7 @@ header("Location: $redirectRoute");
           <!-- modal company ends -->
 
           <!-- modal branch -->
-          <div class="modal fade" id="modal-branch">
+          {{-- <div class="modal fade" id="modal-branch">
             <div class="modal-dialog modal-lg">        
              <div class="modal-content">
                <div class="modal-header">
@@ -276,7 +277,7 @@ header("Location: $redirectRoute");
                </div>
              </div>
             </div> 
-         </div>
+         </div> --}}
           <!-- modal branch ends -->
         <!-- Submit button -->
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg btn-block">Register</button>

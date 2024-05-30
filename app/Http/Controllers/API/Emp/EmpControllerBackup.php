@@ -14,60 +14,6 @@ use Auth;
 class EmpController extends Controller
 {
     
-    
-    public function employee_list(){
-        
-        
-        $current_modules = array();
-        $current_modules['module_status'] = '2';
-        $update_module = DB::table('current_modules')
-                    // ->where('id', $request->id)
-                        ->update($current_modules);
-        $current_module = DB::table('current_modules')->first();
-
-
-        $user_company_id = Auth::user()->company_id;
-        
-        
-        // $employees = DB::table('employees')
-        //              ->leftJoin('users','employees.user_id','users.id')
-        //              ->leftJoin('companies','users.company_id','companies.id')
-        //              ->leftJoin('designations','users.designation','designations.id')
-        //              ->leftJoin('branches','users.branch_id','branches.id')
-        //              ->select('employees.*',
-        //              'users.name as emp_name', 
-        //              'users.joining_date as emp_joining_date', 
-        //              'users.email as emp_email', 
-        //              'companies.company_name as emp_company_name',
-        //              'branches.br_name as emp_br_name',
-        //              'designations.designation_name as emp_designation_name')
-        //              ->where('users.company_id', $user_company_id)
-        //              ->get();
-
-
-        $employees = DB::table('users')
-        ->leftJoin('employees','users.id','employees.user_id')
-        ->leftJoin('companies','users.company_id','companies.id')
-        ->leftJoin('designations','users.designation','designations.id')
-        ->leftJoin('branches','users.branch_id','branches.id')
-        ->select('employees.*',
-        'users.name as emp_name', 
-        'users.joining_date as emp_joining_date', 
-        'users.email as emp_email', 
-        'companies.company_name as emp_company_name',
-        'branches.br_name as emp_br_name',
-        'designations.designation_name as emp_designation_name')
-        ->where('users.company_id', $user_company_id)
-        ->where('users.role_id', '3')
-        ->get();
-
-                    //  dd($employees);
-        return view('employees.index',compact('employees','current_module'));
-    }
-    
-    
-    
-    
     public function add_new_employee(){
             
         $user_company_id = Auth::user()->company_id;
@@ -158,6 +104,12 @@ class EmpController extends Controller
 
 
     }
+    
+    
+    
+    
+    
+    
     
     
     

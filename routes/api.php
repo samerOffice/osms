@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\BranchController;
+use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
@@ -33,16 +34,24 @@ Route::post('/register',[App\Http\Controllers\API\AuthController::class,'registe
 Route::post('/login',[App\Http\Controllers\API\AuthController::class,'login']);
 Route::middleware('auth:sanctum')->post('/logout',[App\Http\Controllers\API\AuthController::class,'logout']);
 Route::post('/division',[App\Http\Controllers\HomeController::class,'division']);
-//member personal information store
+
+//member (super admin, admin, employee, vernodr) personal information store
 Route::middleware('auth:sanctum')->post('/member_information_store',[App\Http\Controllers\API\Emp\EmpController::class,'member_information_store']);
+
+//employee store
+Route::middleware('auth:sanctum')->post('/store_employee',[App\Http\Controllers\API\Emp\EmpController::class,'store_employee']);
+
 //attendance
 Route::middleware('auth:sanctum')->post('/submit_attendance',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_attendance']);
 Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controllers\API\Emp\AttendanceController::class,'all_attendance_list']);
 //branch
 Route::middleware('auth:sanctum')->post('/branch_store',[App\Http\Controllers\API\Emp\BranchController::class,'branch_store']);
 Route::middleware('auth:sanctum')->get('/edit_branch/{branch_id}',[App\Http\Controllers\API\Emp\BranchController::class,'edit_branch_via_api']);
-Route::middleware('auth:sanctum')->put('/update_branch/{branch_id}',[App\Http\Controllers\API\Emp\BranchController::class,'update_branch']);
+Route::middleware('auth:sanctum')->post('/update_branch/{branch_id}',[App\Http\Controllers\API\Emp\BranchController::class,'update_branch']);
 // Route::middleware('auth:sanctum')->patch('/update_branch/{branch_id}',[App\Http\Controllers\API\Emp\BranchController::class,'update_branch']);
+
+//dependencies (payroll)
+Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollController::class, 'member_details_dependancy']);
 
 
 

@@ -70,10 +70,10 @@ Welcome
                                     <!-- Branch select -->
                                       <div  class="form-group mb-4">
                                           <label for="password">Branch <small style="color: red">*</small></label>
-                                          <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
+                                          <select class="form-control select2bs4" id="branch_id" name="branch_id" style="width: 100%;">
                                               <option selected="selected" value="">Select Branch</option>
-                                              @foreach($roles as $role)
-                                              <option value="{{$role->id}}">{{$role->role_name}}</option>
+                                              @foreach($branches as $branch)
+                                              <option value="{{$branch->id}}">{{$branch->br_name}}</option>
                                               @endforeach
                                             </select>
                                       </div> 
@@ -129,10 +129,99 @@ $('.select2bs4').select2({
       theme: 'bootstrap4'
     })
 
-document.getElementById('memberForm').addEventListener('submit',function(event){
+
+
+
+const given_passoword = document.getElementById('password');
+const confirm_password = document.getElementById('confirm_password');
+const message = document.getElementById('message');
+
+function typePassword() {
+  confirm_password.value = '';
+  message.style.color = 'white';                 
+    };
+
+function machPassword() {   
+        // Check if passwords match
+        if (given_passoword.value === confirm_password.value){
+            message.textContent = 'Passwords match!';
+            message.style.color = 'green';
+        }else{
+            message.textContent = 'Passwords do not match!';
+            message.style.color = 'red';
+        }             
+    };
+
+document.getElementById('addNewEmployeeForm').addEventListener('submit',function(event){
   event.preventDefault();
 
-var memberFormData = new FormData(this);
+var empFormData = new FormData(this);
+
+
+var full_name = document.getElementById('name').value;
+    if(full_name == ''){
+      Swal.fire({
+              icon: "warning",
+              title: "Please Enter Full Name",
+            });
+        return false;
+    }
+
+    var email = document.getElementById('email').value;
+    if(email == ''){
+      Swal.fire({
+              icon: "warning",
+              title: "Please Enter Email Address",
+            });
+        return false;
+    }
+
+      var g_passoword = document.getElementById('password').value;  
+      if(g_passoword.length < 8){
+        Swal.fire({
+              icon: "warning",
+              title: "Password must be at least 8 characters",
+            });
+        return false;
+      }
+
+      var c_password = document.getElementById('confirm_password').value;
+      if(c_password == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Password Confirmation must not be empty",
+              });
+          return false;
+      }
+
+
+      var designation_name = document.getElementById('designation_name').value;
+      if(designation_name == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Designation",
+              });
+          return false;
+      }
+
+      var joining_date = document.getElementById('joining_date').value;
+      if(joining_date == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Joining Date",
+              });
+          return false;
+      }
+
+
+      var branch = document.getElementById('branch_id').value;
+      if(branch == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Branch",
+              });
+          return false;
+      }
 
 // Function to get CSRF token from meta tag
 function getCsrfToken() {
@@ -144,7 +233,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/member_information_store',memberFormData).then(response=>{
+ axios.post('/osms/api/store_employee',empFormData).then(response=>{
   console.log(response);
   window.location.reload();
   Swal.fire({

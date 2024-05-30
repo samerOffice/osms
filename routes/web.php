@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\BranchController;
+use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
@@ -24,6 +25,28 @@ Route::post('/emp_module_active', [HomeController::class, 'emp_module_active'])-
 Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->name('add_new_employee');
 //employee personal information update
 Route::get('/add_additional_member_info', [EmpController::class, 'add_additional_member_info'])->name('add_additional_member_info');
+Route::get('/employee_list', [EmpController::class, 'employee_list'])->name('employee_list');
+
+//payrolls
+// Route::resource('payroll', PayrollController::class);
+Route::get('/add_payroll', [PayrollController::class, 'create'])->name('add_payroll');
+Route::post('/store_payroll', [PayrollController::class, 'store_payroll'])->name('store_payroll');
+Route::get('/payroll_list', [PayrollController::class, 'index'])->name('payroll_list');
+
+//dependencies
+// Route::post('/employee_details_dependancy', [PayrollController::class, 'employee_details_dependancy']);
+
+Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
+Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('generate-csv');
+
+
+
+
+
+
+
+
+
 
 
 //attendance

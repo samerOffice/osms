@@ -137,7 +137,7 @@ class BranchController extends Controller
 
         $user_company_id = Auth::user()->company_id;
 
-        return ($request->all());
+        // return ($request->all());
 
         $data = array();
                 $data['company_id'] = $user_company_id;

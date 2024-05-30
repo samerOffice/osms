@@ -13,34 +13,28 @@ Welcome
       <div class="container-fluid">
         <br>
         <div class="row">
-            <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
-                    <i class="fas fa-plus"></i> Add Employee
-                </a>            
-            </div>
-
-            <div class="col-12">
-                <br>
-                @if ($message = Session::get('success'))
-                <div class="alert alert-info" role="alert">
-                  <div class="row">
-                    <div class="col-11">
-                      {{ $message }}
-                    </div>
-                    <div class="col-1">
-                      <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                  </div>
+           
+          <div class="col-12">
+            <br>
+            @if ($message = Session::get('success'))
+            <div class="alert alert-info" role="alert">
+              <div class="row">
+                <div class="col-11">
+                  {{ $message }}
                 </div>
-                @endif
+                <div class="col-1">
+                  <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
             </div>
-
-        
+            @endif
+        </div>
+     
             <div class="col-12">
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Employee List</h3>
+                      <h3 class="card-title">Branch List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -48,25 +42,38 @@ Welcome
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Designation</th>
-                          <th>Branch</th>
-                          <th>Joining Date</th>
-                          
+                          <th>Company Name</th>
+                          <th>Branch Name</th>
+                          <th>Branch Type</th>
+                          <th>Branch Status</th>
+                          <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($employees as $employee)
+                            @foreach($branches as $branch)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$employee->emp_name}}</td>
-                          <td>{{$employee->emp_email}}</td>
-                          <td>{{$employee->emp_designation_name}}</td>
-                          <td>{{$employee->emp_br_name}}</td>
-                          <td>{{$employee->emp_joining_date}}</td>
-                        
+                          <td>{{$branch->company_id}}</td>
+                          <td>{{$branch->br_name}}</td>
+                          <td>
+                            @if(($branch->br_type) == 1)
+                              Head Office
+                            @else
+                              Single Branch
+                            @endif
+                          </td>
+                          <td> 
+                            @if(($branch->br_status) == 1)
+                            Active
+                           @else
+                            Inactive
+                           @endif
+                         </td>
+                          <td>
+                            <a href="{{route('edit_branch', $branch->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                          </td>
+                          
                         </tr> 
                         @endforeach              
                  
@@ -75,20 +82,12 @@ Welcome
                     </div>
                     <!-- /.card-body -->
                   </div>
-            </div>           
+            </div>        
         </div>       
-        <br>       
+        <br>      
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-       
-      </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
   </div>
 
 @endsection
@@ -110,5 +109,8 @@ Welcome
         "responsive": true,
       });
     });
+
+  
+    
   </script>
   @endpush
