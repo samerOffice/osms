@@ -135,16 +135,37 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-solid fa-wallet"></i>
-          <p> Payrolls</p>
-        </a>
+      <li class="nav-item @if(Request::is('add_payroll')) menu-open 
+      @elseif(Request::is('payroll_list')) menu-open 
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-wallet"></i>
+        <p>
+          Payrolls
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_payroll')}}" class="nav-link {{ Request::is('add_payroll') ? 'nav-link active' : ''}}" style="{{ Request::is('add_payroll') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_payroll') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_payroll') ? 'color: white; !important' : ''}}">Add Payroll</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{{route('payroll_list')}}" class="nav-link {{ Request::is('payroll_list') ? 'nav-link active' : ''}}" style="{{ Request::is('payroll_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('payroll_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('payroll_list') ? 'color: white; !important' : ''}}">Payroll List</p>
+            </a>
+          </li>
+          
+        </ul>
       </li>
 
 
       <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
-      {{-- @elseif(Request::is('employee_list')) menu-open  --}}
+      @elseif(Request::is('employee_list')) menu-open 
       @endif">
       <a href="#" class="nav-link">
         <i class="nav-icon fa-solid fa-user"></i>
@@ -161,12 +182,12 @@
             </a>
           </li>
           
-          {{-- <li class="nav-item">
-            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #17a2b8; !important' : ''}}">
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Employee List</p>
             </a>
-          </li> --}}
+          </li>
           
         </ul>
       </li>

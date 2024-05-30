@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 02:42 PM
+-- Generation Time: May 30, 2024 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -88,7 +88,10 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (7, 1, '2024-05-21', '13:36:37', NULL, '2024-05-21 07:36:37', '2024-05-21 07:36:37'),
 (8, 1, '2024-05-28', '17:44:26', NULL, '2024-05-28 11:44:26', '2024-05-28 11:44:26'),
 (9, 1, '2024-05-28', '18:30:34', NULL, '2024-05-28 12:30:34', '2024-05-28 12:30:34'),
-(10, 1, '2024-05-29', '14:35:13', NULL, '2024-05-29 08:35:13', '2024-05-29 08:35:13');
+(10, 1, '2024-05-29', '14:35:13', NULL, '2024-05-29 08:35:13', '2024-05-29 08:35:13'),
+(11, 1, '2024-05-29', '18:46:23', NULL, '2024-05-29 12:46:23', '2024-05-29 12:46:23'),
+(12, 1, '2024-05-30', '13:54:14', NULL, '2024-05-30 07:54:14', '2024-05-30 07:54:14'),
+(13, 1, '2024-05-30', '13:54:17', NULL, '2024-05-30 07:54:17', '2024-05-30 07:54:17');
 
 -- --------------------------------------------------------
 
@@ -138,9 +141,11 @@ INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, 
 (8, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
 (9, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
 (10, NULL, NULL, NULL, 1, 1, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
-(11, 11, NULL, NULL, NULL, 2, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
+(11, 11, 'Laalbagh Branch', '<p>la<br></p>', 1, 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
 (12, NULL, 'Meherpur Branch', NULL, 2, 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
-(14, 11, NULL, NULL, NULL, 2, '2024-05-29 09:35:30', '2024-05-29 09:35:30');
+(14, 11, 'dhanmondi', 'dhanmondi 27', 1, 1, '2024-05-29 09:35:30', '2024-05-29 09:35:30'),
+(15, 11, 'test', 'lkjlkjlkjlkjlk<br>', 2, 1, '2024-05-29 12:46:11', '2024-05-29 12:46:11'),
+(16, 11, 'Laalmatia Branch', '<p>laalmatia<br></p>', 2, 1, '2024-05-30 05:56:38', '2024-05-30 05:56:38');
 
 -- --------------------------------------------------------
 
@@ -244,7 +249,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 2, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 3, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -455,7 +460,8 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `flag`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, '2024-05-02', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+(1, 2, 2, '2024-05-02', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(2, 3, 4, '2024-05-30', 'Hamid Ahmed', 'Shamima Basar', '01513470127', '35435135413', '<p>mirpur 12<br></p>', '<p>mirpur 12<br></p>', '1994-06-15', 'B+', 'Bangladeshi', 'Married', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-30 04:33:28', '2024-05-30 04:33:28');
 
 -- --------------------------------------------------------
 
@@ -547,6 +553,55 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payrolls`
+--
+
+CREATE TABLE `payrolls` (
+  `id` int(11) NOT NULL,
+  `employee` int(100) DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL,
+  `salary_date` date DEFAULT NULL,
+  `joining_date` date DEFAULT NULL,
+  `per_day_salary` varchar(100) DEFAULT NULL,
+  `emp_total_bonus_day` varchar(100) DEFAULT NULL,
+  `emp_total_bonus_amount` varchar(100) DEFAULT NULL,
+  `bonus_eligible_month` varchar(100) DEFAULT NULL,
+  `bonus_pay_month` varchar(100) DEFAULT NULL,
+  `bonus_pay_amount` varchar(100) DEFAULT NULL,
+  `total_working_day` varchar(100) DEFAULT NULL,
+  `total_leave` varchar(100) DEFAULT NULL,
+  `total_number_of_pay_day` varchar(100) DEFAULT NULL,
+  `monthly_salary` varchar(100) DEFAULT NULL,
+  `monthly_holiday_bonus` varchar(100) DEFAULT NULL,
+  `total_daily_allowance` varchar(100) DEFAULT NULL,
+  `total_travel_allowance` varchar(100) DEFAULT NULL,
+  `rental_cost_allowance` varchar(100) DEFAULT NULL,
+  `hospital_bill_allowance` varchar(100) DEFAULT NULL,
+  `insurance_allowance` varchar(100) DEFAULT NULL,
+  `sales_commission` varchar(100) DEFAULT NULL,
+  `retail_commission` varchar(100) DEFAULT NULL,
+  `total_others` varchar(100) DEFAULT NULL,
+  `total_salary` varchar(100) DEFAULT NULL,
+  `yearly_bonus` varchar(100) DEFAULT NULL,
+  `total_payable_salary` varchar(100) DEFAULT NULL,
+  `advance_less` varchar(100) DEFAULT NULL,
+  `any_deduction` varchar(100) DEFAULT NULL,
+  `final_pay_amount` varchar(100) DEFAULT NULL,
+  `loan_advance` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payrolls`
+--
+
+INSERT INTO `payrolls` (`id`, `employee`, `company`, `salary_date`, `joining_date`, `per_day_salary`, `emp_total_bonus_day`, `emp_total_bonus_amount`, `bonus_eligible_month`, `bonus_pay_month`, `bonus_pay_amount`, `total_working_day`, `total_leave`, `total_number_of_pay_day`, `monthly_salary`, `monthly_holiday_bonus`, `total_daily_allowance`, `total_travel_allowance`, `rental_cost_allowance`, `hospital_bill_allowance`, `insurance_allowance`, `sales_commission`, `retail_commission`, `total_others`, `total_salary`, `yearly_bonus`, `total_payable_salary`, `advance_less`, `any_deduction`, `final_pay_amount`, `loan_advance`, `created_at`, `updated_at`) VALUES
+(1, 3, '11', '2024-05-30', '2024-05-30', '1500', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '37500', '1500', '0', '0', '0', '0', '0', '0', '0', '1500', '39000', '0', '39000', '0', '0', '39000', NULL, '2024-05-30 10:27:08', '2024-05-30 10:27:08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payroll_reports`
 --
 
@@ -595,8 +650,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(177, 'App\\Models\\User', 1, 'myToken', '9182f20144185061d1d49197c8e942e7351c0230d029d233566b4fc577a8cf9b', '[\"*\"]', NULL, NULL, '2024-05-29 09:33:47', '2024-05-29 09:33:47'),
-(178, 'App\\Models\\User', 1, 'myToken', '35bf8ffa19e1b974823b0ce8c70359691d02228e0b601275aa01cb91a3f823e8', '[\"*\"]', '2024-05-29 12:37:52', NULL, '2024-05-29 10:24:32', '2024-05-29 12:37:52');
+(185, 'App\\Models\\User', 1, 'myToken', 'cd9922b47763b1265b8a28bc33f6c1f80331ae5eadc431283b73b1900bd4d2e6', '[\"*\"]', NULL, NULL, '2024-05-30 08:09:36', '2024-05-30 08:09:36');
 
 -- --------------------------------------------------------
 
@@ -683,7 +737,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`, `department_id`, `joining_date`, `email_verified_at`, `password`, `active_status`, `designation`, `company_business_type`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'samer', 'sam@gmail.com', 2, 11, 11, 11, '2024-05-06', NULL, '$2y$10$nlqFwO/VZKrydr2.gUHnp.6i383bobONro6ABEUwDGINjHJsoIukG', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-05-20 06:54:49'),
-(2, 'rahat ahmed', 'rahat@gmail.com', 3, 12, 12, 12, '2024-05-02', NULL, '$2y$10$bRFLISLP82.g4V4rR4UvI.Z7QJycvcSLl9dlYJAajc/iITMzHVNp.', 1, '2', 1, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+(2, 'rahat ahmed', 'rahat@gmail.com', 3, 12, 12, 12, '2024-05-02', NULL, '$2y$10$bRFLISLP82.g4V4rR4UvI.Z7QJycvcSLl9dlYJAajc/iITMzHVNp.', 1, '2', 1, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(3, 'Maliha Khatun', 'maliha@gmail.com', 3, 11, 14, NULL, '2024-05-30', NULL, '$2y$10$y3GwSXLco97/EiNZC1x8heCpXNLr8hGEFjSar2exG9I24bMZsK4v.', 1, '4', 1, NULL, '2024-05-30 04:33:28', '2024-05-30 04:33:28');
 
 -- --------------------------------------------------------
 
@@ -840,6 +895,12 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `payrolls`
+--
+ALTER TABLE `payrolls`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `payroll_reports`
 --
 ALTER TABLE `payroll_reports`
@@ -898,7 +959,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -910,7 +971,7 @@ ALTER TABLE `attendance_users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `business_types`
@@ -958,7 +1019,7 @@ ALTER TABLE `divisions`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employee_performances`
@@ -985,6 +1046,12 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `payrolls`
+--
+ALTER TABLE `payrolls`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `payroll_reports`
 --
 ALTER TABLE `payroll_reports`
@@ -994,7 +1061,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1012,7 +1079,7 @@ ALTER TABLE `super_admins`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_logs`

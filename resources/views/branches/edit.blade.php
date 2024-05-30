@@ -122,7 +122,7 @@ input:checked + .slider:before {
                                 </div>  
                                 </div>
     
-                                {{-- <div class="col-md-12 col-sm-12">
+                                <div class="col-md-12 col-sm-12">
                                 <div class="form-group mb-4">
                                     <label>Branch Status</label>
                                     <label class="switch">
@@ -130,7 +130,7 @@ input:checked + .slider:before {
                                         <span class="slider round"></span>
                                       </label>
                                   </div>
-                                </div>                                      --}}
+                                </div>                                     
                               </div>
 
                             <input type="hidden" value="{{$branch->id}}" name="id" id="branch_id">
@@ -213,11 +213,11 @@ $('.summernote').summernote();
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
     // axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.put('/osms/api/update_branch/' + branch_id, updateBranchFormData).then(response=>{
+    axios.post('/osms/api/update_branch/' + branch_id, updateBranchFormData).then(response=>{
     console.log(response);
-    // setTimeout(function() {
-    //         window.location.reload();
-    //     }, 2000);
+    setTimeout(function() {
+            window.location.reload();
+        }, 2000);
     Swal.fire({
                 icon: "success",
                 title: ''+ response.data.message,

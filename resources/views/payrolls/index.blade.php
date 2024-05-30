@@ -13,34 +13,28 @@ Welcome
       <div class="container-fluid">
         <br>
         <div class="row">
-            <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
-                    <i class="fas fa-plus"></i> Add Employee
-                </a>            
-            </div>
-
-            <div class="col-12">
-                <br>
-                @if ($message = Session::get('success'))
-                <div class="alert alert-info" role="alert">
-                  <div class="row">
-                    <div class="col-11">
-                      {{ $message }}
-                    </div>
-                    <div class="col-1">
-                      <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                  </div>
+           
+          <div class="col-12">
+            <br>
+            @if ($message = Session::get('success'))
+            <div class="alert alert-info" role="alert">
+              <div class="row">
+                <div class="col-11">
+                  {{ $message }}
                 </div>
-                @endif
+                <div class="col-1">
+                  <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
             </div>
-
-        
+            @endif
+        </div>
+     
             <div class="col-12">
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Employee List</h3>
+                      <h3 class="card-title">Payroll List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -48,25 +42,23 @@ Welcome
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Name</th>
-                          <th>Email</th>
+                          <th>Company Name</th>
+                          <th>Employee Name</th>
                           <th>Designation</th>
-                          <th>Branch</th>
-                          <th>Joining Date</th>
-                          
+                          <th>Salary Date</th>
+                          <th>Paid Salary Amount (BDT)</th>
                         </tr>
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($employees as $employee)
+                            @foreach($payrolls as $payroll)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$employee->emp_name}}</td>
-                          <td>{{$employee->emp_email}}</td>
-                          <td>{{$employee->emp_designation_name}}</td>
-                          <td>{{$employee->emp_br_name}}</td>
-                          <td>{{$employee->emp_joining_date}}</td>
-                        
+                          <td>{{$payroll->member_company_name}}</td>
+                          <td>{{$payroll->member_name}}</td>
+                          <td>{{$payroll->member_desingation_name}}</td>
+                          <td>{{$payroll->salary_date}}</td>
+                          <td>{{$payroll->final_pay_amount}}</td>                          
                         </tr> 
                         @endforeach              
                  
@@ -75,20 +67,12 @@ Welcome
                     </div>
                     <!-- /.card-body -->
                   </div>
-            </div>           
+            </div>        
         </div>       
-        <br>       
+        <br>      
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-       
-      </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
   </div>
 
 @endsection
@@ -110,5 +94,8 @@ Welcome
         "responsive": true,
       });
     });
+
+  
+    
   </script>
   @endpush
