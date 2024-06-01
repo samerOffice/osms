@@ -26,7 +26,8 @@ Welcome
                         <h3 class="card-title">Invoice</h3>
                       </div>
                     <div class="card-body">
-                        <form id="invoiceForm" >                                        
+                        <form id="" action="{{route('submit_invoice')}}" method="post">  
+                          @csrf                                      
                             <div class="card-body">
 
                               <div class="form-group">
@@ -48,13 +49,13 @@ Welcome
                                 <select required class="form-control select2bs4" id="payment_method_id" name="payment_method_id" style="width: 100%;">                                  
                                   <option value="">Select Payment Method</option>
                                   <option value="1">Cash</option>                                                
-                                  <option value="2">Card</option>                                                
-                                  <option value="3">Bkash</option>                                                
+                                  {{-- <option value="2">Card</option>                                                
+                                  <option value="3">Bkash</option> --}}
                                 </select>
                               </div>
                               
                               <div class="form-group">
-                                <label>Sub Total</label>
+                                <label>Price</label>
                                 <input type="text" required class="form-control" id="sub_total" name="sub_total" >
                               </div> 
 
@@ -95,6 +96,44 @@ Welcome
 
 @push('masterScripts')
 <script type="text/javascript">
+
+//Initialize Select2 Elements
+$('.select2bs4').select2({
+    theme: 'bootstrap4'
+    });
+//initialize summernote
+$('.summernote').summernote();
+
+
+$('#product_id').on('change',function(event){
+  event.preventDefault();
+  var selectedProduct = $('#product_id').val();
+
+  if (selectedProduct == '') {
+        $('#sub_total').val('');
+        return false;
+      }
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+axios.get('sanctum/csrf-cookie').then(response=>{
+ axios.post('/osms/api/product_and_price_dependancy',{
+        data: selectedProduct
+      }).then(response=>{
+      $('#sub_total').val(response.data);
+        console.log(response.data);
+      });
+ });
+});
+
+
+
 
 //------------------sub-total and total calculation-----------------
 document.addEventListener('DOMContentLoaded', () => {
@@ -160,18 +199,11 @@ axios.get('sanctum/csrf-cookie').then(response=>{
         
   }).catch(error => Swal.fire({
               icon: "error",
-              title: error.response.data.message.email,
+              title: error.response.data.message,
               }))
  });
 
 });
-//Initialize Select2 Elements
-$('.select2bs4').select2({
-    theme: 'bootstrap4'
-    });
-//initialize summernote
-$('.summernote').summernote();
-
 
 </script>
 @endpush

@@ -83,10 +83,10 @@ Welcome
                                 </select>
                               </div>
 
-                              <div class="form-group">
+                              {{-- <div class="form-group">
                                 <label >Batch Number</label>
                                 <input type="text"  class="form-control" id="batch_number" name="batch_number" >
-                              </div>
+                              </div> --}}
 
                               <div class="form-group">
                                 <label >Tag Number</label>
@@ -123,16 +123,16 @@ Welcome
                                 </div>
                               </div>
 
-                              <div class="form-group">
+                              {{-- <div class="form-group">
                                 <br>
                                 <label>Total Product In a Batch</label>
                                 <input type="text"  class="form-control" id="total_product_in_a_batch" name="total_product_in_a_batch" >
-                              </div>
+                              </div> --}}
                               
-                              <div class="form-group">
+                              {{-- <div class="form-group">
                                 <label>Product Batch Price</label>
                                 <input type="text"  class="form-control" id="product_batch_price" name="product_batch_price" >
-                              </div>
+                              </div> --}}
                              
                             </div>
                             <!-- /.card-body -->

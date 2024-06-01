@@ -26,6 +26,7 @@ Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->nam
 //employee personal information update
 Route::get('/add_additional_member_info', [EmpController::class, 'add_additional_member_info'])->name('add_additional_member_info');
 Route::get('/employee_list', [EmpController::class, 'employee_list'])->name('employee_list');
+Route::get('/password_reset', [EmpController::class, 'password_reset'])->name('password_reset');
 
 //payrolls
 // Route::resource('payroll', PayrollController::class);
@@ -38,14 +39,6 @@ Route::get('/payroll_list', [PayrollController::class, 'index'])->name('payroll_
 
 Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
 Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('generate-csv');
-
-
-
-
-
-
-
-
 
 
 
@@ -73,3 +66,5 @@ Route::get('/add_product', [ProductController::class, 'add_product'])->name('add
 
 //invoice
 Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
+Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
+Route::get('/invoice_show_data', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
