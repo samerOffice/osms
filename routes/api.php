@@ -41,6 +41,9 @@ Route::middleware('auth:sanctum')->post('/member_information_store',[App\Http\Co
 //employee store
 Route::middleware('auth:sanctum')->post('/store_employee',[App\Http\Controllers\API\Emp\EmpController::class,'store_employee']);
 
+//new password set
+Route::middleware('auth:sanctum')->post('/new_password_set',[App\Http\Controllers\API\Emp\EmpController::class,'new_password_set']);
+
 //attendance
 Route::middleware('auth:sanctum')->post('/submit_attendance',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_attendance']);
 Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controllers\API\Emp\AttendanceController::class,'all_attendance_list']);
@@ -65,4 +68,5 @@ Route::post('/item_category_and_product_category_dependancy',[App\Http\Controlle
 Route::middleware('auth:sanctum')->post('/submit_product',[App\Http\Controllers\API\Inventory\ProductController::class,'submit_product']);
 
 //...............********* pos module ********................
-Route::middleware('auth:sanctum')->post('/submit_invoice',[App\Http\Controllers\API\POS\InvoiceController::class,'submit_invoice']);
+// Route::middleware('auth:sanctum')->post('/submit_invoice',[App\Http\Controllers\API\POS\InvoiceController::class,'submit_invoice']);
+Route::post('/product_and_price_dependancy',[App\Http\Controllers\API\POS\InvoiceController::class,'product_and_price_dependancy']);

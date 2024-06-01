@@ -15,6 +15,37 @@ class EmpController extends Controller
 {
     
     
+    public function password_reset(){
+        
+        $current_modules = array();
+        $current_modules['module_status'] = '2';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+        
+        return view('employees.password_reset',compact('current_module'));
+    }
+
+
+    public function new_password_set(Request $request){
+
+        
+        $user_password = Auth::user()->password;
+        $current_password = $request->current_password;
+
+        if (!Hash::check($current_password, $user_password)) {
+            // return back()->withErrors(['current_password' => 'Current password is incorrect']);
+            return response()->json(['Current password is incorrect']);
+        }
+
+
+    }
+    
+    
+    
+    
+    
     public function employee_list(){
         
         

@@ -18,6 +18,7 @@
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="{{route('add_additional_member_info')}}"><i class="fa fa-user"></i>&nbsp;Profile</a>
+        <a class="dropdown-item" href="{{route('password_reset')}}"><i class="fa-solid fa-lock"></i>&nbsp;Password Reset</a>
         <input type="hidden" id="myLoginUrl" value="{{ route('login') }}">
         <a class="dropdown-item" href="" >
           <form id="logOut">

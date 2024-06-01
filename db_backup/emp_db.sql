@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2024 at 03:29 PM
+-- Generation Time: Jun 01, 2024 at 08:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -249,7 +249,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 3, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 4, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -650,7 +650,8 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(185, 'App\\Models\\User', 1, 'myToken', 'cd9922b47763b1265b8a28bc33f6c1f80331ae5eadc431283b73b1900bd4d2e6', '[\"*\"]', NULL, NULL, '2024-05-30 08:09:36', '2024-05-30 08:09:36');
+(185, 'App\\Models\\User', 1, 'myToken', 'cd9922b47763b1265b8a28bc33f6c1f80331ae5eadc431283b73b1900bd4d2e6', '[\"*\"]', NULL, NULL, '2024-05-30 08:09:36', '2024-05-30 08:09:36'),
+(186, 'App\\Models\\User', 1, 'myToken', '0d2dac4b87f5422032c37ebb45a30deb9987f009569d89f5a6797b387de11a4a', '[\"*\"]', NULL, NULL, '2024-06-01 05:17:16', '2024-06-01 05:17:16');
 
 -- --------------------------------------------------------
 
@@ -1061,7 +1062,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `roles`
