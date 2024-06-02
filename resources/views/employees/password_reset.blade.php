@@ -36,14 +36,15 @@ Password Reset
                             <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <label>New Password <small style="color: red">*</small></label>
-                                    <input type="password"   id="new_password" name="new_password" class="form-control form-control-lg" />
+                                    <input type="password" onkeyup="typePassword()"  id="new_password" name="new_password" class="form-control form-control-lg" />
                                 </div> 
                             </div>
 
                             <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <label>Confirm New Password <small style="color: red">*</small></label>
-                                    <input type="password"   id="confirm_password" name="confirm_password" class="form-control form-control-lg" />
+                                    <input type="password" onkeyup="machPassword()"  id="confirm_password" name="confirm_password" class="form-control form-control-lg" />
+                                    <p id="message"></p>
                                 </div> 
                             </div>                                       
                           </div>
@@ -79,13 +80,34 @@ $('.select2bs4').select2({
 //initialize summernote
 $('.summernote').summernote();
 
+
+const current_password = document.getElementById('current_password');
+const new_password = document.getElementById('new_password');
+const confirm_password = document.getElementById('confirm_password');
+const message = document.getElementById('message');
+
+function typePassword() {
+  confirm_password.value = '';
+  message.style.color = 'white';                 
+    };
+
+function machPassword() {   
+        // Check if passwords match
+        if (new_password.value === confirm_password.value){
+            message.textContent = 'Passwords match!';
+            message.style.color = 'green';
+        }else{
+            message.textContent = 'Passwords do not match!';
+            message.style.color = 'red';
+        }             
+    };
+
 document.getElementById('passwordResetForm').addEventListener('submit',function(event){
   event.preventDefault();
 
-var passwordResetFormData = new FormData(this);
+    var passwordResetFormData = new FormData(this);
 
-
-    var current_password = document.getElementById('current_password').value;
+     var current_password = document.getElementById('current_password').value;
     if(current_password == ''){
     Swal.fire({
             icon: "warning",
@@ -102,6 +124,14 @@ var passwordResetFormData = new FormData(this);
             });
         return false;
     }
+ 
+    if(new_password.length < 8){
+      Swal.fire({
+            icon: "warning",
+            title: "New Password must be at least 8 characters",
+          });
+      return false;
+    }
 
     var confirm_password = document.getElementById('confirm_password').value;
     if(confirm_password == ''){
@@ -112,6 +142,14 @@ var passwordResetFormData = new FormData(this);
         return false;
     }
 
+    //matching new password and confirm password
+    if (new_password !== confirm_password) {
+      Swal.fire({
+            icon: "error",
+            title: "New Password and Confirm Password did not match",
+            });
+        return false;
+    }
 
 
 // Function to get CSRF token from meta tag
@@ -126,20 +164,48 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/new_password_set',passwordResetFormData).then(response=>{
   console.log(response);
-//   window.location.reload();
+
   Swal.fire({
               icon: "success",
-              title: ''+ response.data.message,
+              title: ''+ response.data.message
             });
-        return false;
-        
-  }).catch(error => Swal.fire({
-              icon: "error",
-              title: error.response.data.message.email,
-              }))
- });
+        //  return false;
+        setTimeout(function() {
+            window.location.reload();
+        }, 2000);
 
-});
+
+// if(response.data.flag == 1){
+//   Swal.fire({
+//               icon: "warning",
+//               title: ''+ response.data.message
+//             });
+//         return false;
+
+//   }else if(response.data.flag == 2){
+//     Swal.fire({
+//               icon: "warning",
+//               title: ''+ response.data.message
+//             });
+//         return false;
+//   }else{
+//     Swal.fire({
+//                 icon: "success",
+//                 title: ''+ response.data.message
+//               });
+//           // return false;
+//         setTimeout(function() {
+//             window.location.reload();
+//         }, 2000);
+//   }
+          
+    }).catch(error => Swal.fire({
+                icon: "error",
+                title: error.response.data.new_password
+                }))
+  });
+
+  });
 
 
 
