@@ -28,27 +28,123 @@ class EmpController extends Controller
     }
 
 
-    public function new_password_set(Request $request){
+    // public function new_password_set(Request $request){
+  
+    //     $user = Auth::user();
+    //     $user_id = Auth::user()->id;
+    //     $user_password = Auth::user()->password;
+    //     $current_password = $request->current_password;
+    //     $new_password = $request->new_password;
 
-        
-        $user_password = Auth::user()->password;
-        $current_password = $request->current_password;
+    //     $request->validate([
+    //         'current_password' => 'required',
+    //         'new_password' => [
+    //             'required',
+    //             'string',
+    //             'min:8',
+                
+    //             function ($attribute, $value, $fail) use ($user) {
+    //                 if (Hash::check($value, $user->password)) {
+    //                     $fail('The new password must be different from the current password.');
+    //                 }
+    //             },
+    //         ],
+    //     ]);
 
-        if (!Hash::check($current_password, $user_password)) {
-            // return back()->withErrors(['current_password' => 'Current password is incorrect']);
-            return response()->json(['Current password is incorrect']);
+    //     if (!Hash::check($current_password, $user_password)) {  
+    //         $response = [
+    //             'message' => 'Current password is incorrect.',
+    //             'flag' => 1
+    //         ];
+    //         return response()->json($response);
+    //     }else{
+    //         if(Hash::check($new_password, $user_password)){
+    //             $response = [
+    //                 'message' => 'The new password and the current password must not be same.',
+    //                 'flag' => 2
+    //             ];
+    //             return response()->json($response);
+    //         }else{
+
+                
+    //             //update password
+    //             $data = array();
+    //             $data['password'] = Hash::make($new_password);
+    //             $updated = DB::table('users')
+    //                         ->where('id', $user_id)
+    //                         ->update($data);
+
+
+    //             //user logout
+    //             Auth::guard('web')->logout();
+    //             auth()->user()->tokens()->delete();
+
+    //             $response = [
+    //                 'message' => 'Password is changed successfully!',
+    //             ];
+    //             return response()->json($response);
+    //         }
+    //     }
+
+    // }
+
+
+
+
+
+        public function new_password_set(Request $request){
+            $user = Auth::user();
+
+            $validator = \Validator::make($request->all(),[
+                    'current_password' => 'required',
+                    'new_password' => [
+                        'required',
+                        'string',
+                        'min:8',
+                        
+                        function ($attribute, $value, $fail) use ($user) {
+                            if (Hash::check($value, $user->password)) {
+                                $fail('The new password must be different from the current password.');
+                            }
+                        },
+                    ],
+                ]);
+
+
+                if ($validator->fails()) {
+                    // \Log::info('Validation failed.', ['errors' => $validator->errors()]);
+                    return response()->json($validator->errors(), 422);
+                }
+
+                if (!Hash::check($request->current_password, $user->password)) {
+                    return response()->json(['error' => 'Current password is incorrect'], 422);
+                }
+
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+
+                Auth::guard('web')->logout();
+                auth()->user()->tokens()->delete();
+
+                return response()->json(['message' => 'Password is changed successfully!']);
         }
 
 
-    }
+
+
+
+
+
+
+
+
+
+
     
-    
-    
-    
+      
     
     public function employee_list(){
-        
-        
+         
         $current_modules = array();
         $current_modules['module_status'] = '2';
         $update_module = DB::table('current_modules')
@@ -92,7 +188,7 @@ class EmpController extends Controller
         ->where('users.role_id', '3')
         ->get();
 
-                    //  dd($employees);
+        //  dd($employees);
         return view('employees.index',compact('employees','current_module'));
     }
     

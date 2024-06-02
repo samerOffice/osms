@@ -140,11 +140,11 @@ class BranchController extends Controller
         // return ($request->all());
 
         $data = array();
-                $data['company_id'] = $user_company_id;
-                $data['br_name'] = $request->input('br_name');
-                $data['br_address'] = $request->input('br_address');
-                $data['br_type'] = $request->input('br_type');
-                $data['br_status'] = $request->input('br_status') ? '1' : '2';
+        $data['company_id'] = $user_company_id;
+        $data['br_name'] = $request->input('br_name');
+        $data['br_address'] = $request->input('br_address');
+        $data['br_type'] = $request->input('br_type');
+        $data['br_status'] = $request->input('br_status') ? '1' : '2';
 
 
 
