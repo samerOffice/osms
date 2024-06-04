@@ -199,10 +199,19 @@ axios.get('sanctum/csrf-cookie').then(response=>{
 //         }, 2000);
 //   }
           
-    }).catch(error => Swal.fire({
-                icon: "error",
-                title: error.response.data.new_password
-                }))
+   }).catch(error => {
+    if(error.response.data.error){
+        Swal.fire({
+            icon: "error",
+            title: error.response.data.error
+        });
+    }else{
+        Swal.fire({
+            icon: "error",
+            title: error.response.data.new_password
+        });
+    }
+    });
   });
 
   });
