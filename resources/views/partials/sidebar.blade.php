@@ -15,7 +15,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
       @if($current_module->module_status == 1) <!--general module-->
-          <li class="nav-item nav-link {{ Request::is('dashboard') ? 'nav-link active' : ''}}" style="{{ Request::is('dashboard') ? 'background-color: #c0c48e; !important' : ''}}">
+          <li class="nav-item nav-link {{ Request::is('dashboard') ? 'nav-link active' : ''}}" style="{{ Request::is('dashboard') ? 'background-color: #908ec4; !important' : ''}}">
           <a href="{{route('home')}}">
             <i class="nav-icon fas fa-tachometer-alt" style="{{ Request::is('dashboard') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('dashboard') ? 'color: white; !important' : ''}}">

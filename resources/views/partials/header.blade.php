@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-dark">
+<nav class="main-header navbar navbar-expand" style="background-color: white">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -6,11 +6,16 @@
     </li>
   </ul>
 
+  <div class="row" style="margin-left:5%">    
+    <span><img src="{{asset('public/img/otithee_logo.png')}}"  height="17px" width="auto" alt="logo"></span>
+  <em> 
+    <h5 style="color: green; font-weight: bold; margin-top:1px">&nbsp;Shop Management System </h5>
+  </em>      
+  </div>
+
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- Navbar Search -->
-   
-
     <!-- Messages Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">

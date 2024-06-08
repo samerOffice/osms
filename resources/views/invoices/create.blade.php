@@ -12,13 +12,7 @@ Welcome
       <div class="container-fluid">
         <br>
         <div class="row">
-            {{-- <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
-                    <i class="fas fa-arrow-left"></i> Back
-                </a>
-            </div> --}}
-
-               
+                      
             <div class="col-12">
                 <br>
                 <div class="card">
@@ -38,10 +32,11 @@ Welcome
                                   <option value="{{$product->id}}">{{$product->product_name}}</option>
                                   @endforeach                                                             
                                 </select>
-                              </div> 
+                              </div>
+
                               <div class="form-group">
                                 <label>date</label>
-                                <input type="date" required class="form-control" id="invoice_date" name="invoice_date" >
+                                <input type="date" required class="form-control" id="invoice_date" name="invoice_date" value="{{ date('Y-m-d') }}">
                               </div> 
 
                               <div class="form-group">
