@@ -16,8 +16,8 @@ Welcome
 
           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
           <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_branch')}}">
-                <i class="fas fa-plus"></i> Add Branch
+            <a class="btn btn-outline-info float-right" href="{{route('add_outlet')}}">
+                <i class="fas fa-plus"></i> Add Outlet
             </a>
           </div>
           @endif
@@ -42,7 +42,7 @@ Welcome
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Branch List</h3>
+                      <h3 class="card-title">Outlet List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -52,8 +52,8 @@ Welcome
                           <th>Serial No.</th>
                           <th>Company Name</th>
                           <th>Branch Name</th>
-                          <th>Branch Type</th>
-                          <th>Branch Status</th>
+                          <th>Outlet Name</th>
+                          <th>Outlet Status</th>
                           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <th>Action</th>
                           @endif
@@ -61,28 +61,22 @@ Welcome
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($branches as $branch)
+                            @foreach($outlets as $outlet)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$branch->company_name}}</td>
-                          <td>{{$branch->br_name}}</td>
-                          <td>
-                            @if(($branch->br_type) == 1)
-                              Head Office
-                            @else
-                              Single Branch
-                            @endif
-                          </td>
+                          <td>{{$outlet->company_name}}</td>
+                          <td>{{$outlet->branch_name}}</td>
+                          <td>{{$outlet->outlet_name}}</td>
                           <td> 
-                            @if(($branch->br_status) == 1)
-                            <span class="badge badge-success">Active</span>
+                            @if(($outlet->outlet_status) == 1)
+                            <span class="badge badge-success">Open</span>
                            @else
-                           <span class="badge badge-danger">Inactive</span>
+                           <span class="badge badge-danger">Closed</span>
                            @endif
                          </td>
                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <td>
-                            <a href="{{route('edit_branch', $branch->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            <a href="{{route('edit_outlet',$outlet->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                           </td>
                           @endif
                         </tr> 

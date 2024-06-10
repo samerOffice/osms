@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\API\Admin\BranchController;
+use App\Http\Controllers\API\Admin\DepartmentController;
+use App\Http\Controllers\API\Admin\OutletController;
+use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
-use App\Http\Controllers\API\Emp\BranchController;
 use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\POS\InvoiceController;
@@ -18,6 +21,33 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('home');
 Route::post('/pos_module_active', [HomeController::class, 'pos_module_active'])->name('posModuleActive');
 Route::post('/inventory_module_active', [HomeController::class, 'inventory_module_active'])->name('inventoryModuleActive');
 Route::post('/emp_module_active', [HomeController::class, 'emp_module_active'])->name('empModuleActive');
+
+//............**************** Super Admin/Admin Dashboard module **************...................
+//branch
+Route::get('/branch_list', [BranchController::class, 'branch_list'])->name('branch_list');
+Route::get('/add_branch', [BranchController::class, 'add_branch'])->name('add_branch');
+Route::get('/edit_branch/{branch_id}', [BranchController::class, 'edit_branch'])->name('edit_branch');
+
+
+
+//department
+Route::get('/department_list', [DepartmentController::class, 'department_list'])->name('department_list');
+Route::get('/add_department', [DepartmentController::class, 'add_department'])->name('add_department');
+Route::get('/edit_department/{department_id}', [DepartmentController::class, 'edit_department'])->name('edit_department');
+
+
+
+//outlet
+Route::get('/outlet_list', [OutletController::class, 'outlet_list'])->name('outlet_list');
+Route::get('/add_outlet', [OutletController::class, 'add_outlet'])->name('add_outlet');
+Route::get('/edit_outlet/{outlet_id}', [OutletController::class, 'edit_outlet'])->name('edit_outlet');
+
+
+
+//warehouse
+Route::get('/warehouse_list', [WarehouseController::class, 'warehouse_list'])->name('warehouse_list');
+Route::get('/add_warehouse', [WarehouseController::class, 'add_warehouse'])->name('add_warehouse');
+Route::get('/edit_warehouse/{warehouse_id}', [WarehouseController::class, 'edit_warehouse'])->name('edit_warehouse');
 
 
 //...............********* employee management module ********................
@@ -46,14 +76,10 @@ Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('g
 Route::get('/give_attendance', [AttendanceController::class, 'give_attendance'])->name('give_attendance');
 Route::get('/attendance_list',[AttendanceController::class,'attendance_list'])->name('attendance_list');
 
-//branch
-Route::get('/branch_list', [BranchController::class, 'branch_list'])->name('branch_list');
-Route::get('/add_branch', [BranchController::class, 'add_branch'])->name('add_branch');
-Route::get('/edit_branch/{branch_id}', [BranchController::class, 'edit_branch'])->name('edit_branch');
-// Route::post('/update_branch', [BranchController::class, 'update_branch'])->name('update_branch');
+
+
 
 //...............********* inventory management module ********................
-
 //item category
 Route::get('/add_item_category', [ProductController::class, 'add_item_category'])->name('add_item_category');
 //product category

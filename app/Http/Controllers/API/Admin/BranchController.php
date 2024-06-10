@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Emp;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class BranchController extends Controller
         $user_role_id = Auth::user()->role_id;
 
         $current_modules = array();
-        $current_modules['module_status'] = '2';
+        $current_modules['module_status'] = '1';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -23,13 +23,18 @@ class BranchController extends Controller
 
         if($user_role_id == 1){
 
-            $branches = DB::table('branches')->get();
+            $branches = DB::table('branches')
+                        ->leftJoin('companies','branches.company_id','companies.id')
+                        ->select('branches.*','companies.company_name as company_name')
+                        ->get();
   
         return view('branches.index',compact('current_module','branches'));
 
         }else{
             $branches = DB::table('branches')
-            ->where('company_id',$user_company_id)
+            ->leftJoin('companies','branches.company_id','companies.id')
+            ->select('branches.*','companies.company_name as company_name')
+            ->where('branches.company_id',$user_company_id)
             ->get();
 
         return view('branches.index',compact('current_module','branches'));
@@ -40,7 +45,7 @@ class BranchController extends Controller
     public function add_branch(){
 
         $current_modules = array();
-        $current_modules['module_status'] = '2';
+        $current_modules['module_status'] = '1';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -59,7 +64,7 @@ class BranchController extends Controller
         'br_name'=>$request->br_name,
         'br_address'=>$request->br_address,
         'br_type'=>$request->br_type,
-        'br_status'=>$request->br_status ? '2' : '1'
+        'br_status'=>$request->br_status
         ]);
 
         $response = [
@@ -74,7 +79,7 @@ class BranchController extends Controller
     //for web
     public function edit_branch($id){
         $current_modules = array();
-        $current_modules['module_status'] = '2';
+        $current_modules['module_status'] = '1';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -104,48 +109,16 @@ class BranchController extends Controller
     }
 
 
-    //for web
-
-    // public function update_branch(Request $request){
-
-    //     $branch_id = $request->id;
-    //     $user_company_id = Auth::user()->company_id;
-
-    //     $data = array();
-    //             $data['company_id'] = $user_company_id;
-    //             $data['br_name'] = $request->br_name;
-    //             $data['br_address'] = $request->br_address;
-    //             $data['br_name'] = $request->br_name;
-    //             $data['br_type'] = $request->br_type;
-    //             $data['br_status'] = $request->br_status ? '1' : '2';
-
-    //     $updated = DB::table('branches')
-    //                       ->where('id', $branch_id)
-    //                       ->update($data);
-
-
-    //         if($updated == true){
-    //             return redirect()->route('branch_list')->withSuccess('Branch details are updated successfully');
-    //         }
-        
-    // }
-
-
-
-    //for api
     public function update_branch(Request $request, $id){
 
         $user_company_id = Auth::user()->company_id;
-
-        // return ($request->all());
 
         $data = array();
         $data['company_id'] = $user_company_id;
         $data['br_name'] = $request->input('br_name');
         $data['br_address'] = $request->input('br_address');
         $data['br_type'] = $request->input('br_type');
-        $data['br_status'] = $request->input('br_status') ? '1' : '2';
-
+        $data['br_status'] = $request->input('br_status');
 
 
         try {
@@ -161,35 +134,13 @@ class BranchController extends Controller
             } else {
                 // Return a failure response
                 return response()->json([
-                    'message' => 'Branch update failed or no changes were made niggaaaaddddda'
+                    'message' => 'Branch update failed or no changes were made'
                 ], 400);
             }
         } catch (\Exception $e) {
             // Catch any exceptions and return an error response
             return response()->json(['error' => 'An error occurred while updating the branch', 'details' => $e->getMessage()], 500);
-        }
-
-        // $updated = DB::table('branches')
-        //                   ->where('id', $branch_id)
-        //                   ->update($data);
-
-
-        //     if($updated == true){
-        //         $response = [
-        //             'success' => true,
-        //             'message' => 'Branch details are updated successfully'
-        //         ];
-        //         return response()->json($response,200);
-        //     }else{
-        //         $response = [
-        //         'data' => $updated,
-        //         'company auth id' => $user_company_id,
-        //         'success' => false,
-        //         'message' => 'Error occured'
-        //         ];              
-        //         return response()->json($response);
-        //     }
-        
+        }  
     }
 
 

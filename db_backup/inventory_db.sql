@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 02:59 PM
+-- Generation Time: Jun 10, 2024 at 03:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,7 +57,9 @@ CREATE TABLE `item_categories` (
 --
 
 INSERT INTO `item_categories` (`id`, `company_id`, `name`, `active_status`, `created_at`, `updated_at`) VALUES
-(1, 12, 'Electronics', NULL, '2024-05-21 09:29:37', '2024-05-21 09:29:37');
+(1, 12, 'Electronics', NULL, '2024-05-21 09:29:37', '2024-05-21 09:29:37'),
+(2, 11, 'test category', 1, '2024-05-30 06:38:43', '2024-05-30 06:38:43'),
+(3, 11, 'Electronics', 1, '2024-06-01 05:18:29', '2024-06-01 05:18:29');
 
 -- --------------------------------------------------------
 
@@ -102,7 +104,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `item_category_id`, `product_category_id`, `product_type`, `product_name`, `product_single_price`, `labeling_type`, `batch_number`, `product_tag_number`, `product_weight`, `quantity`, `additional_product_details`, `product_entry_date`, `product_mfg_date`, `product_expiry_date`, `product_status`, `total_product_in_a_batch`, `product_batch_price`, `current_available_product_in_a_batch`, `shop_company_id`, `shop_branch_id`, `shop_depth_id`, `shop_outlet_id`, `shop_warehouse_id`, `vendor_id`, `vendor_company_id`, `vendor_branch_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 2, 'Lenovo 203 laptop', '45,000', 2, NULL, 'laptop-12', '2kg', 1, '<p>Lenovo latest laptop<br></p>', '2024-05-21', NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-21 11:40:52', '2024-05-21 11:40:52');
+(1, 1, 2, 2, 'Lenovo 203 laptop', '45,000', 2, NULL, 'laptop-12', '2kg', 1, '<p>Lenovo latest laptop<br></p>', '2024-05-21', NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-21 11:40:52', '2024-05-21 11:40:52'),
+(2, 3, 4, 2, 'Samsung Smart TV', '51000', 1, NULL, 'smarttv-122134', '30kg', 1, '32\" LED smart TV<br>', '2024-06-01', NULL, NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 06:00:55', '2024-06-01 06:00:55');
 
 -- --------------------------------------------------------
 
@@ -143,7 +146,8 @@ CREATE TABLE `product_categories` (
 INSERT INTO `product_categories` (`id`, `company_id`, `name`, `item_category_id`, `active_status`, `created_at`, `updated_at`) VALUES
 (1, 12, 'Fridge', 1, 1, '2024-05-21 10:11:03', '2024-05-21 10:11:03'),
 (2, 12, 'Laptop', 1, NULL, '2024-05-21 10:13:58', '2024-05-21 10:13:58'),
-(3, 12, NULL, 1, NULL, '2024-05-21 11:39:36', '2024-05-21 11:39:36');
+(3, 12, NULL, 1, NULL, '2024-05-21 11:39:36', '2024-05-21 11:39:36'),
+(4, 11, 'Smart TV', 3, 1, '2024-06-01 05:18:50', '2024-06-01 05:18:50');
 
 -- --------------------------------------------------------
 
@@ -225,6 +229,14 @@ CREATE TABLE `warehouses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `warehouses`
+--
+
+INSERT INTO `warehouses` (`id`, `company_id`, `branch_id`, `warehouse_name`, `warehouse_address`, `warehouse_status`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'Laalbagh Warehouse', '<p>Laalbagh, Dhaka<br></p>', 1, '2024-06-10 10:25:14', '2024-06-10 10:25:14'),
+(2, 11, 1, 'Mirpur warehouse', 'Mirpur DOHS', 1, '2024-06-10 10:47:05', '2024-06-10 10:47:05');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -296,13 +308,13 @@ ALTER TABLE `inventory_log`
 -- AUTO_INCREMENT for table `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_batch`
@@ -314,7 +326,7 @@ ALTER TABLE `product_batch`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_requisitions`
@@ -338,7 +350,7 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `warehouses`
 --
 ALTER TABLE `warehouses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

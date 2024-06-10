@@ -8,8 +8,6 @@
       
       </div>
 
-
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -23,6 +21,42 @@
             </p>
           </a>
         </li>
+
+        <li class="nav-item nav-link @if(Request::is('branch_list')) nav-link active @endif" 
+            style="@if(Request::is('branch_list')) background-color: #908ec4; @endif">
+           <a href="{{route('branch_list')}}" >
+            <i class="nav-icon fa-solid fa-building" style=" @if(Request::is('branch_list')) color: white; @endif"></i>
+            <p style="@if(Request::is('branch_list')) color:white; @endif"> Branch</p>
+          </a>
+        </li>
+
+
+      <li class="nav-item nav-link @if(Request::is('outlet_list')) nav-link active @endif" 
+          style="@if(Request::is('outlet_list')) background-color: #908ec4; @endif">
+        <a href="{{route('outlet_list')}}" >
+          <i class="nav-icon fa-solid fa-store" style=" @if(Request::is('outlet_list')) color: white; @endif"></i>
+          <p style="@if(Request::is('outlet_list')) color:white; @endif"> Outlet</p>
+        </a>
+      </li>
+
+      <li class="nav-item nav-link @if(Request::is('warehouse_list')) nav-link active @endif" 
+          style="@if(Request::is('warehouse_list')) background-color: #908ec4; @endif">
+        <a href="{{route('warehouse_list')}}" >
+          <i class="nav-icon fa-solid fa-warehouse" style=" @if(Request::is('warehouse_list')) color: white; @endif"></i>
+          <p style="@if(Request::is('warehouse_list')) color:white; @endif">Warehouse</p>
+        </a>
+      </li>
+
+
+        <li class="nav-item nav-link @if(Request::is('department_list')) nav-link active @endif" 
+            style="@if(Request::is('department_list')) background-color: #908ec4; @endif">
+           <a href="{{route('department_list')}}" >
+            <i class="nav-icon fa-solid fa-list" style=" @if(Request::is('department_list')) color: white; @endif"></i>
+            <p style="@if(Request::is('department_list')) color:white; @endif"> Department List</p>
+          </a>
+        </li>
+
+
           <li class="nav-item ">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-cog"></i>
@@ -32,12 +66,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Departments</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="#" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
@@ -91,12 +119,7 @@
         </a>
       </li>
 
-      {{-- <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-solid fa-users"></i>
-          <p> Employees</p>
-        </a>
-      </li> --}}
+     
 
       <li class="nav-item nav-link     
       @if(Request::is('give_attendance')) nav-link active
@@ -192,36 +215,6 @@
         </ul>
       </li>
 
-
-      <li class="nav-item @if(Request::is('add_branch')) menu-open 
-      @elseif(Request::is('branch_list')) menu-open 
-      @endif">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fa-solid fa-user"></i>
-        <p>
-          Branches
-          <i class="fas fa-angle-left right"></i>
-        </p>
-      </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{route('add_branch')}}" class="nav-link {{ Request::is('add_branch') ? 'nav-link active' : ''}}" style="{{ Request::is('add_branch') ? 'background-color: #ff5d6c; !important' : ''}}">
-              <i class="far fa-circle nav-icon" style="{{ Request::is('add_branch') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('add_branch') ? 'color: white; !important' : ''}}">Add new Branch</p>
-            </a>
-          </li>
-          
-          <li class="nav-item">
-            <a href="{{route('branch_list')}}" class="nav-link {{ Request::is('branch_list') ? 'nav-link active' : ''}}" style="{{ Request::is('branch_list') ? 'background-color: #ff5d6c; !important' : ''}}">
-              <i class="far fa-circle nav-icon" style="{{ Request::is('branch_list') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('branch_list') ? 'color: white; !important' : ''}}">Branch List</p>
-            </a>
-          </li>
-          
-        </ul>
-      </li>
-
-   
 
       <li class="nav-item ">
         <a href="#" class="nav-link ">
@@ -346,14 +339,6 @@
               </a>
             </li>
 
-
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Warehouses</p>
-        </a>
-      </li>
-
       <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
@@ -445,13 +430,6 @@
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-gem"></i>
           <p> Offers</p>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-solid fa-store"></i>
-          <p> Outlets</p>
         </a>
       </li>
 
