@@ -28,68 +28,6 @@ class EmpController extends Controller
     }
 
 
-    // public function new_password_set(Request $request){
-  
-    //     $user = Auth::user();
-    //     $user_id = Auth::user()->id;
-    //     $user_password = Auth::user()->password;
-    //     $current_password = $request->current_password;
-    //     $new_password = $request->new_password;
-
-    //     $request->validate([
-    //         'current_password' => 'required',
-    //         'new_password' => [
-    //             'required',
-    //             'string',
-    //             'min:8',
-                
-    //             function ($attribute, $value, $fail) use ($user) {
-    //                 if (Hash::check($value, $user->password)) {
-    //                     $fail('The new password must be different from the current password.');
-    //                 }
-    //             },
-    //         ],
-    //     ]);
-
-    //     if (!Hash::check($current_password, $user_password)) {  
-    //         $response = [
-    //             'message' => 'Current password is incorrect.',
-    //             'flag' => 1
-    //         ];
-    //         return response()->json($response);
-    //     }else{
-    //         if(Hash::check($new_password, $user_password)){
-    //             $response = [
-    //                 'message' => 'The new password and the current password must not be same.',
-    //                 'flag' => 2
-    //             ];
-    //             return response()->json($response);
-    //         }else{
-
-                
-    //             //update password
-    //             $data = array();
-    //             $data['password'] = Hash::make($new_password);
-    //             $updated = DB::table('users')
-    //                         ->where('id', $user_id)
-    //                         ->update($data);
-
-
-    //             //user logout
-    //             Auth::guard('web')->logout();
-    //             auth()->user()->tokens()->delete();
-
-    //             $response = [
-    //                 'message' => 'Password is changed successfully!',
-    //             ];
-    //             return response()->json($response);
-    //         }
-    //     }
-
-    // }
-
-
-
 
 
         public function new_password_set(Request $request){
@@ -131,16 +69,6 @@ class EmpController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-    
       
     
     public function employee_list(){
@@ -155,23 +83,6 @@ class EmpController extends Controller
 
         $user_company_id = Auth::user()->company_id;
         
-        
-        // $employees = DB::table('employees')
-        //              ->leftJoin('users','employees.user_id','users.id')
-        //              ->leftJoin('companies','users.company_id','companies.id')
-        //              ->leftJoin('designations','users.designation','designations.id')
-        //              ->leftJoin('branches','users.branch_id','branches.id')
-        //              ->select('employees.*',
-        //              'users.name as emp_name', 
-        //              'users.joining_date as emp_joining_date', 
-        //              'users.email as emp_email', 
-        //              'companies.company_name as emp_company_name',
-        //              'branches.br_name as emp_br_name',
-        //              'designations.designation_name as emp_designation_name')
-        //              ->where('users.company_id', $user_company_id)
-        //              ->get();
-
-
         $employees = DB::table('users')
         ->leftJoin('employees','users.id','employees.user_id')
         ->leftJoin('companies','users.company_id','companies.id')

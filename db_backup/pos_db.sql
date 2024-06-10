@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 02:59 PM
+-- Generation Time: Jun 10, 2024 at 03:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -77,7 +77,14 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`id`, `invoice_date`, `product_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `sub_total`, `tax_id`, `tax_amount`, `discount_amount`, `total_amount`, `terms_and_conditions`, `payment_status`, `policy_id`, `company_id`, `branch_id`, `outlet_id`, `created_at`, `updated_at`) VALUES
-(1, '2024-05-21', 1, NULL, 2, 1, NULL, '1250', NULL, NULL, '100', '1150.00', NULL, NULL, NULL, 12, NULL, NULL, '2024-05-21 12:44:11', '2024-05-21 12:44:11');
+(1, '2024-05-21', 1, NULL, 2, 1, NULL, '1250', NULL, NULL, '100', '1150.00', NULL, NULL, NULL, 12, NULL, NULL, '2024-05-21 12:44:11', '2024-05-21 12:44:11'),
+(2, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:02:28', '2024-06-01 06:02:28'),
+(3, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:15:42', '2024-06-01 06:15:42'),
+(4, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:16:06', '2024-06-01 06:16:06'),
+(5, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:17:10', '2024-06-01 06:17:10'),
+(6, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:20:09', '2024-06-01 06:20:09'),
+(7, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:24:58', '2024-06-01 06:24:58'),
+(8, '2024-06-06', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-06 05:31:33', '2024-06-06 05:31:33');
 
 -- --------------------------------------------------------
 
@@ -141,6 +148,14 @@ CREATE TABLE `outlets` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `outlets`
+--
+
+INSERT INTO `outlets` (`id`, `company_id`, `branch_id`, `outlet_name`, `outlet_address`, `outlet_status`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'qqqqqqq', 'Laalm', 1, '2024-06-10 07:56:01', '2024-06-10 07:56:01'),
+(2, 11, 1, 'Mirpur Outlet', 'Mirpur DOHS', 1, '2024-06-10 07:56:49', '2024-06-10 07:56:49');
 
 -- --------------------------------------------------------
 
@@ -285,7 +300,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
@@ -309,7 +324,7 @@ ALTER TABLE `offer_inventory_items`
 -- AUTO_INCREMENT for table `outlets`
 --
 ALTER TABLE `outlets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`

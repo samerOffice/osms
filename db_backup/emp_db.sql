@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 08:46 AM
+-- Generation Time: Jun 10, 2024 at 03:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,7 +91,10 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (10, 1, '2024-05-29', '14:35:13', NULL, '2024-05-29 08:35:13', '2024-05-29 08:35:13'),
 (11, 1, '2024-05-29', '18:46:23', NULL, '2024-05-29 12:46:23', '2024-05-29 12:46:23'),
 (12, 1, '2024-05-30', '13:54:14', NULL, '2024-05-30 07:54:14', '2024-05-30 07:54:14'),
-(13, 1, '2024-05-30', '13:54:17', NULL, '2024-05-30 07:54:17', '2024-05-30 07:54:17');
+(13, 1, '2024-05-30', '13:54:17', NULL, '2024-05-30 07:54:17', '2024-05-30 07:54:17'),
+(14, 1, '2024-06-02', '12:57:31', NULL, '2024-06-02 06:57:31', '2024-06-02 06:57:31'),
+(15, 3, '2024-06-09', '12:27:58', NULL, '2024-06-09 06:27:58', '2024-06-09 06:27:58'),
+(16, 3, '2024-06-10', '17:23:50', NULL, '2024-06-10 11:23:50', '2024-06-10 11:23:50');
 
 -- --------------------------------------------------------
 
@@ -121,7 +124,7 @@ CREATE TABLE `branches` (
   `br_name` varchar(500) DEFAULT NULL,
   `br_address` text DEFAULT NULL,
   `br_type` int(11) DEFAULT NULL COMMENT '1=Head Office, 2= Single branch',
-  `br_status` int(11) NOT NULL DEFAULT 1 COMMENT '1= active, 2= inactive',
+  `br_status` int(11) DEFAULT NULL COMMENT '1= active, 2= inactive',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -131,21 +134,11 @@ CREATE TABLE `branches` (
 --
 
 INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, `br_status`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, 1, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
-(2, NULL, NULL, NULL, NULL, 1, '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
-(3, NULL, 'ghgggggg', NULL, 2, 1, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
-(4, NULL, 'Mirpur Branch', 'mirpur 12, dhaka', 1, 1, '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
-(5, NULL, 'Laalbagh Branch', 'Laalbagh, Dhaka -1200', 2, 1, '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
-(6, NULL, 'Mirpur Branch', 'Mirpur 12', 2, 1, '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
-(7, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
-(8, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
-(9, NULL, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
-(10, NULL, NULL, NULL, 1, 1, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
-(11, 11, 'Laalbagh Branch', '<p>la<br></p>', 1, 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
-(12, NULL, 'Meherpur Branch', NULL, 2, 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
-(14, 11, 'dhanmondi', 'dhanmondi 27', 1, 1, '2024-05-29 09:35:30', '2024-05-29 09:35:30'),
-(15, 11, 'test', 'lkjlkjlkjlkjlk<br>', 2, 1, '2024-05-29 12:46:11', '2024-05-29 12:46:11'),
-(16, 11, 'Laalmatia Branch', '<p>laalmatia<br></p>', 2, 1, '2024-05-30 05:56:38', '2024-05-30 05:56:38');
+(1, 11, 'Laalbagh Branch', '<p>LaalBagh<br></p>', 1, 2, '2024-06-10 07:52:15', '2024-06-10 07:52:15'),
+(2, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 2, '2024-06-10 07:52:34', '2024-06-10 07:52:34'),
+(3, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 1, '2024-06-10 07:52:46', '2024-06-10 07:52:46'),
+(4, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 1, '2024-06-10 07:52:58', '2024-06-10 07:52:58'),
+(5, 11, 'Nawabganj', 'Nawabganj, Dhaka', 2, 1, '2024-06-10 07:53:50', '2024-06-10 07:53:50');
 
 -- --------------------------------------------------------
 
@@ -249,7 +242,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 4, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -259,6 +252,10 @@ INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`
 
 CREATE TABLE `departments` (
   `id` int(11) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `branch_id` int(255) DEFAULT NULL,
+  `warehouse_id` int(255) DEFAULT NULL,
+  `outlet_id` int(255) DEFAULT NULL,
   `dept_name` varchar(500) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -268,19 +265,23 @@ CREATE TABLE `departments` (
 -- Dumping data for table `departments`
 --
 
-INSERT INTO `departments` (`id`, `dept_name`, `created_at`, `updated_at`) VALUES
-(1, NULL, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
-(2, NULL, '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
-(3, NULL, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
-(4, 'Storage Department', '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
-(5, 'Cloth Department', '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
-(6, 'Storage Department', '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
-(7, 'Cloth Department', '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
-(8, 'Cloth Department', '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
-(9, 'Cloth Department', '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
-(10, NULL, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
-(11, NULL, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
-(12, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+INSERT INTO `departments` (`id`, `company_id`, `branch_id`, `warehouse_id`, `outlet_id`, `dept_name`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, NULL, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
+(2, NULL, NULL, NULL, NULL, 'Samer Department', '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
+(3, NULL, NULL, NULL, NULL, NULL, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
+(4, 11, 14, NULL, NULL, 'Storage Department', '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
+(5, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
+(6, NULL, NULL, NULL, NULL, 'Storage Department', '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
+(7, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
+(8, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
+(9, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
+(10, NULL, NULL, NULL, NULL, NULL, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
+(11, NULL, NULL, NULL, NULL, NULL, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
+(12, NULL, NULL, NULL, NULL, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(13, 11, 1, 1, NULL, 'Storage Departmentsdfsdf', '2024-06-10 12:46:32', '2024-06-10 12:46:32'),
+(14, 11, 1, NULL, 1, 'Toys Department', '2024-06-10 12:47:33', '2024-06-10 12:47:33'),
+(15, 11, 1, NULL, NULL, 'Samer Toys Department', '2024-06-10 13:22:14', '2024-06-10 13:22:14'),
+(16, 11, 1, 1, NULL, 'Testing Department', '2024-06-10 13:22:29', '2024-06-10 13:22:29');
 
 -- --------------------------------------------------------
 
@@ -649,9 +650,7 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(185, 'App\\Models\\User', 1, 'myToken', 'cd9922b47763b1265b8a28bc33f6c1f80331ae5eadc431283b73b1900bd4d2e6', '[\"*\"]', NULL, NULL, '2024-05-30 08:09:36', '2024-05-30 08:09:36'),
-(186, 'App\\Models\\User', 1, 'myToken', '0d2dac4b87f5422032c37ebb45a30deb9987f009569d89f5a6797b387de11a4a', '[\"*\"]', NULL, NULL, '2024-06-01 05:17:16', '2024-06-01 05:17:16');
+(132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43');
 
 -- --------------------------------------------------------
 
@@ -737,7 +736,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`, `department_id`, `joining_date`, `email_verified_at`, `password`, `active_status`, `designation`, `company_business_type`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'samer', 'sam@gmail.com', 2, 11, 11, 11, '2024-05-06', NULL, '$2y$10$nlqFwO/VZKrydr2.gUHnp.6i383bobONro6ABEUwDGINjHJsoIukG', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-05-20 06:54:49'),
+(1, 'Abul Kauser Samer', 'sam@gmail.com', 2, 11, 11, 11, '2024-05-06', NULL, '$2y$10$fiTtckRf5G7T1g8uOvPDfuI5NY39E28T2TOlWQRKkCPi5eOhuVRg2', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-06-04 10:39:48'),
 (2, 'rahat ahmed', 'rahat@gmail.com', 3, 12, 12, 12, '2024-05-02', NULL, '$2y$10$bRFLISLP82.g4V4rR4UvI.Z7QJycvcSLl9dlYJAajc/iITMzHVNp.', 1, '2', 1, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
 (3, 'Maliha Khatun', 'maliha@gmail.com', 3, 11, 14, NULL, '2024-05-30', NULL, '$2y$10$y3GwSXLco97/EiNZC1x8heCpXNLr8hGEFjSar2exG9I24bMZsK4v.', 1, '4', 1, NULL, '2024-05-30 04:33:28', '2024-05-30 04:33:28');
 
@@ -960,7 +959,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -972,7 +971,7 @@ ALTER TABLE `attendance_users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `business_types`
@@ -996,7 +995,7 @@ ALTER TABLE `current_modules`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `designations`
@@ -1062,7 +1061,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
 
 --
 -- AUTO_INCREMENT for table `roles`

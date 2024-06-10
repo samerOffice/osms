@@ -4,70 +4,6 @@
 Welcome
 @endsection
 
-@push('css')
-<style>
-    .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
-@endpush
-
 @section('content')
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -122,15 +58,25 @@ input:checked + .slider:before {
                                 </div>  
                                 </div>
     
+                               
+                                
                                 <div class="col-md-12 col-sm-12">
-                                <div class="form-group mb-4">
-                                    <label>Branch Status</label>
-                                    <label class="switch">
-                                        <input type="checkbox" id="toggleButton" name="br_status" value="{{$branch->br_status}}" class="toggle-switch-checkbox">
-                                        <span class="slider round"></span>
-                                      </label>
+                                  <div class="form-group mb-4">
+                                      <label>Branch Status <small style="color: red">*</small></label>
+                                      <select class="form-control select2bs4" required id="br_status" name="br_status" style="width: 100%;">
+                                          <option selected value="{{$branch->br_status}}">
+                                              @if(($branch->br_status) == 1)
+                                              Active
+                                              @else
+                                              Inactive
+                                              @endif
+                                          </option>
+                                          <option value="1">Active</option>
+                                          <option value="2">Inative</option>
+                                      </select>
+                                    </div>
                                   </div>
-                                </div>                                     
+
                               </div>
 
                             <input type="hidden" value="{{$branch->id}}" name="id" id="branch_id">
@@ -163,29 +109,8 @@ $('.select2bs4').select2({
 
 //initialize summernote
 $('.summernote').summernote();
-
-   var dd = $('#toggleButton').val();
-//    alert(dd);
-//    return false;
-
-    if(dd == '1'){
-        $('.toggle-switch-checkbox').prop('checked', true);
-    }else{
-        $('.toggle-switch-checkbox').prop('checked', false);
-    }
-       
-        // Event listener to toggle the input value when the switch is clicked
-        $('.toggle-switch-checkbox').change(function() {
-           
-            if ($(this).is(':checked')) {
-                // Checkbox is checked and '1' is for activate
-                $('#toggleButton').val(1);
-            } else {
-                // Checkbox is unchecked and '2' is for deactivate
-                $('#toggleButton').val(2);
-            }
-        });       
-    });
+     
+  });
 
 
 
@@ -195,15 +120,6 @@ $('.summernote').summernote();
     var updateBranchFormData = new FormData(this);
     var branch_id = document.getElementById('branch_id').value;
     
-        // //--------------Alert the form data starts--------------
-        // var registerFormDataObject = {};
-        // updateBranchFormData.forEach(function(value, key){
-        // registerFormDataObject[key] = value;
-        // });
-        // alert(JSON.stringify(registerFormDataObject));
-        // return false;
-        // //--------------Alert the form data ends----------------   
-
     // Function to get CSRF token from meta tag
     function getCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
