@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 03:25 PM
+-- Generation Time: Jun 11, 2024 at 03:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -281,7 +281,8 @@ INSERT INTO `departments` (`id`, `company_id`, `branch_id`, `warehouse_id`, `out
 (13, 11, 1, 1, NULL, 'Storage Departmentsdfsdf', '2024-06-10 12:46:32', '2024-06-10 12:46:32'),
 (14, 11, 1, NULL, 1, 'Toys Department', '2024-06-10 12:47:33', '2024-06-10 12:47:33'),
 (15, 11, 1, NULL, NULL, 'Samer Toys Department', '2024-06-10 13:22:14', '2024-06-10 13:22:14'),
-(16, 11, 1, 1, NULL, 'Testing Department', '2024-06-10 13:22:29', '2024-06-10 13:22:29');
+(16, 11, 1, 1, NULL, 'Testing Department', '2024-06-10 13:22:29', '2024-06-10 13:22:29'),
+(17, 11, 1, NULL, NULL, 'Clothing Department', '2024-06-11 04:54:22', '2024-06-11 04:54:22');
 
 -- --------------------------------------------------------
 
@@ -291,6 +292,7 @@ INSERT INTO `departments` (`id`, `company_id`, `branch_id`, `warehouse_id`, `out
 
 CREATE TABLE `designations` (
   `id` int(10) NOT NULL,
+  `level` int(100) DEFAULT NULL COMMENT '1 = managing level,\r\n2 = operational level,\r\n3 = support level',
   `designation_name` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
@@ -300,16 +302,26 @@ CREATE TABLE `designations` (
 -- Dumping data for table `designations`
 --
 
-INSERT INTO `designations` (`id`, `designation_name`, `created_at`, `updated_at`) VALUES
-(1, 'Store Manager', '2024-05-19 07:23:46', '2024-05-19 07:23:46'),
-(2, 'Assistant Manager', '2024-05-19 07:23:46', '2024-05-19 07:23:46'),
-(3, 'Cashier', '2024-05-19 07:24:07', '2024-05-19 07:24:07'),
-(4, 'Sales Associate', '2024-05-19 07:24:07', '2024-05-19 07:24:07'),
-(5, 'Inventory Manager', '2024-05-19 07:24:33', '2024-05-19 07:24:33'),
-(6, 'Customer Service Representative', '2024-05-19 07:24:33', '2024-05-19 07:24:33'),
-(7, 'Merchandiser', '2024-05-19 07:24:59', '2024-05-19 07:24:59'),
-(8, 'Marketing Manager', '2024-05-19 07:24:59', '2024-05-19 07:24:59'),
-(9, 'IT Support Specialist', '2024-05-19 07:25:11', '2024-05-19 07:25:11');
+INSERT INTO `designations` (`id`, `level`, `designation_name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Store Owner', '2024-06-11 08:10:03', '2024-06-11 08:10:03'),
+(2, 1, 'Store Manager', '2024-06-11 08:10:21', '2024-06-11 08:10:21'),
+(3, 1, 'Inventory Manager', '2024-06-11 08:10:30', '2024-06-11 08:10:30'),
+(4, 1, 'Assistant Manager', '2024-06-11 08:10:41', '2024-06-11 08:10:41'),
+(5, 1, 'Marketing Manager', '2024-06-11 08:10:48', '2024-06-11 08:10:48'),
+(6, 1, 'Outlet Manager', '2024-06-11 08:10:54', '2024-06-11 08:10:54'),
+(7, 1, 'Warehouse Manager', '2024-06-11 08:11:03', '2024-06-11 08:11:03'),
+(8, 1, 'Customer Service Manager', '2024-06-11 08:11:14', '2024-06-11 08:11:14'),
+(9, 1, 'Accounts Manager', '2024-06-11 08:11:22', '2024-06-11 08:11:22'),
+(10, 2, 'Sales Associate', '2024-06-11 08:16:59', '2024-06-11 08:16:59'),
+(11, 2, 'Sales Executive', '2024-06-11 08:17:09', '2024-06-11 08:17:09'),
+(12, 2, 'Cashier', '2024-06-11 08:17:20', '2024-06-11 08:17:20'),
+(13, 2, 'Customer Service Representative', '2024-06-11 08:17:53', '2024-06-11 08:17:53'),
+(14, 2, 'Stock Clerk', '2024-06-11 08:18:08', '2024-06-11 08:18:08'),
+(15, 2, 'Warehouse Operative', '2024-06-11 08:18:18', '2024-06-11 08:18:18'),
+(16, 3, 'Maintenance Worker', '2024-06-11 08:19:02', '2024-06-11 08:19:02'),
+(17, 3, 'Data Entry Clerk', '2024-06-11 08:19:12', '2024-06-11 08:19:12'),
+(18, 3, 'Logistics Co-ordinator', '2024-06-11 08:19:46', '2024-06-11 08:19:46'),
+(19, 3, 'IT Support', '2024-06-11 08:19:55', '2024-06-11 08:19:55');
 
 -- --------------------------------------------------------
 
@@ -650,7 +662,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43');
+(132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
+(255, 'App\\Models\\User', 1, 'myToken', 'ac2693d266e88a861917346932cb91e7127c04dbc1f669d666fdc6e03d9f9802', '[\"*\"]', NULL, NULL, '2024-06-11 12:55:46', '2024-06-11 12:55:46');
 
 -- --------------------------------------------------------
 
@@ -995,13 +1008,13 @@ ALTER TABLE `current_modules`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `designations`
 --
 ALTER TABLE `designations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -1061,7 +1074,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT for table `roles`

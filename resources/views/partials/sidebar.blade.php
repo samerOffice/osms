@@ -51,13 +51,16 @@
         <li class="nav-item nav-link @if(Request::is('department_list')) nav-link active @endif" 
             style="@if(Request::is('department_list')) background-color: #908ec4; @endif">
            <a href="{{route('department_list')}}" >
-            <i class="nav-icon fa-solid fa-list" style=" @if(Request::is('department_list')) color: white; @endif"></i>
-            <p style="@if(Request::is('department_list')) color:white; @endif"> Department List</p>
+            <i class="nav-icon fa-solid fa-hotel" style=" @if(Request::is('department_list')) color: white; @endif"></i>
+            <p style="@if(Request::is('department_list')) color:white; @endif"> Department</p>
           </a>
         </li>
 
 
-          <li class="nav-item ">
+
+        
+
+          {{-- <li class="nav-item ">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -91,7 +94,32 @@
                 </a>
               </li>
             </ul>
+          </li> --}}
+
+
+          @if((auth()->user()->role_id == 2))
+          <li class="nav-item @if(Request::is('designation_list')) menu-open 
+          @endif">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Settings
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item">
+                <a href="{{route('designation_list')}}" class="nav-link {{ Request::is('designation_list') ? 'nav-link active' : ''}}" style="{{ Request::is('designation_list') ? 'background-color: #908ec4; !important' : ''}}">
+                  <i class="far fa-circle nav-icon" style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}">Designation</p>
+                </a>
+              </li>
+              
+            </ul>
           </li>
+          @endif
+
 
       @elseif($current_module->module_status == 2) <!--employee module-->
         <li class="nav-item nav-link 
@@ -118,8 +146,6 @@
           </p>
         </a>
       </li>
-
-     
 
       <li class="nav-item nav-link     
       @if(Request::is('give_attendance')) nav-link active
