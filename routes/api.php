@@ -4,13 +4,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
+use App\Http\Controllers\API\Emp\PayrollController;
+
 use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\DepartmentController;
-use App\Http\Controllers\API\Emp\PayrollController;
+
+use App\Http\Controllers\API\SuperAdmin\DesignationController;
+
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
@@ -55,6 +60,11 @@ Route::middleware('auth:sanctum')->post('/department_store',[App\Http\Controller
 Route::middleware('auth:sanctum')->get('/edit_department/{department_id}',[App\Http\Controllers\API\Admin\DepartmentController::class,'edit_department_via_api']);
 Route::middleware('auth:sanctum')->post('/update_department/{department_id}',[App\Http\Controllers\API\Admin\DepartmentController::class,'update_department']);
 
+//designation
+Route::middleware('auth:sanctum')->post('/designation_store',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'designation_store']);
+Route::middleware('auth:sanctum')->get('/edit_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'edit_designation_via_api']);
+Route::middleware('auth:sanctum')->post('/update_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'update_designation']);
+Route::middleware('auth:sanctum')->post('/delete_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'delete_designation']);
 //...............********* employee management module ********................
 
 Route::post('/register',[App\Http\Controllers\API\AuthController::class,'register']);

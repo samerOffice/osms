@@ -2,13 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\DepartmentController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
+
+use App\Http\Controllers\API\SuperAdmin\DesignationController;
+
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
+
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
@@ -28,27 +33,25 @@ Route::get('/branch_list', [BranchController::class, 'branch_list'])->name('bran
 Route::get('/add_branch', [BranchController::class, 'add_branch'])->name('add_branch');
 Route::get('/edit_branch/{branch_id}', [BranchController::class, 'edit_branch'])->name('edit_branch');
 
-
-
 //department
 Route::get('/department_list', [DepartmentController::class, 'department_list'])->name('department_list');
 Route::get('/add_department', [DepartmentController::class, 'add_department'])->name('add_department');
 Route::get('/edit_department/{department_id}', [DepartmentController::class, 'edit_department'])->name('edit_department');
-
-
 
 //outlet
 Route::get('/outlet_list', [OutletController::class, 'outlet_list'])->name('outlet_list');
 Route::get('/add_outlet', [OutletController::class, 'add_outlet'])->name('add_outlet');
 Route::get('/edit_outlet/{outlet_id}', [OutletController::class, 'edit_outlet'])->name('edit_outlet');
 
-
-
 //warehouse
 Route::get('/warehouse_list', [WarehouseController::class, 'warehouse_list'])->name('warehouse_list');
 Route::get('/add_warehouse', [WarehouseController::class, 'add_warehouse'])->name('add_warehouse');
 Route::get('/edit_warehouse/{warehouse_id}', [WarehouseController::class, 'edit_warehouse'])->name('edit_warehouse');
 
+//designation
+Route::get('/designation_list', [DesignationController::class, 'designation_list'])->name('designation_list');
+Route::get('/add_designation', [DesignationController::class, 'add_designation'])->name('add_designation');
+Route::get('/edit_designation/{designation_id}', [DesignationController::class, 'edit_designation'])->name('edit_designation');
 
 //...............********* employee management module ********................
 //new employee add
