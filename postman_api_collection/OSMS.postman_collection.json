@@ -240,12 +240,6 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "name",
-									"value": "samer",
-									"type": "text",
-									"disabled": true
-								},
-								{
 									"key": "email",
 									"value": "sam@gmail.com",
 									"type": "text"
@@ -1024,7 +1018,7 @@
 								},
 								{
 									"key": "warehouse_id",
-									"value": "",
+									"value": "1",
 									"type": "text"
 								},
 								{
@@ -1034,7 +1028,7 @@
 								},
 								{
 									"key": "dept_name",
-									"value": "Test Department",
+									"value": "Testing Department",
 									"type": "text"
 								}
 							]
@@ -1121,6 +1115,260 @@
 								"api",
 								"update_department",
 								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "designation",
+			"item": [
+				{
+					"name": "add designation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "254|Of4qcFKBQJDMnSMtX6dGTfdVXwGBWzjVPQLtqjD7e58c61d3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "level",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "designation_name",
+									"value": "testing manager",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/designation_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"designation_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific designation Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_designation/21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_designation",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "designation update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "254|Of4qcFKBQJDMnSMtX6dGTfdVXwGBWzjVPQLtqjD7e58c61d3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "level",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "designation_name",
+									"value": "testy manager",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_designation/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_designation",
+								"20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "business type",
+			"item": [
+				{
+					"name": "add business type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testing testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/business_type_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"business_type_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific business type Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "business type update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testy testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_business_type",
+								"27"
 							]
 						}
 					},

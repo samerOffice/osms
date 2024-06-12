@@ -5,16 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\HomeController;
 
-use App\Http\Controllers\API\Emp\EmpController;
-use App\Http\Controllers\API\Emp\AttendanceController;
-use App\Http\Controllers\API\Emp\PayrollController;
+use App\Http\Controllers\API\SuperAdmin\DesignationController;
+use App\Http\Controllers\API\SuperAdmin\BusinessTypeController;
 
 use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\DepartmentController;
 
-use App\Http\Controllers\API\SuperAdmin\DesignationController;
+use App\Http\Controllers\API\Emp\EmpController;
+use App\Http\Controllers\API\Emp\AttendanceController;
+use App\Http\Controllers\API\Emp\PayrollController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\POS\InvoiceController;
@@ -65,6 +66,18 @@ Route::middleware('auth:sanctum')->post('/designation_store',[App\Http\Controlle
 Route::middleware('auth:sanctum')->get('/edit_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'edit_designation_via_api']);
 Route::middleware('auth:sanctum')->post('/update_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'update_designation']);
 Route::middleware('auth:sanctum')->post('/delete_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'delete_designation']);
+
+//business type
+Route::middleware('auth:sanctum')->post('/business_type_store',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'business_type_store']);
+Route::middleware('auth:sanctum')->get('/edit_business_type/{business_type_id}',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'edit_business_type_via_api']);
+Route::middleware('auth:sanctum')->post('/update_business_type/{business_type_id}',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'update_business_type']);
+
+//users
+Route::middleware('auth:sanctum')->get('/edit_user/{user_id}',[App\Http\Controllers\API\AuthController::class,'edit_user']);
+Route::middleware('auth:sanctum')->post('/update_user_details/{user_id}',[App\Http\Controllers\API\AuthController::class,'update_user_details']);
+
+
+
 //...............********* employee management module ********................
 
 Route::post('/register',[App\Http\Controllers\API\AuthController::class,'register']);
@@ -76,6 +89,7 @@ Route::post('/division',[App\Http\Controllers\HomeController::class,'division'])
 Route::middleware('auth:sanctum')->post('/member_information_store',[App\Http\Controllers\API\Emp\EmpController::class,'member_information_store']);
 
 //employee store
+Route::middleware('auth:sanctum')->post('/level_designation_dependancy',[App\Http\Controllers\API\Emp\EmpController::class,'level_designation_dependancy']);
 Route::middleware('auth:sanctum')->post('/store_employee',[App\Http\Controllers\API\Emp\EmpController::class,'store_employee']);
 
 //new password set

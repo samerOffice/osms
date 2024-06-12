@@ -115,22 +115,18 @@ Welcome
 
 
     function deleteOperation(row_id)
-    {     
+    { 
+      
       Swal.fire({
-                title: 'Are You Sure?',
-                text: '',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'Cancel',
-                closeOnConfirm: false,
-                closeOnCancel: false
-              },function(isConfirm){
-            if (isConfirm) {
-
-
-              alert('hi');
-              return false;
+      title: 'Are you sure?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
             // Function to get CSRF token from meta tag
              function getCsrfToken() {
               return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -139,10 +135,12 @@ Welcome
             axios.defaults.withCredentials = true;
             axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-            // axios.get('sanctum/csrf-cookie').then(response=>{
-            axios.post('/osms/api/designation_delete'+ row_id).then(response=>{
+            axios.get('sanctum/csrf-cookie').then(response=>{
+            axios.post('/osms/api/delete_designation/'+ row_id).then(response=>{
               console.log(response);
-              window.location.reload();
+              setTimeout(function() {
+                  window.location.reload();
+              }, 2000);
               Swal.fire({
                           icon: "success",
                           title: ''+ response.data.message,
@@ -152,12 +150,11 @@ Welcome
                           icon: "error",
                           title: error.response.data.message,
                           }))
-            // });
-
-            }else{
-              Swal.fire('Cancelled', '', 'error');
-            }
-          }) 
+            });
+      } else if (result.isDismissed) {
+        Swal.fire('Cancelled', '', 'error');
+      }
+    });
     }
   
   </script>

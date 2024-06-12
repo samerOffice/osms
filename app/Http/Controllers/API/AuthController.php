@@ -51,16 +51,17 @@ class AuthController extends Controller
 
         $branch = DB::table('branches')
         ->insertGetId([
+        'company_id' => $company,
         'br_name' => $request->br_name,
         'br_address' => $request->br_address,
         'br_type' => $request->br_type,
         'br_status' => '1',
         ]);
 
-        $department = DB::table('departments')
-        ->insertGetId([
-        'dept_name' => $request->dept_name
-        ]);
+        // $department = DB::table('departments')
+        // ->insertGetId([
+        // 'dept_name' => $request->dept_name
+        // ]);
 
 
 
@@ -86,7 +87,7 @@ class AuthController extends Controller
         $user->role_id = $request->role;
         $user->company_id = $company;
         $user->branch_id = $branch;
-        $user->department_id = $department;
+        // $user->department_id = $department;
         $user->designation = $request->designation_name;
         $user->joining_date = $request->joining_date;
         $user->active_status = '1';
@@ -141,24 +142,37 @@ class AuthController extends Controller
     public function login(Request $request){
 
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password])){
+            
             $user = Auth::user();
-            $success['token'] = $user->createToken('myToken')->plainTextToken;
-            $success['name'] = $user->name;
-
-
-            $current_modules = array();
-            $current_modules['module_status'] = '1';
-            $update_module = DB::table('current_modules')
-                //   ->where('id', $request->id)
-                  ->update($current_modules);
-
-            $response = [
-                'success' => true,
-                'data' => $success,
-                'flag' => 1,
-                'message' => 'User is logged in successfully'
-            ];
-            return response()->json($response,200);
+            
+            if($user->active_status == 1){
+                $success['token'] = $user->createToken('myToken')->plainTextToken;
+                $success['name'] = $user->name;
+    
+                $current_modules = array();
+                $current_modules['module_status'] = '1';
+                $update_module = DB::table('current_modules')
+                    //   ->where('id', $request->id)
+                      ->update($current_modules);
+    
+    
+                $response = [
+                    'success' => true,
+                    'data' => $success,
+                    'flag' => 1,
+                    'message' => 'User is logged in successfully'
+                ];
+                return response()->json($response,200);
+            }else{
+                Auth::guard('web')->logout();
+                $response = [
+                    'success' => false,
+                    'message' => 'User is not activated'
+                    ];      
+                    return response()->json($response);
+            }
+            
+   
         }else{
             $response = [
             'success' => false,
@@ -205,6 +219,76 @@ class AuthController extends Controller
             ];
         }
         return response()->json($response);
+    }
+
+
+
+    public function user_list(){
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $users = DB::table('users')->get();
+
+        return view('users.index',compact('current_module','users'));
+    }
+
+
+    //for web
+    public function edit_user($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $user = DB::table('users')
+                        ->where('id',$id)
+                        ->first();    
+        return view('users.edit',compact('current_module','user'));
+    }
+
+    //for api
+    public function edit_designation_via_api($id){
+        $user = DB::table('users')
+                        ->where('id',$id)
+                        ->first();      
+        $response = [
+        'user_details' => $user
+        ];
+       return response()->json($response,200);
+
+    }
+
+    public function update_user_details(Request $request, $id){
+      
+        $data = array();
+        $data['active_status'] = $request->input('active_status');
+        try {
+            // Update the outlet record in the database
+            $updated = DB::table('users')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'User Information is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'User Information update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the user information', 'details' => $e->getMessage()], 500);
+        }     
     }
 
     

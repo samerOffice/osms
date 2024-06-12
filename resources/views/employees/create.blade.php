@@ -163,7 +163,6 @@ Welcome
                               </div>
                       
                             <div class="row">
-
                               <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                   <label>Emergency Contact Person Name <small style="color: red">*</small></label>

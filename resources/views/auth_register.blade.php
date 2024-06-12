@@ -87,13 +87,13 @@ header("Location: $redirectRoute");
                 </div>
 
                 <!-- Branch -->
-                {{-- <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <button type="button" class="btn btn-lg btn-outline-info" data-toggle="modal" data-target="#modal-branch">
+                    <button type="button" class="btn btn-lg btn-outline-info btn-block" data-toggle="modal" data-target="#modal-branch">
                         Branch Details
                     </button>
                 </div>
-                </div> --}}
+                </div>
                 
             </div>
 
@@ -226,7 +226,7 @@ header("Location: $redirectRoute");
           <!-- modal company ends -->
 
           <!-- modal branch -->
-          {{-- <div class="modal fade" id="modal-branch">
+          <div class="modal fade" id="modal-branch">
             <div class="modal-dialog modal-lg">        
              <div class="modal-content">
                <div class="modal-header">
@@ -240,34 +240,34 @@ header("Location: $redirectRoute");
 
                    <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
-                       <label>Branch Name</label>
+                       <label>Branch Name <small style="color: red">*</small></label>
                      <input type="text" placeholder="Branch Name" id="br_name" name="br_name" class="form-control form-control-lg" />
                     </div> 
                    </div>
 
                    <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
-                       <label>Branch Address</label>
+                       <label>Branch Address <small style="color: red">*</small></label>
                      <textarea name="br_address" id="br_address"  class="form-control form-control-lg"></textarea>
                     </div> 
                    </div>
 
                    <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
-                      <label for="password">Branch Type</label>
+                      <label for="password">Branch Type <small style="color: red">*</small></label>
                       <select class="form-control select2bs4" name="br_type" style="width: 100%;">
                           <option selected="selected" value="1">Head Office</option>
-                          <option value="2">Single Branch</option>
+                          {{-- <option value="2">Single Branch</option> --}}
                         </select>
                     </div>  
                    </div>
 
-                   <div class="col-md-12 col-sm-12">
+                   {{-- <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
                        <label>Department Name</label>
                      <input type="text" placeholder="Department Name" id="dept_name" name="dept_name" class="form-control form-control-lg" />
                     </div> 
-                   </div>
+                   </div> --}}
 
                    
                  </div>
@@ -277,7 +277,7 @@ header("Location: $redirectRoute");
                </div>
              </div>
             </div> 
-         </div> --}}
+         </div>
           <!-- modal branch ends -->
         <!-- Submit button -->
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg btn-block">Register</button>
@@ -421,6 +421,7 @@ var registerFormData = new FormData(this);
           return false;
       }
 
+
       var company_name = document.getElementById('company_name').value;
       if(company_name == ''){
         Swal.fire({
@@ -448,6 +449,36 @@ var registerFormData = new FormData(this);
               });
           return false;
       }
+
+
+
+      var br_name = document.getElementById('br_name').value;
+      if(br_name == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Branch Name",
+              });
+          return false;
+      }
+
+
+      var br_address = document.getElementById('br_address').value;
+      if(br_address == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Branch Address",
+              });
+          return false;
+      }
+
+      // var br_type = document.getElementById('br_type').value;
+      // if(br_type == ''){
+      //   Swal.fire({
+      //           icon: "warning",
+      //           title: "Please Enter Branch Type",
+      //         });
+      //     return false;
+      // }
 
       var user_role = document.getElementById('role').value;
       if(user_role == ''){

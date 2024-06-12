@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 03:25 PM
+-- Generation Time: Jun 12, 2024 at 03:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -154,7 +154,7 @@ CREATE TABLE `outlets` (
 --
 
 INSERT INTO `outlets` (`id`, `company_id`, `branch_id`, `outlet_name`, `outlet_address`, `outlet_status`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, 'qqqqqqq', 'Laalm', 1, '2024-06-10 07:56:01', '2024-06-10 07:56:01'),
+(1, 11, 3, 'qqqqqqqkjkj', 'Laalm', 1, '2024-06-10 07:56:01', '2024-06-10 07:56:01'),
 (2, 11, 1, 'Mirpur Outlet', 'Mirpur DOHS', 1, '2024-06-10 07:56:49', '2024-06-10 07:56:49');
 
 -- --------------------------------------------------------

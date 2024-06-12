@@ -12,16 +12,7 @@ Welcome
     <div class="content-header">
       <div class="container-fluid">
         <br>
-        <div class="row">
-
-          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-          <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_department')}}">
-                <i class="fas fa-plus"></i> Add Department
-            </a>
-          </div>
-          @endif
-           
+        <div class="row">      
           <div class="col-12">
             <br>
             @if ($message = Session::get('success'))
@@ -42,7 +33,7 @@ Welcome
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Department List</h3>
+                      <h3 class="card-title">User List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -50,9 +41,10 @@ Welcome
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Company Name</th>
-                          <th>Branch Name</th>
-                          <th>Department Name</th>
+                          <th>User Name</th>
+                          <th>User Email</th>
+                          <th>User Role</th>
+                          <th>Status</th>
                           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <th>Action</th>
                           @endif
@@ -60,15 +52,32 @@ Welcome
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($departments as $department)
+                            @foreach($users as $user)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$department->company_name}}</td>
-                          <td>{{$department->branch_name}}</td>
-                          <td>{{$department->dept_name}}</td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          <td>{{$user->name}}</td>
+                          <td>{{$user->email}}</td>
+                          <td> 
+                            @if(($user->role_id) == 1)
+                            <span class="badge badge-warning">Super Admin</span>
+                            @elseif(($user->role_id) == 2)
+                            <span class="badge badge-info">Admin</span>
+                            @elseif(($user->role_id) == 3)
+                            <span class="badge badge-danger">Employee</span>
+                           @else
+                           <span class="badge badge-primary">Vendor</span>
+                           @endif
+                         </td>
+                          <td> 
+                            @if(($user->active_status) == 1)
+                            <span class="badge badge-success">Active</span>
+                           @else
+                           <span class="badge badge-danger">Inactive</span>
+                           @endif
+                         </td>
+                         @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <td>
-                            <a href="{{route('edit_department',$department->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            <a href="{{route('edit_user',$user->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                           </td>
                           @endif
                         </tr> 

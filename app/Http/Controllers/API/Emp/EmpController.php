@@ -120,12 +120,33 @@ class EmpController extends Controller
         // $divisions = DB::table('divisions')->get();
         $branches = DB::table('branches')
                     ->where('company_id',$user_company_id)
+                    ->where('br_status',1)
                     ->get();
         $designations = DB::table('designations')->get();
         // $business_types = DB::table('business_types')->get();
 
         
         return view('employees.add_new_employee_form',compact('current_module','branches','designations'));
+    }
+
+
+
+
+
+
+    public function level_designation_dependancy(Request $request){
+        $selectedLevel = $request->input('data');
+
+        $designations = DB::table('designations')
+                        ->where('level',$selectedLevel)
+                        ->get();
+  
+        $str="<option value=''>-- Select --</option>";
+        foreach ($designations as $designation) {
+            $str .= "<option value='$designation->id'> $designation->designation_name </option>";
+            
+        }
+        echo $str;
     }
 
 
@@ -150,7 +171,7 @@ class EmpController extends Controller
 
         $company_id = Auth::user()->company_id;
         $company_business_type = Auth::user()->company_business_type;
-        $branch_id = $request->branch_id;
+        // $branch_id = $request->branch_id;
 
         $user = new User();
         $user->name = $request->name;
@@ -158,7 +179,10 @@ class EmpController extends Controller
         $user->password = Hash::make($request->password);
         $user->role_id = '3';
         $user->company_id = $company_id;
-        $user->branch_id = $branch_id;
+        $user->branch_id = $request->branch_id;
+        $user->review_requisition = $request->review_requisition;
+        $user->warehouse_id = $request->warehouse_id;
+        $user->outlet_id = $request->outlet_id;
         // $user->department_id = $department;
         $user->designation = $request->designation_name;
         $user->joining_date = $request->joining_date;

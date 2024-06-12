@@ -67,16 +67,17 @@ class AttendanceController extends Controller
         $user_id = Auth::user()->id;
         $user_role_id = Auth::user()->role_id;
 
-        if($user_role_id == 1){
+        // if($user_role_id == 1){
          
-        $attendances = DB::table('attendances')
-                       ->leftJoin('users','attendances.user_id','=','users.id')
-                       ->select('attendances.*','users.name as member_name')
-                       ->get();
+        // $attendances = DB::table('attendances')
+        //                ->leftJoin('users','attendances.user_id','=','users.id')
+        //                ->select('attendances.*','users.name as member_name')
+        //                ->get();
 
-        return view('attendances.index',compact('current_module','attendances'));
+        // return view('attendances.index',compact('current_module','attendances'));
 
-        }elseif($user_role_id == 2){
+        // }
+        if($user_role_id == 2){
 
         $attendances = DB::table('attendances')
                        ->leftJoin('users','attendances.user_id','=','users.id')
