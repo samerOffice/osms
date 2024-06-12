@@ -58,6 +58,7 @@ class OutletController extends Controller
 
         $branches = DB::table('branches')
                     ->where('branches.company_id',$user_company_id)
+                    ->where('br_status',1)
                     ->get();
 
         return view('outlets.create',compact('current_module','branches'));
@@ -106,6 +107,7 @@ class OutletController extends Controller
 
         $branches = DB::table('branches')
         ->where('branches.company_id',$user_company_id)
+        ->where('br_status',1)
         ->get();
 
         // dd($outlet);   

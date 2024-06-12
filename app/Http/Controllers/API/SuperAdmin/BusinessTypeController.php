@@ -4,27 +4,15 @@ namespace App\Http\Controllers\API\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
 use DB;
+use Auth;
 
-class DesignationController extends Controller
+class BusinessTypeController extends Controller
 {
-    public function designation_list(){
-        
-        $current_modules = array();
-        $current_modules['module_status'] = '1';
-        $update_module = DB::table('current_modules')
-                    // ->where('id', $request->id)
-                        ->update($current_modules);
-        $current_module = DB::table('current_modules')->first();
-        
-        $designations = DB::table('designations')->get();
-
-        return view('designations.index',compact('designations','current_module'));
-    }
-
-    public function add_designation(){
-
+    public function business_type_list(){
+      
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
 
         $current_modules = array();
         $current_modules['module_status'] = '1';
@@ -32,30 +20,42 @@ class DesignationController extends Controller
                     // ->where('id', $request->id)
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
-        
-        return view('designations.create',compact('current_module'));
+
+        $business_types = DB::table('business_types')->get();
+
+        return view('business_types.index', compact('current_module','business_types'));
     }
 
+    public function add_business_type(){
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+        
+        return view('business_types.create',compact('current_module'));
+    }
 
-    public function designation_store(Request $request){
-       
-        $designation = DB::table('designations')
-                ->insertGetId([
-                'level'=>$request->level,
-                'designation_name'=>$request->designation_name
-                ]);
+    public function business_type_store(Request $request){
+
+        $designation = DB::table('business_types')
+        ->insertGetId([
+        'business_type'=>$request->business_type,
+        'business_status'=>$request->business_status
+        ]);
 
         $response = [
             'success' => true,
-            'message' => 'Designation is added successfully'
+            'message' => 'Business Type is added successfully'
         ];
 
         return response()->json($response,200);
-
     }
 
-      //for web
-      public function edit_designation($id){
+
+     //for web
+     public function edit_business_type($id){
 
         $current_modules = array();
         $current_modules['module_status'] = '1';
@@ -64,64 +64,47 @@ class DesignationController extends Controller
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        $designation = DB::table('designations')
+        $business_type = DB::table('business_types')
                         ->where('id',$id)
                         ->first();    
-        return view('designations.edit',compact('current_module','designation'));
+        return view('business_types.edit',compact('current_module','business_type'));
     }
 
     //for api
-    public function edit_designation_via_api($id){
-        $designation = DB::table('designations')
+    public function edit_business_type_via_api($id){
+        $business_type = DB::table('business_types')
                         ->where('id',$id)
                         ->first();      
         $response = [
-        'designation_details' => $designation
+        'business_type_details' => $business_type
         ];
        return response()->json($response,200);
-
     }
 
-    public function update_designation(Request $request, $id){
+    public function update_business_type(Request $request, $id){
       
         $data = array();
-        $data['level'] = $request->input('level');
-        $data['designation_name'] = $request->input('designation_name');
+        $data['business_type'] = $request->input('business_type');
+        $data['business_status'] = $request->input('business_status');
         try {
             // Update the outlet record in the database
-            $updated = DB::table('designations')
+            $updated = DB::table('business_types')
                         ->where('id', $id)
                         ->update($data);
         
             // Check if the update was successful
             if ($updated) {
                 // Return a success response
-                return response()->json(['message' => 'Designation is updated successfully'], 200);
+                return response()->json(['message' => 'Business Type is updated successfully'], 200);
             } else {
                 // Return a failure response
                 return response()->json([
-                    'message' => 'Designation update failed or no changes were made'
+                    'message' => 'Business Type update failed or no changes were made'
                 ], 400);
             }
         } catch (\Exception $e) {
             // Catch any exceptions and return an error response
             return response()->json(['error' => 'An error occurred while updating the designation', 'details' => $e->getMessage()], 500);
         }     
-    }
-
-
-
-    public function delete_designation(Request $request, $id)
-    {
-    	// $id = $request->id;
-        $deleted = DB::table('designations')->where('id', $id)->delete();
-
-        if ($deleted == true) {
-                    return response()->json(['success' => true, 'error' => false, 'message' => 'Designation is Deleted Successfully !']);
-                } else {
-                    return response()->json(['success' => false, 'error' => true, 'message' => 'Designation Failed To Deleted !']);
-                }
-
-        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
     }
 }

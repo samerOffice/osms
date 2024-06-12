@@ -16,8 +16,8 @@ Welcome
 
           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
           <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_department')}}">
-                <i class="fas fa-plus"></i> Add Department
+            <a class="btn btn-outline-info float-right" href="{{route('add_business_type')}}">
+                <i class="fas fa-plus"></i> Add Business Type
             </a>
           </div>
           @endif
@@ -42,7 +42,7 @@ Welcome
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Department List</h3>
+                      <h3 class="card-title">Business Type List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -50,9 +50,8 @@ Welcome
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Company Name</th>
-                          <th>Branch Name</th>
-                          <th>Department Name</th>
+                          <th>Business Type</th>
+                          <th>Business Status</th>
                           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <th>Action</th>
                           @endif
@@ -60,15 +59,20 @@ Welcome
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($departments as $department)
+                            @foreach($business_types as $business_type)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$department->company_name}}</td>
-                          <td>{{$department->branch_name}}</td>
-                          <td>{{$department->dept_name}}</td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          <td>{{$business_type->business_type}}</td>                      
                           <td>
-                            <a href="{{route('edit_department',$department->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            @if(($business_type->business_status) == 1)
+                            <span class="badge badge-success">Active</span>
+                           @else
+                           <span class="badge badge-danger">Inactive</span>
+                           @endif
+                         </td>
+                         @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          <td>
+                            <a href="{{route('edit_business_type', $business_type->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                           </td>
                           @endif
                         </tr> 

@@ -56,6 +56,7 @@ class DepartmentController extends Controller
 
         $branches = DB::table('branches')
                     ->where('branches.company_id',$user_company_id)
+                    ->where('br_status',1)
                     ->get();
 
         return view('departments.create',compact('current_module','branches'));

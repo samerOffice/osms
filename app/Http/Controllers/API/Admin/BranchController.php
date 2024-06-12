@@ -27,6 +27,7 @@ class BranchController extends Controller
                         ->leftJoin('companies','branches.company_id','companies.id')
                         ->select('branches.*','companies.company_name as company_name')
                         ->get();
+                        
   
         return view('branches.index',compact('current_module','branches'));
 
