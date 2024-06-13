@@ -70,7 +70,7 @@ Route::get('/edit_user/{user_id}', [AuthController::class, 'edit_user'])->name('
 Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->name('add_new_employee');
 
 //employee official information update
-// Route::get('/edit_user/{user_id}', [AuthController::class, 'edit_user'])->name('edit_user');
+Route::get('/edit_employee_official_info/{employee_id}', [EmpController::class, 'edit_employee_official_info'])->name('edit_employee_official_info');
 
 //employee personal information update
 Route::get('/add_additional_member_info', [EmpController::class, 'add_additional_member_info'])->name('add_additional_member_info');

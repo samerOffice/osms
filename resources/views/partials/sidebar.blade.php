@@ -200,6 +200,8 @@
         </a>
       </li>
 
+
+      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item @if(Request::is('add_payroll')) menu-open 
       @elseif(Request::is('payroll_list')) menu-open 
       @endif">
@@ -223,12 +225,12 @@
               <i class="far fa-circle nav-icon" style="{{ Request::is('payroll_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('payroll_list') ? 'color: white; !important' : ''}}">Payroll List</p>
             </a>
-          </li>
-          
+          </li>      
         </ul>
       </li>
+      @endif
 
-
+      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
       @elseif(Request::is('employee_list')) menu-open 
       @endif">
@@ -252,12 +254,12 @@
               <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Employee List</p>
             </a>
-          </li>
-          
+          </li>       
         </ul>
       </li>
+      @endif
 
-
+      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
@@ -278,10 +280,10 @@
               <i class="far fa-circle nav-icon"></i>
               <p>Performance Reports</p>
             </a>
-          </li>
-          
+          </li>      
         </ul>
       </li>
+      @endif
       
       @elseif($current_module->module_status == 3) <!--inventory module-->
 

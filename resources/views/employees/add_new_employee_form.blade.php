@@ -100,12 +100,6 @@ Welcome
                                     <select required class="form-control select2bs4" id="designation_name" name="designation_name" style="width: 100%;">                                  
                                       <option value="" >Select Designation</option>                                                            
                                     </select>
-                                    {{-- <select class="form-control select2bs4" id="designation_name"  name="designation_name" style="width: 100%;">
-                                        <option selected="selected" value="">Select Designation</option>
-                                        @foreach($designations as $designation)
-                                        <option value="{{$designation->id}}">{{$designation->designation_name}}</option>
-                                        @endforeach
-                                      </select> --}}
                                   </div>
                                   </div>
                                  

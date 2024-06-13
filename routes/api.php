@@ -92,6 +92,10 @@ Route::middleware('auth:sanctum')->post('/member_information_store',[App\Http\Co
 Route::middleware('auth:sanctum')->post('/level_designation_dependancy',[App\Http\Controllers\API\Emp\EmpController::class,'level_designation_dependancy']);
 Route::middleware('auth:sanctum')->post('/store_employee',[App\Http\Controllers\API\Emp\EmpController::class,'store_employee']);
 
+//employee official information update
+Route::middleware('auth:sanctum')->get('/edit_employee_official_info/{employee_id}',[App\Http\Controllers\API\Emp\EmpController::class,'edit_employee_official_info_via_api']);
+Route::middleware('auth:sanctum')->post('/update_employee_official_info/{employee_id}',[App\Http\Controllers\API\Emp\EmpController::class,'update_employee_official_info']);
+
 //new password set
 Route::middleware('auth:sanctum')->post('/new_password_set',[App\Http\Controllers\API\Emp\EmpController::class,'new_password_set']);
 
