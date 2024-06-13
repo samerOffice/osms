@@ -67,7 +67,7 @@ Welcome
                           <td>{{$employee->emp_br_name}}</td>
                           <td>{{$employee->emp_joining_date}}</td>
                          <td>
-                          <a href="" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                          <a href="{{route('edit_employee_official_info',$employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                         </td>
                         </tr> 
                         @endforeach              

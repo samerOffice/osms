@@ -29,7 +29,6 @@ class EmpController extends Controller
 
 
 
-
         public function new_password_set(Request $request){
             $user = Auth::user();
 
@@ -67,9 +66,7 @@ class EmpController extends Controller
                 return response()->json(['message' => 'Password is changed successfully!']);
         }
 
-
-
-      
+  
     
     public function employee_list(){
          
@@ -99,10 +96,9 @@ class EmpController extends Controller
         ->where('users.role_id', '3')
         ->get();
 
-        //  dd($employees);
+        // dd($employees);
         return view('employees.index',compact('employees','current_module'));
     }
-    
     
     
     
@@ -128,9 +124,6 @@ class EmpController extends Controller
         
         return view('employees.add_new_employee_form',compact('current_module','branches','designations'));
     }
-
-
-
 
 
 
@@ -193,13 +186,10 @@ class EmpController extends Controller
         $success['name'] = $user->name;
         $role = $user->role_id;
 
-
-
         $user = DB::table('employees')
         ->insertGetId([
         'user_id'=>$user->id
         ]); 
-
 
         // $success['token'] = $user->createToken('myToken')->plainTextToken;
        
@@ -216,13 +206,116 @@ class EmpController extends Controller
                 //   ->where('id', $request->id)
                   ->update($current_modules);
 
-        return response()->json($response,200); 
-
-
+        return response()->json($response,200);
     }
+
+
+    //edit official information ui/ux (web)
+    public function edit_employee_official_info($id){
+     
+        $user_company_id = Auth::user()->company_id;
+        $current_modules = array();
+        $current_modules['module_status'] = '2';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+        
+        $branches = DB::table('branches')
+                    ->where('company_id',$user_company_id)
+                    ->where('br_status',1)
+                    ->get();
+        
+        
+        $get_user_id = DB::table('employees')
+                       ->where('id',$id)
+                       ->first();
+
+        $user_id = $get_user_id->user_id;
+        $employee = DB::table('users')
+            ->leftJoin('branches','users.branch_id','branches.id')
+            ->leftJoin('designations','users.designation','designations.id')
+            ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'users.warehouse_id', '=', 'warehouses.id')
+            ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'users.outlet_id', '=', 'outlets.id')
+            ->select('users.*','warehouses.warehouse_name as warehouse_name','outlets.outlet_name as outlet_name','designations.designation_name as designation_name', 'branches.br_name as branch_name')
+            ->where('users.id',$user_id)
+            ->first();
+
+        return view('employees.edit_employee_official_details',compact('current_module','employee','branches'));
+
+        // dd($employee);
+    }
+
+    //edit official information ui/ux (api)
+    public function edit_employee_official_info_via_api($id){
+
+        $get_user_id = DB::table('employees')
+                       ->where('id',$id)
+                       ->first();
+
+        $user_id = $get_user_id->user_id;
+        $employee = DB::table('users')
+            ->leftJoin('branches','users.branch_id','branches.id')
+            ->leftJoin('designations','users.designation','designations.id')
+            ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'users.warehouse_id', '=', 'warehouses.id')
+            ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'users.outlet_id', '=', 'outlets.id')
+            ->select('users.*','warehouses.warehouse_name as warehouse_name','outlets.outlet_name as outlet_name','designations.designation_name as designation_name', 'branches.br_name as branch_name')
+            ->where('users.id',$user_id)
+            ->first();
+
+        $response = [
+            'employee_official_details' => $employee
+            ];
+    
+            return response()->json($response,200);
+        }
+
+
+        public function update_employee_official_info(Request $request, $id){
+
+            
+            $data = array();
+            $data['branch_id'] = $request->input('branch_id');
+            $data['review_requisition'] = $request->input('review_requisition');
+            $data['warehouse_id'] = $request->input('warehouse_id');
+            $data['outlet_id'] = $request->input('outlet_id');
+            $data['designation'] = $request->input('designation_name');
+    
+            try {
+                // Update the outlet record in the database
+                $updated = DB::table('users')
+                            ->where('id', $id)
+                            ->update($data);
+            
+                // Check if the update was successful
+                if ($updated) {
+                    // Return a success response
+                    return response()->json(['message' => 'Employee official information is updated successfully'], 200);
+                } else {
+                    // Return a failure response
+                    return response()->json([
+                        'message' => 'Employee official information update failed or no changes were made'
+                    ], 400);
+                }
+            } catch (\Exception $e) {
+                // Catch any exceptions and return an error response
+                return response()->json(['error' => 'An error occurred while updating the employee official information', 'details' => $e->getMessage()], 500);
+            }    
+        }
+
+
+
+
+
+
+
+
+
+
+
     
     
-    
+    //personal information add ui/ux
     public function add_additional_member_info(){
 
         $current_modules = array();
@@ -276,6 +369,9 @@ class EmpController extends Controller
       }
 
 
+
+
+      //personal information store
       public function member_information_store(Request $request){
 
         $user_id = Auth::user()->id;
