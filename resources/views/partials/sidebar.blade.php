@@ -259,7 +259,7 @@
       </li>
       @endif
 
-      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
+      {{-- @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
@@ -283,7 +283,7 @@
           </li>      
         </ul>
       </li>
-      @endif
+      @endif --}}
       
       @elseif($current_module->module_status == 3) <!--inventory module-->
 
@@ -317,7 +317,7 @@
               @endif
               ">
               <a href="{{route('add_item_category')}}">
-              <i class="nav-icon fas fa-tachometer-alt" 
+              <i class="nav-icon fas fa-layer-group" 
               style="@if(Request::is('add_item_category')) color: white;
               @endif
               ">
@@ -340,7 +340,7 @@
               @endif
               ">
               <a href="{{route('add_product_category')}}">
-              <i class="nav-icon fas fa-tachometer-alt" 
+              <i class="nav-icon fas fa-list" 
               style="@if(Request::is('add_product_category')) color: white;
               @endif
               ">
@@ -370,7 +370,7 @@
               @endif
               ">
               <a href="{{route('add_product')}}">
-              <i class="nav-icon fas fa-tachometer-alt" 
+              <i class="nav-icon fas fa-gem" 
               style="@if(Request::is('add_product')) color: white;
               @endif
               ">
@@ -383,7 +383,7 @@
               </a>
             </li>
 
-      <li class="nav-item ">
+      {{-- <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
           <p>
@@ -406,7 +406,7 @@
           </li>
           
         </ul>
-      </li>
+      </li> --}}
 
      
 
@@ -455,7 +455,7 @@
               </a>
             </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-users"></i>
           <p> Customers</p>
@@ -482,9 +482,9 @@
           <i class="nav-icon fa-solid fa-list"></i>
           <p> Policies</p>
         </a>
-      </li>
+      </li> --}}
 
-      <li class="nav-item ">
+      {{-- <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
           <p>
@@ -500,7 +500,7 @@
             </a>
           </li>          
         </ul>
-      </li>
+      </li> --}}
 
     
 
