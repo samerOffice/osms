@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2024 at 03:22 PM
+-- Generation Time: Jun 24, 2024 at 02:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -293,7 +293,7 @@ INSERT INTO `departments` (`id`, `company_id`, `branch_id`, `warehouse_id`, `out
 (10, NULL, NULL, NULL, NULL, NULL, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
 (11, NULL, NULL, NULL, NULL, NULL, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
 (12, NULL, NULL, NULL, NULL, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
-(13, 11, 1, 1, NULL, 'Storage Departmentsdfsdf', '2024-06-10 12:46:32', '2024-06-10 12:46:32'),
+(13, 11, 1, 1, NULL, 'Storage Departments', '2024-06-10 12:46:32', '2024-06-10 12:46:32'),
 (14, 11, 1, NULL, 1, 'Toys Department', '2024-06-10 12:47:33', '2024-06-10 12:47:33'),
 (15, 11, 1, NULL, NULL, 'Samer Toys Department', '2024-06-10 13:22:14', '2024-06-10 13:22:14'),
 (16, 11, 1, 1, NULL, 'Testing Department', '2024-06-10 13:22:29', '2024-06-10 13:22:29'),
@@ -682,8 +682,8 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(284, 'App\\Models\\User', 1, 'myToken', '869419ae605fe1090ea6d9198508ae49210f2e70a6f86939543ea06054afe609', '[\"*\"]', NULL, NULL, '2024-06-13 08:48:51', '2024-06-13 08:48:51'),
-(285, 'App\\Models\\User', 1, 'myToken', 'c415fdded263a458f54ae4ace3b847ce288691f4254b4e2b9e21fdbf5ab2decd', '[\"*\"]', NULL, NULL, '2024-06-13 13:12:48', '2024-06-13 13:12:48');
+(295, 'App\\Models\\User', 1, 'myToken', '77c83a3ee8408a594713f08665326a70e8964938bd4b3c8b54a24178aa2b539a', '[\"*\"]', NULL, NULL, '2024-06-24 07:11:19', '2024-06-24 07:11:19'),
+(296, 'App\\Models\\User', 1, 'myToken', '57a3066c19c778c9a65e5117768b2a36031d389af967c6701c28124a234af495', '[\"*\"]', NULL, NULL, '2024-06-24 12:09:26', '2024-06-24 12:09:26');
 
 -- --------------------------------------------------------
 
@@ -1110,7 +1110,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
 
 --
 -- AUTO_INCREMENT for table `roles`
