@@ -56,7 +56,13 @@
           </a>
         </li>
 
-
+        <li class="nav-item nav-link @if(Request::is('supplier_list')) nav-link active @endif" 
+            style="@if(Request::is('supplier_list')) background-color: #908ec4; @endif">
+           <a href="{{route('supplier_list')}}" >
+            <i class="nav-icon fa-solid fa-user" style=" @if(Request::is('supplier_list')) color: white; @endif"></i>
+            <p style="@if(Request::is('supplier_list')) color:white; @endif"> Supplier</p>
+          </a>
+        </li>
 
         
 
@@ -309,48 +315,86 @@
             </li>
 
 
-            <li class="nav-item nav-link 
-            @if(Request::is('add_item_category')) nav-link active
-            @endif
-            " 
-          style="@if(Request::is('add_item_category')) background-color: #1cdf1c;
-              @endif
-              ">
-              <a href="{{route('add_item_category')}}">
-              <i class="nav-icon fas fa-layer-group" 
-              style="@if(Request::is('add_item_category')) color: white;
-              @endif
-              ">
-              </i>
-              <p style="@if(Request::is('add_item_category')) color:white;
-              @endif
-              ">
+            <li class="nav-item @if(Request::is('add_item_category')) menu-open 
+            @elseif(Request::is('item_category_list')) menu-open 
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p>
                 Item Category
+                <i class="fas fa-angle-left right"></i>
               </p>
-              </a>
+            </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('add_item_category')}}" class="nav-link {{ Request::is('add_item_category') ? 'nav-link active' : ''}}" style="{{ Request::is('add_item_category') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_item_category') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('add_item_category') ? 'color: white; !important' : ''}}">Add Item Category</p>
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="{{route('item_category_list')}}" class="nav-link {{ Request::is('item_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('item_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('item_category_list') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('item_category_list') ? 'color: white; !important' : ''}}">Item Category List</p>
+                  </a>
+                </li>       
+              </ul>
+            </li>
+
+            <li class="nav-item @if(Request::is('add_product_category')) menu-open 
+            @elseif(Request::is('product_category_list')) menu-open 
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-window-restore"></i>
+              <p>
+                Product Category
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('add_product_category')}}" class="nav-link {{ Request::is('add_product_category') ? 'nav-link active' : ''}}" style="{{ Request::is('add_product_category') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}">Add Product Category</p>
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="{{route('product_category_list')}}" class="nav-link {{ Request::is('product_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}">Product Category List</p>
+                  </a>
+                </li>       
+              </ul>
             </li>
 
 
-            
-            <li class="nav-item nav-link 
-            @if(Request::is('add_product_category')) nav-link active
-            @endif
-            " 
-          style="@if(Request::is('add_product_category')) background-color: #1cdf1c;
-              @endif
-              ">
-              <a href="{{route('add_product_category')}}">
-              <i class="nav-icon fas fa-list" 
-              style="@if(Request::is('add_product_category')) color: white;
-              @endif
-              ">
-              </i>
-              <p style="@if(Request::is('add_product_category')) color:white;
-              @endif
-              ">
-                Product Category
+            <li class="nav-item @if(Request::is('add_product_category')) menu-open 
+            @elseif(Request::is('product_category_list')) menu-open 
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-box"></i>
+              <p>
+                Product Requisition
+                <i class="fas fa-angle-left right"></i>
               </p>
-              </a>
+            </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('add_product_category')}}" class="nav-link {{ Request::is('add_product_category') ? 'nav-link active' : ''}}" style="{{ Request::is('add_product_category') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}">Add New Requisition</p>
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="{{route('product_category_list')}}" class="nav-link {{ Request::is('product_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}">Requisition List</p>
+                  </a>
+                </li>       
+              </ul>
             </li>
 
 
@@ -383,7 +427,7 @@
               </a>
             </li>
 
-      {{-- <li class="nav-item ">
+      <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
           <p>
@@ -406,7 +450,7 @@
           </li>
           
         </ul>
-      </li> --}}
+      </li>
 
      
 
@@ -455,7 +499,7 @@
               </a>
             </li>
 
-      {{-- <li class="nav-item">
+      <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-users"></i>
           <p> Customers</p>
@@ -482,9 +526,9 @@
           <i class="nav-icon fa-solid fa-list"></i>
           <p> Policies</p>
         </a>
-      </li> --}}
+      </li>
 
-      {{-- <li class="nav-item ">
+      <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
           <p>
@@ -500,7 +544,7 @@
             </a>
           </li>          
         </ul>
-      </li> --}}
+      </li>
 
     
 

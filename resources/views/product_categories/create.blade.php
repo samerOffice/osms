@@ -99,8 +99,7 @@ input:checked + .slider:before {
                                   <option value="">Select Item Category</option>
                                   @foreach ($item_categories as $item)
                                   <option value="{{$item->id}}">{{$item->name}}</option>
-                                  @endforeach
-                                                             
+                                  @endforeach                                                            
                               </select>
                               </div> 
                               <div class="form-group">

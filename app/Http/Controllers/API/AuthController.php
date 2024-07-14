@@ -145,7 +145,7 @@ class AuthController extends Controller
             
             $user = Auth::user();
             
-            if($user->active_status == 1){
+            if($user->active_status == 1){  
                 $success['token'] = $user->createToken('myToken')->plainTextToken;
                 $success['name'] = $user->name;
     

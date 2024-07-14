@@ -29,6 +29,18 @@ Welcome
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     }
+
+
+    .tracking_button_position {
+    background-color: #e6753e; color: white; margin: 0;
+    position: absolute;
+    left: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    }
+
+
+    
 </style>
 @endpush
 
@@ -52,7 +64,7 @@ Welcome
         </div> --}}
        
         <div class="row mt-4">
-          <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="col-lg-3 col-md-6 col-sm-12">
             <h4 align="center">Employee Management</h4>
             <!-- small box -->
               <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/employee_dashboard.jpg') }}');  background-size: cover;">   
@@ -70,8 +82,8 @@ Welcome
            </div>
           
           <!-- ./col -->
-          <div class="col-lg-4 col-md-6 col-sm-12">
-            <h4 align="center">Inventory Management</h4>
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4 align="center">Accounts & Inventory Management</h4>
             <!-- small box -->
             <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/inventory_dashboard.jpg') }}');  background-size: cover;" >      
             </div>
@@ -87,7 +99,7 @@ Welcome
               <br>           
            </div>
           <!-- ./col -->
-          <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="col-lg-3 col-md-6 col-sm-12">
             <h4 align="center">Point of Sale</h4>
             <!-- small box -->
             <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/pos_dashboard.jpg') }}');  background-size: cover;" >
@@ -98,6 +110,21 @@ Welcome
                 @csrf
                 <input type="hidden" value="4" name="current_module_status">         
               <button type="submit" class="btn pos_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
+            </form>
+            </div>   
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4 align="center">Delivery Tracking System</h4>
+            <!-- small box -->
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/tracking_dashboard.jpg') }}');  background-size: cover;" >
+            </div>
+             <br>
+            <div style="position: relative">
+              <form action="{{route('posModuleActive')}}" method="post">
+                @csrf
+                <input type="hidden" value="4" name="current_module_status">         
+              <button type="submit" class="btn tracking_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
             </form>
             </div>   
           </div>

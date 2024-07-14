@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2024 at 02:49 PM
+-- Generation Time: Jul 14, 2024 at 02:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -98,7 +98,15 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (14, 1, '2024-06-02', '12:57:31', NULL, '2024-06-02 06:57:31', '2024-06-02 06:57:31'),
 (15, 3, '2024-06-09', '12:27:58', NULL, '2024-06-09 06:27:58', '2024-06-09 06:27:58'),
 (16, 3, '2024-06-10', '17:23:50', NULL, '2024-06-10 11:23:50', '2024-06-10 11:23:50'),
-(17, 8, '2024-06-12', '17:48:05', NULL, '2024-06-12 11:48:05', '2024-06-12 11:48:05');
+(17, 8, '2024-06-12', '17:48:05', NULL, '2024-06-12 11:48:05', '2024-06-12 11:48:05'),
+(18, 1, '2024-06-27', '17:16:42', NULL, '2024-06-27 11:16:42', '2024-06-27 11:16:42'),
+(19, 1, '2024-06-27', '18:09:07', NULL, '2024-06-27 12:09:07', '2024-06-27 12:09:07'),
+(20, 1, '2024-06-27', '18:13:49', NULL, '2024-06-27 12:13:49', '2024-06-27 12:13:49'),
+(21, 1, '2024-06-27', '18:18:06', NULL, '2024-06-27 12:18:06', '2024-06-27 12:18:06'),
+(22, 1, '2024-06-27', '18:31:14', NULL, '2024-06-27 12:31:14', '2024-06-27 12:31:14'),
+(23, 1, '2024-06-27', '18:55:56', NULL, '2024-06-27 12:55:56', '2024-06-27 12:55:56'),
+(24, 1, '2024-06-27', '19:05:21', NULL, '2024-06-27 13:05:21', '2024-06-27 13:05:21'),
+(25, 1, '2024-06-27', '19:13:59', NULL, '2024-06-27 13:13:59', '2024-06-27 13:13:59');
 
 -- --------------------------------------------------------
 
@@ -257,7 +265,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 2, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -493,7 +501,9 @@ INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `fat
 (1, 2, 2, '2024-05-02', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
 (2, 3, 4, '2024-05-30', 'Hamid Ahmed', 'Shamima Basar', '01513470127', '35435135413', '<p>mirpur 12<br></p>', '<p>mirpur 12<br></p>', '1994-06-15', 'B+', 'Bangladeshi', 'Married', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-30 04:33:28', '2024-05-30 04:33:28'),
 (3, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
-(4, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50');
+(4, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(5, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
+(6, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38');
 
 -- --------------------------------------------------------
 
@@ -629,7 +639,16 @@ CREATE TABLE `payrolls` (
 --
 
 INSERT INTO `payrolls` (`id`, `employee`, `company`, `salary_date`, `joining_date`, `per_day_salary`, `emp_total_bonus_day`, `emp_total_bonus_amount`, `bonus_eligible_month`, `bonus_pay_month`, `bonus_pay_amount`, `total_working_day`, `total_leave`, `total_number_of_pay_day`, `monthly_salary`, `monthly_holiday_bonus`, `total_daily_allowance`, `total_travel_allowance`, `rental_cost_allowance`, `hospital_bill_allowance`, `insurance_allowance`, `sales_commission`, `retail_commission`, `total_others`, `total_salary`, `yearly_bonus`, `total_payable_salary`, `advance_less`, `any_deduction`, `final_pay_amount`, `loan_advance`, `created_at`, `updated_at`) VALUES
-(1, 3, '11', '2024-05-30', '2024-05-30', '1500', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '37500', '1500', '0', '0', '0', '0', '0', '0', '0', '1500', '39000', '0', '39000', '0', '0', '39000', NULL, '2024-05-30 10:27:08', '2024-05-30 10:27:08');
+(1, 3, '11', '2024-05-30', '2024-05-30', '1500', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '37500', '1500', '0', '0', '0', '0', '0', '0', '0', '1500', '39000', '0', '39000', '0', '0', '39000', NULL, '2024-05-30 10:27:08', '2024-05-30 10:27:08'),
+(2, 1, '11', '2024-06-27', '2024-05-06', '200', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '5000', '200', '0', '0', '0', '0', '0', '0', '0', '200', '5200', '0', '5200', '0', '0', '5200', NULL, '2024-06-27 11:17:28', '2024-06-27 11:17:28'),
+(3, NULL, '11', '2024-06-27', NULL, '510', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '12750', '510', '0', '0', '0', '0', '0', '0', '0', '510', '13260', '0', '13260', '0', '0', '13260', NULL, '2024-06-27 12:14:59', '2024-06-27 12:14:59'),
+(4, NULL, '11', '2024-06-27', NULL, '510', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '12750', '510', '0', '0', '0', '0', '0', '0', '0', '510', '13260', '0', '13260', '0', '0', '13260', NULL, '2024-06-27 12:15:06', '2024-06-27 12:15:06'),
+(5, 3, '11', '2024-06-27', '2024-05-30', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 12:15:25', '2024-06-27 12:15:25'),
+(6, 10, '11', '2024-06-27', '2024-06-18', '520', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13520', '520', '0', '0', '0', '0', '0', '0', '0', '520', '14040', '0', '14040', '0', '0', '14040', NULL, '2024-06-27 12:19:22', '2024-06-27 12:19:22'),
+(7, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:35:38', '2024-06-27 12:35:38'),
+(8, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:57:29', '2024-06-27 12:57:29'),
+(9, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:07:31', '2024-06-27 13:07:31'),
+(10, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:15:42', '2024-06-27 13:15:42');
 
 -- --------------------------------------------------------
 
@@ -682,8 +701,8 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(295, 'App\\Models\\User', 1, 'myToken', '77c83a3ee8408a594713f08665326a70e8964938bd4b3c8b54a24178aa2b539a', '[\"*\"]', NULL, NULL, '2024-06-24 07:11:19', '2024-06-24 07:11:19'),
-(296, 'App\\Models\\User', 1, 'myToken', '57a3066c19c778c9a65e5117768b2a36031d389af967c6701c28124a234af495', '[\"*\"]', NULL, NULL, '2024-06-24 12:09:26', '2024-06-24 12:09:26');
+(326, 'App\\Models\\User', 1, 'myToken', '7148ea5b4d2583a7c5aaa041b3a298082c253d7ce31bcb9e792566750a8e2d45', '[\"*\"]', NULL, NULL, '2024-07-14 04:53:54', '2024-07-14 04:53:54'),
+(327, 'App\\Models\\User', 1, 'myToken', '48a99cc4343ced80233ec7b8de3a1da4b2252e36c072f3d7ef82ff9b710f83dd', '[\"*\"]', '2024-07-14 10:59:58', NULL, '2024-07-14 08:05:30', '2024-07-14 10:59:58');
 
 -- --------------------------------------------------------
 
@@ -749,6 +768,38 @@ INSERT INTO `super_admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `id` int(11) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `father_name` varchar(500) DEFAULT NULL,
+  `mother_name` varchar(500) DEFAULT NULL,
+  `mobile_number` varchar(500) DEFAULT NULL,
+  `nid_number` varchar(500) DEFAULT NULL,
+  `present_address` text DEFAULT NULL,
+  `official_address` varchar(255) DEFAULT NULL,
+  `permanent_address` text DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `blood_group` varchar(500) DEFAULT NULL,
+  `nationality` varchar(500) DEFAULT NULL,
+  `marital_status` varchar(500) DEFAULT NULL,
+  `religion` varchar(500) DEFAULT NULL,
+  `gender` varchar(100) DEFAULT NULL,
+  `profile_pic` varchar(500) DEFAULT NULL,
+  `emergency_contact_name` varchar(500) DEFAULT NULL,
+  `emergency_contact_number` varchar(500) DEFAULT NULL,
+  `emergency_contact_relation` varchar(500) DEFAULT NULL,
+  `active_status` int(10) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -786,8 +837,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`
 (5, 'Wahid Rahman', 'wahid@gmail.com', 2, 14, NULL, NULL, NULL, NULL, NULL, '2021-05-12', NULL, '$2y$10$1xfhno1L/KWAwe9M4FM2W.RmqqO./QRMf0SzM.7T.CXaL09pKw8u2', 1, '1', 3, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
 (6, 'Rupa Rahman', 'rupa@gmail.com', 2, 15, 9, NULL, NULL, NULL, NULL, '2023-04-04', NULL, '$2y$10$Uedv4qY.IF2k2bO2fCMeP.u4osouZfHBWMbKexg8Oz753dtsSIOSi', 1, '1', 3, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
 (7, 'Fahad Ahmed', 'fahad@gmail.com', 2, 16, 10, NULL, NULL, NULL, NULL, '2022-05-11', NULL, '$2y$10$B4HjW5ISg0phrHEJwbfQZ.Lro5KetTpOmtQVFfH7OcQrx5QzeE.Dy', 1, '1', 4, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
-(8, 'Tuhin Ahmed', 'tuhin@gmail.com', 3, 11, 3, NULL, NULL, 1, NULL, '2024-06-04', NULL, '$2y$10$kOIA46nYPFVr5tH0XDOtBuYIYeEwhvvtxuXwBJrLanb8Lj45AK5yK', 1, '13', 1, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
-(9, 'Yamin Hossain', 'yamin@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-12', NULL, '$2y$10$DnyFOhk.0I/CrYIfjbQnD.B.POU49FcWniJqtk.B3Gsns43oMT9MO', 1, '4', 1, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50');
+(8, 'Tuhin Ahmed', 'tuhin@gmail.com', 3, 11, 3, NULL, NULL, 1, NULL, '2024-06-04', NULL, '$2y$10$kOIA46nYPFVr5tH0XDOtBuYIYeEwhvvtxuXwBJrLanb8Lj45AK5yK', 1, '4', 1, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
+(9, 'Yamin Hossain', 'yamin@gmail.com', 3, 11, 3, 2, 1, NULL, NULL, '2024-06-12', NULL, '$2y$10$DnyFOhk.0I/CrYIfjbQnD.B.POU49FcWniJqtk.B3Gsns43oMT9MO', 1, '4', 1, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(10, 'fahim ahmed', 'fahim@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$6n1z1jwm/8Cjp0/WZroug.grCo7aWCakpJC7AyxX314WlrKWFbh.O', 1, '3', 1, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
+(11, 'Sahed Rahman', 'sahed@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$RmNw5eA99If5dxCZwzEbxuewe16hGbW/gL/kPyo.UvSLs8ooNEzcW', 1, '3', 1, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38');
 
 -- --------------------------------------------------------
 
@@ -819,6 +872,7 @@ CREATE TABLE `vendors` (
   `mobile_number` varchar(500) DEFAULT NULL,
   `nid_number` varchar(500) DEFAULT NULL,
   `present_address` text DEFAULT NULL,
+  `official_address` varchar(255) DEFAULT NULL,
   `permanent_address` text DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `blood_group` varchar(500) DEFAULT NULL,
@@ -976,6 +1030,12 @@ ALTER TABLE `super_admins`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1008,7 +1068,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -1068,7 +1128,7 @@ ALTER TABLE `divisions`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employee_performances`
@@ -1098,7 +1158,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `payroll_reports`
@@ -1110,7 +1170,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1125,10 +1185,16 @@ ALTER TABLE `super_admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_logs`

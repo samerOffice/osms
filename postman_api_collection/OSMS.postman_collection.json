@@ -1375,6 +1375,179 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "employee official information",
+			"item": [
+				{
+					"name": "add new employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testing testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/store_employee?name&email&password&role_id&branch_id&review_requisition&warehouse_id&outlet_id&designation&joining_date&active_status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"store_employee"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null
+								},
+								{
+									"key": "email",
+									"value": null
+								},
+								{
+									"key": "password",
+									"value": null
+								},
+								{
+									"key": "role_id",
+									"value": null
+								},
+								{
+									"key": "branch_id",
+									"value": null
+								},
+								{
+									"key": "review_requisition",
+									"value": null
+								},
+								{
+									"key": "warehouse_id",
+									"value": null
+								},
+								{
+									"key": "outlet_id",
+									"value": null
+								},
+								{
+									"key": "designation",
+									"value": null
+								},
+								{
+									"key": "joining_date",
+									"value": null
+								},
+								{
+									"key": "active_status",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific business type Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "business type update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testy testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
