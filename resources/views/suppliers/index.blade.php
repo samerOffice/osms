@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Item Category List
+Supplier
 @endsection
 
 
@@ -14,13 +14,13 @@ Item Category List
         <br>
         <div class="row">
 
-         
+          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
           <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_product_category')}}">
-                <i class="fas fa-plus"></i> Add Product Category
+            <a class="btn btn-outline-info float-right" href="{{route('add_supplier')}}">
+                <i class="fas fa-plus"></i> Add Supplier
             </a>
           </div>
-          
+          @endif
            
           <div class="col-12">
             <br>
@@ -39,9 +39,10 @@ Item Category List
         </div>
      
             <div class="col-12">
+                <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Product Category List</h3>
+                      <h3 class="card-title">Supplier List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -49,33 +50,33 @@ Item Category List
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Product Category Name</th>
-                          <th>Item Category Name</th>
-                          <th>Status</th>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          <th>Supplier Name</th>
+                          <th>Mobile Number</th>
+                          <th>Official Address</th>
+                          <th>Active Status</th>                         
                           <th>Action</th>
-                          @endif
                         </tr>
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($product_categories as $product_category)
+                            @foreach($suppliers as $supplier)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$product_category->name}}</td>
-                          <td>{{$product_category->item_category_name}}</td>
+                          <td>{{$supplier->full_name}}</td>
+                          <td>{{$supplier->mobile_number}}</td>
+                          <td>{{$supplier->official_address}}</td>
                           <td> 
-                            @if(($product_category->active_status) == 1)
+                            @if(($supplier->active_status) == 1)
                             <span class="badge badge-success">Active</span>
                            @else
                            <span class="badge badge-danger">Inactive</span>
                            @endif
                          </td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                         
                           <td>
-                            <a href="{{route('edit_product_category',$product_category->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            <a href="" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                           </td>
-                          @endif
+                        
                         </tr> 
                         @endforeach              
                  

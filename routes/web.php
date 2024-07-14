@@ -12,6 +12,7 @@ use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\DepartmentController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
+use App\Http\Controllers\API\Admin\SupplierController;
 
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
@@ -56,6 +57,12 @@ Route::get('/designation_list', [DesignationController::class, 'designation_list
 Route::get('/add_designation', [DesignationController::class, 'add_designation'])->name('add_designation');
 Route::get('/edit_designation/{designation_id}', [DesignationController::class, 'edit_designation'])->name('edit_designation');
 
+//suppliers
+Route::get('/supplier_list', [SupplierController::class, 'supplier_list'])->name('supplier_list');
+Route::get('/add_supplier', [SupplierController::class, 'add_supplier'])->name('add_supplier');
+// Route::get('/edit_supplier/{supplier_id}', [SupplierController::class, 'edit_supplier'])->name('edit_supplier');
+
+
 //business types
 Route::get('/business_type_list', [BusinessTypeController::class, 'business_type_list'])->name('business_type_list');
 Route::get('/add_business_type', [BusinessTypeController::class, 'add_business_type'])->name('add_business_type');
@@ -99,10 +106,19 @@ Route::get('/attendance_list',[AttendanceController::class,'attendance_list'])->
 //...............********* inventory management module ********................
 //item category
 Route::get('/add_item_category', [ProductController::class, 'add_item_category'])->name('add_item_category');
+Route::get('/item_category_list', [ProductController::class, 'item_category_list'])->name('item_category_list');
+Route::get('/edit_item_category/{item_category_id}', [ProductController::class, 'edit_item_category'])->name('edit_item_category');
+
 //product category
 Route::get('/add_product_category', [ProductController::class, 'add_product_category'])->name('add_product_category');
+Route::get('/product_category_list', [ProductController::class, 'product_category_list'])->name('product_category_list');
+Route::get('/edit_product_category/{product_category_id}', [ProductController::class, 'edit_product_category'])->name('edit_product_category');
+
 //product
 Route::get('/add_product', [ProductController::class, 'add_product'])->name('add_product');
+
+// ProductRequisition
+
 
 
 //...............********* pos module ********................

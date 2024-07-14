@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2024 at 02:49 PM
+-- Generation Time: Jul 14, 2024 at 02:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,7 +59,12 @@ CREATE TABLE `item_categories` (
 INSERT INTO `item_categories` (`id`, `company_id`, `name`, `active_status`, `created_at`, `updated_at`) VALUES
 (1, 12, 'Electronics', NULL, '2024-05-21 09:29:37', '2024-05-21 09:29:37'),
 (2, 11, 'test category', 1, '2024-05-30 06:38:43', '2024-05-30 06:38:43'),
-(3, 11, 'Electronics', 1, '2024-06-01 05:18:29', '2024-06-01 05:18:29');
+(3, 11, 'Electronics', 1, '2024-06-01 05:18:29', '2024-06-01 05:18:29'),
+(4, 11, 'Furniture', 1, '2024-06-27 12:21:02', '2024-06-27 12:21:02'),
+(5, 11, 'Electronics', 1, '2024-06-27 13:18:42', '2024-06-27 13:18:42'),
+(6, 11, 'Mirpur DOHS', 2, '2024-07-14 08:08:51', '2024-07-14 08:08:51'),
+(7, 11, 'lllll', 2, '2024-07-14 08:10:30', '2024-07-14 08:10:30'),
+(8, 11, 'Mirpur DOHS', 1, '2024-07-14 08:11:26', '2024-07-14 08:11:26');
 
 -- --------------------------------------------------------
 
@@ -105,7 +110,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `item_category_id`, `product_category_id`, `product_type`, `product_name`, `product_single_price`, `labeling_type`, `batch_number`, `product_tag_number`, `product_weight`, `quantity`, `additional_product_details`, `product_entry_date`, `product_mfg_date`, `product_expiry_date`, `product_status`, `total_product_in_a_batch`, `product_batch_price`, `current_available_product_in_a_batch`, `shop_company_id`, `shop_branch_id`, `shop_depth_id`, `shop_outlet_id`, `shop_warehouse_id`, `vendor_id`, `vendor_company_id`, `vendor_branch_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 2, 'Lenovo 203 laptop', '45,000', 2, NULL, 'laptop-12', '2kg', 1, '<p>Lenovo latest laptop<br></p>', '2024-05-21', NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-21 11:40:52', '2024-05-21 11:40:52'),
-(2, 3, 4, 2, 'Samsung Smart TV', '51000', 1, NULL, 'smarttv-122134', '30kg', 1, '32\" LED smart TV<br>', '2024-06-01', NULL, NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 06:00:55', '2024-06-01 06:00:55');
+(2, 3, 4, 2, 'Samsung Smart TV', '51000', 1, NULL, 'smarttv-122134', '30kg', 1, '32\" LED smart TV<br>', '2024-06-01', NULL, NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 06:00:55', '2024-06-01 06:00:55'),
+(3, 4, 5, 2, 'Otobi Table', '1200', 1, NULL, 'dfds-1299', '20kg', 1, NULL, '2024-06-27', NULL, NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 12:22:46', '2024-06-27 12:22:46'),
+(4, 5, 6, 2, 'Lenovo 203 laptop', '25000', 1, NULL, 'laptop-12', '2kg', 1, NULL, '2024-06-27', NULL, NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 13:20:29', '2024-06-27 13:20:29');
 
 -- --------------------------------------------------------
 
@@ -147,7 +154,10 @@ INSERT INTO `product_categories` (`id`, `company_id`, `name`, `item_category_id`
 (1, 12, 'Fridge', 1, 1, '2024-05-21 10:11:03', '2024-05-21 10:11:03'),
 (2, 12, 'Laptop', 1, NULL, '2024-05-21 10:13:58', '2024-05-21 10:13:58'),
 (3, 12, NULL, 1, NULL, '2024-05-21 11:39:36', '2024-05-21 11:39:36'),
-(4, 11, 'Smart TV', 3, 1, '2024-06-01 05:18:50', '2024-06-01 05:18:50');
+(4, 11, 'Smart TV', 3, 1, '2024-06-01 05:18:50', '2024-06-01 05:18:50'),
+(5, 11, 'Mirpur DOHS', 4, 2, '2024-06-27 12:21:26', '2024-06-27 12:21:26'),
+(6, 11, 'Laptop', 5, 1, '2024-06-27 13:19:15', '2024-06-27 13:19:15'),
+(7, 11, 'test product category', 3, 2, '2024-07-14 10:49:41', '2024-07-14 10:49:41');
 
 -- --------------------------------------------------------
 
@@ -308,13 +318,13 @@ ALTER TABLE `inventory_log`
 -- AUTO_INCREMENT for table `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_batch`
@@ -326,7 +336,7 @@ ALTER TABLE `product_batch`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_requisitions`

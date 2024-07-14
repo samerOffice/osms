@@ -9,9 +9,34 @@ use Auth;
 
 class ProductController extends Controller
 {
-    //item category
-    public function add_item_category(){
+    //-------------------item category----------------------
+    public function item_category_list(){
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
 
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        if($user_role_id == 1){
+            $item_categories =  DB::connection('inventory')
+                                ->table('item_categories')
+                                ->get();
+            return view('item_categories.index',compact('current_module','item_categories'));
+        }else{
+            $item_categories = DB::connection('inventory')
+                                ->table('item_categories')                 
+                                ->where('company_id',$user_company_id)
+                                ->get();
+         return view('item_categories.index',compact('current_module','item_categories'));
+        }
+    }
+
+
+    public function add_item_category(){
         $current_modules = array();
         $current_modules['module_status'] = '3';
         $update_module = DB::table('current_modules')
@@ -26,7 +51,6 @@ class ProductController extends Controller
     public function submit_item_category(Request $request){
         $user_company_id = Auth::user()->company_id;
        
-
         $item_category = DB::connection('inventory')
                         ->table('item_categories')
                         ->insertGetId([
@@ -34,7 +58,6 @@ class ProductController extends Controller
                         'name' =>$request->item_category_name,
                         'active_status'=>$request->active_status
                         ]);
-
         $response = [
             'success' => true,
             'message' => 'Item Category is added successfully'
@@ -43,10 +66,102 @@ class ProductController extends Controller
         return response()->json($response,200);
     }
 
+     //for web
+     public function edit_item_category($id){
 
-    //product category
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $item_category = DB::connection('inventory')
+                        ->table('item_categories')
+                        ->where('id',$id)
+                        ->first();
+
+    return view('item_categories.edit',compact('current_module','item_category'));
+    }
+ 
+    //for api
+    public function edit_item_category_via_api($id){
+
+        $item_category = DB::connection('inventory')
+                  ->table('item_categories')
+                  ->where('id',$id)
+                  ->first();
+        $response = [
+        'item_category_details' => $item_category
+        ];
+       return response()->json($response,200);
+    }
+
+    public function update_item_category(Request $request, $id){
+
+        $user_company_id = Auth::user()->company_id;
+
+        $data = array();
+        $data['name'] = $request->input('item_category_name');
+        $data['active_status'] = $request->input('active_status');
+        try {
+            // Update the branch record in the database
+            $updated = DB::connection('inventory')
+                        ->table('item_categories')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Item Category is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Item Category update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Item Category', 'details' => $e->getMessage()], 500);
+        }  
+    }
+
+
+
+
+    //----------------product category-----------------------
+
+      public function product_category_list(){
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        if($user_role_id == 1){
+            $product_categories =  DB::connection('inventory')
+                                ->table('product_categories')
+                                ->leftJoin('item_categories','product_categories.item_category_id','item_categories.id')
+                                ->select('product_categories.*','item_categories.name as item_category_name')
+                                ->get();
+            return view('product_categories.index',compact('current_module','product_categories'));
+        }else{
+            $product_categories = DB::connection('inventory')
+                                ->table('product_categories')  
+                                ->leftJoin('item_categories','product_categories.item_category_id','item_categories.id')
+                                ->select('product_categories.*','item_categories.name as item_category_name')            
+                                ->where('product_categories.company_id',$user_company_id)
+                                ->get();
+         return view('product_categories.index',compact('current_module','product_categories'));
+        }
+    }
+    
     public function add_product_category(){
-
         $current_modules = array();
         $current_modules['module_status'] = '3';
         $update_module = DB::table('current_modules')
@@ -60,6 +175,7 @@ class ProductController extends Controller
         $item_categories = DB::connection('inventory')
                            ->table('item_categories')
                            ->where('company_id',$user_company_id)
+                           ->where('active_status',1)
                            ->get();
 
         return view('product_categories.create',compact('current_module','item_categories'));
@@ -68,7 +184,6 @@ class ProductController extends Controller
     public function submit_product_category(Request $request){
         $user_company_id = Auth::user()->company_id;
        
-
         $item_category = DB::connection('inventory')
                         ->table('product_categories')
                         ->insertGetId([
@@ -84,6 +199,81 @@ class ProductController extends Controller
         ];
 
         return response()->json($response,200);
+    }
+
+       //for web
+       public function edit_product_category($id){
+
+        $user_company_id = Auth::user()->company_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $product_category = DB::connection('inventory')
+                            ->table('product_categories')
+                            ->leftJoin('item_categories','product_categories.item_category_id','item_categories.id')
+                            ->select('product_categories.*','item_categories.name as item_category_name')    
+                            ->where('product_categories.id',$id)
+                            ->first();
+
+        $item_categories = DB::connection('inventory')
+                           ->table('item_categories')
+                           ->where('company_id',$user_company_id)
+                           ->where('active_status',1)
+                           ->get();
+    return view('product_categories.edit',compact('current_module','product_category','item_categories'));
+    }
+ 
+    //for api
+    public function edit_product_category_via_api($id){
+
+        $item_category = DB::connection('inventory')
+                            ->table('product_categories')
+                            ->leftJoin('item_categories','product_categories.item_category_id','item_categories.id')
+                            ->select('product_categories.*','item_categories.name as item_category_name')    
+                            ->where('product_categories.id',$id)
+                            ->first();
+        $response = [
+        'product_category_details' => $item_category
+        ];
+       return response()->json($response,200);
+    }
+
+
+
+    public function update_product_category(Request $request, $id){
+
+        $user_company_id = Auth::user()->company_id;
+
+        $data = array();
+        $data['name'] = $request->input('product_category_name');
+        $data['item_category_id'] = $request->input('item_category_id');
+        $data['active_status'] = $request->input('active_status');
+        try {
+            // Update the branch record in the database
+            $updated = DB::connection('inventory')
+                        ->table('product_categories')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Product Category is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Product Category update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Product Category', 'details' => $e->getMessage()], 500);
+        }  
     }
 
 

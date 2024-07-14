@@ -111,8 +111,12 @@ Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollCo
 //...............********* inventory management module ********................
 //item category
 Route::middleware('auth:sanctum')->post('/submit_item_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_item_category']);
+Route::middleware('auth:sanctum')->get('/edit_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_item_category_via_api']);
+Route::middleware('auth:sanctum')->post('/update_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_item_category']);
 //product category
 Route::middleware('auth:sanctum')->post('/submit_product_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_product_category']);
+Route::middleware('auth:sanctum')->get('/edit_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_product_category_via_api']);
+Route::middleware('auth:sanctum')->post('/update_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_product_category']);
 //product
 Route::post('/item_category_and_product_category_dependancy',[App\Http\Controllers\API\Inventory\ProductController::class,'itemCategoryAndProductCategoryDependancy']);
 Route::middleware('auth:sanctum')->post('/submit_product',[App\Http\Controllers\API\Inventory\ProductController::class,'submit_product']);
