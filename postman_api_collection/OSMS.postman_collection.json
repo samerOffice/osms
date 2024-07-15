@@ -277,7 +277,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "251|xK8HdjdGyyChyZ00ShJtUhacW8gvPOfe1H3ZDzKFb3297b70",
+									"value": "312|Y8y4fovL8yD93AXfRVKYJyT6hun7qomwN2GMEuFS5933987a",
 									"type": "string"
 								}
 							]
@@ -836,6 +836,463 @@
 								"api",
 								"update_outlet",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "item category",
+			"item": [
+				{
+					"name": "add item category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "item_category_name",
+									"value": "test item category",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/submit_item_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"submit_item_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Item Category Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_item_category/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_item_category",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update item category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "item_category_name",
+									"value": "Mirpur DOHS",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_item_category/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_item_category",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product category",
+			"item": [
+				{
+					"name": "add product category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "product_category_name",
+									"value": "test product category",
+									"type": "text"
+								},
+								{
+									"key": "item_category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/submit_product_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"submit_product_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Product Category Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_product_category/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_product_category",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_category_name",
+									"value": "Mirpur DOHS",
+									"type": "text"
+								},
+								{
+									"key": "item_category_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_product_category/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_product_category",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "supplier",
+			"item": [
+				{
+					"name": "add supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "full_name",
+									"value": "Sujon Mahmud",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "01513470155",
+									"type": "text"
+								},
+								{
+									"key": "official_address",
+									"value": "Dhanmondi 27, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/supplier_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"supplier_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Supplier Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_supplier/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_supplier",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "full_name",
+									"value": "Abul Babul  Nigga",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "01413470144",
+									"type": "text"
+								},
+								{
+									"key": "official_address",
+									"value": "Laalbagh, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_supplier/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_supplier",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/delete_supplier/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"delete_supplier",
+								"1"
 							]
 						}
 					},

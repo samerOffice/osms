@@ -12,6 +12,7 @@ use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\DepartmentController;
+use App\Http\Controllers\API\Admin\SupplierController;
 
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
@@ -66,6 +67,15 @@ Route::middleware('auth:sanctum')->post('/designation_store',[App\Http\Controlle
 Route::middleware('auth:sanctum')->get('/edit_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'edit_designation_via_api']);
 Route::middleware('auth:sanctum')->post('/update_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'update_designation']);
 Route::middleware('auth:sanctum')->post('/delete_designation/{designation_id}',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'delete_designation']);
+
+
+//supplier
+Route::middleware('auth:sanctum')->post('/supplier_store',[App\Http\Controllers\API\Admin\SupplierController::class,'supplier_store']);
+Route::middleware('auth:sanctum')->get('/edit_supplier/{suppiler_id}',[App\Http\Controllers\API\Admin\SupplierController::class,'edit_supplier_via_api']);
+Route::middleware('auth:sanctum')->post('/update_supplier/{suppiler_id}',[App\Http\Controllers\API\Admin\SupplierController::class,'update_supplier']);
+Route::middleware('auth:sanctum')->post('/delete_supplier/{suppiler_id}',[App\Http\Controllers\API\Admin\SupplierController::class,'delete_supplier']);
+
+
 
 //business type
 Route::middleware('auth:sanctum')->post('/business_type_store',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'business_type_store']);

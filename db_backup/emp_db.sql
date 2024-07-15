@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2024 at 02:36 PM
+-- Generation Time: Jul 15, 2024 at 03:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `father_name` varchar(100) DEFAULT NULL,
   `mother_name` varchar(100) DEFAULT NULL,
@@ -68,8 +68,8 @@ INSERT INTO `admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobile_num
 --
 
 CREATE TABLE `attendances` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
   `attendance_date` date DEFAULT NULL,
   `entry_time` time DEFAULT NULL,
   `exit_time` time DEFAULT NULL,
@@ -115,8 +115,8 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 --
 
 CREATE TABLE `attendance_users` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
   `role_id` int(11) NOT NULL,
   `password` varchar(500) DEFAULT NULL,
   `card_no` varchar(500) DEFAULT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE `attendance_users` (
 --
 
 CREATE TABLE `branches` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `company_id` int(100) DEFAULT NULL,
   `br_name` varchar(500) DEFAULT NULL,
   `br_address` text DEFAULT NULL,
@@ -164,7 +164,7 @@ INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, 
 --
 
 CREATE TABLE `business_types` (
-  `id` int(10) NOT NULL,
+  `id` int(100) NOT NULL,
   `business_type` varchar(50) DEFAULT NULL,
   `business_status` int(10) DEFAULT NULL COMMENT '1=active, 2=inactive',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
@@ -211,16 +211,16 @@ INSERT INTO `business_types` (`id`, `business_type`, `business_status`, `created
 --
 
 CREATE TABLE `companies` (
-  `id` int(11) NOT NULL,
-  `company_name` varchar(500) DEFAULT NULL,
-  `company_email` varchar(500) DEFAULT NULL,
-  `contact_no` varchar(500) DEFAULT NULL,
-  `license_no` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `company_name` varchar(100) DEFAULT NULL,
+  `company_email` varchar(100) DEFAULT NULL,
+  `contact_no` varchar(100) DEFAULT NULL,
+  `license_no` varchar(100) DEFAULT NULL,
   `company_address` text DEFAULT NULL,
-  `registration_no` varchar(500) DEFAULT NULL,
-  `division` varchar(500) DEFAULT NULL,
-  `district` varchar(500) DEFAULT NULL,
-  `country` varchar(500) DEFAULT NULL,
+  `registration_no` varchar(100) DEFAULT NULL,
+  `division` varchar(100) DEFAULT NULL,
+  `district` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -265,7 +265,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 3, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -274,7 +274,7 @@ INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`
 --
 
 CREATE TABLE `departments` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `company_id` int(100) DEFAULT NULL,
   `branch_id` int(255) DEFAULT NULL,
   `warehouse_id` int(255) DEFAULT NULL,
@@ -316,7 +316,7 @@ INSERT INTO `departments` (`id`, `company_id`, `branch_id`, `warehouse_id`, `out
 --
 
 CREATE TABLE `designations` (
-  `id` int(10) NOT NULL,
+  `id` int(100) NOT NULL,
   `level` int(100) DEFAULT NULL COMMENT '1 = managing level,\r\n2 = operational level,\r\n3 = support level',
   `designation_name` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
@@ -468,7 +468,7 @@ INSERT INTO `divisions` (`id`, `name`, `bn_name`, `url`) VALUES
 --
 
 CREATE TABLE `employees` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `designation_id` int(100) DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
@@ -512,12 +512,12 @@ INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `fat
 --
 
 CREATE TABLE `employee_performances` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `total_working_hours` varchar(500) DEFAULT NULL,
-  `total_overtime_hours` varchar(500) DEFAULT NULL,
-  `performance_bonus` varchar(500) DEFAULT NULL,
-  `total_attendance` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `emp_id` int(100) DEFAULT NULL,
+  `total_working_hours` varchar(100) DEFAULT NULL,
+  `total_overtime_hours` varchar(100) DEFAULT NULL,
+  `performance_bonus` varchar(100) DEFAULT NULL,
+  `total_attendance` varchar(100) DEFAULT NULL,
   `smartness_point` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -546,13 +546,13 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `leave_applications` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) DEFAULT NULL,
   `application_type` text DEFAULT NULL,
   `application_msg` text DEFAULT NULL,
   `application_date` date DEFAULT NULL,
   `application_status` int(11) DEFAULT NULL,
-  `application_approved_user_id` int(11) DEFAULT NULL,
+  `application_approved_user_id` int(100) DEFAULT NULL,
   `application_approved_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -599,7 +599,7 @@ CREATE TABLE `password_reset_tokens` (
 --
 
 CREATE TABLE `payrolls` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `employee` int(100) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
   `salary_date` date DEFAULT NULL,
@@ -657,19 +657,19 @@ INSERT INTO `payrolls` (`id`, `employee`, `company`, `salary_date`, `joining_dat
 --
 
 CREATE TABLE `payroll_reports` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `salary_rate` varchar(500) DEFAULT NULL,
-  `total_working_hours` varchar(500) DEFAULT NULL,
-  `total_overtime_hours` varchar(500) DEFAULT NULL,
-  `bonus` varchar(500) DEFAULT NULL,
-  `total_pay` varchar(500) DEFAULT NULL,
-  `deductions` varchar(500) DEFAULT NULL,
-  `salary_date` varchar(500) DEFAULT NULL,
-  `bank_name` varchar(500) DEFAULT NULL,
-  `branch_name` varchar(500) DEFAULT NULL,
-  `routing_number` varchar(500) DEFAULT NULL,
-  `bank_acc_no` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `emp_id` int(100) DEFAULT NULL,
+  `salary_rate` varchar(100) DEFAULT NULL,
+  `total_working_hours` varchar(100) DEFAULT NULL,
+  `total_overtime_hours` varchar(100) DEFAULT NULL,
+  `bonus` varchar(100) DEFAULT NULL,
+  `total_pay` varchar(100) DEFAULT NULL,
+  `deductions` varchar(100) DEFAULT NULL,
+  `salary_date` varchar(100) DEFAULT NULL,
+  `bank_name` varchar(100) DEFAULT NULL,
+  `branch_name` varchar(100) DEFAULT NULL,
+  `routing_number` varchar(100) DEFAULT NULL,
+  `bank_acc_no` varchar(100) DEFAULT NULL,
   `payment_status` int(11) DEFAULT NULL,
   `employment_status` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -701,8 +701,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(326, 'App\\Models\\User', 1, 'myToken', '7148ea5b4d2583a7c5aaa041b3a298082c253d7ce31bcb9e792566750a8e2d45', '[\"*\"]', NULL, NULL, '2024-07-14 04:53:54', '2024-07-14 04:53:54'),
-(327, 'App\\Models\\User', 1, 'myToken', '48a99cc4343ced80233ec7b8de3a1da4b2252e36c072f3d7ef82ff9b710f83dd', '[\"*\"]', '2024-07-14 10:59:58', NULL, '2024-07-14 08:05:30', '2024-07-14 10:59:58');
+(331, 'App\\Models\\User', 1, 'myToken', '69ee32fd94d256887b6079f86f8dfa928dae20c9224c724a135c9ea06d020fda', '[\"*\"]', NULL, NULL, '2024-07-15 07:16:25', '2024-07-15 07:16:25');
 
 -- --------------------------------------------------------
 
@@ -735,7 +734,7 @@ INSERT INTO `roles` (`id`, `role_name`, `role_status`, `created_at`, `updated_at
 --
 
 CREATE TABLE `super_admins` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `father_name` varchar(100) DEFAULT NULL,
   `mother_name` varchar(100) DEFAULT NULL,
@@ -772,30 +771,37 @@ INSERT INTO `super_admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobi
 --
 
 CREATE TABLE `suppliers` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `company_id` int(100) DEFAULT NULL,
   `full_name` varchar(100) DEFAULT NULL,
-  `father_name` varchar(500) DEFAULT NULL,
-  `mother_name` varchar(500) DEFAULT NULL,
-  `mobile_number` varchar(500) DEFAULT NULL,
-  `nid_number` varchar(500) DEFAULT NULL,
+  `father_name` varchar(100) DEFAULT NULL,
+  `mother_name` varchar(100) DEFAULT NULL,
+  `mobile_number` varchar(100) DEFAULT NULL,
+  `nid_number` varchar(100) DEFAULT NULL,
   `present_address` text DEFAULT NULL,
   `official_address` varchar(255) DEFAULT NULL,
   `permanent_address` text DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `blood_group` varchar(500) DEFAULT NULL,
-  `nationality` varchar(500) DEFAULT NULL,
-  `marital_status` varchar(500) DEFAULT NULL,
-  `religion` varchar(500) DEFAULT NULL,
+  `blood_group` varchar(100) DEFAULT NULL,
+  `nationality` varchar(100) DEFAULT NULL,
+  `marital_status` varchar(100) DEFAULT NULL,
+  `religion` varchar(100) DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
-  `profile_pic` varchar(500) DEFAULT NULL,
-  `emergency_contact_name` varchar(500) DEFAULT NULL,
-  `emergency_contact_number` varchar(500) DEFAULT NULL,
-  `emergency_contact_relation` varchar(500) DEFAULT NULL,
+  `profile_pic` varchar(100) DEFAULT NULL,
+  `emergency_contact_name` varchar(100) DEFAULT NULL,
+  `emergency_contact_number` varchar(100) DEFAULT NULL,
+  `emergency_contact_relation` varchar(100) DEFAULT NULL,
   `active_status` int(10) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`id`, `company_id`, `full_name`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `official_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `active_status`, `created_at`, `updated_at`) VALUES
+(2, 11, 'Sujon Mahmud Joy', NULL, NULL, '01513470155', NULL, NULL, 'Dhanmondi 27, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-15 06:41:10', '2024-07-15 06:41:10');
 
 -- --------------------------------------------------------
 
@@ -849,8 +855,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`
 --
 
 CREATE TABLE `user_logs` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
   `description` text NOT NULL,
   `ip_address` varchar(500) NOT NULL,
   `url` varchar(1000) NOT NULL,
@@ -865,25 +871,25 @@ CREATE TABLE `user_logs` (
 --
 
 CREATE TABLE `vendors` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `father_name` varchar(500) DEFAULT NULL,
-  `mother_name` varchar(500) DEFAULT NULL,
-  `mobile_number` varchar(500) DEFAULT NULL,
-  `nid_number` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) DEFAULT NULL,
+  `father_name` varchar(100) DEFAULT NULL,
+  `mother_name` varchar(100) DEFAULT NULL,
+  `mobile_number` varchar(100) DEFAULT NULL,
+  `nid_number` varchar(100) DEFAULT NULL,
   `present_address` text DEFAULT NULL,
   `official_address` varchar(255) DEFAULT NULL,
   `permanent_address` text DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `blood_group` varchar(500) DEFAULT NULL,
-  `nationality` varchar(500) DEFAULT NULL,
-  `marital_status` varchar(500) DEFAULT NULL,
-  `religion` varchar(500) DEFAULT NULL,
+  `blood_group` varchar(100) DEFAULT NULL,
+  `nationality` varchar(100) DEFAULT NULL,
+  `marital_status` varchar(100) DEFAULT NULL,
+  `religion` varchar(100) DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
-  `profile_pic` varchar(500) DEFAULT NULL,
-  `emergency_contact_name` varchar(500) DEFAULT NULL,
-  `emergency_contact_number` varchar(500) DEFAULT NULL,
-  `emergency_contact_relation` varchar(500) DEFAULT NULL,
+  `profile_pic` varchar(100) DEFAULT NULL,
+  `emergency_contact_name` varchar(100) DEFAULT NULL,
+  `emergency_contact_number` varchar(100) DEFAULT NULL,
+  `emergency_contact_relation` varchar(100) DEFAULT NULL,
   `flag` int(10) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -1062,37 +1068,37 @@ ALTER TABLE `vendors`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
 --
 ALTER TABLE `attendance_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `business_types`
 --
 ALTER TABLE `business_types`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `current_modules`
@@ -1104,13 +1110,13 @@ ALTER TABLE `current_modules`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `designations`
 --
 ALTER TABLE `designations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -1128,13 +1134,13 @@ ALTER TABLE `divisions`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employee_performances`
 --
 ALTER TABLE `employee_performances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1146,7 +1152,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -1158,19 +1164,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `payroll_reports`
 --
 ALTER TABLE `payroll_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=332;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1182,13 +1188,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `super_admins`
 --
 ALTER TABLE `super_admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1200,13 +1206,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_logs`
 --
 ALTER TABLE `user_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
