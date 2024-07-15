@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2024 at 02:49 PM
+-- Generation Time: Jul 15, 2024 at 03:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,16 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `customer_name` varchar(500) DEFAULT NULL,
-  `company_id` int(11) DEFAULT NULL,
-  `membership_id` int(11) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `customer_name` varchar(100) DEFAULT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `membership_id` int(100) DEFAULT NULL,
   `customer_phone_number` int(11) DEFAULT NULL,
-  `customer_email` varchar(500) DEFAULT NULL,
+  `customer_email` varchar(100) DEFAULT NULL,
   `customer_address` text DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `registration_date` date DEFAULT NULL,
-  `points` varchar(500) DEFAULT NULL,
+  `points` varchar(100) DEFAULT NULL,
   `active_status` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -50,24 +50,24 @@ CREATE TABLE `customers` (
 --
 
 CREATE TABLE `invoices` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `invoice_date` date DEFAULT NULL,
   `product_id` int(100) DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `payment_method_id` int(11) DEFAULT NULL,
-  `transaction_id` int(11) DEFAULT NULL,
-  `sub_total` varchar(500) DEFAULT NULL,
-  `tax_id` int(11) DEFAULT NULL,
-  `tax_amount` varchar(500) DEFAULT NULL,
-  `discount_amount` varchar(500) DEFAULT NULL,
-  `total_amount` varchar(500) DEFAULT NULL,
+  `customer_id` int(100) DEFAULT NULL,
+  `emp_id` int(100) DEFAULT NULL,
+  `payment_method_id` int(100) DEFAULT NULL,
+  `transaction_id` int(100) DEFAULT NULL,
+  `sub_total` varchar(100) DEFAULT NULL,
+  `tax_id` int(100) DEFAULT NULL,
+  `tax_amount` varchar(100) DEFAULT NULL,
+  `discount_amount` varchar(100) DEFAULT NULL,
+  `total_amount` varchar(100) DEFAULT NULL,
   `terms_and_conditions` text DEFAULT NULL,
   `payment_status` int(11) DEFAULT NULL COMMENT '1=pending, 2=completed, 3=cancelled',
-  `policy_id` int(11) DEFAULT NULL,
-  `company_id` int(11) DEFAULT NULL,
-  `branch_id` int(11) DEFAULT NULL,
-  `outlet_id` int(11) DEFAULT NULL,
+  `policy_id` int(100) DEFAULT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `branch_id` int(100) DEFAULT NULL,
+  `outlet_id` int(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -85,7 +85,10 @@ INSERT INTO `invoices` (`id`, `invoice_date`, `product_id`, `customer_id`, `emp_
 (6, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:20:09', '2024-06-01 06:20:09'),
 (7, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:24:58', '2024-06-01 06:24:58'),
 (8, '2024-06-06', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-06 05:31:33', '2024-06-06 05:31:33'),
-(9, '2024-06-24', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-24 12:09:41', '2024-06-24 12:09:41');
+(9, '2024-06-24', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-24 12:09:41', '2024-06-24 12:09:41'),
+(10, '2024-06-27', 3, NULL, 1, 1, NULL, '1200', NULL, NULL, '10', '1190.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 12:52:57', '2024-06-27 12:52:57'),
+(11, '2024-06-27', 3, NULL, 1, 1, NULL, '1200', NULL, NULL, '10', '1190.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:03:13', '2024-06-27 13:03:13'),
+(12, '2024-06-27', 4, NULL, 1, 1, NULL, '25000', NULL, NULL, '100', '24900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:21:53', '2024-06-27 13:21:53');
 
 -- --------------------------------------------------------
 
@@ -94,12 +97,12 @@ INSERT INTO `invoices` (`id`, `invoice_date`, `product_id`, `customer_id`, `emp_
 --
 
 CREATE TABLE `invoice_items` (
-  `id` int(11) NOT NULL,
-  `invoice_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `unit_price` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `invoice_id` int(100) DEFAULT NULL,
+  `product_id` int(100) DEFAULT NULL,
+  `unit_price` varchar(100) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `remaining_product_in_batch` int(11) DEFAULT NULL COMMENT 'If product is batch',
+  `remaining_product_in_batch` int(100) DEFAULT NULL COMMENT 'If product is batch',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -111,7 +114,7 @@ CREATE TABLE `invoice_items` (
 --
 
 CREATE TABLE `offers` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `condition` text DEFAULT NULL,
   `offer_start_date` date DEFAULT NULL,
   `offer_end_date` date DEFAULT NULL,
@@ -126,9 +129,9 @@ CREATE TABLE `offers` (
 --
 
 CREATE TABLE `offer_inventory_items` (
-  `id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `offer_id` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `product_id` int(100) DEFAULT NULL,
+  `offer_id` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -140,10 +143,10 @@ CREATE TABLE `offer_inventory_items` (
 --
 
 CREATE TABLE `outlets` (
-  `id` int(11) NOT NULL,
-  `company_id` int(11) DEFAULT NULL,
-  `branch_id` int(11) DEFAULT NULL,
-  `outlet_name` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `branch_id` int(100) DEFAULT NULL,
+  `outlet_name` varchar(100) DEFAULT NULL,
   `outlet_address` text DEFAULT NULL,
   `outlet_status` int(11) DEFAULT NULL COMMENT '1=open, 2=closed',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -155,7 +158,7 @@ CREATE TABLE `outlets` (
 --
 
 INSERT INTO `outlets` (`id`, `company_id`, `branch_id`, `outlet_name`, `outlet_address`, `outlet_status`, `created_at`, `updated_at`) VALUES
-(1, 11, 3, 'qqqqqqqkjkj', 'Laalm', 1, '2024-06-10 07:56:01', '2024-06-10 07:56:01'),
+(1, 11, 3, 'qqqqqqqooooo', 'Laalm', 1, '2024-06-10 07:56:01', '2024-06-10 07:56:01'),
 (2, 11, 1, 'Mirpur Outlet', 'Mirpur DOHS', 1, '2024-06-10 07:56:49', '2024-06-10 07:56:49');
 
 -- --------------------------------------------------------
@@ -165,8 +168,8 @@ INSERT INTO `outlets` (`id`, `company_id`, `branch_id`, `outlet_name`, `outlet_a
 --
 
 CREATE TABLE `payment_methods` (
-  `id` int(11) NOT NULL,
-  `payment_method_name` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `payment_method_name` varchar(100) DEFAULT NULL,
   `active_status` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -179,8 +182,8 @@ CREATE TABLE `payment_methods` (
 --
 
 CREATE TABLE `policies` (
-  `id` int(11) NOT NULL,
-  `policy_name` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `policy_name` varchar(100) DEFAULT NULL,
   `active_status` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -193,10 +196,10 @@ CREATE TABLE `policies` (
 --
 
 CREATE TABLE `pos_log` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `invoice_id` int(11) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `emp_id` int(100) DEFAULT NULL,
+  `customer_id` int(100) DEFAULT NULL,
+  `invoice_id` int(100) DEFAULT NULL,
   `transaction_date` date DEFAULT NULL,
   `description` text DEFAULT NULL,
   `ip_address` varchar(500) DEFAULT NULL,
@@ -212,11 +215,11 @@ CREATE TABLE `pos_log` (
 --
 
 CREATE TABLE `tax_calculations` (
-  `id` int(11) NOT NULL,
-  `tax_name` varchar(500) DEFAULT NULL,
-  `tax_rate` int(11) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `tax_name` varchar(100) DEFAULT NULL,
+  `tax_rate` int(100) DEFAULT NULL,
   `tax_type` int(11) DEFAULT NULL,
-  `tax_code` varchar(500) DEFAULT NULL,
+  `tax_code` varchar(100) DEFAULT NULL,
   `effective_date` date DEFAULT NULL,
   `expire_date` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -295,61 +298,61 @@ ALTER TABLE `tax_calculations`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `offer_inventory_items`
 --
 ALTER TABLE `offer_inventory_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `outlets`
 --
 ALTER TABLE `outlets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `policies`
 --
 ALTER TABLE `policies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pos_log`
 --
 ALTER TABLE `pos_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tax_calculations`
 --
 ALTER TABLE `tax_calculations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

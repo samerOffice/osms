@@ -28,7 +28,7 @@ Supplier
                             <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <label>Supplier Name <small style="color: red">*</small></label>
-                                    <input type="text" required placeholder="Full Name" id="name" name="name" class="form-control form-control-lg" />
+                                    <input type="text" required placeholder="Full Name" id="full_name" name="full_name" class="form-control form-control-lg" />
                                 </div> 
                             </div>
 
@@ -96,29 +96,29 @@ document.getElementById('addSupplierForm').addEventListener('submit',function(ev
 
 var supplierFormData = new FormData(this);
 
-    var br_name = document.getElementById('br_name').value;
-    if(br_name == ''){
+    var supplier_name = document.getElementById('full_name').value;
+    if(supplier_name == ''){
     Swal.fire({
             icon: "warning",
-            title: "Please Enter Branch Name",
+            title: "Please Enter Full Name",
             });
         return false;
     }
 
-    var br_address = document.getElementById('br_address').value;
-    if(br_address == ''){
+    var official_address = document.getElementById('official_address').value;
+    if(official_address == ''){
     Swal.fire({
             icon: "warning",
-            title: "Please Enter Branch Address",
+            title: "Please Enter Official Address",
             });
         return false;
     }
 
-    var br_type = document.getElementById('br_type').value;
-    if(br_type == ''){
+    var mobile_number = document.getElementById('mobile_number').value;
+    if(mobile_number == ''){
     Swal.fire({
             icon: "warning",
-            title: "Please Enter Branch Type",
+            title: "Please Enter Mobile Number",
             });
         return false;
     }
@@ -135,7 +135,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/branch_store',supplierFormData).then(response=>{
+ axios.post('/osms/api/supplier_store',supplierFormData).then(response=>{
   console.log(response);
   window.location.reload();
   Swal.fire({
@@ -151,8 +151,6 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  });
 
 });
-
-
 
 
 </script>

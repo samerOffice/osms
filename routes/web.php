@@ -60,7 +60,7 @@ Route::get('/edit_designation/{designation_id}', [DesignationController::class, 
 //suppliers
 Route::get('/supplier_list', [SupplierController::class, 'supplier_list'])->name('supplier_list');
 Route::get('/add_supplier', [SupplierController::class, 'add_supplier'])->name('add_supplier');
-// Route::get('/edit_supplier/{supplier_id}', [SupplierController::class, 'edit_supplier'])->name('edit_supplier');
+Route::get('/edit_supplier/{supplier_id}', [SupplierController::class, 'edit_supplier'])->name('edit_supplier');
 
 
 //business types
