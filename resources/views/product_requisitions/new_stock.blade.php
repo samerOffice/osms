@@ -160,17 +160,17 @@ New Product Request Form
                                 
                                             <div class="form-group col-1">
                                             <label for="product_quantity" class="col-form-label text-start">Quantity</label>
-                                            <input type="number" class="form-control" name="product_quantity[]">
+                                            <input type="number" class="form-control product_quantity" name="product_quantity[]">
                                             </div>
                                                
                                             <div class="form-group col-1">
                                             <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
-                                            <input type="number" onkeyup="calculateProductUnitPrice()" class="form-control" name="product_unit_price[]">
+                                            <input type="number" class="form-control product_unit_price" name="product_unit_price[]">
                                             </div>
                                 
                                             <div class="form-group col-2">
                                             <label for="product_subtotal" class="col-form-label text-start">Sub Total (BDT)</label>
-                                            <input type="text" readonly class="form-control" name="product_subtotal[]">
+                                            <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                                             </div>
                                             
                                             <div class="form-group col-1">
@@ -445,7 +445,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                                 
                             <div class="form-group col-1">
                             <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
-                            <input type="number" onkeyup="calculateProductUnitPrice()" class="form-control product_unit_price" name="product_unit_price[]">
+                            <input type="number"  class="form-control product_unit_price" name="product_unit_price[]">
                             </div>
                 
                             <div class="form-group col-2">
@@ -464,31 +464,31 @@ document.getElementById('addButton').addEventListener('click', function() {
         newRow.querySelector('.remove-button').addEventListener('click', function() {
             newRow.remove();
         });
+
+        newRow.querySelectorAll('.product_quantity, .product_unit_price').forEach(function(input) {
+            input.addEventListener('input', function() {
+                calculateProductUnitPrice(newRow);
+            });
+        });
+
     });
 
 
+    function calculateProductUnitPrice(row) {
+        var productQuantity = $(row).find(".product_quantity").val();
+        var productUnitPrice = $(row).find(".product_unit_price").val();
+       
+        var subtotal = (parseFloat(productQuantity) * parseFloat(productUnitPrice));
+        $(row).find(".product_subtotal").val(subtotal ? subtotal.toFixed(2) : '--');
+    }
 
-
-
-    function calculateProductUnitPrice() {
-            
-
-            $('.product_quantity').each(function() {
-                // if ($(this).val().length > 0) {
-                //     paid += parseFloat($(this).val() ? $(this).val() : 0);
-                // }
-
-                alert('hi');
-            return false;
-            });
-
-            // var productUnitPrice = $(".product_unit_price").val();
-           
-            
-            // var subtotal = (parseFloat(productQuantity) * parseFloat(productUnitPrice));
-            // $(".product_subtotal").text(subtotal ? bd_money_format(subtotal.toFixed(0)) : '--')
-        }
-
+    // Initialize event listeners for the initial row
+    document.querySelectorAll('.product_quantity, .product_unit_price').forEach(function(input) {
+        input.addEventListener('input', function() {
+            var row = input.closest('.form-row');
+            calculateProductUnitPrice(row);
+        });
+    });
 
 
 //testing end
