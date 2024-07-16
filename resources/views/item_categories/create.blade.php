@@ -76,11 +76,11 @@ input:checked + .slider:before {
       <div class="container-fluid">
         <br>
         <div class="row">
-            {{-- <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
-                    <i class="fas fa-arrow-left"></i> Back
-                </a>
-            </div> --}}
+          <div class="col-12">
+            <a class="btn btn-outline-info float-right" href="{{route('item_category_list')}}">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
 
                
             <div class="col-12">

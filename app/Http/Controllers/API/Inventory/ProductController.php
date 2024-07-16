@@ -277,7 +277,8 @@ class ProductController extends Controller
     }
 
 
-    //product
+
+    //------------------------------product-------------------------
 
     public function itemCategoryAndProductCategoryDependancy(Request $request){
 
@@ -317,7 +318,6 @@ class ProductController extends Controller
 
     }
 
-    ///// note :: must be update after 22/05/2024 
     public function submit_product(Request $request){
         $user_company_id = Auth::user()->company_id;
        

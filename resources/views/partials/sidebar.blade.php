@@ -370,28 +370,23 @@
             </li>
 
 
-            <li class="nav-item @if(Request::is('add_product_category')) menu-open 
-            @elseif(Request::is('product_category_list')) menu-open 
+            <li class="nav-item @if(Request::is('requisition_list')) menu-open 
+            
             @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-box"></i>
               <p>
-                Product Requisition
+                Product Request
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{route('add_product_category')}}" class="nav-link {{ Request::is('add_product_category') ? 'nav-link active' : ''}}" style="{{ Request::is('add_product_category') ? 'background-color: #1cdf1c; !important' : ''}}">
-                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}"></i>
-                    <p style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}">Add New Requisition</p>
-                  </a>
-                </li>
                 
+              
                 <li class="nav-item">
-                  <a href="{{route('product_category_list')}}" class="nav-link {{ Request::is('product_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
-                    <i class="far fa-circle nav-icon" style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}"></i>
-                    <p style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}">Requisition List</p>
+                  <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Requested Products</p>
                   </a>
                 </li>       
               </ul>

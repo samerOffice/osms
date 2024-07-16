@@ -19,6 +19,7 @@ use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
+use App\Http\Controllers\API\Inventory\ProductRequisitionController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
 
@@ -118,7 +119,8 @@ Route::get('/edit_product_category/{product_category_id}', [ProductController::c
 Route::get('/add_product', [ProductController::class, 'add_product'])->name('add_product');
 
 // ProductRequisition
-
+Route::get('/requisition_list', [ProductRequisitionController::class, 'requisition_list'])->name('requisition_list');
+Route::get('/new_stock', [ProductRequisitionController::class, 'new_stock'])->name('new_stock');
 
 
 //...............********* pos module ********................
