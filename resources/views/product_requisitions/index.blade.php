@@ -102,9 +102,13 @@ Item Category List
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                              <th>Serial No.</th>
-                              <th>Product Category Name</th>
-                              <th>Item Category Name</th>
+                              <th>Sl.</th>
+                              <th>Order ID</th>
+                              <th>Order Type</th>
+                              <th>Order Date</th>
+                              <th>Deliver Date</th>
+                              <th>Supplier</th>
+                              <th>Ordered By</th>
                               <th>Status</th>
                               @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                               <th>Action</th>
@@ -113,22 +117,34 @@ Item Category List
                             </thead>
                             <tbody>
                                 @php $i = 1 @endphp
-                                @foreach($product_categories as $product_category)
+                                @foreach($requisition_orders as $requisition_order)
                             <tr>
                               <td>{{$i++}}</td>
-                              <td>{{$product_category->name}}</td>
-                              <td>{{$product_category->item_category_name}}</td>
-                              <td> 
-                                @if(($product_category->active_status) == 1)
-                                <span class="badge badge-success">Active</span>
-                               @else
-                               <span class="badge badge-danger">Inactive</span>
-                               @endif
-                             </td>
+                              <td>{{$requisition_order->requisition_order_id}}</td>
+                              <td>
+                                @if($requisition_order->requisition_type == 1)
+                                New Stock
+                                @else
+                                Refill Stock
+                                @endif
+                              </td>                
+                              <td>{{$requisition_order->requisition_order_date}}</td>                
+                              <td>{{$requisition_order->requisition_deliver_date}}</td>                
+                              <td>{{$requisition_order->supplier_name}}</td>                
+                              <td>{{$requisition_order->order_by}}</td>             
+                              <td>
+                                @if($requisition_order->requisition_status == 1)
+                                Pending
+                                @elseif($requisition_order->requisition_status == 2)
+                                Declined
+                                @else
+                                Delivered
+                                @endif
+                              </td>             
                               @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                               <td>
-                                <a href="{{route('edit_product_category',$product_category->id)}}" style="color: white"><button class="btn btn-success">Receive</button></a>
-                                <a href="{{route('edit_product_category',$product_category->id)}}" style="color: white"><button class="btn btn-danger">Decline</button></a>
+                                <a href="{{route('requisition_edit_data',$requisition_order->id)}}" style="color: white"><button class="btn btn-success">Edit</button></a>
+                                <a href="" style="color: white"><button class="btn btn-warning">Approval</button></a>
                               </td>
                               @endif
                             </tr> 

@@ -121,10 +121,9 @@ Route::get('/add_product', [ProductController::class, 'add_product'])->name('add
 // ProductRequisition
 Route::get('/requisition_list', [ProductRequisitionController::class, 'requisition_list'])->name('requisition_list');
 Route::get('/new_stock', [ProductRequisitionController::class, 'new_stock'])->name('new_stock');
-
+Route::get('/requisition_edit_data/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_edit_data'])->name('requisition_edit_data');
 
 //...............********* pos module ********................
-
 //invoice
 Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
 Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');

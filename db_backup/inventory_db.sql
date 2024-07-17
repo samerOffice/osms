@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2024 at 03:21 PM
+-- Generation Time: Jul 17, 2024 at 02:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,7 +64,8 @@ INSERT INTO `item_categories` (`id`, `company_id`, `name`, `active_status`, `cre
 (5, 11, 'Electronics', 1, '2024-06-27 13:18:42', '2024-06-27 13:18:42'),
 (6, 11, 'Mirpur DOHS', 2, '2024-07-14 08:08:51', '2024-07-14 08:08:51'),
 (7, 11, 'lllll', 2, '2024-07-14 08:10:30', '2024-07-14 08:10:30'),
-(8, 11, 'Mirpur DOHS', 2, '2024-07-14 08:11:26', '2024-07-14 08:11:26');
+(8, 11, 'Mirpur DOHS', 2, '2024-07-14 08:11:26', '2024-07-14 08:11:26'),
+(9, 11, 'Liquid', 1, '2024-07-16 07:02:19', '2024-07-16 07:02:19');
 
 -- --------------------------------------------------------
 
@@ -166,25 +167,27 @@ INSERT INTO `product_categories` (`id`, `company_id`, `name`, `item_category_id`
 --
 
 CREATE TABLE `product_requisitions` (
-  `id` int(100) NOT NULL,
-  `item_category_id` int(11) DEFAULT NULL,
-  `product_category_id` int(11) DEFAULT NULL,
-  `requisition_type` int(11) DEFAULT NULL COMMENT '1=batch, 2=single item',
-  `requisition_product_name` varchar(100) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `requisition_sending_date` date DEFAULT NULL,
-  `product_delivering_date` date DEFAULT NULL,
-  `shop_company_id` int(100) DEFAULT NULL,
-  `shop_branch_id` int(100) DEFAULT NULL,
-  `shop_dept_id` int(100) DEFAULT NULL,
-  `supplier_id` int(100) DEFAULT NULL,
-  `vendor_company_id` int(100) DEFAULT NULL,
-  `vendor_branch_id` int(100) DEFAULT NULL,
-  `requisition_status` int(11) DEFAULT NULL,
-  `requisition_decline_reason` text DEFAULT NULL,
+  `id` int(255) NOT NULL,
+  `requisition_order_id` varchar(100) DEFAULT NULL,
+  `product_track_id` varchar(100) DEFAULT NULL,
+  `product_name` varchar(100) DEFAULT NULL,
+  `product_weight` varchar(100) DEFAULT NULL,
+  `product_unit_type` varchar(100) DEFAULT NULL,
+  `product_details` text DEFAULT NULL,
+  `product_quantity` int(100) DEFAULT NULL,
+  `product_unit_price` varchar(100) DEFAULT NULL,
+  `product_subtotal` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_requisitions`
+--
+
+INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track_id`, `product_name`, `product_weight`, `product_unit_type`, `product_details`, `product_quantity`, `product_unit_price`, `product_subtotal`, `created_at`, `updated_at`) VALUES
+(1, 'ORD-20240717-164412', 'Pro-20240717-164452-279', 'Mum Mineral Water', '5', 'Liter', 'Mum water bottle', 15, '65', '975.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
+(2, 'ORD-20240717-164412', 'Pro-20240717-164531-135', 'Peanut Butter', '1', 'Kg', 'Pran-RFL peanut butter', 5, '120', '600.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47');
 
 -- --------------------------------------------------------
 
@@ -220,6 +223,38 @@ CREATE TABLE `product_status` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requisition_orders`
+--
+
+CREATE TABLE `requisition_orders` (
+  `id` int(100) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `requisition_type` int(11) DEFAULT NULL COMMENT '1=new stock, 2=refill stock',
+  `requisition_order_id` varchar(100) DEFAULT NULL,
+  `requisition_order_date` date DEFAULT NULL,
+  `requisition_deliver_date` date DEFAULT NULL,
+  `shop_company_id` int(100) DEFAULT NULL,
+  `warehouse_id` int(100) DEFAULT NULL,
+  `requisition_order_by` int(100) DEFAULT NULL,
+  `requisition_approved_by` int(100) DEFAULT NULL,
+  `supplier_id` int(100) DEFAULT NULL,
+  `requisition_status` int(11) DEFAULT NULL COMMENT '1 = pending, 2= declined, 3 = delivered',
+  `total_amount` varchar(100) DEFAULT NULL,
+  `requisition_decline_reason` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `requisition_orders`
+--
+
+INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_approved_by`, `supplier_id`, `requisition_status`, `total_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'ORD-20240717-164412', '2024-07-17', NULL, 11, 1, 1, NULL, 4, 1, '1575.00', NULL, '2024-07-17 10:45:47', '2024-07-17 10:45:47');
 
 -- --------------------------------------------------------
 
@@ -299,6 +334,12 @@ ALTER TABLE `product_status`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `requisition_orders`
+--
+ALTER TABLE `requisition_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `warehouses`
 --
 ALTER TABLE `warehouses`
@@ -318,7 +359,7 @@ ALTER TABLE `inventory_log`
 -- AUTO_INCREMENT for table `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -342,7 +383,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_requisitions`
 --
 ALTER TABLE `product_requisitions`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_sales`
@@ -355,6 +396,12 @@ ALTER TABLE `product_sales`
 --
 ALTER TABLE `product_status`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `requisition_orders`
+--
+ALTER TABLE `requisition_orders`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `warehouses`
