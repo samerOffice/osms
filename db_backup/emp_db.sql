@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2024 at 03:20 PM
+-- Generation Time: Jul 17, 2024 at 02:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -701,7 +701,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(331, 'App\\Models\\User', 1, 'myToken', '69ee32fd94d256887b6079f86f8dfa928dae20c9224c724a135c9ea06d020fda', '[\"*\"]', NULL, NULL, '2024-07-15 07:16:25', '2024-07-15 07:16:25');
+(335, 'App\\Models\\User', 1, 'myToken', '3d06d11961ac111aa09ba6682f96c2c2eb7487297b85c39a2c7822e4986b74f2', '[\"*\"]', NULL, NULL, '2024-07-17 03:48:17', '2024-07-17 03:48:17');
 
 -- --------------------------------------------------------
 
@@ -801,7 +801,9 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `company_id`, `full_name`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `official_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `active_status`, `created_at`, `updated_at`) VALUES
-(2, 11, 'Sujon Mahmud Joy', NULL, NULL, '01513470155', NULL, NULL, 'Dhanmondi 27, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-15 06:41:10', '2024-07-15 06:41:10');
+(2, 11, 'Sujon Mahmud Joy', NULL, NULL, '01513470157', NULL, NULL, 'Dhanmondi 27, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-15 06:41:10', '2024-07-15 06:41:10'),
+(3, 11, 'Hamim Rahman', NULL, NULL, '01513470121', NULL, NULL, '<p>Mirpur 1, Dhaka<br></p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-16 10:36:15', '2024-07-16 10:36:15'),
+(4, 11, 'Sumon Rana', NULL, NULL, '01513470157', NULL, NULL, 'Hazaribagh, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-17 09:36:43', '2024-07-17 09:36:43');
 
 -- --------------------------------------------------------
 
@@ -1176,7 +1178,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=332;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=336;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1194,7 +1196,7 @@ ALTER TABLE `super_admins`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`

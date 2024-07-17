@@ -19,6 +19,8 @@ use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
+use App\Http\Controllers\API\Inventory\ProductRequisitionController;
+
 use App\Http\Controllers\API\POS\InvoiceController;
 
 
@@ -119,6 +121,10 @@ Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollCo
 
 
 //...............********* inventory management module ********................
+
+//requisition
+Route::middleware('auth:sanctum')->post('/requisition_store', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_store']);
+Route::get('/requisition_edit/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_edit'])->name('requisition_edit');
 //item category
 Route::middleware('auth:sanctum')->post('/submit_item_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_item_category']);
 Route::middleware('auth:sanctum')->get('/edit_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_item_category_via_api']);
