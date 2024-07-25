@@ -99,7 +99,7 @@ class ProductRequisitionController extends Controller
                                 'supplier_id' => $supplier_id,
                                 'requisition_status' => 1,
                                 'total_amount' => $request->total_amount
-                            ]);
+                                ]);
 
         $requisition =  DB::connection('inventory')
                         ->table('requisition_orders')
@@ -196,9 +196,9 @@ class ProductRequisitionController extends Controller
                             ->get();
 
 
-            // dd($requisition_order);
+            //  dd($requisition_order);
 
-            return response()->json($requisition_order, 200);
+             return response()->json($requisition_order, 200);
 
         // $response = [
         //     'requisition_order_details' => $item_category

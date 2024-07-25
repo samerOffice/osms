@@ -124,7 +124,10 @@ Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollCo
 
 //requisition
 Route::middleware('auth:sanctum')->post('/requisition_store', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_store']);
-Route::get('/requisition_edit/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_edit'])->name('requisition_edit');
+Route::middleware('auth:sanctum')->get('/requisition_edit/{requisition_order_id}', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_edit']);
+
+
+Route::middleware('auth:sanctum')->post('/requisition_update/{requisition_order_id}',[App\Http\Controllers\API\Inventory\ProductRequisitionController::class,'requisition_update']);
 //item category
 Route::middleware('auth:sanctum')->post('/submit_item_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_item_category']);
 Route::middleware('auth:sanctum')->get('/edit_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_item_category_via_api']);
