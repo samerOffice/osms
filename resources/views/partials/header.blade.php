@@ -54,8 +54,8 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
-  axios.get('sanctum/csrf-cookie').then(response=>{
-  axios.post('/osms/api/logout').then(response=>{
+
+  axios.post('api/logout').then(response=>{
       if((response.data.flag) == 1){
         window.location.href = myLoginUrl;
         console.log(response);
@@ -63,7 +63,6 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
         console.log(response);
       }
   });
- });
 });
 
 </script>

@@ -81,8 +81,8 @@ function getCsrfToken() {
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
- axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/login',loginFormData).then(response=>{
+
+ axios.post('api/login',loginFormData).then(response=>{
 
       if((response.data.flag) == 1){
         window.location.href = myDashboardUrl;
@@ -93,7 +93,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
        
       }
   });
- });
+
 
 });
 
