@@ -66,42 +66,6 @@
 
         
 
-          {{-- <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Settings
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Designations</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Roles</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Business Types</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Users</p>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
-
 
           @if((auth()->user()->role_id == 1))
           <li class="nav-item @if(Request::is('designation_list')) menu-open 
@@ -264,6 +228,71 @@
         </ul>
       </li>
       @endif
+
+    
+      <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
+      @elseif(Request::is('employee_list')) menu-open 
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-person-walking-arrow-right"></i>
+        <p>
+          Leave Management
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Leave Application</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Leave Application List</p>
+            </a>
+          </li> 
+          
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Report</p>
+            </a>
+          </li> 
+
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Settings</p>
+            </a>
+          </li> 
+        </ul>
+      </li>
+
+
+    @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))  
+      <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
+      @elseif(Request::is('employee_list')) menu-open 
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-chart-simple"></i>
+        <p>
+          Employee Performance
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Performance Summary Report</p>
+            </a>
+          </li>
+          
+      @endif
+     
 
       {{-- @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item ">

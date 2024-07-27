@@ -208,6 +208,11 @@ class ProductRequisitionController extends Controller
     }
 
 
+    public function requisition_update($id){
+        
+    }
+
+
 
 
 }
