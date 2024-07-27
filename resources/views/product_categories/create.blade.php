@@ -76,11 +76,11 @@ input:checked + .slider:before {
       <div class="container-fluid">
         <br>
         <div class="row">
-            {{-- <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
-                    <i class="fas fa-arrow-left"></i> Back
-                </a>
-            </div> --}}
+          <div class="col-12">
+            <a class="btn btn-outline-info float-right" href="{{route('product_category_list')}}">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
 
                
             <div class="col-12">
@@ -99,8 +99,7 @@ input:checked + .slider:before {
                                   <option value="">Select Item Category</option>
                                   @foreach ($item_categories as $item)
                                   <option value="{{$item->id}}">{{$item->name}}</option>
-                                  @endforeach
-                                                             
+                                  @endforeach                                                            
                               </select>
                               </div> 
                               <div class="form-group">
@@ -162,6 +161,15 @@ document.getElementById('productCategoryForm').addEventListener('submit',functio
 
 var productCategoryFormData = new FormData(this);
 // const submitBtn = document.getElementById('submitBtn');
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
 
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/submit_product_category',productCategoryFormData).then(response=>{

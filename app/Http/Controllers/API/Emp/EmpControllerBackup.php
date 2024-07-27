@@ -1,14 +1,118 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Emp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 use DB;
 use Auth;
 
 class EmpController extends Controller
 {
+    
+    public function add_new_employee(){
+            
+        $user_company_id = Auth::user()->company_id;
+        
+        $current_modules = array();
+        $current_modules['module_status'] = '2';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+        
+        // $divisions = DB::table('divisions')->get();
+        $branches = DB::table('branches')
+                    ->where('company_id',$user_company_id)
+                    ->get();
+        $designations = DB::table('designations')->get();
+        // $business_types = DB::table('business_types')->get();
+
+        
+        return view('employees.add_new_employee_form',compact('current_module','branches','designations'));
+    }
+
+
+
+
+    public function store_employee(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8']
+
+        ]);
+
+        if($validator->fails()){
+            $response = [
+                'success' => false,
+                'message' => $validator->errors()
+            ];
+            return response()->json($response,400);
+        }
+
+        $company_id = Auth::user()->company_id;
+        $company_business_type = Auth::user()->company_business_type;
+        $branch_id = $request->branch_id;
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role_id = '3';
+        $user->company_id = $company_id;
+        $user->branch_id = $branch_id;
+        // $user->department_id = $department;
+        $user->designation = $request->designation_name;
+        $user->joining_date = $request->joining_date;
+        $user->active_status = '1';
+        $user->company_business_type = $company_business_type;
+        $user->save();
+
+        $success['name'] = $user->name;
+        $role = $user->role_id;
+
+
+
+        $user = DB::table('employees')
+        ->insertGetId([
+        'user_id'=>$user->id
+        ]); 
+
+
+        // $success['token'] = $user->createToken('myToken')->plainTextToken;
+       
+        $response = [
+            'success' => true,
+            'data' => $success,
+            'flag' => 1,
+            'message' => 'User is created successfully'
+        ];
+
+        $current_modules = array();
+            $current_modules['module_status'] = '2';
+            $update_module = DB::table('current_modules')
+                //   ->where('id', $request->id)
+                  ->update($current_modules);
+
+        return response()->json($response,200); 
+
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function add_additional_member_info(){
 
         $current_modules = array();

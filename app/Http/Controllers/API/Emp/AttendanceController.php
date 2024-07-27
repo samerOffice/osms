@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Emp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -53,6 +53,8 @@ class AttendanceController extends Controller
 
     }
 
+    
+    //web
     public function attendance_list(){
         $current_modules = array();
         $current_modules['module_status'] = '2';
@@ -61,12 +63,41 @@ class AttendanceController extends Controller
                     ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
+        $user_company_id = Auth::user()->company_id;
+        $user_id = Auth::user()->id;
+        $user_role_id = Auth::user()->role_id;
+
+        // if($user_role_id == 1){
+         
+        // $attendances = DB::table('attendances')
+        //                ->leftJoin('users','attendances.user_id','=','users.id')
+        //                ->select('attendances.*','users.name as member_name')
+        //                ->get();
+
+        // return view('attendances.index',compact('current_module','attendances'));
+
+        // }
+        if($user_role_id == 2){
+
         $attendances = DB::table('attendances')
                        ->leftJoin('users','attendances.user_id','=','users.id')
                        ->select('attendances.*','users.name as member_name')
+                       ->where('users.company_id',$user_company_id)
                        ->get();
 
         return view('attendances.index',compact('current_module','attendances'));
+
+        }else{
+            $attendances = DB::table('attendances')
+            ->leftJoin('users','attendances.user_id','=','users.id')
+            ->select('attendances.*','users.name as member_name')
+            ->where('users.id',$user_id)
+            ->get();
+
+        return view('attendances.index',compact('current_module','attendances'));
+        }
+
+        
     }
 
     // attendance list (api purpose)

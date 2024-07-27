@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 02:59 PM
+-- Generation Time: Jul 17, 2024 at 02:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `father_name` varchar(100) DEFAULT NULL,
   `mother_name` varchar(100) DEFAULT NULL,
@@ -56,7 +56,10 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `flag`, `created_at`, `updated_at`) VALUES
-(1, 1, 'abu basar', 'halima', '2852574', '2258727452', 'laalbagh', 'laalbagh', '1995-09-10', 'o+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Abul', '01513470120', 'Father', 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49');
+(1, 1, 'abu basar badal', 'halima', '2852574', '2258727452', 'laalbagh', 'laalbagh', '1995-09-10', 'o+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Abul', '01513470120', 'Father', 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
+(2, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
+(3, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
+(4, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53');
 
 -- --------------------------------------------------------
 
@@ -65,8 +68,8 @@ INSERT INTO `admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobile_num
 --
 
 CREATE TABLE `attendances` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
   `attendance_date` date DEFAULT NULL,
   `entry_time` time DEFAULT NULL,
   `exit_time` time DEFAULT NULL,
@@ -85,7 +88,25 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (4, 1, '2024-05-21', '13:18:39', NULL, '2024-05-21 07:18:39', '2024-05-21 07:18:39'),
 (5, 1, '2024-05-21', '13:22:26', NULL, '2024-05-21 07:22:26', '2024-05-21 07:22:26'),
 (6, 2, '2024-05-21', '13:32:43', NULL, '2024-05-21 07:32:43', '2024-05-21 07:32:43'),
-(7, 1, '2024-05-21', '13:36:37', NULL, '2024-05-21 07:36:37', '2024-05-21 07:36:37');
+(7, 1, '2024-05-21', '13:36:37', NULL, '2024-05-21 07:36:37', '2024-05-21 07:36:37'),
+(8, 1, '2024-05-28', '17:44:26', NULL, '2024-05-28 11:44:26', '2024-05-28 11:44:26'),
+(9, 1, '2024-05-28', '18:30:34', NULL, '2024-05-28 12:30:34', '2024-05-28 12:30:34'),
+(10, 1, '2024-05-29', '14:35:13', NULL, '2024-05-29 08:35:13', '2024-05-29 08:35:13'),
+(11, 1, '2024-05-29', '18:46:23', NULL, '2024-05-29 12:46:23', '2024-05-29 12:46:23'),
+(12, 1, '2024-05-30', '13:54:14', NULL, '2024-05-30 07:54:14', '2024-05-30 07:54:14'),
+(13, 1, '2024-05-30', '13:54:17', NULL, '2024-05-30 07:54:17', '2024-05-30 07:54:17'),
+(14, 1, '2024-06-02', '12:57:31', NULL, '2024-06-02 06:57:31', '2024-06-02 06:57:31'),
+(15, 3, '2024-06-09', '12:27:58', NULL, '2024-06-09 06:27:58', '2024-06-09 06:27:58'),
+(16, 3, '2024-06-10', '17:23:50', NULL, '2024-06-10 11:23:50', '2024-06-10 11:23:50'),
+(17, 8, '2024-06-12', '17:48:05', NULL, '2024-06-12 11:48:05', '2024-06-12 11:48:05'),
+(18, 1, '2024-06-27', '17:16:42', NULL, '2024-06-27 11:16:42', '2024-06-27 11:16:42'),
+(19, 1, '2024-06-27', '18:09:07', NULL, '2024-06-27 12:09:07', '2024-06-27 12:09:07'),
+(20, 1, '2024-06-27', '18:13:49', NULL, '2024-06-27 12:13:49', '2024-06-27 12:13:49'),
+(21, 1, '2024-06-27', '18:18:06', NULL, '2024-06-27 12:18:06', '2024-06-27 12:18:06'),
+(22, 1, '2024-06-27', '18:31:14', NULL, '2024-06-27 12:31:14', '2024-06-27 12:31:14'),
+(23, 1, '2024-06-27', '18:55:56', NULL, '2024-06-27 12:55:56', '2024-06-27 12:55:56'),
+(24, 1, '2024-06-27', '19:05:21', NULL, '2024-06-27 13:05:21', '2024-06-27 13:05:21'),
+(25, 1, '2024-06-27', '19:13:59', NULL, '2024-06-27 13:13:59', '2024-06-27 13:13:59');
 
 -- --------------------------------------------------------
 
@@ -94,8 +115,8 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 --
 
 CREATE TABLE `attendance_users` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
   `role_id` int(11) NOT NULL,
   `password` varchar(500) DEFAULT NULL,
   `card_no` varchar(500) DEFAULT NULL,
@@ -110,11 +131,12 @@ CREATE TABLE `attendance_users` (
 --
 
 CREATE TABLE `branches` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
   `br_name` varchar(500) DEFAULT NULL,
   `br_address` text DEFAULT NULL,
   `br_type` int(11) DEFAULT NULL COMMENT '1=Head Office, 2= Single branch',
-  `br_status` int(11) NOT NULL DEFAULT 1 COMMENT '1= active, 2= inactive',
+  `br_status` int(11) DEFAULT NULL COMMENT '1= active, 2= inactive',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -123,19 +145,17 @@ CREATE TABLE `branches` (
 -- Dumping data for table `branches`
 --
 
-INSERT INTO `branches` (`id`, `br_name`, `br_address`, `br_type`, `br_status`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 1, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
-(2, NULL, NULL, NULL, 1, '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
-(3, 'ghgggggg', NULL, 2, 1, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
-(4, 'Mirpur Branch', 'mirpur 12, dhaka', 1, 1, '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
-(5, 'Laalbagh Branch', 'Laalbagh, Dhaka -1200', 2, 1, '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
-(6, 'Mirpur Branch', 'Mirpur 12', 2, 1, '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
-(7, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
-(8, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
-(9, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
-(10, NULL, NULL, 1, 1, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
-(11, NULL, NULL, 1, 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
-(12, 'Meherpur Branch', NULL, 2, 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, `br_status`, `created_at`, `updated_at`) VALUES
+(1, 11, 'Laalbagh Branch', '<p>LaalBagh<br></p>', 1, 2, '2024-06-10 07:52:15', '2024-06-10 07:52:15'),
+(2, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 2, '2024-06-10 07:52:34', '2024-06-10 07:52:34'),
+(3, 11, 'Mohammadpur Branch', 'Mohammadpur, Dhaka', 1, 1, '2024-06-10 07:52:46', '2024-06-10 07:52:46'),
+(4, 11, 'Gulshan Branch', 'Gulshan-1, Dhaka', 1, 1, '2024-06-10 07:52:58', '2024-06-10 07:52:58'),
+(5, 11, 'Nawabganj', 'Nawabganj, Dhaka', 2, 1, '2024-06-10 07:53:50', '2024-06-10 07:53:50'),
+(6, NULL, NULL, NULL, NULL, 1, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
+(7, NULL, NULL, NULL, NULL, 1, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
+(8, 14, 'Rampura Branch', '<p>rampura bridge, dhaka<br></p>', 1, 1, '2024-06-12 10:32:19', '2024-06-12 10:32:19'),
+(9, NULL, 'Malibagh Branch', 'Malibagh, Dhaka', 1, 1, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
+(10, 16, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-06-12 10:59:53', '2024-06-12 10:59:53');
 
 -- --------------------------------------------------------
 
@@ -144,9 +164,9 @@ INSERT INTO `branches` (`id`, `br_name`, `br_address`, `br_type`, `br_status`, `
 --
 
 CREATE TABLE `business_types` (
-  `id` int(10) NOT NULL,
+  `id` int(100) NOT NULL,
   `business_type` varchar(50) DEFAULT NULL,
-  `business_status` int(10) DEFAULT 1 COMMENT '1=active, 2=deactive',
+  `business_status` int(10) DEFAULT NULL COMMENT '1=active, 2=inactive',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -180,7 +200,9 @@ INSERT INTO `business_types` (`id`, `business_type`, `business_status`, `created
 (22, 'Music Store', 1, '2024-05-19 07:42:20', '2024-05-19 07:42:20'),
 (23, 'Stationery Store', 1, '2024-05-19 07:42:20', '2024-05-19 07:42:20'),
 (24, 'Convenience Store (Supermarket)', 1, '2024-05-19 07:42:20', '2024-05-19 07:42:20'),
-(25, 'Optician', 1, '2024-05-19 07:42:20', '2024-05-19 07:42:20');
+(25, 'Optician', 1, '2024-05-19 07:42:20', '2024-05-19 07:42:20'),
+(26, 'Testing Type', 1, '2024-06-12 05:37:49', '2024-06-12 05:37:49'),
+(27, 'testy testing', 1, '2024-06-12 06:37:26', '2024-06-12 06:37:26');
 
 -- --------------------------------------------------------
 
@@ -189,16 +211,16 @@ INSERT INTO `business_types` (`id`, `business_type`, `business_status`, `created
 --
 
 CREATE TABLE `companies` (
-  `id` int(11) NOT NULL,
-  `company_name` varchar(500) DEFAULT NULL,
-  `company_email` varchar(500) DEFAULT NULL,
-  `contact_no` varchar(500) DEFAULT NULL,
-  `license_no` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `company_name` varchar(100) DEFAULT NULL,
+  `company_email` varchar(100) DEFAULT NULL,
+  `contact_no` varchar(100) DEFAULT NULL,
+  `license_no` varchar(100) DEFAULT NULL,
   `company_address` text DEFAULT NULL,
-  `registration_no` varchar(500) DEFAULT NULL,
-  `division` varchar(500) DEFAULT NULL,
-  `district` varchar(500) DEFAULT NULL,
-  `country` varchar(500) DEFAULT NULL,
+  `registration_no` varchar(100) DEFAULT NULL,
+  `division` varchar(100) DEFAULT NULL,
+  `district` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -219,7 +241,11 @@ INSERT INTO `companies` (`id`, `company_name`, `company_email`, `contact_no`, `l
 (9, 'Wales Store', NULL, '01514120139', 'dfggf45456', 'Azimpur, Dhaka', '4356456', '6', '44', 'Bangladesh', '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
 (10, 'Samer Store', NULL, '01514120130', 'hhhh6465465', NULL, '64gfdgfdgf', '6', '47', 'Bangladesh', '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
 (11, 'Samer Store', NULL, '01514120130', 'ggg8878797789', NULL, 'fhfjgh5435', '6', '47', 'Bangladesh', '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
-(12, 'Rahat store', 'rahatbusiness@gmail.com', '01514120130', 'kjjhgj7777', NULL, '978987u', '3', '22', 'Bangladesh', '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+(12, 'Rahat store', 'rahatbusiness@gmail.com', '01514120130', 'kjjhgj7777', NULL, '978987u', '3', '22', 'Bangladesh', '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(13, 'Otithee Software Solution Limited', 'ossl@gmail.com', '01514120130', '6343513', 'Police Plaza Concord, Level-10, Gulshan-1', '6413164', '6', '47', 'Bangladesh', '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
+(14, 'Wahid Store', 'wahidstore@gmail.com', '01514120130', '35435435', NULL, '4646', '6', '47', 'Bangladesh', '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
+(15, 'Rupa Store', 'rupastore@gmail.com', '01514120139', '543541351', NULL, '354354135', '6', NULL, 'Bangladesh', '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
+(16, 'Fahad Store', 'fahadstore@gmail.com', '01313470130', '354135413', NULL, '35413514', '6', '47', 'Bangladesh', '2024-06-12 10:59:53', '2024-06-12 10:59:53');
 
 -- --------------------------------------------------------
 
@@ -239,7 +265,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 3, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -248,7 +274,11 @@ INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`
 --
 
 CREATE TABLE `departments` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `branch_id` int(255) DEFAULT NULL,
+  `warehouse_id` int(255) DEFAULT NULL,
+  `outlet_id` int(255) DEFAULT NULL,
   `dept_name` varchar(500) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -258,19 +288,26 @@ CREATE TABLE `departments` (
 -- Dumping data for table `departments`
 --
 
-INSERT INTO `departments` (`id`, `dept_name`, `created_at`, `updated_at`) VALUES
-(1, NULL, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
-(2, NULL, '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
-(3, NULL, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
-(4, 'Storage Department', '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
-(5, 'Cloth Department', '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
-(6, 'Storage Department', '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
-(7, 'Cloth Department', '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
-(8, 'Cloth Department', '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
-(9, 'Cloth Department', '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
-(10, NULL, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
-(11, NULL, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
-(12, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+INSERT INTO `departments` (`id`, `company_id`, `branch_id`, `warehouse_id`, `outlet_id`, `dept_name`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, NULL, '2024-05-19 06:41:27', '2024-05-19 06:41:27'),
+(2, NULL, NULL, NULL, NULL, 'Samer Department', '2024-05-19 06:44:11', '2024-05-19 06:44:11'),
+(3, NULL, NULL, NULL, NULL, NULL, '2024-05-19 06:45:59', '2024-05-19 06:45:59'),
+(4, 11, 14, NULL, NULL, 'Storage Department', '2024-05-19 08:08:04', '2024-05-19 08:08:04'),
+(5, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 08:23:24', '2024-05-20 08:23:24'),
+(6, NULL, NULL, NULL, NULL, 'Storage Department', '2024-05-20 08:28:39', '2024-05-20 08:28:39'),
+(7, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 10:08:25', '2024-05-20 10:08:25'),
+(8, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 10:10:39', '2024-05-20 10:10:39'),
+(9, NULL, NULL, NULL, NULL, 'Cloth Department', '2024-05-20 10:12:50', '2024-05-20 10:12:50'),
+(10, NULL, NULL, NULL, NULL, NULL, '2024-05-20 12:46:44', '2024-05-20 12:46:44'),
+(11, NULL, NULL, NULL, NULL, NULL, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
+(12, NULL, NULL, NULL, NULL, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(13, 11, 1, 1, NULL, 'Storage Departments', '2024-06-10 12:46:32', '2024-06-10 12:46:32'),
+(14, 11, 1, NULL, 1, 'Toys Department', '2024-06-10 12:47:33', '2024-06-10 12:47:33'),
+(15, 11, 1, NULL, NULL, 'Samer Toys Department', '2024-06-10 13:22:14', '2024-06-10 13:22:14'),
+(16, 11, 1, 1, NULL, 'Testing Department', '2024-06-10 13:22:29', '2024-06-10 13:22:29'),
+(17, 11, 1, NULL, NULL, 'Clothing Department', '2024-06-11 04:54:22', '2024-06-11 04:54:22'),
+(18, NULL, NULL, NULL, NULL, NULL, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
+(19, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41');
 
 -- --------------------------------------------------------
 
@@ -279,7 +316,8 @@ INSERT INTO `departments` (`id`, `dept_name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `designations` (
-  `id` int(10) NOT NULL,
+  `id` int(100) NOT NULL,
+  `level` int(100) DEFAULT NULL COMMENT '1 = managing level,\r\n2 = operational level,\r\n3 = support level',
   `designation_name` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
@@ -289,16 +327,26 @@ CREATE TABLE `designations` (
 -- Dumping data for table `designations`
 --
 
-INSERT INTO `designations` (`id`, `designation_name`, `created_at`, `updated_at`) VALUES
-(1, 'Store Manager', '2024-05-19 07:23:46', '2024-05-19 07:23:46'),
-(2, 'Assistant Manager', '2024-05-19 07:23:46', '2024-05-19 07:23:46'),
-(3, 'Cashier', '2024-05-19 07:24:07', '2024-05-19 07:24:07'),
-(4, 'Sales Associate', '2024-05-19 07:24:07', '2024-05-19 07:24:07'),
-(5, 'Inventory Manager', '2024-05-19 07:24:33', '2024-05-19 07:24:33'),
-(6, 'Customer Service Representative', '2024-05-19 07:24:33', '2024-05-19 07:24:33'),
-(7, 'Merchandiser', '2024-05-19 07:24:59', '2024-05-19 07:24:59'),
-(8, 'Marketing Manager', '2024-05-19 07:24:59', '2024-05-19 07:24:59'),
-(9, 'IT Support Specialist', '2024-05-19 07:25:11', '2024-05-19 07:25:11');
+INSERT INTO `designations` (`id`, `level`, `designation_name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Store Owner', '2024-06-11 08:10:03', '2024-06-11 08:10:03'),
+(2, 1, 'Store Manager', '2024-06-11 08:10:21', '2024-06-11 08:10:21'),
+(3, 1, 'Inventory Manager', '2024-06-11 08:10:30', '2024-06-11 08:10:30'),
+(4, 1, 'Assistant Manager', '2024-06-11 08:10:41', '2024-06-11 08:10:41'),
+(5, 1, 'Marketing Manager', '2024-06-11 08:10:48', '2024-06-11 08:10:48'),
+(6, 1, 'Outlet Manager', '2024-06-11 08:10:54', '2024-06-11 08:10:54'),
+(7, 1, 'Warehouse Manager', '2024-06-11 08:11:03', '2024-06-11 08:11:03'),
+(8, 1, 'Customer Service Manager', '2024-06-11 08:11:14', '2024-06-11 08:11:14'),
+(9, 1, 'Accounts Manager', '2024-06-11 08:11:22', '2024-06-11 08:11:22'),
+(10, 2, 'Sales Associate', '2024-06-11 08:16:59', '2024-06-11 08:16:59'),
+(11, 2, 'Sales Executive', '2024-06-11 08:17:09', '2024-06-11 08:17:09'),
+(12, 2, 'Cashier', '2024-06-11 08:17:20', '2024-06-11 08:17:20'),
+(13, 2, 'Customer Service Representative', '2024-06-11 08:17:53', '2024-06-11 08:17:53'),
+(14, 2, 'Stock Clerk', '2024-06-11 08:18:08', '2024-06-11 08:18:08'),
+(15, 2, 'Warehouse Operative', '2024-06-11 08:18:18', '2024-06-11 08:18:18'),
+(16, 3, 'Maintenance Worker', '2024-06-11 08:19:02', '2024-06-11 08:19:02'),
+(17, 3, 'Data Entry Clerk', '2024-06-11 08:19:12', '2024-06-11 08:19:12'),
+(21, 3, 'Logistics Co-ordinator', '2024-06-12 04:31:23', '2024-06-12 04:31:23'),
+(22, 3, 'IT Support', '2024-06-12 04:31:32', '2024-06-12 04:31:32');
 
 -- --------------------------------------------------------
 
@@ -420,7 +468,7 @@ INSERT INTO `divisions` (`id`, `name`, `bn_name`, `url`) VALUES
 --
 
 CREATE TABLE `employees` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `designation_id` int(100) DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
@@ -450,7 +498,12 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `flag`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, '2024-05-02', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+(1, 2, 2, '2024-05-02', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(2, 3, 4, '2024-05-30', 'Hamid Ahmed', 'Shamima Basar', '01513470127', '35435135413', '<p>mirpur 12<br></p>', '<p>mirpur 12<br></p>', '1994-06-15', 'B+', 'Bangladeshi', 'Married', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-30 04:33:28', '2024-05-30 04:33:28'),
+(3, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
+(4, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(5, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
+(6, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38');
 
 -- --------------------------------------------------------
 
@@ -459,12 +512,12 @@ INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `fat
 --
 
 CREATE TABLE `employee_performances` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `total_working_hours` varchar(500) DEFAULT NULL,
-  `total_overtime_hours` varchar(500) DEFAULT NULL,
-  `performance_bonus` varchar(500) DEFAULT NULL,
-  `total_attendance` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `emp_id` int(100) DEFAULT NULL,
+  `total_working_hours` varchar(100) DEFAULT NULL,
+  `total_overtime_hours` varchar(100) DEFAULT NULL,
+  `performance_bonus` varchar(100) DEFAULT NULL,
+  `total_attendance` varchar(100) DEFAULT NULL,
   `smartness_point` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -493,13 +546,13 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `leave_applications` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) DEFAULT NULL,
   `application_type` text DEFAULT NULL,
   `application_msg` text DEFAULT NULL,
   `application_date` date DEFAULT NULL,
   `application_status` int(11) DEFAULT NULL,
-  `application_approved_user_id` int(11) DEFAULT NULL,
+  `application_approved_user_id` int(100) DEFAULT NULL,
   `application_approved_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -542,23 +595,81 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payrolls`
+--
+
+CREATE TABLE `payrolls` (
+  `id` int(100) NOT NULL,
+  `employee` int(100) DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL,
+  `salary_date` date DEFAULT NULL,
+  `joining_date` date DEFAULT NULL,
+  `per_day_salary` varchar(100) DEFAULT NULL,
+  `emp_total_bonus_day` varchar(100) DEFAULT NULL,
+  `emp_total_bonus_amount` varchar(100) DEFAULT NULL,
+  `bonus_eligible_month` varchar(100) DEFAULT NULL,
+  `bonus_pay_month` varchar(100) DEFAULT NULL,
+  `bonus_pay_amount` varchar(100) DEFAULT NULL,
+  `total_working_day` varchar(100) DEFAULT NULL,
+  `total_leave` varchar(100) DEFAULT NULL,
+  `total_number_of_pay_day` varchar(100) DEFAULT NULL,
+  `monthly_salary` varchar(100) DEFAULT NULL,
+  `monthly_holiday_bonus` varchar(100) DEFAULT NULL,
+  `total_daily_allowance` varchar(100) DEFAULT NULL,
+  `total_travel_allowance` varchar(100) DEFAULT NULL,
+  `rental_cost_allowance` varchar(100) DEFAULT NULL,
+  `hospital_bill_allowance` varchar(100) DEFAULT NULL,
+  `insurance_allowance` varchar(100) DEFAULT NULL,
+  `sales_commission` varchar(100) DEFAULT NULL,
+  `retail_commission` varchar(100) DEFAULT NULL,
+  `total_others` varchar(100) DEFAULT NULL,
+  `total_salary` varchar(100) DEFAULT NULL,
+  `yearly_bonus` varchar(100) DEFAULT NULL,
+  `total_payable_salary` varchar(100) DEFAULT NULL,
+  `advance_less` varchar(100) DEFAULT NULL,
+  `any_deduction` varchar(100) DEFAULT NULL,
+  `final_pay_amount` varchar(100) DEFAULT NULL,
+  `loan_advance` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payrolls`
+--
+
+INSERT INTO `payrolls` (`id`, `employee`, `company`, `salary_date`, `joining_date`, `per_day_salary`, `emp_total_bonus_day`, `emp_total_bonus_amount`, `bonus_eligible_month`, `bonus_pay_month`, `bonus_pay_amount`, `total_working_day`, `total_leave`, `total_number_of_pay_day`, `monthly_salary`, `monthly_holiday_bonus`, `total_daily_allowance`, `total_travel_allowance`, `rental_cost_allowance`, `hospital_bill_allowance`, `insurance_allowance`, `sales_commission`, `retail_commission`, `total_others`, `total_salary`, `yearly_bonus`, `total_payable_salary`, `advance_less`, `any_deduction`, `final_pay_amount`, `loan_advance`, `created_at`, `updated_at`) VALUES
+(1, 3, '11', '2024-05-30', '2024-05-30', '1500', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '37500', '1500', '0', '0', '0', '0', '0', '0', '0', '1500', '39000', '0', '39000', '0', '0', '39000', NULL, '2024-05-30 10:27:08', '2024-05-30 10:27:08'),
+(2, 1, '11', '2024-06-27', '2024-05-06', '200', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '5000', '200', '0', '0', '0', '0', '0', '0', '0', '200', '5200', '0', '5200', '0', '0', '5200', NULL, '2024-06-27 11:17:28', '2024-06-27 11:17:28'),
+(3, NULL, '11', '2024-06-27', NULL, '510', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '12750', '510', '0', '0', '0', '0', '0', '0', '0', '510', '13260', '0', '13260', '0', '0', '13260', NULL, '2024-06-27 12:14:59', '2024-06-27 12:14:59'),
+(4, NULL, '11', '2024-06-27', NULL, '510', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '12750', '510', '0', '0', '0', '0', '0', '0', '0', '510', '13260', '0', '13260', '0', '0', '13260', NULL, '2024-06-27 12:15:06', '2024-06-27 12:15:06'),
+(5, 3, '11', '2024-06-27', '2024-05-30', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 12:15:25', '2024-06-27 12:15:25'),
+(6, 10, '11', '2024-06-27', '2024-06-18', '520', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13520', '520', '0', '0', '0', '0', '0', '0', '0', '520', '14040', '0', '14040', '0', '0', '14040', NULL, '2024-06-27 12:19:22', '2024-06-27 12:19:22'),
+(7, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:35:38', '2024-06-27 12:35:38'),
+(8, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:57:29', '2024-06-27 12:57:29'),
+(9, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:07:31', '2024-06-27 13:07:31'),
+(10, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:15:42', '2024-06-27 13:15:42');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payroll_reports`
 --
 
 CREATE TABLE `payroll_reports` (
-  `id` int(11) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `salary_rate` varchar(500) DEFAULT NULL,
-  `total_working_hours` varchar(500) DEFAULT NULL,
-  `total_overtime_hours` varchar(500) DEFAULT NULL,
-  `bonus` varchar(500) DEFAULT NULL,
-  `total_pay` varchar(500) DEFAULT NULL,
-  `deductions` varchar(500) DEFAULT NULL,
-  `salary_date` varchar(500) DEFAULT NULL,
-  `bank_name` varchar(500) DEFAULT NULL,
-  `branch_name` varchar(500) DEFAULT NULL,
-  `routing_number` varchar(500) DEFAULT NULL,
-  `bank_acc_no` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `emp_id` int(100) DEFAULT NULL,
+  `salary_rate` varchar(100) DEFAULT NULL,
+  `total_working_hours` varchar(100) DEFAULT NULL,
+  `total_overtime_hours` varchar(100) DEFAULT NULL,
+  `bonus` varchar(100) DEFAULT NULL,
+  `total_pay` varchar(100) DEFAULT NULL,
+  `deductions` varchar(100) DEFAULT NULL,
+  `salary_date` varchar(100) DEFAULT NULL,
+  `bank_name` varchar(100) DEFAULT NULL,
+  `branch_name` varchar(100) DEFAULT NULL,
+  `routing_number` varchar(100) DEFAULT NULL,
+  `bank_acc_no` varchar(100) DEFAULT NULL,
   `payment_status` int(11) DEFAULT NULL,
   `employment_status` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -590,7 +701,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(163, 'App\\Models\\User', 1, 'myToken', '2e0e14cd869149865706307fbbcf4c560c7222aeb1c60b21a86678deeda3de05', '[\"*\"]', '2024-05-21 07:36:37', NULL, '2024-05-21 07:36:22', '2024-05-21 07:36:37');
+(335, 'App\\Models\\User', 1, 'myToken', '3d06d11961ac111aa09ba6682f96c2c2eb7487297b85c39a2c7822e4986b74f2', '[\"*\"]', NULL, NULL, '2024-07-17 03:48:17', '2024-07-17 03:48:17');
 
 -- --------------------------------------------------------
 
@@ -623,7 +734,7 @@ INSERT INTO `roles` (`id`, `role_name`, `role_status`, `created_at`, `updated_at
 --
 
 CREATE TABLE `super_admins` (
-  `id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `father_name` varchar(100) DEFAULT NULL,
   `mother_name` varchar(100) DEFAULT NULL,
@@ -646,6 +757,54 @@ CREATE TABLE `super_admins` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `super_admins`
+--
+
+INSERT INTO `super_admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `flag`, `created_at`, `updated_at`) VALUES
+(1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 07:27:28', '2024-06-12 07:27:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `id` int(100) NOT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `father_name` varchar(100) DEFAULT NULL,
+  `mother_name` varchar(100) DEFAULT NULL,
+  `mobile_number` varchar(100) DEFAULT NULL,
+  `nid_number` varchar(100) DEFAULT NULL,
+  `present_address` text DEFAULT NULL,
+  `official_address` varchar(255) DEFAULT NULL,
+  `permanent_address` text DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `blood_group` varchar(100) DEFAULT NULL,
+  `nationality` varchar(100) DEFAULT NULL,
+  `marital_status` varchar(100) DEFAULT NULL,
+  `religion` varchar(100) DEFAULT NULL,
+  `gender` varchar(100) DEFAULT NULL,
+  `profile_pic` varchar(100) DEFAULT NULL,
+  `emergency_contact_name` varchar(100) DEFAULT NULL,
+  `emergency_contact_number` varchar(100) DEFAULT NULL,
+  `emergency_contact_relation` varchar(100) DEFAULT NULL,
+  `active_status` int(10) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`id`, `company_id`, `full_name`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `official_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `active_status`, `created_at`, `updated_at`) VALUES
+(2, 11, 'Sujon Mahmud Joy', NULL, NULL, '01513470157', NULL, NULL, 'Dhanmondi 27, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-15 06:41:10', '2024-07-15 06:41:10'),
+(3, 11, 'Hamim Rahman', NULL, NULL, '01513470121', NULL, NULL, '<p>Mirpur 1, Dhaka<br></p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-16 10:36:15', '2024-07-16 10:36:15'),
+(4, 11, 'Sumon Rana', NULL, NULL, '01513470157', NULL, NULL, 'Hazaribagh, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-17 09:36:43', '2024-07-17 09:36:43');
+
 -- --------------------------------------------------------
 
 --
@@ -659,11 +818,14 @@ CREATE TABLE `users` (
   `role_id` int(10) DEFAULT NULL,
   `company_id` int(100) DEFAULT NULL,
   `branch_id` int(100) DEFAULT NULL,
+  `review_requisition` int(10) DEFAULT NULL COMMENT '1 = Yes, 2 = No',
+  `warehouse_id` int(255) DEFAULT NULL,
+  `outlet_id` int(255) DEFAULT NULL,
   `department_id` int(100) DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `active_status` int(10) NOT NULL DEFAULT 1 COMMENT '1=active, 2=inactive',
+  `active_status` int(10) DEFAULT NULL COMMENT '1=active, 2=inactive',
   `designation` text DEFAULT NULL,
   `company_business_type` int(10) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
@@ -675,9 +837,18 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`, `department_id`, `joining_date`, `email_verified_at`, `password`, `active_status`, `designation`, `company_business_type`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'samer', 'sam@gmail.com', 2, 11, 11, 11, '2024-05-06', NULL, '$2y$10$nlqFwO/VZKrydr2.gUHnp.6i383bobONro6ABEUwDGINjHJsoIukG', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-05-20 06:54:49'),
-(2, 'rahat ahmed', 'rahat@gmail.com', 3, 12, 12, 12, '2024-05-02', NULL, '$2y$10$bRFLISLP82.g4V4rR4UvI.Z7QJycvcSLl9dlYJAajc/iITMzHVNp.', 1, '2', 1, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50');
+INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`, `review_requisition`, `warehouse_id`, `outlet_id`, `department_id`, `joining_date`, `email_verified_at`, `password`, `active_status`, `designation`, `company_business_type`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Abul Kauser Samer', 'sam@gmail.com', 2, 11, 11, NULL, NULL, NULL, 11, '2024-05-06', NULL, '$2y$10$fiTtckRf5G7T1g8uOvPDfuI5NY39E28T2TOlWQRKkCPi5eOhuVRg2', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-06-04 10:39:48'),
+(2, 'rahat ahmed', 'rahat@gmail.com', 3, 12, 12, NULL, NULL, NULL, 12, '2024-05-02', NULL, '$2y$10$bRFLISLP82.g4V4rR4UvI.Z7QJycvcSLl9dlYJAajc/iITMzHVNp.', 1, '2', 1, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(3, 'Maliha Khatun', 'maliha@gmail.com', 3, 11, 14, NULL, NULL, NULL, NULL, '2024-05-30', NULL, '$2y$10$y3GwSXLco97/EiNZC1x8heCpXNLr8hGEFjSar2exG9I24bMZsK4v.', 2, '4', 1, NULL, '2024-05-30 04:33:28', '2024-05-30 04:33:28'),
+(4, 'OSSL', 'ossl@gmail.com', 1, 13, 6, NULL, NULL, NULL, 18, '2024-06-12', NULL, '$2y$10$ASNBaeOaK1mHdXToX7Dc8uDQTmopYKq068OES416ODYaikzKQl2Ku', 1, '1', 26, NULL, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
+(5, 'Wahid Rahman', 'wahid@gmail.com', 2, 14, NULL, NULL, NULL, NULL, NULL, '2021-05-12', NULL, '$2y$10$1xfhno1L/KWAwe9M4FM2W.RmqqO./QRMf0SzM.7T.CXaL09pKw8u2', 1, '1', 3, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
+(6, 'Rupa Rahman', 'rupa@gmail.com', 2, 15, 9, NULL, NULL, NULL, NULL, '2023-04-04', NULL, '$2y$10$Uedv4qY.IF2k2bO2fCMeP.u4osouZfHBWMbKexg8Oz753dtsSIOSi', 1, '1', 3, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
+(7, 'Fahad Ahmed', 'fahad@gmail.com', 2, 16, 10, NULL, NULL, NULL, NULL, '2022-05-11', NULL, '$2y$10$B4HjW5ISg0phrHEJwbfQZ.Lro5KetTpOmtQVFfH7OcQrx5QzeE.Dy', 1, '1', 4, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
+(8, 'Tuhin Ahmed', 'tuhin@gmail.com', 3, 11, 3, NULL, NULL, 1, NULL, '2024-06-04', NULL, '$2y$10$kOIA46nYPFVr5tH0XDOtBuYIYeEwhvvtxuXwBJrLanb8Lj45AK5yK', 1, '4', 1, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
+(9, 'Yamin Hossain', 'yamin@gmail.com', 3, 11, 3, 2, 1, NULL, NULL, '2024-06-12', NULL, '$2y$10$DnyFOhk.0I/CrYIfjbQnD.B.POU49FcWniJqtk.B3Gsns43oMT9MO', 1, '4', 1, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(10, 'fahim ahmed', 'fahim@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$6n1z1jwm/8Cjp0/WZroug.grCo7aWCakpJC7AyxX314WlrKWFbh.O', 1, '3', 1, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
+(11, 'Sahed Rahman', 'sahed@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$RmNw5eA99If5dxCZwzEbxuewe16hGbW/gL/kPyo.UvSLs8ooNEzcW', 1, '3', 1, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38');
 
 -- --------------------------------------------------------
 
@@ -686,8 +857,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`
 --
 
 CREATE TABLE `user_logs` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
   `description` text NOT NULL,
   `ip_address` varchar(500) NOT NULL,
   `url` varchar(1000) NOT NULL,
@@ -702,24 +873,25 @@ CREATE TABLE `user_logs` (
 --
 
 CREATE TABLE `vendors` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `father_name` varchar(500) DEFAULT NULL,
-  `mother_name` varchar(500) DEFAULT NULL,
-  `mobile_number` varchar(500) DEFAULT NULL,
-  `nid_number` varchar(500) DEFAULT NULL,
+  `id` int(100) NOT NULL,
+  `user_id` int(100) DEFAULT NULL,
+  `father_name` varchar(100) DEFAULT NULL,
+  `mother_name` varchar(100) DEFAULT NULL,
+  `mobile_number` varchar(100) DEFAULT NULL,
+  `nid_number` varchar(100) DEFAULT NULL,
   `present_address` text DEFAULT NULL,
+  `official_address` varchar(255) DEFAULT NULL,
   `permanent_address` text DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `blood_group` varchar(500) DEFAULT NULL,
-  `nationality` varchar(500) DEFAULT NULL,
-  `marital_status` varchar(500) DEFAULT NULL,
-  `religion` varchar(500) DEFAULT NULL,
+  `blood_group` varchar(100) DEFAULT NULL,
+  `nationality` varchar(100) DEFAULT NULL,
+  `marital_status` varchar(100) DEFAULT NULL,
+  `religion` varchar(100) DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
-  `profile_pic` varchar(500) DEFAULT NULL,
-  `emergency_contact_name` varchar(500) DEFAULT NULL,
-  `emergency_contact_number` varchar(500) DEFAULT NULL,
-  `emergency_contact_relation` varchar(500) DEFAULT NULL,
+  `profile_pic` varchar(100) DEFAULT NULL,
+  `emergency_contact_name` varchar(100) DEFAULT NULL,
+  `emergency_contact_number` varchar(100) DEFAULT NULL,
+  `emergency_contact_relation` varchar(100) DEFAULT NULL,
   `flag` int(10) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -834,6 +1006,12 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `payrolls`
+--
+ALTER TABLE `payrolls`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `payroll_reports`
 --
 ALTER TABLE `payroll_reports`
@@ -857,6 +1035,12 @@ ALTER TABLE `roles`
 -- Indexes for table `super_admins`
 --
 ALTER TABLE `super_admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -886,37 +1070,37 @@ ALTER TABLE `vendors`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
 --
 ALTER TABLE `attendance_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `business_types`
 --
 ALTER TABLE `business_types`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `current_modules`
@@ -928,13 +1112,13 @@ ALTER TABLE `current_modules`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `designations`
 --
 ALTER TABLE `designations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -952,13 +1136,13 @@ ALTER TABLE `divisions`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employee_performances`
 --
 ALTER TABLE `employee_performances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -970,7 +1154,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -979,16 +1163,22 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `payrolls`
+--
+ALTER TABLE `payrolls`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `payroll_reports`
 --
 ALTER TABLE `payroll_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=336;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1000,25 +1190,31 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `super_admins`
 --
 ALTER TABLE `super_admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_logs`
 --
 ALTER TABLE `user_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

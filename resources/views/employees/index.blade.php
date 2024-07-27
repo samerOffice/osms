@@ -14,7 +14,7 @@ Welcome
         <br>
         <div class="row">
             <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="{{route('employee.create')}}">
+                <a class="btn btn-outline-info float-right" href="">
                     <i class="fas fa-plus"></i> Add Employee
                 </a>            
             </div>
@@ -49,9 +49,11 @@ Welcome
                         <tr>
                           <th>Serial No.</th>
                           <th>Name</th>
+                          <th>Email</th>
                           <th>Designation</th>
+                          <th>Branch</th>
                           <th>Joining Date</th>
-                          <th>Action</th>
+                          <th>Action</th>                          
                         </tr>
                         </thead>
                         <tbody>
@@ -60,11 +62,12 @@ Welcome
                         <tr>
                           <td>{{$i++}}</td>
                           <td>{{$employee->emp_name}}</td>
-                          <td>{{$employee->designation}}</td>
-                          <td>{{$employee->joining_date}}</td>
-                          
-                          <td>
-                             <a href="{{route('employee.edit', $employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                          <td>{{$employee->emp_email}}</td>
+                          <td>{{$employee->emp_designation_name}}</td>
+                          <td>{{$employee->emp_br_name}}</td>
+                          <td>{{$employee->emp_joining_date}}</td>
+                         <td>
+                          <a href="{{route('edit_employee_official_info',$employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                         </td>
                         </tr> 
                         @endforeach              
@@ -92,7 +95,7 @@ Welcome
 
 @endsection
 
-@push('myScripts')
+@push('masterScripts')
 <script>
     $(function () {
       $("#example1").DataTable({

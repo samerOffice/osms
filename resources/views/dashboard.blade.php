@@ -4,105 +4,135 @@
 Welcome
 @endsection
 
+@push('css')
+<style>
+  .employee_button_position {
+    background-color: #ff5d6c; color: white; margin: 0;
+    position: absolute;
+    left: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    }
+
+  .inventory_button_position {
+    background-color: #1cdf1c; color: white; margin: 0;
+    position: absolute;
+    left: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    }
+
+    .pos_button_position {
+    background-color: #20ceea; color: white; margin: 0;
+    position: absolute;
+    left: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    }
+
+
+    .tracking_button_position {
+    background-color: #e6753e; color: white; margin: 0;
+    position: absolute;
+    left: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    }
+
+
+    
+</style>
+@endpush
+
 
 @section('content')
-
 @if (Auth::check())
 
   @if($current_module->module_status == 1) <!--general module-->
-  <div class="content-wrapper" style="background-color: rgb(254, 255, 238)">
+  <div class="content-wrapper" style="background-image: url('{{ asset('public/img/2.png') }}'); background-repeat: no-repeat;background-size: cover;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <h4 align=center>Welcome, <b>{{Auth::user()->name}}</b>!</h4>
-        
+        <br>
+        {{-- <h4 align=center>Welcome, <b>{{Auth::user()->name}}</b>!</h4>   
         <h4 align=center>To</h4>
         <div class="row" style="margin-left: 35%">    
             <span style="margin-top:20px !important;"><img src="{{asset('public/img/otithee_logo.png')}}"  height="25px" width="auto" alt="logo"></span>
         <em> 
           <h1 style="color: green; font-weight: bold; margin-top: 17px">&nbsp;Shop Management System </h1>
         </em>      
-        </div>
+        </div> --}}
        
         <div class="row mt-4">
-          <div class="col-lg-4 col-6">
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4 align="center">Employee Management</h4>
             <!-- small box -->
-            <div class="small-box" style="background-color: #b9f5ff">
-              <div class="inner">
-                <br>
-                <br>
-                <h4 align="center">Point of Sale</h4>
-                <br>
+              <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/employee_dashboard.jpg') }}');  background-size: cover;">   
               </div>
-              <div class="icon">
-                <i class="ion ion-bag" style="color: #20ceea"></i>
-              </div>
-              <form action="{{route('posModuleActive')}}" method="post">
-                @csrf
-                <input type="hidden" value="4" name="current_module_status">
-                
-              <button type="submit" class="btn" style="background-color: #20ceea; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-            </form>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box" style="background-color: #b4ffc5">
-              <div class="inner">
-                <br>
-                <br>
-                <h4 align="center">Inventory Management</h4>
-                <br>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph" style="color: #1cdf1c"></i>
-              </div>
-
-              <form action="{{route('inventoryModuleActive')}}" method="post">
-                @csrf
-                <input type="hidden" value="3" name="current_module_status">
-                
-              <button type="submit" class="btn" style="background-color: #1cdf1c; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-            </form>
-              {{-- <a href="#" class="small-box-footer" style="background-color: #1cdf1c">Click Here <i class="fas fa-arrow-circle-right"></i></a> --}}
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box" style="background-color: #ffced5">
-              <div class="inner">
-                <br>
-                <br>
-                <h4 align="center">Employee Management</h4>
-                <br>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add" style="color: #ff5d6c"></i>
-              </div>
-
-              <form action="{{route('empModuleActive')}}" method="post">
-                @csrf
-                <input type="hidden" value="2" name="current_module_status">
-                
-              <button type="submit" class="btn" style="background-color: #ff5d6c; color: white">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-            </form>
-            </div>
-          </div>
-          <!-- ./col -->
+              <br> 
+              <div style="position: relative">
+                <form action="{{route('empModuleActive')}}" method="post">
+                  @csrf
+                  <input type="hidden" value="2" name="current_module_status">                
+                <button type="submit" class="btn employee_button_position" >Click Here <i class="fas fa-arrow-circle-right"></i></button>
+              </form>  
+              </div> 
+              <br>                
+              <br>                
+           </div>
           
           <!-- ./col -->
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4 align="center">Accounts & Inventory Management</h4>
+            <!-- small box -->
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/inventory_dashboard.jpg') }}');  background-size: cover;" >      
+            </div>
+            <br>
+              <div style="position: relative;">
+                <form action="{{route('inventoryModuleActive')}}" method="post">
+                  @csrf
+                  <input type="hidden" value="3" name="current_module_status">           
+                <button type="submit" class="btn inventory_button_position" >Click Here <i class="fas fa-arrow-circle-right"></i></button>
+                </form>
+              </div>
+              <br>                
+              <br>           
+           </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4 align="center">Point of Sale</h4>
+            <!-- small box -->
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/pos_dashboard.jpg') }}');  background-size: cover;" >
+            </div>
+             <br>
+            <div style="position: relative">
+              <form action="{{route('posModuleActive')}}" method="post">
+                @csrf
+                <input type="hidden" value="4" name="current_module_status">         
+              <button type="submit" class="btn pos_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
+            </form>
+            </div>   
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4 align="center">Delivery Tracking System</h4>
+            <!-- small box -->
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/tracking_dashboard.jpg') }}');  background-size: cover;" >
+            </div>
+             <br>
+            <div style="position: relative">
+              <form action="{{route('posModuleActive')}}" method="post">
+                @csrf
+                <input type="hidden" value="4" name="current_module_status">         
+              <button type="submit" class="btn tracking_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
+            </form>
+            </div>   
+          </div>
+         
         </div>
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">  
-      </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
+   
   </div>
   @elseif($current_module->module_status == 2) <!--employee module-->
   <div class="content-wrapper" style="background-color: rgba(255, 206, 213, 0.18)">

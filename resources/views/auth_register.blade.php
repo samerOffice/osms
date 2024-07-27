@@ -78,17 +78,18 @@ header("Location: $redirectRoute");
 
             <div class="row">
                 <!-- Company -->
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <button type="button" class="btn btn-lg btn-outline-primary" data-toggle="modal" data-target="#modal-company">
+                    <button type="button" class="btn btn-lg btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-company">
                         Company Details
                     </button>
                 </div> 
                 </div>
+
                 <!-- Branch -->
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <button type="button" class="btn btn-lg btn-outline-info" data-toggle="modal" data-target="#modal-branch">
+                    <button type="button" class="btn btn-lg btn-outline-info btn-block" data-toggle="modal" data-target="#modal-branch">
                         Branch Details
                     </button>
                 </div>
@@ -101,11 +102,15 @@ header("Location: $redirectRoute");
               <!-- Role select -->
                 <div data-mdb-input-init class="form-outline mb-4">
                     <label for="password">Role <small style="color: red">*</small></label>
-                    <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
+                    {{-- <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
                         <option selected="selected" value="">Select Role</option>
                         @foreach($roles as $role)
                         <option value="{{$role->id}}">{{$role->role_name}}</option>
                         @endforeach
+                      </select> --}}
+                      <select class="form-control select2bs4" id="role" name="role" style="width: 100%;">
+                        <option selected="selected" value="">Select Role</option>                      
+                        <option value="{{$roles->id}}">{{$roles->role_name}}</option>
                       </select>
                 </div> 
               </div>
@@ -235,34 +240,34 @@ header("Location: $redirectRoute");
 
                    <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
-                       <label>Branch Name</label>
+                       <label>Branch Name <small style="color: red">*</small></label>
                      <input type="text" placeholder="Branch Name" id="br_name" name="br_name" class="form-control form-control-lg" />
                     </div> 
                    </div>
 
                    <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
-                       <label>Branch Address</label>
+                       <label>Branch Address <small style="color: red">*</small></label>
                      <textarea name="br_address" id="br_address"  class="form-control form-control-lg"></textarea>
                     </div> 
                    </div>
 
                    <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
-                      <label for="password">Branch Type</label>
+                      <label for="password">Branch Type <small style="color: red">*</small></label>
                       <select class="form-control select2bs4" name="br_type" style="width: 100%;">
                           <option selected="selected" value="1">Head Office</option>
-                          <option value="2">Single Branch</option>
+                          {{-- <option value="2">Single Branch</option> --}}
                         </select>
                     </div>  
                    </div>
 
-                   <div class="col-md-12 col-sm-12">
+                   {{-- <div class="col-md-12 col-sm-12">
                     <div data-mdb-input-init class="form-outline mb-4">
                        <label>Department Name</label>
                      <input type="text" placeholder="Department Name" id="dept_name" name="dept_name" class="form-control form-control-lg" />
                     </div> 
-                   </div>
+                   </div> --}}
 
                    
                  </div>
@@ -324,7 +329,17 @@ $('#division').on('change',function(event){
         $('#district').html('');
         return false;
       }
-  axios.get('sanctum/csrf-cookie').then(response=>{
+
+  // Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+
+axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/division',{
         data: selectedDivision
       }).then(response=>{
@@ -406,6 +421,7 @@ var registerFormData = new FormData(this);
           return false;
       }
 
+
       var company_name = document.getElementById('company_name').value;
       if(company_name == ''){
         Swal.fire({
@@ -434,6 +450,36 @@ var registerFormData = new FormData(this);
           return false;
       }
 
+
+
+      var br_name = document.getElementById('br_name').value;
+      if(br_name == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Branch Name",
+              });
+          return false;
+      }
+
+
+      var br_address = document.getElementById('br_address').value;
+      if(br_address == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Branch Address",
+              });
+          return false;
+      }
+
+      // var br_type = document.getElementById('br_type').value;
+      // if(br_type == ''){
+      //   Swal.fire({
+      //           icon: "warning",
+      //           title: "Please Enter Branch Type",
+      //         });
+      //     return false;
+      // }
+
       var user_role = document.getElementById('role').value;
       if(user_role == ''){
         Swal.fire({
@@ -452,7 +498,14 @@ var registerFormData = new FormData(this);
           return false;
       }
 
-   
+ // Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+  
  axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/register',registerFormData).then(response=>{
   window.location.href = myDashboardUrl;
