@@ -208,8 +208,154 @@ class ProductRequisitionController extends Controller
     }
 
 
-    public function requisition_update($id){
+    public function requisition_update(Request $request, $id){
+
+        $user_company_id = Auth::user()->company_id;
         
+        $requisition =  DB::connection('inventory')
+                        ->table('requisition_orders')
+                       ->where('id',$id)
+                       ->first();
+        $requisition_order_id = $requisition->requisition_order_id;
+
+        try {
+            $product_track_ids = $request->product_track_id;
+            $product_names = $request->product_name;
+            $product_weights = $request->product_weight;
+            $product_unit_types = $request->product_unit_type;
+            $product_details = $request->product_details;
+            $product_quantities = $request->product_quantity;
+            $product_unit_prices = $request->product_unit_price;
+            $product_subtotals = $request->product_subtotal;
+
+           // Delete existing records for the given requisition_order_id
+                DB::connection('inventory')
+                ->table('product_requisitions')
+                ->where('requisition_order_id', $requisition_order_id)
+                ->delete();
+
+            // Insert new records
+            foreach ($product_track_ids as $key => $product_track_id) {
+                $product_name = $product_names[$key] ?? null;
+                $product_weight = $product_weights[$key] ?? null;
+                $product_unit_type = $product_unit_types[$key] ?? null;
+                $product_detail = $product_details[$key] ?? null;
+                $product_quantity = $product_quantities[$key] ?? null;
+                $product_unit_price = $product_unit_prices[$key] ?? null;
+                $product_subtotal = $product_subtotals[$key] ?? null;
+
+                DB::connection('inventory')
+                    ->table('product_requisitions')
+                    ->insert([
+                        'requisition_order_id' => $requisition_order_id,
+                        'product_track_id' => $product_track_id,
+                        'product_name' => $product_name,
+                        'product_weight' => $product_weight,
+                        'product_unit_type' => $product_unit_type,
+                        'product_details' => $product_detail,
+                        'product_quantity' => $product_quantity,
+                        'product_unit_price' => $product_unit_price,
+                        'product_subtotal' => $product_subtotal
+                    ]);
+            }
+
+
+            $total_amount_update = DB::connection('inventory')
+                                ->table('requisition_orders')
+                                ->where('requisition_order_id', $requisition_order_id)
+                                ->update([
+                                    'total_amount' => $request->total_amount
+                                ]);
+
+            return response()->json(['message' => 'Product Order is updated successfully'], 200);
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Product Category', 'details' => $e->getMessage()], 500);
+        }  
+
+    }
+
+
+    public function requisition_view($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+         $user_id = Auth::user()->id;
+         $user_name = Auth::user()->name;
+         $user_email = Auth::user()->email;
+         $user_company_id = Auth::user()->company_id;
+
+         $requisition_order = DB::connection('inventory')
+         ->table('requisition_orders') 
+         ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.users', 'requisition_orders.requisition_order_by', '=', 'users.id')
+         ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+         ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.companies', 'requisition_orders.shop_company_id', '=', 'companies.id')
+         ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.designations', 'users.designation', '=', 'designations.id')
+         ->leftJoin('warehouses', 'requisition_orders.warehouse_id', '=', 'warehouses.id')
+         ->select(
+             'requisition_orders.*',
+             'suppliers.full_name as supplier_name',
+             'users.name as requisition_order_by_name',
+             'users.email as requisition_order_by_email',
+             'suppliers.official_address as supplier_official_address',       
+             'suppliers.mobile_number as supplier_mobile_number',
+             'companies.company_name as company_name',
+             'designations.designation_name as designation_name',
+             'warehouses.warehouse_name as warehouse_name',
+             )            
+         ->where('requisition_orders.id',$id)
+         ->first();
+
+         $product_requisitions = DB::connection('inventory')
+                                ->table('product_requisitions')
+                                ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                                ->where('requisition_orders.id',$id)
+                                ->get();
+
+        //  dd($product_requisitions);
+
+        return view('product_requisitions.view',compact('current_module','user_name','user_email','requisition_order','product_requisitions','id'));
+    }
+
+
+    public function requisition_order_decline(Request $request){
+
+        $user_id = Auth::user()->id;
+        $requisition_id = $request->declined_requisition_id;
+        $decline_reason = $request->requisition_decline_reason;
+        
+        $update = DB::connection('inventory')
+        ->table('requisition_orders')
+        ->where('id', $requisition_id)
+        ->update([
+            'requisition_reviewed_by' => $user_id,
+            'requisition_status' => 2,
+            'requisition_decline_reason' => $decline_reason,
+        ]);
+
+        return redirect()->route('requisition_list')->withSuccess('Order is reviewed successfully'); 
+    }
+
+
+    public function requisition_order_receive(Request $request){
+
+        $user_id = Auth::user()->id;
+        $requisition_id = $request->approved_requisition_id;
+        
+        $update = DB::connection('inventory')
+        ->table('requisition_orders')
+        ->where('id', $requisition_id)
+        ->update([
+            'requisition_reviewed_by' => $user_id,
+            'requisition_status' => 3
+        ]);
+
+        return redirect()->route('requisition_list')->withSuccess('Order is reviewed successfully'); 
     }
 
 

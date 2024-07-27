@@ -122,6 +122,9 @@ Route::get('/add_product', [ProductController::class, 'add_product'])->name('add
 Route::get('/requisition_list', [ProductRequisitionController::class, 'requisition_list'])->name('requisition_list');
 Route::get('/new_stock', [ProductRequisitionController::class, 'new_stock'])->name('new_stock');
 Route::get('/requisition_edit_data/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_edit_data'])->name('requisition_edit_data');
+Route::get('/requisition_view/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_view'])->name('requisition_view');
+Route::post('/requisition_order_decline', [ProductRequisitionController::class, 'requisition_order_decline'])->name('requisition_order_decline');
+Route::post('/requisition_order_receive', [ProductRequisitionController::class, 'requisition_order_receive'])->name('requisition_order_receive');
 
 //...............********* pos module ********................
 //invoice

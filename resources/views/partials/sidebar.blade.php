@@ -244,7 +244,7 @@
           <li class="nav-item">
             <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Leave Application nii</p>
+              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Leave Application</p>
             </a>
           </li>
           

@@ -31,7 +31,7 @@ New Product Request Form
                 <div id="form-container">
                     <!-- Rows will be added here dynamically -->
                 </div>
-                <button class="add-button btn btn-success" id="addButton">Add</button>
+                <button type="button" class="add-button btn btn-success" id="addButton">Add</button>
                 
                 <div class="row">
                     <div class="form-group col-5"></div>
@@ -174,27 +174,7 @@ New Product Request Form
             </div>
         `);
 
-
-        // const newRow = $(`
-        //     <div class="form-row">
-        //         <input type="text" name="productTrackId" placeholder="Product Track ID" value="${data.trackId || ''}" readonly>
-        //         <input type="text" name="productName" placeholder="Product Name" value="${data.productName || ''}">
-        //         <input type="number" name="productWeight" placeholder="Product Weight" value="${data.productWeight || ''}">
-        //         <select name="unit">
-        //             <option>--Select--</option>
-        //             <option value="Liter" ${data.unit === 'Liter' ? 'selected' : ''}>Liter</option>
-        //             <option value="Kg" ${data.unit === 'Kg' ? 'selected' : ''}>Kg</option>
-        //         </select>
-        //         <textarea name="productDetails" placeholder="Product Details">${data.productDetails || ''}</textarea>
-        //         <input type="number" name="productQuantity" class="product_quantity" placeholder="Quantity" value="${data.quantity || ''}">
-        //         <input type="number" name="productUnitPrice" class="product_unit_price" placeholder="Unit Price" value="${data.unitPrice || ''}">
-        //         <div class="product_subtotal">${data.quantity && data.unitPrice ? (data.quantity * data.unitPrice).toFixed(2) : '--'}</div>
-        //         <button type="button" class="remove-button">x</button>
-        //     </div>
-        // `);
-
         container.append(newRow);
-
         newRow.find('.remove-button').on('click', function() {
             newRow.remove();
             updateTotal();
@@ -267,7 +247,7 @@ function getCsrfToken() {
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-axios.get('sanctum/csrf-cookie').then(response=>{
+// axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/requisition_update/'+ requisition_order_id, requisitionOrderFormUpdateData).then(response=>{
   console.log(response);
   setTimeout(function() {
@@ -281,11 +261,11 @@ axios.get('sanctum/csrf-cookie').then(response=>{
         
   }).catch(error => Swal.fire({
               icon: "error",
-              title: error.response.data.message.email,
+              title: error.response.data.message,
               }))
  });
 
-});
+// });
 //requisition order update end
 </script>
  @endpush
