@@ -43,7 +43,7 @@
           style="@if(Request::is('warehouse_list')) background-color: #908ec4; @endif">
         <a href="{{route('warehouse_list')}}" >
           <i class="nav-icon fa-solid fa-warehouse" style=" @if(Request::is('warehouse_list')) color: white; @endif"></i>
-          <p style="@if(Request::is('warehouse_list')) color:white; @endif">Warehousehello</p>
+          <p style="@if(Request::is('warehouse_list')) color:white; @endif">Warehouse</p>
         </a>
       </li>
 
