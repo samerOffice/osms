@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 02:38 PM
+-- Generation Time: Jul 27, 2024 at 02:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -187,7 +187,10 @@ CREATE TABLE `product_requisitions` (
 
 INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track_id`, `product_name`, `product_weight`, `product_unit_type`, `product_details`, `product_quantity`, `product_unit_price`, `product_subtotal`, `created_at`, `updated_at`) VALUES
 (1, 'ORD-20240717-164412', 'Pro-20240717-164452-279', 'Mum Mineral Water', '5', 'Liter', 'Mum water bottle', 15, '65', '975.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
-(2, 'ORD-20240717-164412', 'Pro-20240717-164531-135', 'Peanut Butter', '1', 'Kg', 'Pran-RFL peanut butter', 5, '120', '600.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47');
+(2, 'ORD-20240717-164412', 'Pro-20240717-164531-135', 'Peanut Butter', '1', 'Kg', 'Pran-RFL peanut butter', 5, '120', '600.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
+(23, 'ORD-20240725-153245', 'Pro-20240727-151526-718', 'Ruchi Chanachur', '1', 'Kg', 'ruchi jhal chanachur', 5, '110', '550.00', '2024-07-27 09:21:19', '2024-07-27 09:21:19'),
+(24, 'ORD-20240725-153245', 'Pro-20240727-151523-173', 'Aam', '5', 'Kg', 'mango', 1, '90', '90.00', '2024-07-27 09:21:19', '2024-07-27 09:21:19'),
+(25, 'ORD-20240725-153245', 'Pro-20240727-152114-423', 'Jam', '2', 'Kg', 'jam', 2, '50', '100.00', '2024-07-27 09:21:19', '2024-07-27 09:21:19');
 
 -- --------------------------------------------------------
 
@@ -240,7 +243,7 @@ CREATE TABLE `requisition_orders` (
   `shop_company_id` int(100) DEFAULT NULL,
   `warehouse_id` int(100) DEFAULT NULL,
   `requisition_order_by` int(100) DEFAULT NULL,
-  `requisition_approved_by` int(100) DEFAULT NULL,
+  `requisition_reviewed_by` int(100) DEFAULT NULL,
   `supplier_id` int(100) DEFAULT NULL,
   `requisition_status` int(11) DEFAULT NULL COMMENT '1 = pending, 2= declined, 3 = delivered',
   `total_amount` varchar(100) DEFAULT NULL,
@@ -253,8 +256,9 @@ CREATE TABLE `requisition_orders` (
 -- Dumping data for table `requisition_orders`
 --
 
-INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_approved_by`, `supplier_id`, `requisition_status`, `total_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, 'ORD-20240717-164412', '2024-07-17', NULL, 11, 1, 1, NULL, 4, 1, '1575.00', NULL, '2024-07-17 10:45:47', '2024-07-17 10:45:47');
+INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_reviewed_by`, `supplier_id`, `requisition_status`, `total_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'ORD-20240717-164412', '2024-07-17', NULL, 11, 1, 1, 1, 4, 2, '1575.00', 'invalid order', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
+(2, 11, 1, 'ORD-20240725-153245', '2024-07-25', NULL, 11, 2, 1, 1, 3, 3, '740.00', NULL, '2024-07-25 09:35:32', '2024-07-25 09:35:32');
 
 -- --------------------------------------------------------
 
@@ -383,7 +387,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_requisitions`
 --
 ALTER TABLE `product_requisitions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `product_sales`
@@ -401,7 +405,7 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `requisition_orders`
 --
 ALTER TABLE `requisition_orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `warehouses`

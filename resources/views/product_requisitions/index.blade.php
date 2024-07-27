@@ -110,7 +110,7 @@ Item Category List
                               <th>Supplier</th>
                               <th>Ordered By</th>
                               <th>Status</th>
-                              @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                              @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                               <th>Action</th>
                               @endif
                             </tr>
@@ -134,18 +134,30 @@ Item Category List
                               <td>{{$requisition_order->order_by}}</td>             
                               <td>
                                 @if($requisition_order->requisition_status == 1)
-                                Pending
+                                <h5><span class="badge badge-warning">Pending</span></h5>                        
                                 @elseif($requisition_order->requisition_status == 2)
-                                Declined
+                                <h5><span class="badge badge-danger">Declined</span></h5>   
                                 @else
-                                Delivered
+                                <h5><span class="badge badge-success">Delivered</span></h5>
                                 @endif
                               </td>             
                               @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+
+                              @if($requisition_order->requisition_status == 2)
                               <td>
-                                <a href="{{route('requisition_edit_data',$requisition_order->id)}}" style="color: white"><button class="btn btn-success">Edit</button></a>
-                                <a href="" style="color: white"><button class="btn btn-warning">Approval</button></a>
+                                <button type="button" disabled class="btn btn-secondary">Declined</button>
                               </td>
+                              @elseif($requisition_order->requisition_status == 3)
+                              <td>
+                                <button type="button" disabled class="btn btn-success">Delivered</button>
+                              </td>
+                              @else
+                              <td>
+                                <a href="{{route('requisition_edit_data',$requisition_order->id)}}" style="color: white"><button class="btn btn-success"> <i class="fa-solid fa-pen-to-square"></i>Edit</button></a>
+                                <a href="{{route('requisition_view',$requisition_order->id)}}" style="color: white"><button class="btn btn-primary">Approval</button></a>
+                              </td>
+                              @endif
+
                               @endif
                             </tr> 
                             @endforeach              
@@ -183,9 +195,6 @@ Item Category List
         "autoWidth": false,
         "responsive": true,
       });
-    });
-
-  
-    
+    });  
   </script>
   @endpush

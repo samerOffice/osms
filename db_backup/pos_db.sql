@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2024 at 03:21 PM
+-- Generation Time: Jul 27, 2024 at 02:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -88,7 +88,8 @@ INSERT INTO `invoices` (`id`, `invoice_date`, `product_id`, `customer_id`, `emp_
 (9, '2024-06-24', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-24 12:09:41', '2024-06-24 12:09:41'),
 (10, '2024-06-27', 3, NULL, 1, 1, NULL, '1200', NULL, NULL, '10', '1190.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 12:52:57', '2024-06-27 12:52:57'),
 (11, '2024-06-27', 3, NULL, 1, 1, NULL, '1200', NULL, NULL, '10', '1190.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:03:13', '2024-06-27 13:03:13'),
-(12, '2024-06-27', 4, NULL, 1, 1, NULL, '25000', NULL, NULL, '100', '24900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:21:53', '2024-06-27 13:21:53');
+(12, '2024-06-27', 4, NULL, 1, 1, NULL, '25000', NULL, NULL, '100', '24900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:21:53', '2024-06-27 13:21:53'),
+(13, '2024-07-25', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '10', '50990.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-07-25 09:40:28', '2024-07-25 09:40:28');
 
 -- --------------------------------------------------------
 
@@ -304,7 +305,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
