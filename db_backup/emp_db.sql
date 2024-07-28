@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 02:38 PM
+-- Generation Time: Jul 27, 2024 at 11:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -106,7 +106,8 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (22, 1, '2024-06-27', '18:31:14', NULL, '2024-06-27 12:31:14', '2024-06-27 12:31:14'),
 (23, 1, '2024-06-27', '18:55:56', NULL, '2024-06-27 12:55:56', '2024-06-27 12:55:56'),
 (24, 1, '2024-06-27', '19:05:21', NULL, '2024-06-27 13:05:21', '2024-06-27 13:05:21'),
-(25, 1, '2024-06-27', '19:13:59', NULL, '2024-06-27 13:13:59', '2024-06-27 13:13:59');
+(25, 1, '2024-06-27', '19:13:59', NULL, '2024-06-27 13:13:59', '2024-06-27 13:13:59'),
+(26, 1, '2024-07-25', '15:26:02', NULL, '2024-07-25 09:26:02', '2024-07-25 09:26:02');
 
 -- --------------------------------------------------------
 
@@ -648,7 +649,8 @@ INSERT INTO `payrolls` (`id`, `employee`, `company`, `salary_date`, `joining_dat
 (7, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:35:38', '2024-06-27 12:35:38'),
 (8, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:57:29', '2024-06-27 12:57:29'),
 (9, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:07:31', '2024-06-27 13:07:31'),
-(10, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:15:42', '2024-06-27 13:15:42');
+(10, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:15:42', '2024-06-27 13:15:42'),
+(11, 8, '11', '2024-07-25', '2024-06-04', '700', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '18200', '700', '0', '0', '0', '0', '0', '0', '100', '800', '19000', '0', '19000', '0', '0', '19000', NULL, '2024-07-25 09:27:52', '2024-07-25 09:27:52');
 
 -- --------------------------------------------------------
 
@@ -701,7 +703,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(335, 'App\\Models\\User', 1, 'myToken', '3d06d11961ac111aa09ba6682f96c2c2eb7487297b85c39a2c7822e4986b74f2', '[\"*\"]', NULL, NULL, '2024-07-17 03:48:17', '2024-07-17 03:48:17');
+(351, 'App\\Models\\User', 1, 'myToken', 'dbf6e97ac0c149890e0ce00908bcbbe83c2306854c873e3f7db03d12cc94fc2f', '[\"*\"]', NULL, NULL, '2024-07-27 09:24:33', '2024-07-27 09:24:33');
 
 -- --------------------------------------------------------
 
@@ -1076,7 +1078,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -1166,7 +1168,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `payroll_reports`
@@ -1178,7 +1180,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=336;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
 
 --
 -- AUTO_INCREMENT for table `roles`
