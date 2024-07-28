@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class ProductRequisitionController extends Controller
 {
@@ -65,7 +66,13 @@ class ProductRequisitionController extends Controller
                         ->where('warehouse_status',1)
                         ->get();
 
-        return view('product_requisitions.new_stock',compact('current_module','user_id','user_name','item_categories','suppliers','warehouses'));
+        $products = DB::connection('inventory')
+        ->table('products')
+        ->where('shop_company_id',$user_company_id)
+        ->where('product_status',1)
+        ->get();
+
+        return view('product_requisitions.new_stock',compact('current_module','user_id','user_name','item_categories','suppliers','warehouses','products'));
     }
 
     public function requisition_store(Request $request){
@@ -352,7 +359,8 @@ class ProductRequisitionController extends Controller
         ->where('id', $requisition_id)
         ->update([
             'requisition_reviewed_by' => $user_id,
-            'requisition_status' => 3
+            'requisition_status' => 3,
+            'requisition_deliver_date' => Carbon::now()->format('Y-m-d')
         ]);
 
         return redirect()->route('requisition_list')->withSuccess('Order is reviewed successfully'); 

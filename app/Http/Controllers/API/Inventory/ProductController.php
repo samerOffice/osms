@@ -277,7 +277,6 @@ class ProductController extends Controller
     }
 
 
-
     //------------------------------product-------------------------
 
     public function itemCategoryAndProductCategoryDependancy(Request $request){
@@ -286,6 +285,7 @@ class ProductController extends Controller
         $product_categories = DB::connection('inventory')
                     ->table('product_categories')
                     ->where('item_category_id',$selectedItemCategoryId)
+                    ->where('active_status',1)
                     ->get();
   
       $str="<option value=''>-- Select --</option>";
@@ -314,33 +314,47 @@ class ProductController extends Controller
                            ->where('company_id',$user_company_id)
                            ->get();
 
+        
+
         return view('products.create',compact('current_module','item_categories'));
 
     }
 
     public function submit_product(Request $request){
         $user_company_id = Auth::user()->company_id;
-       
+
+        // $product_name = $request->product_name;
+        // $product_weight = $request->product_weight;
+        // $product_unit_type = $request->product_unit_type;
+        
+        // $product_special_name = $product_name.'-'.$product_weight.'-'.$product_unit_type;
+
         $item_category = DB::connection('inventory')
                         ->table('products')
                         ->insertGetId([
                         'item_category_id' =>$request->item_category_id,
                         'product_category_id' =>$request->product_category_id,
-                        'product_type' =>$request->product_type,
+                        // 'shop_warehouse_id' =>$request->warehouse_id,
+                        'shop_company_id'=>$user_company_id,
+                        // 'product_type' =>$request->product_type,
                         'product_name' =>$request->product_name,
-                        'product_single_price' =>$request->product_single_price,
+                        'product_track_name' =>$request->product_name,
                         'labeling_type' =>$request->labeling_type,
-                        'batch_number' =>$request->batch_number,
                         'product_tag_number' =>$request->product_tag_number,
-                        'product_weight' =>$request->product_weight,
-                        'quantity' =>$request->quantity,
                         'additional_product_details' =>$request->additional_product_details,
+                        'product_weight' =>$request->product_weight,
+                        'product_unit_type' =>$request->product_unit_type,
+                        'quantity' =>$request->quantity,
+                        'product_unit_price' =>$request->product_unit_price,
+                        'product_total_price' =>$request->product_total_price,                       
+                        // 'batch_number' =>$request->batch_number,                        
                         'product_entry_date' =>$request->product_entry_date,
                         'product_mfg_date' =>$request->product_mfg_date,
                         'product_expiry_date' =>$request->product_expiry_date,
-                        'total_product_in_a_batch' =>$request->total_product_in_a_batch,
-                        'product_batch_price' =>$request->product_batch_price,
-                        'shop_company_id'=>$user_company_id                       
+                        'product_status' =>1
+                        // 'total_product_in_a_batch' =>$request->total_product_in_a_batch,
+                        // 'product_batch_price' =>$request->product_batch_price,
+                                               
                         ]);
 
         $response = [

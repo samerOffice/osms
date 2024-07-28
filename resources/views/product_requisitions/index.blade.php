@@ -66,7 +66,7 @@ Item Category List
                     <div class="small-box" style="background-color: #d5eaff">
                       <div class="inner">
                         <h3><i class="ion ion-ios-compose-outline"></i></h3>
-                        <h5>Request New Product</h5>
+                        <h5>New Product Purchase</h5>
                       </div>
                       <div class="icon">
                         <i class="ion ion-plus"></i>
@@ -80,7 +80,7 @@ Item Category List
                     <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
                         <h3><i class="ion ion-bag"></i></h3>
-                        <h5>Request Inventory Refill</h5>
+                        <h5>Inventory Refill</h5>
                       </div>
                       <div class="icon">
                         <i class="ion ion-plus"></i>
@@ -95,7 +95,7 @@ Item Category List
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Requested Product List</h3>
+                          <h3 class="card-title">Purchased Product List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
