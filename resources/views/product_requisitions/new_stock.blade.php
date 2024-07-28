@@ -143,7 +143,13 @@ New Product Request Form
 
                                                 <div class="form-group col-2">
                                                     <label for="product_name" class="col-form-label text-start">Product Name</label>
-                                                    <input type="text" class="form-control" name="product_name[]" placeholder="Product Name">
+                                                    {{-- <input type="text" class="form-control" name="product_name[]" placeholder="Product Name"> --}}
+                                                    <select name="product_name[]" class="form-control select2bs4">
+                                                        <option>--Select--</option>
+                                                        @foreach($products as $product)
+                                                        <option value="{{$product->id}}">{{$product->product_name}}</option>
+                                                        @endforeach
+                                                    </select> 
                                                 </div>
 
                                                 <div class="form-group col-1">
@@ -160,6 +166,7 @@ New Product Request Form
                                                     <option value="Gram">Gram</option>
                                                     <option value="Kg">Kg</option>
                                                     <option value="Liter">Liter</option>
+                                                    <option value="ML">ML</option>
                                                     <option value="Meter">Meter</option>
                                                     <option value="Unit">Unit</option>
                                                     <option value="Pair">Pair</option>
@@ -295,7 +302,12 @@ document.getElementById('addButton').addEventListener('click', function() {
                             </div>
                             <div class="form-group col-2">
                                 <label for="product_name" class="col-form-label text-start">Product Name</label>
-                                    <input type="text" class="form-control" name="product_name[]" placeholder="Product Name">
+                                <select name="product_name[]" class="form-control select2bs4">
+                                    <option>--Select--</option>
+                                    @foreach($products as $product)
+                                    <option value="{{$product->id}}">{{$product->product_name}}</option>
+                                    @endforeach
+                                </select> 
                             </div>
 
                              <div class="form-group col-1">
@@ -312,6 +324,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                                 <option value="Gram">Gram</option>
                                 <option value="Kg">Kg</option>
                                 <option value="Liter">Liter</option>
+                                <option value="ML">ML</option>
                                 <option value="Meter">Meter</option>
                                 <option value="Unit">Unit</option>
                                 <option value="Pair">Pair</option>

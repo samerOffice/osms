@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Product
 @endsection
 
 
@@ -32,7 +32,7 @@ Welcome
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label >Item Category</label>
+                                        <label >Item Category <small style="color: red">*</small></label>
                                         <select required class="form-control select2bs4" id="item_category_id" name="item_category_id" style="width: 100%;">                                  
                                           <option value="">Select Item Category</option>
                                           @foreach ($item_categories as $item)
@@ -44,74 +44,115 @@ Welcome
 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label >Product Category</label>
+                                        <label >Product Category <small style="color: red">*</small></label>
                                         <select required class="form-control select2bs4" id="product_category_id" name="product_category_id" style="width: 100%;">                                  
                                           <option value="">Select Product Category</option>                                        
                                           <option value=""></option>                                                                                              
                                       </select>
                                       </div> 
                                 </div>
-                            </div>                    
 
-                          
-                                <div class="form-group">
+                            </div>                         
+                                {{-- <div class="form-group">
                                     <label >Product Type</label>
-                                    <select required class="form-control select2bs4" id="product_type" name="product_type" style="width: 100%;">                                  
+                                    <select  class="form-control select2bs4" id="product_type" name="product_type" style="width: 100%;">                                  
                                       <option value="">Select Product Type</option>                                        
                                       <option value="1">Batch</option>                                                                                              
                                       <option value="2">Single Item</option>                                                                                              
                                   </select>
-                                  </div> 
-                           
+                                </div>  --}}
 
+                              <div class="row">
+                                <div class="col-6">
+                                  <div class="form-group">
+                                    <label >Product Name <small style="color: red">*</small></label>
+                                    <input type="text" required class="form-control" id="product_name" name="product_name">
+                                    {{-- <input type="text" required class="form-control" id="product_name" name="product_name" oninput="generateBarcode()"> --}}
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <div class="form-group">
+                                    <label >Product Labeling Type <small style="color: red">*</small></label>
+                                    <select required class="form-control select2bs4" id="labeling_type" name="labeling_type" style="width: 100%;">                                  
+                                        <option value="">Select</option>                                        
+                                        <option value="1">SKU</option>                                                                                              
+                                        <option value="2">Barcode</option>                                                                                              
+                                    </select>
+                                  </div>
+                                </div>
+                                {{-- <div class="col-4"></div>
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                  <svg id="barcode"></svg>
+                                </div> --}}
+                              </div>                                                         
+                                <div class="form-group">
+                                  <label >Tag Number</label>
+                                  <input type="text" readonly  class="form-control" id="product_tag_number" name="product_tag_number" >
+                                </div>                         
+                              
                               <div class="form-group">
-                                <label >Product Name</label>
-                                <input type="text" required class="form-control" id="product_name" name="product_name" >
+                                <label>Product Details</label>
+                                <textarea class="summernote" name="additional_product_details" id="additional_product_details"></textarea>
                               </div>
 
-                              <div class="form-group">
-                                <label >Per Product Price</label>
-                                <input type="text"  class="form-control" id="product_single_price" name="product_single_price" >
-                              </div>
+                              <div class="row">
+                                <div class="col-2">
+                                  <div class="form-group">
+                                    <label >Product Weight <small style="color: red">*</small></label>
+                                    <input type="number" required class="form-control" id="product_weight" name="product_weight" >
+                                  </div>
+                                </div>
+                                <div class="col-2">
+                                  <div class="form-group">
+                                    <label for="product_unit_type">Unit <small style="color: red">*</small></label>
+                                    <select required name="product_unit_type" class="form-control select2bs4">
+                                        <option>--Select--</option>
+                                        <option value="Dozen">Dozen</option>
+                                        <option value="Box">Box</option>
+                                        <option value="Gram">Gram</option>
+                                        <option value="Kg">Kg</option>
+                                        <option value="Liter">Liter</option>
+                                        <option value="ML">ML</option>
+                                        <option value="Meter">Meter</option>
+                                        <option value="Unit">Unit</option>
+                                        <option value="Pair">Pair</option>
+                                        <option value="Piece">Piece</option>
+                                        <option value="Others">Others</option>
+                                    </select>  
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                  <div class="form-group">
+                                    <label>Quantity <small style="color: red">*</small></label>
+                                    <input type="number" required class="form-control" id="quantity" name="quantity" >
+                                  </div>
+                                </div>
+                                <div class="col-3">
+                                  <div class="form-group">
+                                    <label>Unit Price <small style="color: red">*</small></label>
+                                    <input type="number" required class="form-control" id="product_unit_price" name="product_unit_price" >
+                                  </div>
+                                </div>
 
-                              <div class="form-group">
-                                <label >Product Labeling Type</label>
-                                <select required class="form-control select2bs4" id="labeling_type" name="labeling_type" style="width: 100%;">                                  
-                                    <option value="">Select Product Labeling Type</option>                                        
-                                    <option value="1">SKU</option>                                                                                              
-                                    <option value="2">Barcode</option>                                                                                              
-                                </select>
-                              </div>
+                                <div class="col-3">
+                                  <div class="form-group">
+                                    <label style="color: green">Total Price</label>
+                                    <input type="number" readonly  class="form-control" id="product_total_price" name="product_total_price" >
+                                  </div>
+                                </div>
+                              </div>                      
 
                               {{-- <div class="form-group">
                                 <label >Batch Number</label>
                                 <input type="text"  class="form-control" id="batch_number" name="batch_number" >
                               </div> --}}
-
-                              <div class="form-group">
-                                <label >Tag Number</label>
-                                <input type="text"  class="form-control" id="product_tag_number" name="product_tag_number" >
-                              </div>
-
-                              <div class="form-group">
-                                <label >Product Weight</label>
-                                <input type="text"  class="form-control" id="product_weight" name="product_weight" >
-                              </div>
-
-                              <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="text"  class="form-control" id="quantity" name="quantity" >
-                              </div>
-
-                              <div class="form-group">
-                                <label>Additional Product Details</label>
-                                <textarea class="summernote" name="additional_product_details" id="additional_product_details"></textarea>
-                              </div>
+                         
 
                               <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                 <label>Product Entry Date</label>
-                                <input type="date"  class="form-control" id="product_entry_date" name="product_entry_date" >
+                                <input type="date" readonly  class="form-control" id="product_entry_date" name="product_entry_date" value="{{ date('Y-m-d') }}">
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                 <label>Product MFG Date</label>
@@ -161,20 +202,92 @@ Welcome
 @endsection
 
 @push('masterScripts')
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
 <script type="text/javascript">
 
+$(document).ready(function() {
 
-// Event listener to toggle the input value when the switch is clicked
-$('.toggle-switch-checkbox').change(function() {
-           
-           if ($(this).is(':checked')) {
-               // Checkbox is checked and '1' is for activate
-               $('#toggleButton').val(1);
-           } else {
-               // Checkbox is unchecked and '2' is for deactivate
-               $('#toggleButton').val(2);
-           }
-       });   
+//Initialize Select2 Elements
+$('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+//initialize summernote
+$('.summernote').summernote();
+
+});
+
+
+$('#product_unit_price').on('keyup', function() {
+                var product_quantity = $("#quantity").val();
+                var product_unit_price = $("#product_unit_price").val();
+                var total = (parseFloat(product_quantity) * parseFloat(product_unit_price));
+                $("#product_total_price").val(total ? total.toFixed(2) : 0.00);
+            });
+
+
+
+$('#labeling_type').on('change',function(){
+
+  var labeling_type = $('#labeling_type').val();
+
+  if(labeling_type == 2){
+    generateProductBarCodeID();
+  }else{
+    const selectedItemCategoryName = $("#item_category_id option:selected").text();
+    const selectedProductCategoryName = $("#product_category_id option:selected").text();
+    const productName = $("#product_name").val();
+
+    if ((selectedItemCategoryName !== "Select Item Category") && (selectedProductCategoryName !== "Select Product Category")) {                 
+        generateProductSKUID(selectedItemCategoryName, selectedProductCategoryName, productName);
+    }
+    
+  }
+  
+})
+
+function generateProductBarCodeID() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+        // Example format: INV-YYYYMMDD-HHMMSS-SSS
+        const orderID = `Pro-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;    
+        $("#product_tag_number").val(orderID);
+        // generateBarcode(orderID);
+    }
+
+    function generateProductSKUID(selectedItemCategoryName, selectedProductCategoryName, productName) {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+        // Example format: INV-YYYYMMDD-HHMMSS-SSS
+        const orderID = `SKU-${selectedItemCategoryName}-${selectedProductCategoryName}-${productName}-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
+          $("#product_tag_number").val(orderID);    
+    }
+
+
+// function generateBarcode(orderID){
+//             var input = orderID;
+//             JsBarcode("#barcode", input, {
+//                 format: "CODE128",
+//                 lineColor: "black",
+//                 width: 2,
+//                 height: 40,
+//                 displayValue: false
+//             });
+//         }
 
 //item category and product category dependancy dropdown logic start
 $('#item_category_id').on('change',function(event){
@@ -206,11 +319,8 @@ axios.get('sanctum/csrf-cookie').then(response=>{
 //item category and product category dependancy dropdown logic end
 
 document.getElementById('productForm').addEventListener('submit',function(event){
-  event.preventDefault();
-
+event.preventDefault();
 var productFormData = new FormData(this);
-// const submitBtn = document.getElementById('submitBtn');
-
 
 // Function to get CSRF token from meta tag
 function getCsrfToken() {
@@ -239,13 +349,6 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  });
 
 });
-//Initialize Select2 Elements
-$('.select2bs4').select2({
-    theme: 'bootstrap4'
-    });
-//initialize summernote
-$('.summernote').summernote();
-
 
 </script>
 @endpush

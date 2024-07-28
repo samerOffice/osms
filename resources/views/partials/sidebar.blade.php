@@ -405,7 +405,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-box"></i>
               <p>
-                Product Request
+                Product Purchase
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -415,11 +415,35 @@
                 <li class="nav-item">
                   <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
                     <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
-                    <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Requested Products</p>
+                    <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Purchased Products</p>
                   </a>
                 </li>       
               </ul>
             </li>
+
+
+            <li class="nav-item @if(Request::is('requisition_list')) menu-open 
+            
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-gem"></i>
+              <p>
+                Product
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+              <ul class="nav nav-treeview">
+                
+              
+                <li class="nav-item">
+                  <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Product List</p>
+                  </a>
+                </li>       
+              </ul>
+            </li>
+
 
 
       {{-- <li class="nav-item">

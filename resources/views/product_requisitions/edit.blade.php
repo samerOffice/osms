@@ -21,7 +21,7 @@ New Product Request Form
                     <div class="col-12">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                     <div class="card-header">                                   
-                        <h4 class="card-title ">Edit Request</h4>
+                        <h4 class="card-title ">Edit Purchase Request</h4>
                         <input type="hidden" id="orderId" name="" value="{{$id}}">
                     </div>
 
@@ -121,6 +121,7 @@ New Product Request Form
                   <div class="form-group col-2">
                     <label for="product_name" class="col-form-label text-start">Product Name</label>
                     <input type="text" class="form-control" value="${data.productName || ''}" name="product_name[]" placeholder="Product Name">
+                    
                   </div>
 
                 <div class="form-group col-1">
@@ -137,6 +138,7 @@ New Product Request Form
                         <option value="Gram" ${data.unit === 'Gram' ? 'selected' : ''}>Gram</option>
                         <option value="Kg" ${data.unit === 'Kg' ? 'selected' : ''}>Kg</option>
                         <option value="Liter" ${data.unit === 'Liter' ? 'selected' : ''}>Liter</option>
+                        <option value="ML" ${data.unit === 'ML' ? 'selected' : ''}>ML</option>
                         <option value="Meter" ${data.unit === 'Meter' ? 'selected' : ''}>Meter</option>
                         <option value="Unit" ${data.unit === 'Unit' ? 'selected' : ''}>Unit</option>
                         <option value="Pair" ${data.unit === 'Pair' ? 'selected' : ''}>Pair</option>
