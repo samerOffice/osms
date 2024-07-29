@@ -1,21 +1,24 @@
 <aside class="main-sidebar sidebar-dark-info elevation-4">
+    @if($current_module->module_status == 1) <!--general module-->
     <!-- Brand Logo -->
     <a href="{{route('home')}}"><img src="{{asset('public/img/dashboardlogo.gif')}}"  width="100%" alt="logo"></a>
+    @endif
+    
     <!-- Sidebar -->
-    <div class="sidebar" style="margin-top:-20px;">
+    <div class="sidebar" style="margin-top:10px;">
       <!-- Sidebar user panel (optional) -->
       <!-- <div class="pb-3 mb-3">
       
       </div> -->
-
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
+    
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
         <div class="info" >
           <a href="#" class="d-block"><font color="#fff">Hello</font> {{ Auth::user()->name }}&nbsp;!</a>
         </div>
-      </div>
+      </div> -->
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline" style="margin-top:-30px;">
+      <div class="form-inline" style="">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -23,6 +26,12 @@
               <i class="fas fa-search fa-fw"></i>
             </button>
           </div>
+        </div>
+      </div>
+
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
+        <div class="info" >
+          <a href="#" class="d-block"><font color="#fff">Welcome</font> {{ Auth::user()->name }}&nbsp;!</a>
         </div>
       </div>
 
@@ -87,7 +96,13 @@
           <div style="background-color:#908ec4;height:10px;"></div>
         </div>
 
-        <div style="padding: 0px 10px 10px 10px;">
+        <style>
+          .fahadsidebar{
+            bottom: 0px;
+          }
+        </style>
+
+        <div class="fahadsidebar" style="padding: 0px 10px 10px 10px;">
           <br><div style=""><p><font color="#e7fdfe" size="4"><b>About OSMS</b></font></p></div>
           <div style="text-align: justify;color:#fff;">
           <p><font color="#fff">Otithee Shop Management <br>System is a comprehensive <br>retail solution designed to <br>streamline and optimize shop <br>operations.</font></p>
