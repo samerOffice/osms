@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2024 at 02:08 PM
+-- Generation Time: Jul 29, 2024 at 01:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,7 +107,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `item_category_id`, `product_category_id`, `product_type`, `product_name`, `product_track_name`, `product_unit_price`, `labeling_type`, `batch_number`, `product_tag_number`, `product_weight`, `product_unit_type`, `quantity`, `product_total_price`, `additional_product_details`, `product_entry_date`, `product_mfg_date`, `product_expiry_date`, `product_status`, `total_product_in_a_batch`, `product_batch_price`, `current_available_product_in_a_batch`, `shop_company_id`, `shop_branch_id`, `shop_depth_id`, `shop_outlet_id`, `shop_warehouse_id`, `vendor_id`, `vendor_company_id`, `vendor_branch_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, NULL, 'Otobi Wooden Table', 'Otobi Wooden Table', '12500', 1, NULL, 'SKU-Furniture- Table -Otobi Wooden Table-20240728-174210-888', '12', 'Kg', 2, '25000.00', '<p>Otobi Latest Wooden Table<br></p>', '2024-07-28', '2022-07-06', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, 2, NULL, NULL, NULL, '2024-07-28 11:44:08', '2024-07-28 11:44:08');
+(1, 1, 3, NULL, 'Lenovo 203 tablet', 'Lenovo 203 laptop', NULL, 1, NULL, 'SKU-Electronics- Laptop -Lenovo 203 tablet-20240729-165427-336', '3', 'Kg', NULL, NULL, 'Lenovo 15\" LED', '2024-07-29', '2022-06-15', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 05:51:59', '2024-07-29 05:51:59'),
+(2, 2, 1, NULL, 'Otobi Wooden Table', 'Otobi Wooden Table', NULL, 1, NULL, 'SKU-Furniture- Table -Otobi Wooden Table-20240729-115238-464', '7.5', 'Kg', NULL, NULL, 'Otobi Latest Folding Table', '2024-07-29', NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 05:53:10', '2024-07-29 05:53:10'),
+(3, 2, 1, NULL, 'Hatil Table', 'Hatil Table', NULL, 1, NULL, 'SKU-Furniture- Table -Hatil Table-20240729-122841-832', '6', 'Kg', NULL, NULL, 'new hatil folding table', '2024-07-29', '2022-07-13', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 06:29:03', '2024-07-29 06:29:03');
 
 -- --------------------------------------------------------
 
@@ -147,7 +149,8 @@ CREATE TABLE `product_categories` (
 
 INSERT INTO `product_categories` (`id`, `company_id`, `name`, `item_category_id`, `active_status`, `created_at`, `updated_at`) VALUES
 (1, 11, 'Table', 2, 1, '2024-07-28 11:35:45', '2024-07-28 11:35:45'),
-(2, 11, 'Chair', 2, 2, '2024-07-28 11:36:04', '2024-07-28 11:36:04');
+(2, 11, 'Chair', 2, 2, '2024-07-28 11:36:04', '2024-07-28 11:36:04'),
+(3, 11, 'Laptop', 1, 1, '2024-07-29 05:50:21', '2024-07-29 05:50:21');
 
 -- --------------------------------------------------------
 
@@ -159,7 +162,7 @@ CREATE TABLE `product_requisitions` (
   `id` int(255) NOT NULL,
   `requisition_order_id` varchar(100) DEFAULT NULL,
   `product_track_id` varchar(100) DEFAULT NULL,
-  `product_name` varchar(100) DEFAULT NULL,
+  `product_id` int(255) DEFAULT NULL,
   `product_weight` varchar(100) DEFAULT NULL,
   `product_unit_type` varchar(100) DEFAULT NULL,
   `product_details` text DEFAULT NULL,
@@ -174,14 +177,10 @@ CREATE TABLE `product_requisitions` (
 -- Dumping data for table `product_requisitions`
 --
 
-INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track_id`, `product_name`, `product_weight`, `product_unit_type`, `product_details`, `product_quantity`, `product_unit_price`, `product_subtotal`, `created_at`, `updated_at`) VALUES
-(1, 'ORD-20240717-164412', 'Pro-20240717-164452-279', 'Mum Mineral Water', '5', 'Liter', 'Mum water bottle', 15, '65', '975.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
-(2, 'ORD-20240717-164412', 'Pro-20240717-164531-135', 'Peanut Butter', '1', 'Kg', 'Pran-RFL peanut butter', 5, '120', '600.00', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
-(23, 'ORD-20240725-153245', 'Pro-20240727-151526-718', 'Ruchi Chanachur', '1', 'Kg', 'ruchi jhal chanachur', 5, '110', '550.00', '2024-07-27 09:21:19', '2024-07-27 09:21:19'),
-(24, 'ORD-20240725-153245', 'Pro-20240727-151523-173', 'Aam', '5', 'Kg', 'mango', 1, '90', '90.00', '2024-07-27 09:21:19', '2024-07-27 09:21:19'),
-(25, 'ORD-20240725-153245', 'Pro-20240727-152114-423', 'Jam', '2', 'Kg', 'jam', 2, '50', '100.00', '2024-07-27 09:21:19', '2024-07-27 09:21:19'),
-(26, 'ORD-20240728-104434', 'Pro-20240728-104532-459', 'Rupchanda Soyabin Oil', '5', 'Liter', '5 liter rupchanda soyabin oil', 10, '85', '850.00', '2024-07-28 04:46:18', '2024-07-28 04:46:18'),
-(27, 'ORD-20240728-104434', 'Pro-20240728-104615-979', 'Pran Tomato Sauce', '1', 'Kg', '1 kg pran sauce', 4, '55', '220.00', '2024-07-28 04:46:18', '2024-07-28 04:46:18');
+INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track_id`, `product_id`, `product_weight`, `product_unit_type`, `product_details`, `product_quantity`, `product_unit_price`, `product_subtotal`, `created_at`, `updated_at`) VALUES
+(3, 'ORD-20240729-141826-604', 'Pro-20240729-141838-637', 1, '2.5', 'Kg', 'Lenovo 15\" LED laptop', 2, '42500', '85000.00', '2024-07-29 08:19:38', '2024-07-29 08:19:38'),
+(4, 'ORD-20240729-141826-604', 'Pro-20240729-141851-508', 2, '7.5', 'Kg', 'Otobi Latest Folding Table', 4, '14000', '56000.00', '2024-07-29 08:19:38', '2024-07-29 08:19:38'),
+(5, 'ORD-20240729-141826-604', 'Pro-20240729-141935-791', 3, '6', 'Kg', 'new hatil folding table', 2, '12500', '25000.00', '2024-07-29 08:19:38', '2024-07-29 08:19:38');
 
 -- --------------------------------------------------------
 
@@ -248,9 +247,34 @@ CREATE TABLE `requisition_orders` (
 --
 
 INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_reviewed_by`, `supplier_id`, `requisition_status`, `total_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, 'ORD-20240717-164412', '2024-07-17', NULL, 11, 1, 1, 1, 4, 2, '1575.00', 'invalid order', '2024-07-17 10:45:47', '2024-07-17 10:45:47'),
-(2, 11, 1, 'ORD-20240725-153245', '2024-07-25', NULL, 11, 2, 1, 1, 3, 3, '740.00', NULL, '2024-07-25 09:35:32', '2024-07-25 09:35:32'),
-(3, 11, 1, 'ORD-20240728-104434', '2024-07-19', NULL, 11, 1, 1, NULL, 2, 1, '1070.00', NULL, '2024-07-28 04:46:18', '2024-07-28 04:46:18');
+(1, 11, 1, 'ORD-20240729-141826-604', '2024-07-29', '2024-07-29', 11, 2, 1, 1, 2, 3, '166000.00', NULL, '2024-07-29 08:18:53', '2024-07-29 08:18:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stocks`
+--
+
+CREATE TABLE `stocks` (
+  `id` int(255) NOT NULL,
+  `product_id` int(255) DEFAULT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `warehouse_id` int(255) DEFAULT NULL,
+  `quantity` int(100) DEFAULT NULL,
+  `purchase_date` date DEFAULT NULL,
+  `product_stored_by` int(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stocks`
+--
+
+INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `quantity`, `purchase_date`, `product_stored_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 11, 2, 2, '2024-07-29', 1, '2024-07-29 09:13:59', '2024-07-29 09:13:59'),
+(2, 2, 11, 2, 4, '2024-07-29', 1, '2024-07-29 09:13:59', '2024-07-29 09:13:59'),
+(3, 3, 11, 2, 2, '2024-07-29', 1, '2024-07-29 09:13:59', '2024-07-29 09:13:59');
 
 -- --------------------------------------------------------
 
@@ -336,6 +360,12 @@ ALTER TABLE `requisition_orders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stocks`
+--
+ALTER TABLE `stocks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `warehouses`
 --
 ALTER TABLE `warehouses`
@@ -361,7 +391,7 @@ ALTER TABLE `item_categories`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_batch`
@@ -373,13 +403,13 @@ ALTER TABLE `product_batch`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_requisitions`
 --
 ALTER TABLE `product_requisitions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_sales`
@@ -397,7 +427,13 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `requisition_orders`
 --
 ALTER TABLE `requisition_orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `stocks`
+--
+ALTER TABLE `stocks`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `warehouses`

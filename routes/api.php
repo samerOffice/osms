@@ -125,20 +125,27 @@ Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollCo
 //requisition
 Route::middleware('auth:sanctum')->post('/requisition_store', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_store']);
 Route::middleware('auth:sanctum')->get('/requisition_edit/{requisition_order_id}', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_edit']);
-
-
 Route::middleware('auth:sanctum')->post('/requisition_update/{requisition_order_id}',[App\Http\Controllers\API\Inventory\ProductRequisitionController::class,'requisition_update']);
+Route::post('/product_information_dependancy',[App\Http\Controllers\API\Inventory\ProductRequisitionController::class,'ProductInfoDependancy']);
+Route::get('/products',[App\Http\Controllers\API\Inventory\ProductRequisitionController::class,'productList']);
+
 //item category
 Route::middleware('auth:sanctum')->post('/submit_item_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_item_category']);
 Route::middleware('auth:sanctum')->get('/edit_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_item_category_via_api']);
 Route::middleware('auth:sanctum')->post('/update_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_item_category']);
+
 //product category
 Route::middleware('auth:sanctum')->post('/submit_product_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_product_category']);
 Route::middleware('auth:sanctum')->get('/edit_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_product_category_via_api']);
 Route::middleware('auth:sanctum')->post('/update_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_product_category']);
+
 //product
 Route::post('/item_category_and_product_category_dependancy',[App\Http\Controllers\API\Inventory\ProductController::class,'itemCategoryAndProductCategoryDependancy']);
 Route::middleware('auth:sanctum')->post('/submit_product',[App\Http\Controllers\API\Inventory\ProductController::class,'submit_product']);
+Route::middleware('auth:sanctum')->get('/edit_product/{product_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_product_via_api']);
+Route::middleware('auth:sanctum')->post('/update_product/{product_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_product']);
+Route::middleware('auth:sanctum')->post('/delete_product/{product_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'delete_product']);
+
 
 //...............********* pos module ********................
 // Route::middleware('auth:sanctum')->post('/submit_invoice',[App\Http\Controllers\API\POS\InvoiceController::class,'submit_invoice']);

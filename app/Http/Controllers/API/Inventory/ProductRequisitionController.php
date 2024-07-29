@@ -75,6 +75,37 @@ class ProductRequisitionController extends Controller
         return view('product_requisitions.new_stock',compact('current_module','user_id','user_name','item_categories','suppliers','warehouses','products'));
     }
 
+
+
+    public function ProductInfoDependancy(Request $request){
+
+        $selectedProductId = $request->input('data');
+        $product = DB::connection('inventory')
+                    ->table('products')
+                    ->where('id',$selectedProductId)
+                    ->first();
+
+        if ($product) {
+        $response = [
+            'product_unit_type' => $product->product_unit_type,
+            'product_details' => $product->additional_product_details,
+            'product_weight' => $product->product_weight,
+            'product_id' => $product->id
+        ];
+    } else {
+        $response = [
+            'product_unit_type' => '',
+            'product_details' => '',
+            'product_weight' => ''
+        ];
+    }
+
+        return response()->json($response);       
+      }
+
+
+
+
     public function requisition_store(Request $request){
 
         $user_company_id = Auth::user()->company_id;
@@ -116,7 +147,7 @@ class ProductRequisitionController extends Controller
         $last_requisition_order = $requisition->requisition_order_id;
 
         $product_track_ids = $request->product_track_id;
-        $product_names = $request->product_name;
+        $product_ids = $request->product_id;
         $product_weights = $request->product_weight;
         $product_unit_types = $request->product_unit_type;
         $product_details = $request->product_details;
@@ -126,7 +157,7 @@ class ProductRequisitionController extends Controller
 
 
         foreach ($product_track_ids as $key => $product_track_id) {
-            $product_name = $product_names[$key] ?? null;
+            $product_id = $product_ids[$key] ?? null;
             $product_weight = $product_weights[$key] ?? null;
             $product_unit_type = $product_unit_types[$key] ?? null; 
             $product_detail = $product_details[$key] ?? null;
@@ -139,7 +170,7 @@ class ProductRequisitionController extends Controller
                 ->insert([
                 'requisition_order_id' => $last_requisition_order,
                 'product_track_id' => $product_track_id,
-                'product_name' => $product_name,
+                'product_id' => $product_id,
                 'product_weight' => $product_weight,
                 'product_unit_type' => $product_unit_type,
                 'product_details' => $product_detail,
@@ -183,13 +214,15 @@ class ProductRequisitionController extends Controller
 
         $requisition_order = DB::connection('inventory')
                             ->table('product_requisitions')
+                            ->leftJoin('products','product_requisitions.product_id','products.id')
                             ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
                             ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
                             ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.users', 'requisition_orders.requisition_order_by', '=', 'users.id')
                             ->select(
                                 'requisition_orders.*',
                                 'product_requisitions.product_track_id as product_track_id',
-                                'product_requisitions.product_name as requested_product_name',
+                                'product_requisitions.product_id as requested_product_id',
+                                'products.product_name as requested_product_name',
                                 'product_requisitions.product_weight as requested_product_weight',
                                 'product_requisitions.product_unit_type as requested_product_unit_type',
                                 'product_requisitions.product_details as requested_product_details',
@@ -204,14 +237,19 @@ class ProductRequisitionController extends Controller
 
 
             //  dd($requisition_order);
+             return response()->json($requisition_order, 200);     
 
-             return response()->json($requisition_order, 200);
+    }
 
-        // $response = [
-        //     'requisition_order_details' => $item_category
-        //     ];
-        //    return response()->json($response,200);
 
+    public function productList(){
+        $user_company_id = Auth::user()->company_id;
+        $products = DB::connection('inventory')
+                        ->table('products')
+                        ->where('shop_company_id',$user_company_id)
+                        ->get();
+
+        return response()->json($products);
     }
 
 
@@ -227,7 +265,7 @@ class ProductRequisitionController extends Controller
 
         try {
             $product_track_ids = $request->product_track_id;
-            $product_names = $request->product_name;
+            $product_ids = $request->product_id;
             $product_weights = $request->product_weight;
             $product_unit_types = $request->product_unit_type;
             $product_details = $request->product_details;
@@ -243,7 +281,7 @@ class ProductRequisitionController extends Controller
 
             // Insert new records
             foreach ($product_track_ids as $key => $product_track_id) {
-                $product_name = $product_names[$key] ?? null;
+                $product_id = $product_ids[$key] ?? null;
                 $product_weight = $product_weights[$key] ?? null;
                 $product_unit_type = $product_unit_types[$key] ?? null;
                 $product_detail = $product_details[$key] ?? null;
@@ -256,7 +294,7 @@ class ProductRequisitionController extends Controller
                     ->insert([
                         'requisition_order_id' => $requisition_order_id,
                         'product_track_id' => $product_track_id,
-                        'product_name' => $product_name,
+                        'product_id' => $product_id,
                         'product_weight' => $product_weight,
                         'product_unit_type' => $product_unit_type,
                         'product_details' => $product_detail,
@@ -298,7 +336,7 @@ class ProductRequisitionController extends Controller
          $user_company_id = Auth::user()->company_id;
 
          $requisition_order = DB::connection('inventory')
-         ->table('requisition_orders') 
+         ->table('requisition_orders')
          ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.users', 'requisition_orders.requisition_order_by', '=', 'users.id')
          ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
          ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.companies', 'requisition_orders.shop_company_id', '=', 'companies.id')
@@ -320,7 +358,9 @@ class ProductRequisitionController extends Controller
 
          $product_requisitions = DB::connection('inventory')
                                 ->table('product_requisitions')
+                                ->leftJoin('products','product_requisitions.product_id','products.id')
                                 ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                                ->select('product_requisitions.*', 'products.product_name as product_name')
                                 ->where('requisition_orders.id',$id)
                                 ->get();
 
@@ -363,6 +403,39 @@ class ProductRequisitionController extends Controller
             'requisition_deliver_date' => Carbon::now()->format('Y-m-d')
         ]);
 
+        $order_track = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        ->where('id',$requisition_id)
+                        ->where('requisition_status',3)
+                        ->first();
+
+        $company_id = $order_track->shop_company_id;
+        $warehouse_id = $order_track->warehouse_id;
+        $requisition_reviewed_by = $order_track->requisition_reviewed_by;
+        $product_deliver_date = $order_track->requisition_deliver_date;
+        $order_track_id = $order_track->requisition_order_id;
+
+
+
+        $purchased_products = DB::connection('inventory')
+                            ->table('product_requisitions')
+                            ->where('requisition_order_id',$order_track_id)
+                            ->get();
+
+
+        foreach($purchased_products as $purchased_product){
+            $stocks = DB::connection('inventory')
+            ->table('stocks')
+            ->insertGetId([
+                'product_id' => $purchased_product->product_id,
+                'company_id' => $company_id,
+                'warehouse_id' => $warehouse_id,
+                'quantity' => $purchased_product->product_quantity,
+                'purchase_date' => $product_deliver_date,
+                'product_stored_by' => $requisition_reviewed_by              
+                ]);
+        }
+       
         return redirect()->route('requisition_list')->withSuccess('Order is reviewed successfully'); 
     }
 

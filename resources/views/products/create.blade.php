@@ -10,14 +10,14 @@ Product
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <br>
+        
         <div class="row">
-            {{-- <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
-                    <i class="fas fa-arrow-left"></i> Back
-                </a>
-            </div> --}}
 
+            <div class="col-12">
+              <a class="btn btn-outline-info float-right" href="{{route('product_list')}}">
+                  <i class="fas fa-arrow-left"></i> Back
+              </a>
+          </div> 
                
             <div class="col-12">
                 <br>
@@ -93,17 +93,17 @@ Product
                               
                               <div class="form-group">
                                 <label>Product Details</label>
-                                <textarea class="summernote" name="additional_product_details" id="additional_product_details"></textarea>
+                                <textarea class="form-control" name="additional_product_details" id="additional_product_details"></textarea>
                               </div>
 
                               <div class="row">
-                                <div class="col-2">
+                                <div class="col-6">
                                   <div class="form-group">
                                     <label >Product Weight <small style="color: red">*</small></label>
-                                    <input type="number" required class="form-control" id="product_weight" name="product_weight" >
+                                    <input type="text" required class="form-control" id="product_weight" name="product_weight" >
                                   </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-6">
                                   <div class="form-group">
                                     <label for="product_unit_type">Unit <small style="color: red">*</small></label>
                                     <select required name="product_unit_type" class="form-control select2bs4">
@@ -122,16 +122,16 @@ Product
                                     </select>  
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                {{-- <div class="col-2">
                                   <div class="form-group">
                                     <label>Quantity <small style="color: red">*</small></label>
-                                    <input type="number" required class="form-control" id="quantity" name="quantity" >
+                                    <input type="number"  class="form-control" id="quantity" name="quantity" >
                                   </div>
                                 </div>
                                 <div class="col-3">
                                   <div class="form-group">
                                     <label>Unit Price <small style="color: red">*</small></label>
-                                    <input type="number" required class="form-control" id="product_unit_price" name="product_unit_price" >
+                                    <input type="number"  class="form-control" id="product_unit_price" name="product_unit_price" >
                                   </div>
                                 </div>
 
@@ -140,7 +140,7 @@ Product
                                     <label style="color: green">Total Price</label>
                                     <input type="number" readonly  class="form-control" id="product_total_price" name="product_total_price" >
                                   </div>
-                                </div>
+                                </div> --}}
                               </div>                      
 
                               {{-- <div class="form-group">

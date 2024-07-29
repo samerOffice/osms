@@ -144,7 +144,7 @@ New Product Request Form
                                                 <div class="form-group col-2">
                                                     <label for="product_name" class="col-form-label text-start">Product Name</label>
                                                     {{-- <input type="text" class="form-control" name="product_name[]" placeholder="Product Name"> --}}
-                                                    <select name="product_name[]" class="form-control select2bs4">
+                                                    <select name="product_id[]" class="form-control select2bs4 product_name">
                                                         <option>--Select--</option>
                                                         @foreach($products as $product)
                                                         <option value="{{$product->id}}">{{$product->product_name}}</option>
@@ -154,12 +154,13 @@ New Product Request Form
 
                                                 <div class="form-group col-1">
                                                     <label for="product_weight" class="col-form-label text-start">Product Weight</label>
-                                                    <input type="number" class="form-control" name="product_weight[]"> 
+                                                    <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                                                 </div>
                                     
                                                 <div class="form-group col-1">
                                                 <label for="product_unit_type" class="col-form-label text-start">Unit</label>
-                                                <select name="product_unit_type[]" class="form-control select2bs4">
+                                                <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
+                                                {{-- <select  name="product_unit_type[]" class="form-control select2bs4 product_unit_type">
                                                     <option>--Select--</option>
                                                     <option value="Dozen">Dozen</option>
                                                     <option value="Box">Box</option>
@@ -172,12 +173,12 @@ New Product Request Form
                                                     <option value="Pair">Pair</option>
                                                     <option value="Piece">Piece</option>
                                                     <option value="Others">Others</option>
-                                                </select>  
+                                                </select>   --}}
                                                 </div>
                                     
                                                 <div class="form-group col-2">
                                                 <label for="product_details" class="col-form-label text-start">Product Details</label>
-                                                <textarea name="product_details[]" class="form-control"></textarea>
+                                                <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                                                 </div>
                                     
                                                 <div class="form-group col-1">
@@ -251,14 +252,10 @@ $(document).ready(function() {
 $('.select2bs4').select2({
     theme: 'bootstrap4'
     });
-
 //order id pattern
 const orderIdField = document.getElementById("requisition_order_id");
 orderIdField.value = generateOrderID();
 
-//product track id pattern
-// const productTrackIdField = document.getElementsByClassName("product_track_id");
-// productTrackIdField.value = generateProductTrackID();
 
 $('#supplier_id').change(function() {
     if ($(this).val() === 'new') {
@@ -272,7 +269,7 @@ $('#supplier_id').change(function() {
 });
 });
 
-//testing start
+//-----------------dynamic add new row start----------------------
 function generateOrderID() {
             const now = new Date();
             const year = now.getFullYear();
@@ -281,13 +278,12 @@ function generateOrderID() {
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            // const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+            const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
 
-            // Example format: INV-YYYYMMDD-HHMMSS-SSS
-            const orderID = `ORD-${year}${month}${day}-${hours}${minutes}${seconds}`;
+            // Example format: ORD-YYYYMMDD-HHMMSS-SSS
+            const orderID = `ORD-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
             return orderID;
         }
-
 
 
 document.getElementById('addButton').addEventListener('click', function() { 
@@ -302,7 +298,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                             </div>
                             <div class="form-group col-2">
                                 <label for="product_name" class="col-form-label text-start">Product Name</label>
-                                <select name="product_name[]" class="form-control select2bs4">
+                                <select name="product_id[]" class="form-control select2bs4 pro_name">
                                     <option>--Select--</option>
                                     @foreach($products as $product)
                                     <option value="{{$product->id}}">{{$product->product_name}}</option>
@@ -312,30 +308,18 @@ document.getElementById('addButton').addEventListener('click', function() {
 
                              <div class="form-group col-1">
                                 <label for="product_weight" class="col-form-label text-start">Product Weight</label>
-                                <input type="number" class="form-control" name="product_weight[]" > 
+                                <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                             </div>
                 
                             <div class="form-group col-1">
                             <label for="product_unit_type" class="col-form-label text-start">Unit</label>
-                            <select name="product_unit_type[]" class="form-control select2bs4">
-                                <option>--Select--</option>
-                                <option value="Dozen">Dozen</option>
-                                <option value="Box">Box</option>
-                                <option value="Gram">Gram</option>
-                                <option value="Kg">Kg</option>
-                                <option value="Liter">Liter</option>
-                                <option value="ML">ML</option>
-                                <option value="Meter">Meter</option>
-                                <option value="Unit">Unit</option>
-                                <option value="Pair">Pair</option>
-                                <option value="Piece">Piece</option>
-                                <option value="Others">Others</option>
-                            </select>  
+                            <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
+                             
                             </div>
                 
                             <div class="form-group col-2">
                             <label for="product_details" class="col-form-label text-start">Product Details</label>
-                            <textarea name="product_details[]" class="form-control"></textarea>
+                            <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                             </div>
                 
                             <div class="form-group col-1">
@@ -372,7 +356,38 @@ document.getElementById('addButton').addEventListener('click', function() {
             });
         });
 
+
+
+    //for new added row dynamic product dependancy dropdown logic start
+    newRow.querySelector('.pro_name').addEventListener('change',function(event){
+    event.preventDefault();
+    const selectedProductId = this.value;
+
+    // Function to get CSRF token from meta tag
+    function getCsrfToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
+    // Set up Axios defaults
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+    axios.get('sanctum/csrf-cookie').then(response=>{
+    axios.post('/osms/api/product_information_dependancy',{
+            data: selectedProductId
+        }).then(response=>{
+            var data = response;
+                    newRow.querySelector('.product_unit_type').value = data.data.product_unit_type;
+                    newRow.querySelector('.product_details').value = data.data.product_details;
+                    newRow.querySelector('.product_weight').value = data.data.product_weight;
+            console.log(response.data);
+        });
     });
+    });
+    //for new added row dynamic product dependancy dropdown logic end
+
+    });
+
+
 
     function calculateProductUnitPrice(row) {
         var productQuantity = $(row).find(".product_quantity").val();
@@ -419,12 +434,51 @@ document.getElementById('addButton').addEventListener('click', function() {
         });
     });
 
-//testing end
+//----------------------dynamic add new row end-----------------------
 
-//requisition order submit start
-document.getElementById('requisitionOrderForm').addEventListener('submit',function(event){
+
+
+//product dependancy dropdown logic start
+$('.product_name').on('change',function(event){
   event.preventDefault();
+  var selectedProduct = $('.product_name').val();
 
+  if (selectedProduct == '') {
+        $('.product_weight').val('');
+        $('.product_unit_type').val('');
+        $('.product_details').html('');
+        return false;
+      }
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+axios.get('sanctum/csrf-cookie').then(response=>{
+ axios.post('/osms/api/product_information_dependancy',{
+        data: selectedProduct
+      }).then(response=>{
+        // Update the select element for product_unit_type
+        $('.product_unit_type').val(response.data.product_unit_type);
+        // Update the input element for product_details
+        $('.product_details').val(response.data.product_details);
+        // Update the input element for product_weight
+        $('.product_weight').val(response.data.product_weight);
+        console.log(response.data);
+      });
+ });
+});
+//product dependancy dropdown logic end
+
+
+
+//..............requisition purchase order submit start................
+document.getElementById('requisitionOrderForm').addEventListener('submit',function(event){
+event.preventDefault();
 var requisitionOrderFormData = new FormData(this);
 
 // Function to get CSRF token from meta tag
@@ -455,7 +509,7 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  });
 
 });
-//requisition order submit end
+//................requisition purchase order submit end.................
  
 </script>
  @endpush
