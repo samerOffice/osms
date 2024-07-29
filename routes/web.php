@@ -83,7 +83,7 @@ Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->nam
 Route::get('/edit_employee_official_info/{employee_id}', [EmpController::class, 'edit_employee_official_info'])->name('edit_employee_official_info');
 
 //employee personal information update
-Route::get('/add_additional_member_info', [EmpController::class, 'add_additional_member_info'])->name('add_additional_member_info');
+Route::get('/add_personal_info', [EmpController::class, 'add_personal_info'])->name('add_personal_info');
 Route::get('/employee_list', [EmpController::class, 'employee_list'])->name('employee_list');
 Route::get('/password_reset', [EmpController::class, 'password_reset'])->name('password_reset');
 
