@@ -34,6 +34,8 @@
   <link rel="stylesheet" href="{{asset('public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- summernote -->
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <!-- Fahad Employee Module Dashboard CSS -->
+  <link href="{{asset('public/dist/css/fahad.css')}}" rel="stylesheet">
   @stack('css')
 </head>
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -135,5 +137,7 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('public/dist/js/pages/dashboard2.js')}}"></script>
+<!-- Fahad Employee Module Dashboard JS -->
+<script type="text/javascript" src="{{asset('public/dist/js/fahad.js')}}"></script>
 </body>
 </html>
