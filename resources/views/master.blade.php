@@ -19,6 +19,7 @@
    <link rel="stylesheet" href="{{asset('public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
    <link rel="stylesheet" href="{{asset('public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
+   
 
     <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -27,11 +28,14 @@
   <link rel="stylesheet" href="{{asset('public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('public/dist/css/adminlte.min.css')}}">
+  
   <!--select2 -->
   <link rel="stylesheet" href="{{asset('public/plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- summernote -->
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <!-- Fahad Employee Module Dashboard CSS -->
+  <link href="{{asset('public/dist/css/fahad.css')}}" rel="stylesheet">
   @stack('css')
 </head>
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -67,6 +71,28 @@
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('public/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{asset('public/plugins/sparklines/sparkline.js')}}"></script>
+<script src="{{asset('public/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{asset('public/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{asset('public/plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('public/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- Summernote -->
+<script src="{{asset('public/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{asset('public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('public/dist/js/adminlte.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('public/dist/js/demo.js')}}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{asset('public/dist/js/pages/dashboard.js')}}"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 <!-- axios -->
 <script src="{{asset('public/plugins/axios/axios.min.js')}}"></script>
 <!-- Bootstrap -->
@@ -86,8 +112,7 @@
 <script src="{{asset('public/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}} "></script>
-<!-- AdminLTE App -->
-<script src="{{asset('public/dist/js/adminlte.js')}}"></script>
+
 <!-- Summernote -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <!-- Select2 -->
@@ -104,10 +129,17 @@
 <script src="{{asset('public/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('public/plugins/chart.js/Chart.min.js')}}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{asset('public/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="{{asset('public/dist/js/demo.js')}}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="{{asset('public/dist/js/pages/dashboard2.js')}}"></script> --}}
+
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{asset('public/dist/js/pages/dashboard2.js')}}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{asset('public/dist/js/pages/dashboard3.js')}}"></script>
+<!-- Fahad Employee Module Dashboard JS -->
+<script type="text/javascript" src="{{asset('public/dist/js/fahad.js')}}"></script>
 </body>
 </html>

@@ -1,11 +1,38 @@
 <aside class="main-sidebar sidebar-dark-info elevation-4">
+    @if($current_module->module_status == 1) <!--general module-->
     <!-- Brand Logo -->
+    <a href="{{route('home')}}"><img src="{{asset('public/img/dashboardlogo.gif')}}"  width="100%" alt="logo"></a>
+    @endif
     
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" style="margin-top:10px;">
       <!-- Sidebar user panel (optional) -->
-      <div class="pb-3 mb-3">
+      <!-- <div class="pb-3 mb-3">
       
+      </div> -->
+    
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
+        <div class="info" >
+          <a href="#" class="d-block"><font color="#fff">Hello</font> {{ Auth::user()->name }}&nbsp;!</a>
+        </div>
+      </div> -->
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline" style="">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
+        <div class="info" >
+          <a href="#" class="d-block"><font color="#fff">Welcome</font> {{ Auth::user()->name }}&nbsp;!</a>
+        </div>
       </div>
 
       <!-- Sidebar Menu -->
@@ -64,8 +91,29 @@
           </a>
         </li>
 
-        
 
+        <div style="padding: 10px 0px 0px 0px;">
+          <div style="background-color:#908ec4;height:10px;"></div>
+        </div>
+
+        <style>
+          .fahadsidebar{
+            bottom: 0px;
+          }
+        </style>
+
+        <div class="fahadsidebar" style="padding: 0px 10px 10px 10px;">
+          <br><div style=""><p><font color="#e7fdfe" size="4"><b>About OSMS</b></font></p></div>
+          <div style="text-align: justify;color:#fff;">
+          <p><font color="#fff">Otithee Shop Management <br>System is a comprehensive <br>retail solution designed to <br>streamline and optimize shop <br>operations.</font></p>
+          <p><font color="#ffdfdf">Efficient Retail <br>Management Solution.</font></p>
+          <p><font color="#e7fdfe" size="4"><b>Get in Touch</b></font></p>
+          <p><font color="#fff"><b>Address:</b></font></p>
+          <p><font color="#fef5e7">9/A Dhanmondi, Dhaka-1209.</font></p>
+          <p><font color="#fff"><b>Phone:</b></font></p>
+          <p><font color="#fef5e7">+8801790004664</font></p>
+          </div>
+        </div>
 
           @if((auth()->user()->role_id == 1))
           <li class="nav-item @if(Request::is('designation_list')) menu-open 
