@@ -47,7 +47,7 @@
               Dashboard
             </p>
           </a>
-        </li>
+         </li>
 
         <li class="nav-item nav-link @if(Request::is('branch_list')) nav-link active @endif" 
             style="@if(Request::is('branch_list')) background-color: #908ec4; @endif">
@@ -86,10 +86,39 @@
         <li class="nav-item nav-link @if(Request::is('supplier_list')) nav-link active @endif" 
             style="@if(Request::is('supplier_list')) background-color: #908ec4; @endif">
            <a href="{{route('supplier_list')}}" >
-            <i class="nav-icon fa-solid fa-user" style=" @if(Request::is('supplier_list')) color: white; @endif"></i>
+            <i class="nav-icon fa-solid fa-users" style=" @if(Request::is('supplier_list')) color: white; @endif"></i>
             <p style="@if(Request::is('supplier_list')) color:white; @endif"> Supplier</p>
           </a>
         </li>
+
+
+        <li class="nav-item @if(Request::is('add_item_category')) menu-open 
+            @elseif(Request::is('item_category_list')) menu-open 
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-user"></i>
+              <p>
+                Personal Info
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('add_personal_info')}}" class="nav-link {{ Request::is('add_personal_info') ? 'nav-link active' : ''}}" style="{{ Request::is('add_personal_info') ? 'background-color: #908ec4; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_personal_info') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('add_personal_info') ? 'color: white; !important' : ''}}">Profile</p>
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="{{route('password_reset')}}" class="nav-link {{ Request::is('password_reset') ? 'nav-link active' : ''}}" style="{{ Request::is('password_reset') ? 'background-color: #908ec4; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('password_reset') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('password_reset') ? 'color: white; !important' : ''}}">Password Reset</p>
+                  </a>
+                </li>
+                
+              </ul>
+          </li>
 
 
         <div style="padding: 10px 0px 0px 0px;">
