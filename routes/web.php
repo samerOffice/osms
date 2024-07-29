@@ -20,6 +20,8 @@ use App\Http\Controllers\API\Emp\PayrollController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
+use App\Http\Controllers\API\Inventory\StockController;
+
 use App\Http\Controllers\API\POS\InvoiceController;
 
 
@@ -117,11 +119,19 @@ Route::get('/edit_product_category/{product_category_id}', [ProductController::c
 
 //product
 Route::get('/add_product', [ProductController::class, 'add_product'])->name('add_product');
-
+Route::get('/product_list', [ProductController::class, 'product_list'])->name('product_list');
+Route::get('/edit_product/{product_id}', [ProductController::class, 'edit_product'])->name('edit_product');
 // ProductRequisition
 Route::get('/requisition_list', [ProductRequisitionController::class, 'requisition_list'])->name('requisition_list');
 Route::get('/new_stock', [ProductRequisitionController::class, 'new_stock'])->name('new_stock');
 Route::get('/requisition_edit_data/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_edit_data'])->name('requisition_edit_data');
+Route::get('/requisition_view/{requisition_order_id}', [ProductRequisitionController::class, 'requisition_view'])->name('requisition_view');
+Route::post('/requisition_order_decline', [ProductRequisitionController::class, 'requisition_order_decline'])->name('requisition_order_decline');
+Route::post('/requisition_order_receive', [ProductRequisitionController::class, 'requisition_order_receive'])->name('requisition_order_receive');
+
+//stock
+Route::get('/stock_list', [StockController::class, 'stock_list'])->name('stock_list');
+
 
 //...............********* pos module ********................
 //invoice

@@ -277,7 +277,6 @@ class ProductController extends Controller
     }
 
 
-
     //------------------------------product-------------------------
 
     public function itemCategoryAndProductCategoryDependancy(Request $request){
@@ -286,6 +285,7 @@ class ProductController extends Controller
         $product_categories = DB::connection('inventory')
                     ->table('product_categories')
                     ->where('item_category_id',$selectedItemCategoryId)
+                    ->where('active_status',1)
                     ->get();
   
       $str="<option value=''>-- Select --</option>";
@@ -294,6 +294,30 @@ class ProductController extends Controller
          
       }
       echo $str;
+      }
+
+
+      public function product_list(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $user_company_id = Auth::user()->company_id;
+
+
+        $products = DB::connection('inventory')
+                    ->table('products')
+                    ->leftJoin('item_categories','products.item_category_id','item_categories.id')
+                    ->leftJoin('product_categories','products.product_category_id','product_categories.id')
+                    ->select('products.*','item_categories.name as item_category_name', 'product_categories.name as product_category_name')
+                    ->where('shop_company_id',$user_company_id)
+                    ->get();
+
+       return view('products.index',compact('current_module','products'));
       }
 
 
@@ -312,7 +336,7 @@ class ProductController extends Controller
         $item_categories = DB::connection('inventory')
                            ->table('item_categories')
                            ->where('company_id',$user_company_id)
-                           ->get();
+                           ->get();       
 
         return view('products.create',compact('current_module','item_categories'));
 
@@ -320,27 +344,41 @@ class ProductController extends Controller
 
     public function submit_product(Request $request){
         $user_company_id = Auth::user()->company_id;
-       
+
+        // $product_name = $request->product_name;
+        // $product_weight = $request->product_weight;
+        // $product_unit_type = $request->product_unit_type;
+        
+        // $product_special_name = $product_name.'-'.$product_weight.'-'.$product_unit_type;
+
         $item_category = DB::connection('inventory')
                         ->table('products')
                         ->insertGetId([
                         'item_category_id' =>$request->item_category_id,
                         'product_category_id' =>$request->product_category_id,
-                        'product_type' =>$request->product_type,
+                        // 'shop_warehouse_id' =>$request->warehouse_id,
+                        'shop_company_id'=>$user_company_id,
+                        // 'product_type' =>$request->product_type,
                         'product_name' =>$request->product_name,
-                        'product_single_price' =>$request->product_single_price,
+                        // 'product_track_name' =>$request->product_name,
                         'labeling_type' =>$request->labeling_type,
-                        'batch_number' =>$request->batch_number,
                         'product_tag_number' =>$request->product_tag_number,
-                        'product_weight' =>$request->product_weight,
-                        'quantity' =>$request->quantity,
                         'additional_product_details' =>$request->additional_product_details,
+                        'product_weight' =>$request->product_weight,
+                        'product_unit_type' =>$request->product_unit_type,
+
+                        // 'quantity' =>$request->quantity,
+                        // 'product_unit_price' =>$request->product_unit_price,
+                        // 'product_total_price' =>$request->product_total_price, 
+
+                        // 'batch_number' =>$request->batch_number,                        
                         'product_entry_date' =>$request->product_entry_date,
                         'product_mfg_date' =>$request->product_mfg_date,
                         'product_expiry_date' =>$request->product_expiry_date,
-                        'total_product_in_a_batch' =>$request->total_product_in_a_batch,
-                        'product_batch_price' =>$request->product_batch_price,
-                        'shop_company_id'=>$user_company_id                       
+                        'product_status' =>1
+                        // 'total_product_in_a_batch' =>$request->total_product_in_a_batch,
+                        // 'product_batch_price' =>$request->product_batch_price,
+                                               
                         ]);
 
         $response = [
@@ -349,5 +387,136 @@ class ProductController extends Controller
         ];
 
         return response()->json($response,200);
+    }
+
+
+     //for web
+     public function edit_product($id){
+
+        $user_company_id = Auth::user()->company_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $product = DB::connection('inventory')
+                            ->table('products')
+                            ->leftJoin('item_categories','products.item_category_id','item_categories.id')
+                            ->leftJoin('product_categories','products.product_category_id','product_categories.id')
+                            ->select('products.*','item_categories.name as item_category_name','product_categories.name as product_category_name')    
+                            ->where('products.id',$id)
+                            ->first();
+
+        $item_categories = DB::connection('inventory')
+                           ->table('item_categories')
+                           ->where('company_id',$user_company_id)
+                           ->where('active_status',1)
+                           ->get();
+
+        
+    return view('products.edit',compact('current_module','product','item_categories'));
+    }
+ 
+    //for api
+    public function edit_product_via_api($id){
+
+        $product = DB::connection('inventory')
+                            ->table('products')
+                            ->leftJoin('item_categories','products.item_category_id','item_categories.id')
+                            ->leftJoin('product_categories','products.product_category_id','product_categories.id')
+                            ->select('products.*','item_categories.name as item_category_name','product_categories.name as product_category_name')    
+                            ->where('products.id',$id)
+                            ->first();
+        $response = [
+        'product_details' => $product
+        ];
+       return response()->json($response,200);
+    }
+
+
+    public function update_product(Request $request, $id){
+
+        $user_company_id = Auth::user()->company_id;
+
+        $current_tag_no  = DB::connection('inventory')
+                                ->table('products')    
+                                ->where('products.id',$id)
+                                ->first();
+        $current_tag_number = $current_tag_no->product_tag_number;
+        $new_tag_number = $request->input('product_tag_number');
+
+        if($new_tag_number == ''){
+        $data = array();
+        $data['item_category_id'] = $request->input('item_category_id');
+        $data['product_category_id'] = $request->input('product_category_id');
+        $data['shop_company_id'] = $user_company_id;
+        $data['product_name'] = $request->input('product_name');
+        $data['labeling_type'] = $request->input('labeling_type');
+        $data['product_tag_number'] = $current_tag_number;
+        $data['additional_product_details'] = $request->input('additional_product_details');
+        $data['product_weight'] = $request->input('product_weight');
+        $data['product_unit_type'] = $request->input('product_unit_type');
+        $data['product_entry_date'] = $request->input('product_entry_date');
+        $data['product_mfg_date'] = $request->input('product_mfg_date');
+        $data['product_expiry_date'] = $request->input('product_expiry_date');
+        $data['product_status'] = $request->input('product_status');
+        }else{
+            $data = array();
+            $data['item_category_id'] = $request->input('item_category_id');
+            $data['product_category_id'] = $request->input('product_category_id');
+            $data['shop_company_id'] = $user_company_id;
+            $data['product_name'] = $request->input('product_name');
+            $data['labeling_type'] = $request->input('labeling_type');
+            $data['product_tag_number'] = $new_tag_number;
+            $data['additional_product_details'] = $request->input('additional_product_details');
+            $data['product_weight'] = $request->input('product_weight');
+            $data['product_unit_type'] = $request->input('product_unit_type');
+            $data['product_entry_date'] = $request->input('product_entry_date');
+            $data['product_mfg_date'] = $request->input('product_mfg_date');
+            $data['product_expiry_date'] = $request->input('product_expiry_date');
+            $data['product_status'] = $request->input('product_status');
+
+        }
+  
+        try {
+            // Update the branch record in the database
+            $updated = DB::connection('inventory')
+                        ->table('products')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Product is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Product update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Product', 'details' => $e->getMessage()], 500);
+        }  
+    }
+
+
+
+    
+    public function delete_product(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('inventory')->table('products')->where('id', $id)->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Product is Deleted Successfully !']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Product Failed To Deleted !']);
+                }
+
     }
 }
