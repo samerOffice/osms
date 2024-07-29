@@ -1,56 +1,8 @@
 @extends('master')
 
 @section('title')
-Item Category List
+Product List
 @endsection
-
-
-
-@push('css')
-<style>
-    .color-palette {
-      height: 35px;
-      line-height: 35px;
-      text-align: right;
-      padding-right: .75rem;
-    }
-
-    .color-palette.disabled {
-      text-align: center;
-      padding-right: 0;
-      display: block;
-    }
-
-    .color-palette-set {
-      margin-bottom: 15px;
-    }
-
-    .color-palette span {
-      display: none;
-      font-size: 12px;
-    }
-
-    .color-palette:hover span {
-      display: block;
-    }
-
-    .color-palette.disabled span {
-      display: block;
-      text-align: left;
-      padding-left: .75rem;
-    }
-
-    .color-palette-box h4 {
-      position: absolute;
-      left: 1.25rem;
-      margin-top: .75rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 12px;
-      display: block;
-      z-index: 7;
-    }
-  </style>
-@endpush
 
 
 @section('content')
@@ -58,44 +10,40 @@ Item Category List
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <br>
-        <br>      
-            <div class="row" style="width: 60%;margin: 0 auto;">
-                <div class="col-6">
-                    <!-- small box -->
-                    <div class="small-box" style="background-color: #d5eaff">
-                      <div class="inner">
-                        <h3><i class="ion ion-ios-compose-outline"></i></h3>
-                        <h5>Existing Product Add</h5>
-                      </div>
-                      <div class="icon">
-                        <i class="ion ion-plus"></i>
-                      </div>
-                      <a href="{{route('new_stock')}}" class="small-box-footer" style="color: black">Click here</a>
-                    </div>
-                  </div>
-
-                  <div class="col-6">
-                    <!-- small box -->
-                    <div class="small-box" style="background-color: #d4ff76">
-                      <div class="inner">
-                        <h3><i class="ion ion-bag"></i></h3>
-                        <h5>New Product Add</h5>
-                      </div>
-                      <div class="icon">
-                        <i class="ion ion-plus"></i>
-                      </div>
-                      <a href="#" class="small-box-footer" style="color: black">Click here</a>
-                    </div>
-                  </div>      
-            </div>
-
     <br>
-            <div class="row">
+            <div class="row">      
+            @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+            <div class="col-12">
+              <a class="btn btn-outline-info float-right" href="{{route('add_product')}}">
+                  <i class="fas fa-plus"></i> Add Product
+              </a>
+              
+            </div>
+            @endif
+          
+          <div class="col-12">
+            
+            @if ($message = Session::get('success'))
+            <div class="alert alert-info" role="alert">
+              <div class="row">
+                <div class="col-11">
+                  {{ $message }}
+                </div>
+                <div class="col-1">
+                  <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+            </div>
+            @endif
+        </div>
+
+        
+
                 <div class="col-12">
+                  <br>
                     <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Requested Product List</h3>
+                          <h3 class="card-title">Product List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -103,12 +51,12 @@ Item Category List
                             <thead>
                             <tr>
                               <th>Sl.</th>
-                              <th>Order ID</th>
-                              <th>Order Type</th>
-                              <th>Order Date</th>
-                              <th>Deliver Date</th>
-                              <th>Supplier</th>
-                              <th>Ordered By</th>
+                              <th>Item Category</th>
+                              <th>Product Category</th>
+                              <th>Product Name</th>
+                              <th>Tag Number</th>
+                              <th>Weight</th>
+                              <th>Unit</th>
                               <th>Status</th>
                               @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                               <th>Action</th>
@@ -117,48 +65,34 @@ Item Category List
                             </thead>
                             <tbody>
                                 @php $i = 1 @endphp
-                                @foreach($requisition_orders as $requisition_order)
+                                @foreach($products as $product)
                             <tr>
                               <td>{{$i++}}</td>
-                              <td>{{$requisition_order->requisition_order_id}}</td>
+                              <td>{{$product->item_category_name}}</td>               
+                              <td>{{$product->product_category_name}}</td>                
+                              <td>{{$product->product_name}}</td>                
+                              <td>{{$product->product_tag_number}}</td>                
+                              <td>{{$product->product_weight}}</td>            
+                              <td>{{$product->product_unit_type}}</td>                             
                               <td>
-                                @if($requisition_order->requisition_type == 1)
-                                New Stock
-                                @else
-                                Refill Stock
-                                @endif
-                              </td>                
-                              <td>{{$requisition_order->requisition_order_date}}</td>                
-                              <td>{{$requisition_order->requisition_deliver_date}}</td>                
-                              <td>{{$requisition_order->supplier_name}}</td>                
-                              <td>{{$requisition_order->order_by}}</td>             
-                              <td>
-                                @if($requisition_order->requisition_status == 1)
-                                <h5><span class="badge badge-warning">Pending</span></h5>                        
-                                @elseif($requisition_order->requisition_status == 2)
-                                <h5><span class="badge badge-danger">Declined</span></h5>   
-                                @else
-                                <h5><span class="badge badge-success">Delivered</span></h5>
-                                @endif
-                              </td>             
-                              @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-
-                              @if($requisition_order->requisition_status == 2)
-                              <td>
-                                <button type="button" disabled class="btn btn-secondary">Declined</button>
-                              </td>
-                              @elseif($requisition_order->requisition_status == 3)
-                              <td>
-                                <button type="button" disabled class="btn btn-success">Delivered</button>
-                              </td>
+                              @if($product->product_status == 1)
+                              <h5><span class="badge badge-success">Available</span></h5>                        
+                              @elseif($product->product_status == 2)
+                              <h5><span class="badge badge-secondary">Not Available</span></h5>   
                               @else
-                              <td>
-                                <a href="{{route('requisition_edit_data',$requisition_order->id)}}" style="color: white"><button class="btn btn-success"> <i class="fa-solid fa-pen-to-square"></i>Edit</button></a>
-                                <a href="{{route('requisition_view',$requisition_order->id)}}" style="color: white"><button class="btn btn-primary">Approval</button></a>
-                              </td>
+                              <h5><span class="badge badge-danger">Damaged</span></h5>
+                              @endif
+                              </td>                             
+          
+                              @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                              
+                                <td>
+                                  <a href="{{route('edit_product',$product->id)}}" style="color: white"><button class="btn btn-primary"> <i class="fa-solid fa-pen-to-square"></i>Edit</button></a>
+                                  <button class="btn btn-outline-danger" onclick="deleteOperation({{$product->id}})"><i class="fa-solid fa-trash"></i> Delete</button>
+                                </td>
+                                                         
                               @endif
 
-                              @endif
                             </tr> 
                             @endforeach              
                      
@@ -196,5 +130,51 @@ Item Category List
         "responsive": true,
       });
     });  
+
+
+  
+    function deleteOperation(row_id)
+    { 
+      
+      Swal.fire({
+      title: 'Are you sure?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+            // Function to get CSRF token from meta tag
+             function getCsrfToken() {
+              return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+              }
+            // Set up Axios defaults
+            axios.defaults.withCredentials = true;
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+            axios.get('sanctum/csrf-cookie').then(response=>{
+            axios.post('/osms/api/delete_product/'+ row_id).then(response=>{
+              console.log(response);
+              setTimeout(function() {
+                  window.location.reload();
+              }, 2000);
+              Swal.fire({
+                          icon: "success",
+                          title: ''+ response.data.message,
+                        });
+                    return false;                   
+              }).catch(error => Swal.fire({
+                          icon: "error",
+                          title: error.response.data.message,
+                          }))
+            });
+      } else if (result.isDismissed) {
+        Swal.fire('Cancelled', '', 'error');
+      }
+    });
+    }
+    
   </script>
   @endpush

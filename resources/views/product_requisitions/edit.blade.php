@@ -65,11 +65,21 @@ New Product Request Form
 <script>
   $(document).ready(function() {
         fetchProductData();
-
         $('#addButton').on('click', function() {
-            addRow({});
+            fetchProductList().then(productList => {
+                addRow({}, productList);
+            });
         });
     });
+
+    function fetchProductList() {
+    return axios.get('/osms/api/products') // Adjust the URL as needed
+        .then(response => response.data)
+        .catch(error => {
+            console.error('Failed to fetch product list:', error);
+            return [];
+        });
+    }
 
     function fetchProductData() {
         var requisition_order_id = document.getElementById('orderId').value;
@@ -89,6 +99,7 @@ New Product Request Form
                         console.log('Adding row for product:', product);
                         addRow({
                             trackId: product.product_track_id,
+                            productId: product.requested_product_id,
                             productName: product.requested_product_name,
                             productWeight: product.requested_product_weight,
                             unit: product.requested_product_unit_type,
@@ -108,7 +119,15 @@ New Product Request Form
 
     }
 
-    function addRow(data) {
+    function addRow(data, productList = []) {
+
+        const productOptions = `
+        <option value="">Select</option>
+        ${productList.map(product => 
+            `<option value="${product.id}">${product.product_name}</option>`
+        ).join('')}
+    `;
+
         const container = $('#form-container');
         const newRow = $(`
             <div class="form-row">
@@ -120,36 +139,25 @@ New Product Request Form
 
                   <div class="form-group col-2">
                     <label for="product_name" class="col-form-label text-start">Product Name</label>
-                    <input type="text" class="form-control" value="${data.productName || ''}" name="product_name[]" placeholder="Product Name">
-                    
+                    <select name="product_id[]" class="form-control select2bs4 product_name">
+                    <option value="${data.productId || ''}">${data.productName || ''}</option>
+                    ${productOptions}
+                 </select>
                   </div>
 
                 <div class="form-group col-1">
                     <label for="product_weight" class="col-form-label text-start">Product Weight</label>
-                    <input type="number" class="form-control" value="${data.productWeight || ''}" name="product_weight[]" > 
+                    <input type="text" readonly class="form-control product_weight" value="${data.productWeight || ''}" name="product_weight[]" > 
                 </div>
 
                 <div class="form-group col-1">
                     <label for="product_unit_type" class="col-form-label text-start">Unit</label>
-                    <select name="product_unit_type[]" class="form-control select2bs4">
-                        <option>--Select--</option>
-                        <option value="Dozen" ${data.unit === 'Dozen' ? 'selected' : ''}>Dozen</option>
-                        <option value="Box" ${data.unit === 'Box' ? 'selected' : ''}>Box</option>
-                        <option value="Gram" ${data.unit === 'Gram' ? 'selected' : ''}>Gram</option>
-                        <option value="Kg" ${data.unit === 'Kg' ? 'selected' : ''}>Kg</option>
-                        <option value="Liter" ${data.unit === 'Liter' ? 'selected' : ''}>Liter</option>
-                        <option value="ML" ${data.unit === 'ML' ? 'selected' : ''}>ML</option>
-                        <option value="Meter" ${data.unit === 'Meter' ? 'selected' : ''}>Meter</option>
-                        <option value="Unit" ${data.unit === 'Unit' ? 'selected' : ''}>Unit</option>
-                        <option value="Pair" ${data.unit === 'Pair' ? 'selected' : ''}>Pair</option>
-                        <option value="Piece" ${data.unit === 'Piece' ? 'selected' : ''}>Piece</option>
-                        <option value="Others" ${data.unit === 'Others' ? 'selected' : ''}>Others</option>
-                    </select>  
+                    <input type="text" readonly class="form-control product_unit_type" value="${data.unit || ''}" name="product_unit_type[]" > 
                 </div>
 
                 <div class="form-group col-2">
                     <label for="product_details" class="col-form-label text-start">Product Details</label>
-                    <textarea name="product_details[]" class="form-control">${data.productDetails || ''}</textarea>
+                    <textarea readonly name="product_details[]" class="form-control product_details">${data.productDetails || ''}</textarea>
                 </div>
 
                 <div class="form-group col-1">
@@ -188,9 +196,56 @@ New Product Request Form
             updateTotal();
         });
 
+
+        newRow.find('.product_name').on('change', function(event) {
+        const selectedProductId = $(this).val();
+        if (selectedProductId) {
+            fetchProductDetails(selectedProductId, newRow);
+        } else {
+            // Clear the related fields if no product is selected
+            newRow.find('.product_weight').val('');
+            newRow.find('.product_unit_type').val('');
+            newRow.find('.product_details').val('');
+        }
+    });
+
         calculateProductUnitPrice(newRow);
         updateTotal();
     }
+
+
+
+    //-------------------------functions start -----------------------------
+
+
+    function fetchProductDetails(productId, rowElement) {
+    // Function to get CSRF token from meta tag
+    function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
+
+    // Set up Axios defaults
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+    axios.post('/osms/api/product_information_dependancy', { data: productId })
+        .then(response => {
+
+            console.log(response.data);
+            const data = response.data;
+            if (data) {
+                rowElement.find('.product_weight').val(data.product_weight || '');
+                rowElement.find('.product_unit_type').val(data.product_unit_type || '');
+                rowElement.find('.product_details').val(data.product_details || '');
+                // Update other fields if necessary
+            } else {
+                console.error('No data received for the selected product.');
+            }
+        })
+        .catch(error => {
+            console.error('Failed to fetch product details:', error);
+        });
+}
 
     
     function generateProductTrackID(row) {
@@ -231,7 +286,7 @@ New Product Request Form
         $('#totalAmount').val(total.toFixed(2));
     }
 
-
+//----------------------- functions end ---------------------------
 
 //requisition order update start
 document.getElementById('requisitionOrderFormUpdate').addEventListener('submit',function(event){
