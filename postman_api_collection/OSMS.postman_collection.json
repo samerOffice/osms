@@ -1,0 +1,2010 @@
+{
+	"info": {
+		"_postman_id": "4243aa58-21c1-47a7-8050-f12adf3c05cf",
+		"name": "OSMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23441860"
+	},
+	"item": [
+		{
+			"name": "branch",
+			"item": [
+				{
+					"name": "add branch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "br_name",
+									"value": "Islampur Br",
+									"type": "text"
+								},
+								{
+									"key": "br_address",
+									"value": "Islampur, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "br_type",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "br_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/branch_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"branch_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Branch Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_branch/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_branch",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "branch details update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "br_name",
+									"value": "Nawabganj",
+									"type": "text"
+								},
+								{
+									"key": "br_address",
+									"value": "Nawabganj, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "br_type",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "br_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_branch/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_branch",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "samer",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rahat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "company_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "branch_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "department_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "designation",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "company_business_type",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "sam@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user details check",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "312|Y8y4fovL8yD93AXfRVKYJyT6hun7qomwN2GMEuFS5933987a",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "236|LhvaqLr5Gip2JSzJPEJfHBEnAZ9RqnqyKW0ajNh399567d68",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "password reset",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "216|gJlPqThN2Zercd6PL3lHXhFg29OFY8Vm76LQ0cc6aeb23c79",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "current_password",
+									"value": "amisamer1994",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/new_password_set",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"new_password_set"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "attendance",
+			"item": [
+				{
+					"name": "attendace",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "191|CxGV1ZtlSsL2N0QiWYN5SHazNr0O4a2YNNfAnanq0129d8c1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "attendance_date",
+									"value": "2024-05-21",
+									"type": "text"
+								},
+								{
+									"key": "entry_time",
+									"value": "13:36:15",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "2852574",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nid_number",
+									"value": "2258727452",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "present_address",
+									"value": "laalbagh",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "permanent_address",
+									"value": "laalbagh",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "birth_date",
+									"value": "1995-09-10",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "blood_group",
+									"value": "o+",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nationality",
+									"value": "Bangladeshi",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "marital_status",
+									"value": "Single",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "religion",
+									"value": "Islam",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "emergency_contact_name",
+									"value": "Abul",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "emergency_contact_number",
+									"value": "01513470120",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "emergency_contact_relation",
+									"value": "Father",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/submit_attendance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"submit_attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attendance list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/all_attendance_list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"all_attendance_list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "member",
+			"item": [
+				{
+					"name": "member information add and update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "161|v4qoXXnIAUhYZokFNaEvuUqXGUshKy0WOToNMtxQd656572b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "samer gggggg",
+									"type": "text"
+								},
+								{
+									"key": "father_name",
+									"value": "abu basar",
+									"type": "text"
+								},
+								{
+									"key": "mother_name",
+									"value": "halima",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "2852574",
+									"type": "text"
+								},
+								{
+									"key": "nid_number",
+									"value": "2258727452",
+									"type": "text"
+								},
+								{
+									"key": "present_address",
+									"value": "laalbagh",
+									"type": "text"
+								},
+								{
+									"key": "permanent_address",
+									"value": "laalbagh",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1995-09-10",
+									"type": "text"
+								},
+								{
+									"key": "blood_group",
+									"value": "o+",
+									"type": "text"
+								},
+								{
+									"key": "nationality",
+									"value": "Bangladeshi",
+									"type": "text"
+								},
+								{
+									"key": "marital_status",
+									"value": "Single",
+									"type": "text"
+								},
+								{
+									"key": "religion",
+									"value": "Islam",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "emergency_contact_name",
+									"value": "Abul",
+									"type": "text"
+								},
+								{
+									"key": "emergency_contact_number",
+									"value": "01513470120",
+									"type": "text"
+								},
+								{
+									"key": "emergency_contact_relation",
+									"value": "Father",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/member_information_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"member_information_store"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "outlet",
+			"item": [
+				{
+					"name": "add outlet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "branch_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "outlet_name",
+									"value": "qqqqqqqqqqq",
+									"type": "text"
+								},
+								{
+									"key": "outlet_address",
+									"value": "Laalm",
+									"type": "text"
+								},
+								{
+									"key": "outlet_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/outlet_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"outlet_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Outlet Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "251|xK8HdjdGyyChyZ00ShJtUhacW8gvPOfe1H3ZDzKFb3297b70",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_outlet/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_outlet",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "outlet update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "branch_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "outlet_name",
+									"value": "Mirpur Outlet",
+									"type": "text"
+								},
+								{
+									"key": "outlet_address",
+									"value": "Mirpur DOHS",
+									"type": "text"
+								},
+								{
+									"key": "outlet_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_outlet/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_outlet",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "item category",
+			"item": [
+				{
+					"name": "add item category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "item_category_name",
+									"value": "test item category",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/submit_item_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"submit_item_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Item Category Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_item_category/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_item_category",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update item category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "item_category_name",
+									"value": "Mirpur DOHS",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_item_category/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_item_category",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product category",
+			"item": [
+				{
+					"name": "add product category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "product_category_name",
+									"value": "test product category",
+									"type": "text"
+								},
+								{
+									"key": "item_category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/submit_product_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"submit_product_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Product Category Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_product_category/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_product_category",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "327|zgIbioEtxDTV2M9YMfo5BTmKuX0M2ZIoBsGKzI5l6885354b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_category_name",
+									"value": "Mirpur DOHS",
+									"type": "text"
+								},
+								{
+									"key": "item_category_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_product_category/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_product_category",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "supplier",
+			"item": [
+				{
+					"name": "add supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "full_name",
+									"value": "Sujon Mahmud",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "01513470155",
+									"type": "text"
+								},
+								{
+									"key": "official_address",
+									"value": "Dhanmondi 27, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/supplier_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"supplier_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Supplier Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_supplier/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_supplier",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "full_name",
+									"value": "Abul Babul  Nigga",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "01413470144",
+									"type": "text"
+								},
+								{
+									"key": "official_address",
+									"value": "Laalbagh, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "active_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_supplier/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_supplier",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "329|uId29dnSroQHqHEKh6JD8arxtulwLotgdGlnHKdqd39d5019",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/delete_supplier/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"delete_supplier",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "warehouse",
+			"item": [
+				{
+					"name": "add warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "branch_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_name",
+									"value": "qqqqqqqqqqq",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_address",
+									"value": "Laalm",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/warehouse_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"warehouse_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific warehouse Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_warehouse/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_warehouse",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "warehouse update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "branch_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_name",
+									"value": "Mirpur Outlet",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_address",
+									"value": "Mirpur DOHS",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_warehouse/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_warehouse",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "department",
+			"item": [
+				{
+					"name": "add department",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "251|xK8HdjdGyyChyZ00ShJtUhacW8gvPOfe1H3ZDzKFb3297b70",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "branch_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "warehouse_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "outlet_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "dept_name",
+									"value": "Testing Department",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/department_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"department_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific department Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "251|xK8HdjdGyyChyZ00ShJtUhacW8gvPOfe1H3ZDzKFb3297b70",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_department/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_department",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "department update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "251|xK8HdjdGyyChyZ00ShJtUhacW8gvPOfe1H3ZDzKFb3297b70",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "dept_name",
+									"value": "Samer Toys Department",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_department/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_department",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "designation",
+			"item": [
+				{
+					"name": "add designation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "254|Of4qcFKBQJDMnSMtX6dGTfdVXwGBWzjVPQLtqjD7e58c61d3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "level",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "designation_name",
+									"value": "testing manager",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/designation_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"designation_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific designation Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_designation/21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_designation",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "designation update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "254|Of4qcFKBQJDMnSMtX6dGTfdVXwGBWzjVPQLtqjD7e58c61d3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "level",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "designation_name",
+									"value": "testy manager",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_designation/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_designation",
+								"20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "business type",
+			"item": [
+				{
+					"name": "add business type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testing testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/business_type_store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"business_type_store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific business type Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "business type update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testy testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "employee official information",
+			"item": [
+				{
+					"name": "add new employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testing testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/store_employee?name&email&password&role_id&branch_id&review_requisition&warehouse_id&outlet_id&designation&joining_date&active_status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"store_employee"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null
+								},
+								{
+									"key": "email",
+									"value": null
+								},
+								{
+									"key": "password",
+									"value": null
+								},
+								{
+									"key": "role_id",
+									"value": null
+								},
+								{
+									"key": "branch_id",
+									"value": null
+								},
+								{
+									"key": "review_requisition",
+									"value": null
+								},
+								{
+									"key": "warehouse_id",
+									"value": null
+								},
+								{
+									"key": "outlet_id",
+									"value": null
+								},
+								{
+									"key": "designation",
+									"value": null
+								},
+								{
+									"key": "joining_date",
+									"value": null
+								},
+								{
+									"key": "active_status",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific business type Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/osms/api/edit_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"edit_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "business type update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "business_type",
+									"value": "testy testing",
+									"type": "text"
+								},
+								{
+									"key": "business_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/osms/api/update_business_type/27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"osms",
+								"api",
+								"update_business_type",
+								"27"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
