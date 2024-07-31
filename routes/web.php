@@ -131,6 +131,8 @@ Route::post('/requisition_order_receive', [ProductRequisitionController::class, 
 
 //stock
 Route::get('/stock_list', [StockController::class, 'stock_list'])->name('stock_list');
+Route::get('/view_stock/{product_id}', [StockController::class, 'view_stock'])->name('view_stock');
+Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->name('add_label');
 
 
 //...............********* pos module ********................

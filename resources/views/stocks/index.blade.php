@@ -25,12 +25,13 @@ Stock List
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Company Name</th>
-                          <th>Warehouse Name</th>
-                          <th>Product</th>
-                          <th>Quantity</th>
-                          <th>Purchase Date</th>
-                          <th>Stored By</th>
+                          {{-- <th>Company Name</th> --}}
+                          {{-- <th>Warehouse Name</th> --}}
+                          <th>Product Name</th>
+                          <th>Current Quantity</th>
+                          <th>Details</th>
+                          {{-- <th>Purchase Date</th> --}}
+                          {{-- <th>Stored By</th> --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -38,12 +39,13 @@ Stock List
                             @foreach($stocks as $stock)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$stock->company_name}}</td>
-                          <td>{{$stock->warehouse_name}}</td>
+                          {{-- <td>{{$stock->company_name}}</td> --}}
+                          {{-- <td>{{$stock->warehouse_name}}</td> --}}
                           <td>{{$stock->product_name}}</td>
-                          <td>{{$stock->quantity}}</td>
-                          <td>{{$stock->purchase_date}}</td>
-                          <td>{{$stock->stored_by}}</td>                     
+                          <td>{{$stock->total_quantity}}</td>
+                          <td><a href="{{route('view_stock',$stock->product_id)}}">Details</a></td>
+                          {{-- <td>{{$stock->purchase_date}}</td> --}}
+                          {{-- <td>{{$stock->stored_by}}</td> --}}
                         </tr> 
                         @endforeach              
                  
@@ -64,21 +66,37 @@ Stock List
 
 @push('masterScripts')
 <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+       $(document).ready(function() {
+    $('#example1').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from printing
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from CSV
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from Excel
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from PDF
+                }
+            }
+        ]
     });
+});
    
   </script>
   @endpush

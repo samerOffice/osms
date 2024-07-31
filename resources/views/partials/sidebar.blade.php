@@ -142,7 +142,11 @@
           <p><font color="#fff"><b>Phone:</b></font></p>
           <p><font color="#fef5e7">+8801790004664</font></p>
           </div>
+        <br>
+        <br>
         </div>
+
+        
 
           @if((auth()->user()->role_id == 1))
           <li class="nav-item @if(Request::is('designation_list')) menu-open 
@@ -476,9 +480,8 @@
             </li>
 
 
-            <li class="nav-item @if(Request::is('requisition_list')) menu-open 
-            
-            @endif">
+            @if(Auth::user()->review_requisition == 1)
+            <li class="nav-item @if(Request::is('requisition_list')) menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-box"></i>
               <p>
@@ -497,7 +500,7 @@
                 </li>       
               </ul>
             </li>
-
+            @endif
 
             <li class="nav-item @if(Request::is('add_product')) menu-open 
             @elseif(Request::is('product_list')) menu-open
