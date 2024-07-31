@@ -19,8 +19,6 @@
    <link rel="stylesheet" href="{{asset('public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
    <link rel="stylesheet" href="{{asset('public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
-   
-
     <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   
@@ -88,7 +86,7 @@
 <!-- AdminLTE App -->
 <script src="{{asset('public/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('public/dist/js/demo.js')}}"></script>
+{{-- <script src="{{asset('public/dist/js/demo.js')}}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('public/dist/js/pages/dashboard.js')}}"></script>
 <script>

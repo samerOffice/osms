@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-
+-- Generation Time: Jul 31, 2024 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -702,6 +702,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
+(371, 'App\\Models\\User', 9, 'myToken', '2f91b650fdbd3ee608158cf00445b2e9a49ec541703efce9d53f5739399b30d4', '[\"*\"]', NULL, NULL, '2024-07-31 07:10:03', '2024-07-31 07:10:03');
 
 -- --------------------------------------------------------
 
@@ -838,13 +840,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`, `review_requisition`, `warehouse_id`, `outlet_id`, `department_id`, `joining_date`, `email_verified_at`, `password`, `active_status`, `designation`, `company_business_type`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Abul Kauser Samer', 'sam@gmail.com', 2, 11, 11, NULL, NULL, NULL, 11, '2024-05-06', NULL, '$2y$10$fiTtckRf5G7T1g8uOvPDfuI5NY39E28T2TOlWQRKkCPi5eOhuVRg2', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-06-04 10:39:48'),
+(1, 'Abul Kauser Samer', 'sam@gmail.com', 2, 11, 3, 1, NULL, NULL, 11, '2024-05-06', NULL, '$2y$10$fiTtckRf5G7T1g8uOvPDfuI5NY39E28T2TOlWQRKkCPi5eOhuVRg2', 1, '1', 1, NULL, '2024-05-20 06:54:49', '2024-06-04 10:39:48'),
 (2, 'rahat ahmed', 'rahat@gmail.com', 3, 12, 12, NULL, NULL, NULL, 12, '2024-05-02', NULL, '$2y$10$bRFLISLP82.g4V4rR4UvI.Z7QJycvcSLl9dlYJAajc/iITMzHVNp.', 1, '2', 1, NULL, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
 (3, 'Maliha Khatun', 'maliha@gmail.com', 3, 11, 14, NULL, NULL, NULL, NULL, '2024-05-30', NULL, '$2y$10$y3GwSXLco97/EiNZC1x8heCpXNLr8hGEFjSar2exG9I24bMZsK4v.', 2, '4', 1, NULL, '2024-05-30 04:33:28', '2024-05-30 04:33:28'),
 (4, 'OSSL', 'ossl@gmail.com', 1, 13, 6, NULL, NULL, NULL, 18, '2024-06-12', NULL, '$2y$10$ASNBaeOaK1mHdXToX7Dc8uDQTmopYKq068OES416ODYaikzKQl2Ku', 1, '1', 26, NULL, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
-(5, 'Wahid Rahman', 'wahid@gmail.com', 2, 14, NULL, NULL, NULL, NULL, NULL, '2021-05-12', NULL, '$2y$10$1xfhno1L/KWAwe9M4FM2W.RmqqO./QRMf0SzM.7T.CXaL09pKw8u2', 1, '1', 3, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
-(6, 'Rupa Rahman', 'rupa@gmail.com', 2, 15, 9, NULL, NULL, NULL, NULL, '2023-04-04', NULL, '$2y$10$Uedv4qY.IF2k2bO2fCMeP.u4osouZfHBWMbKexg8Oz753dtsSIOSi', 1, '1', 3, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
-(7, 'Fahad Ahmed', 'fahad@gmail.com', 2, 16, 10, NULL, NULL, NULL, NULL, '2022-05-11', NULL, '$2y$10$B4HjW5ISg0phrHEJwbfQZ.Lro5KetTpOmtQVFfH7OcQrx5QzeE.Dy', 1, '1', 4, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
+(5, 'Wahid Rahman', 'wahid@gmail.com', 2, 14, NULL, 1, NULL, NULL, NULL, '2021-05-12', NULL, '$2y$10$1xfhno1L/KWAwe9M4FM2W.RmqqO./QRMf0SzM.7T.CXaL09pKw8u2', 1, '1', 3, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
+(6, 'Rupa Rahman', 'rupa@gmail.com', 2, 15, 9, 1, NULL, NULL, NULL, '2023-04-04', NULL, '$2y$10$Uedv4qY.IF2k2bO2fCMeP.u4osouZfHBWMbKexg8Oz753dtsSIOSi', 1, '1', 3, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
+(7, 'Fahad Ahmed', 'fahad@gmail.com', 2, 16, 10, 1, NULL, NULL, NULL, '2022-05-11', NULL, '$2y$10$B4HjW5ISg0phrHEJwbfQZ.Lro5KetTpOmtQVFfH7OcQrx5QzeE.Dy', 1, '1', 4, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
 (8, 'Tuhin Ahmed', 'tuhin@gmail.com', 3, 11, 3, NULL, NULL, 1, NULL, '2024-06-04', NULL, '$2y$10$kOIA46nYPFVr5tH0XDOtBuYIYeEwhvvtxuXwBJrLanb8Lj45AK5yK', 1, '4', 1, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
 (9, 'Yamin Hossain', 'yamin@gmail.com', 3, 11, 3, 2, 1, NULL, NULL, '2024-06-12', NULL, '$2y$10$DnyFOhk.0I/CrYIfjbQnD.B.POU49FcWniJqtk.B3Gsns43oMT9MO', 1, '4', 1, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
 (10, 'fahim ahmed', 'fahim@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$6n1z1jwm/8Cjp0/WZroug.grCo7aWCakpJC7AyxX314WlrKWFbh.O', 1, '3', 1, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
@@ -1178,7 +1180,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
 
 --
 -- AUTO_INCREMENT for table `roles`

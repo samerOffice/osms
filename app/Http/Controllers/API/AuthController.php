@@ -87,6 +87,7 @@ class AuthController extends Controller
         $user->role_id = $request->role;
         $user->company_id = $company;
         $user->branch_id = $branch;
+        $user->review_requisition = '1';
         // $user->department_id = $department;
         $user->designation = $request->designation_name;
         $user->joining_date = $request->joining_date;

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Attendance List
 @endsection
 
 
@@ -74,23 +74,36 @@ Welcome
 
 @push('masterScripts')
 <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+   $(document).ready(function() {
+    $('#example1').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from printing
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from CSV
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from Excel
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from PDF
+                }
+            }
+        ]
     });
-
-  
-    
+});
   </script>
   @endpush
