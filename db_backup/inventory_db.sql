@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2024 at 03:29 PM
+-- Generation Time: Aug 01, 2024 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `inventory_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barcodes_and_skus`
+--
+
+CREATE TABLE `barcodes_and_skus` (
+  `id` int(255) NOT NULL,
+  `stock_id` int(255) DEFAULT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `barcode` varchar(255) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `barcodes_and_skus`
+--
+
+INSERT INTO `barcodes_and_skus` (`id`, `stock_id`, `company_id`, `barcode`, `sku`, `created_at`, `updated_at`) VALUES
+(26, 1, 11, 'Pro-20240801-170758-294', NULL, '2024-08-01 11:07:04', '2024-08-01 11:07:04'),
+(28, 4, 11, 'Pro-20240801-171006-373', NULL, '2024-08-01 11:10:08', '2024-08-01 11:10:08');
 
 -- --------------------------------------------------------
 
@@ -314,6 +338,12 @@ INSERT INTO `warehouses` (`id`, `company_id`, `branch_id`, `warehouse_name`, `wa
 --
 
 --
+-- Indexes for table `barcodes_and_skus`
+--
+ALTER TABLE `barcodes_and_skus`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `inventory_log`
 --
 ALTER TABLE `inventory_log`
@@ -382,6 +412,12 @@ ALTER TABLE `warehouses`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `barcodes_and_skus`
+--
+ALTER TABLE `barcodes_and_skus`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `inventory_log`

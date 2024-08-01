@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2024 at 03:29 PM
+-- Generation Time: Aug 01, 2024 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,7 +107,9 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (23, 1, '2024-06-27', '18:55:56', NULL, '2024-06-27 12:55:56', '2024-06-27 12:55:56'),
 (24, 1, '2024-06-27', '19:05:21', NULL, '2024-06-27 13:05:21', '2024-06-27 13:05:21'),
 (25, 1, '2024-06-27', '19:13:59', NULL, '2024-06-27 13:13:59', '2024-06-27 13:13:59'),
-(26, 1, '2024-07-25', '15:26:02', NULL, '2024-07-25 09:26:02', '2024-07-25 09:26:02');
+(26, 1, '2024-07-25', '15:26:02', NULL, '2024-07-25 09:26:02', '2024-07-25 09:26:02'),
+(27, 1, '2024-08-01', '16:50:53', NULL, '2024-08-01 10:50:53', '2024-08-01 10:50:53'),
+(28, 1, '2024-08-01', '16:52:33', NULL, '2024-08-01 10:52:33', '2024-08-01 10:52:33');
 
 -- --------------------------------------------------------
 
@@ -1078,7 +1080,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -1180,7 +1182,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=378;
 
 --
 -- AUTO_INCREMENT for table `roles`

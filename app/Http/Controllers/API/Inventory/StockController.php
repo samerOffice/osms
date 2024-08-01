@@ -169,4 +169,139 @@ class StockController extends Controller
 
     }
 
+
+    public function add_barcode(Request $request, $stock_id){
+        
+        $barcode = $request->input('barcode');
+        $user_company_id = Auth::user()->company_id;
+
+        $check = DB::connection('inventory')
+                 ->table('barcodes_and_skus')
+                 ->select('barcode')
+                 ->where('stock_id',$stock_id)
+                 ->first();
+        
+
+        if($check === null){
+
+            $store = DB::connection('inventory')
+                        ->table('barcodes_and_skus')
+                        ->insertGetId([
+                        'stock_id'=>$stock_id,
+                        'company_id'=>$user_company_id,
+                        'barcode'=>$barcode    
+                        ]);
+
+            $response = [
+                'success' => true,
+                'message' => 'Barcode is added successfully'
+            ];
+    
+            return response()->json($response,200);
+        }else{
+
+            $data = ['barcode' => $barcode];
+              
+            try {
+                $updated = DB::connection('inventory')
+                            ->table('barcodes_and_skus')
+                            ->where('stock_id', $stock_id)
+                            ->update($data);
+            
+                // Check if the update was successful
+                if ($updated) {
+                    // Return a success response
+                    return response()->json(['message' => 'Barcode is updated successfully'], 200);
+                } else {
+                    // Return a failure response
+                    return response()->json([
+                        'message' => 'Barcode update failed or no changes were made'
+                    ], 400);
+                }
+            } catch (\Exception $e) {
+                // Catch any exceptions and return an error response
+                return response()->json(['error' => 'An error occurred while updating the barcode', 'details' => $e->getMessage()], 500);
+            } 
+        }
+           
+    }
+
+    public function delete_barcode(Request $request, $stock_id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('inventory')
+                    ->table('barcodes_and_skus')
+                    ->where('stock_id', $stock_id)
+                    ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Barcode is Deleted Successfully !']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Barcode Failed To Deleted !']);
+                }
+
+    }
+
+
+
+    public function add_sku(Request $request, $stock_id){
+        
+        $sku = $request->input('skui');
+        $user_company_id = Auth::user()->company_id;
+
+        $check = DB::connection('inventory')
+                 ->table('barcodes_and_skus')
+                 ->select('sku')
+                 ->where('stock_id',$stock_id)
+                 ->first();
+        
+
+        if($check === null){
+
+            $store = DB::connection('inventory')
+                        ->table('barcodes_and_skus')
+                        ->insertGetId([
+                        'stock_id'=>$stock_id,
+                        'company_id'=>$user_company_id,
+                        'sku'=>$sku    
+                        ]);
+
+            $response = [
+                'success' => true,
+                'message' => 'SKU is added successfully'
+            ];
+    
+            return response()->json($response,200);
+        }else{
+
+            $data = ['sku' => $sku];
+              
+            try {
+                $updated = DB::connection('inventory')
+                            ->table('barcodes_and_skus')
+                            ->where('stock_id', $stock_id)
+                            ->update($data);
+            
+                // Check if the update was successful
+                if ($updated) {
+                    // Return a success response
+                    return response()->json(['message' => 'SKU is updated successfully'], 200);
+                } else {
+                    // Return a failure response
+                    return response()->json([
+                        'message' => 'SKU update failed or no changes were made'
+                    ], 400);
+                }
+            } catch (\Exception $e) {
+                // Catch any exceptions and return an error response
+                return response()->json(['error' => 'An error occurred while updating the barcode', 'details' => $e->getMessage()], 500);
+            } 
+        }
+           
+    }
+
+
+
+
+
 }
