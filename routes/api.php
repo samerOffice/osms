@@ -20,6 +20,7 @@ use App\Http\Controllers\API\Emp\PayrollController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
+use App\Http\Controllers\API\Inventory\StockController;
 
 use App\Http\Controllers\API\POS\InvoiceController;
 
@@ -121,6 +122,12 @@ Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollCo
 
 
 //...............********* inventory management module ********................
+
+//stock
+Route::middleware('auth:sanctum')->post('/add_barcode/{stock_id}',[App\Http\Controllers\API\Inventory\StockController::class,'add_barcode']);
+Route::middleware('auth:sanctum')->post('/delete_barcode/{stock_id}',[App\Http\Controllers\API\Inventory\StockController::class,'delete_barcode']);
+
+Route::middleware('auth:sanctum')->post('/add_sku/{stock_id}',[App\Http\Controllers\API\Inventory\StockController::class,'add_sku']);
 
 //requisition
 Route::middleware('auth:sanctum')->post('/requisition_store', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_store']);
