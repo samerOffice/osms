@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateUniqueInventory extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations..
      *
      * @return void
      */
