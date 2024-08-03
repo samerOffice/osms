@@ -61,9 +61,10 @@ Purchased Product List
         <br>
         <br>      
             <div class="row" style="width: 60%;margin: 0 auto;">
-                <div class="col-6">
+              <div class="col-2"></div>
+                <div class="col-8">
                     <!-- small box -->
-                    <div class="small-box" style="background-color: #d5eaff">
+                    <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
                         <h3><i class="ion ion-ios-compose-outline"></i></h3>
                         <h5>New Product Purchase</h5>
@@ -74,8 +75,9 @@ Purchased Product List
                       <a href="{{route('new_stock')}}" class="small-box-footer" style="color: black">Click here</a>
                     </div>
                   </div>
+                  <div class="col-2"></div>
 
-                  <div class="col-6">
+                  {{-- <div class="col-6">
                     <!-- small box -->
                     <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
@@ -87,7 +89,7 @@ Purchased Product List
                       </div>
                       <a href="#" class="small-box-footer" style="color: black">Click here</a>
                     </div>
-                  </div>      
+                  </div> --}}
             </div>
 
     <br>

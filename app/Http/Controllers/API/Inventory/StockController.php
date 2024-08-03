@@ -91,23 +91,23 @@ class StockController extends Controller
       
         if($user_role_id == 1 || $user_role_id == 2){
             $stocks = DB::connection('inventory')
-            ->table('stocks') 
-            ->leftJoin('products','stocks.product_id','products.id')
-            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.users', 'stocks.product_stored_by', '=', 'users.id')
-            ->leftJoin('warehouses', 'stocks.warehouse_id', '=', 'warehouses.id')
-            ->select(
-                'stocks.*',
-                'products.product_name as stock_product_name',
-                'products.product_weight as stock_product_weight',
-                'products.product_unit_type as stock_product_unit_type',
-                'products.additional_product_details as stock_product_details',
-                // 'companies.company_name as company_name',
-                'warehouses.warehouse_name as warehouse_name',              
-                'users.name as purchased_by',              
-                )            
-            ->where('stocks.company_id',$user_company_id)
-            ->where('stocks.product_id',$id)
-            ->get();
+                        ->table('stocks') 
+                        ->leftJoin('products','stocks.product_id','products.id')
+                        ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.users', 'stocks.product_stored_by', '=', 'users.id')
+                        ->leftJoin('warehouses', 'stocks.warehouse_id', '=', 'warehouses.id')
+                        ->select(
+                            'stocks.*',
+                            'products.product_name as stock_product_name',
+                            'products.product_weight as stock_product_weight',
+                            'products.product_unit_type as stock_product_unit_type',
+                            'products.additional_product_details as stock_product_details',
+                            // 'companies.company_name as company_name',
+                            'warehouses.warehouse_name as warehouse_name',              
+                            'users.name as purchased_by',              
+                            )            
+                        ->where('stocks.company_id',$user_company_id)
+                        ->where('stocks.product_id',$id)
+                        ->get();
 
             return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id'));
         }else{
@@ -189,8 +189,14 @@ class StockController extends Controller
                         ->insertGetId([
                         'stock_id'=>$stock_id,
                         'company_id'=>$user_company_id,
-                        'barcode'=>$barcode    
+                        'barcode'=>$barcode   
                         ]);
+
+            $label_data = ['label_status' => 1];   
+            $update_labeling = DB::connection('inventory')
+                        ->table('stocks')
+                        ->where('id', $stock_id)
+                        ->update($label_data);
 
             $response = [
                 'success' => true,
@@ -198,15 +204,20 @@ class StockController extends Controller
             ];
     
             return response()->json($response,200);
-        }else{
-
-            $data = ['barcode' => $barcode];
-              
+        }else{        
             try {
+
+                $data = ['barcode' => $barcode];
                 $updated = DB::connection('inventory')
                             ->table('barcodes_and_skus')
                             ->where('stock_id', $stock_id)
                             ->update($data);
+
+                $label_data = ['label_status' => 1];   
+                $update_labeling = DB::connection('inventory')
+                            ->table('stocks')
+                            ->where('id', $stock_id)
+                            ->update($label_data);
             
                 // Check if the update was successful
                 if ($updated) {
@@ -257,7 +268,6 @@ class StockController extends Controller
         
 
         if($check === null){
-
             $store = DB::connection('inventory')
                         ->table('barcodes_and_skus')
                         ->insertGetId([
@@ -266,21 +276,32 @@ class StockController extends Controller
                         'sku'=>$sku    
                         ]);
 
+            $label_data = ['label_status' => 1];   
+            $update_labeling = DB::connection('inventory')
+                        ->table('stocks')
+                        ->where('id', $stock_id)
+                        ->update($label_data);
+
             $response = [
                 'success' => true,
                 'message' => 'SKU is added successfully'
             ];
     
             return response()->json($response,200);
-        }else{
-
-            $data = ['sku' => $sku];
-              
+        }else{           
             try {
+
+                $data = ['sku' => $sku];
                 $updated = DB::connection('inventory')
                             ->table('barcodes_and_skus')
                             ->where('stock_id', $stock_id)
                             ->update($data);
+
+                $label_data = ['label_status' => 1];   
+                $update_labeling = DB::connection('inventory')
+                            ->table('stocks')
+                            ->where('id', $stock_id)
+                            ->update($label_data);
             
                 // Check if the update was successful
                 if ($updated) {
@@ -301,7 +322,21 @@ class StockController extends Controller
     }
 
 
+    public function delete_sku(Request $request, $stock_id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('inventory')
+                    ->table('barcodes_and_skus')
+                    ->where('stock_id', $stock_id)
+                    ->delete();
 
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'SKU is Deleted Successfully !']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'SKU Failed To Deleted !']);
+                }
+
+    }
 
 
 }

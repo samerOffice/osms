@@ -146,7 +146,7 @@ New Product Request Form
                   </div>
 
                 <div class="form-group col-1">
-                    <label for="product_weight" class="col-form-label text-start">Product Weight</label>
+                    <label for="product_weight" class="col-form-label text-start">Weight</label>
                     <input type="text" readonly class="form-control product_weight" value="${data.productWeight || ''}" name="product_weight[]" > 
                 </div>
 
@@ -156,7 +156,7 @@ New Product Request Form
                 </div>
 
                 <div class="form-group col-2">
-                    <label for="product_details" class="col-form-label text-start">Product Details</label>
+                    <label for="product_details" class="col-form-label text-start">Details</label>
                     <textarea readonly name="product_details[]" class="form-control product_details">${data.productDetails || ''}</textarea>
                 </div>
 
@@ -172,7 +172,7 @@ New Product Request Form
                </div>
 
                 <div class="form-group col-1">
-                    <label for="product_subtotal" class="col-form-label text-start">Sub Total (BDT)</label>
+                    <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                     <input type="text" readonly class="form-control product_subtotal" value="${data.quantity && data.unitPrice ? (data.quantity * data.unitPrice).toFixed(2) : '--'}" name="product_subtotal[]" >
                 </div>
 

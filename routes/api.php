@@ -128,6 +128,7 @@ Route::middleware('auth:sanctum')->post('/add_barcode/{stock_id}',[App\Http\Cont
 Route::middleware('auth:sanctum')->post('/delete_barcode/{stock_id}',[App\Http\Controllers\API\Inventory\StockController::class,'delete_barcode']);
 
 Route::middleware('auth:sanctum')->post('/add_sku/{stock_id}',[App\Http\Controllers\API\Inventory\StockController::class,'add_sku']);
+Route::middleware('auth:sanctum')->post('/delete_sku/{stock_id}',[App\Http\Controllers\API\Inventory\StockController::class,'delete_sku']);
 
 //requisition
 Route::middleware('auth:sanctum')->post('/requisition_store', [App\Http\Controllers\API\Inventory\ProductRequisitionController::class, 'requisition_store']);

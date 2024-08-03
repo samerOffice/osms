@@ -171,7 +171,7 @@ $('.select2bs4').select2({
 
         }
 
-        function printContentFunction(content) {
+    function printContentFunction(content) {
     var stock_id = $('#stock_id').val();
     var barcode = $('#product_tag_number').val();
 
@@ -223,7 +223,8 @@ $('.select2bs4').select2({
                     if (result.isConfirmed) {
                         console.log('Print completed');
                         setTimeout(function() {
-                                    window.location.reload(true);
+                                    // window.location.reload(true);
+                                    window.location.href = "{{ route('stock_list') }}";
                                 }, 2000);
                     } else {
                         console.log('Print dialog was cancelled');
@@ -278,13 +279,6 @@ $('.select2bs4').select2({
 
 
 
-
-
-
-
-
-
-
 //------sku print start------  
 $('#sku_print').on('click', function() {    
     var sku = document.getElementById('product_tag_number').value; 
@@ -313,43 +307,156 @@ function generateSKUs(sku, quantity) {
         }
 
 
-function printSKUContentFunction(content){
+// function printSKUContentFunction(content){
+
+//     var stock_id = $('#stock_id').val();
+//     var skui = $('#product_tag_number').val();
+//     // Function to get CSRF token from meta tag
+//     function getCsrfToken(){
+//         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//         }
+//     // Set up Axios defaults
+//     axios.defaults.withCredentials = true;
+//     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+//     // axios.get('sanctum/csrf-cookie').then(response => {
+//     axios.post('/osms/api/add_sku/' + stock_id, {
+//         skui: skui
+//     }).then(response => {
+//         console.log(response);
+//     }).catch(error => console.log(error.response));
+//     // });
 
 
+
+//     var originalContent = document.body.innerHTML;
+//     // Set body content to the content you want to print
+//     document.body.innerHTML = content;
+//     // Call window.print() to print the content
+//         window.print();
+//     // Restore original content
+//     document.body.innerHTML = originalContent;
+//     setTimeout(function() {
+//         if (!window.matchMedia('print').matches) {
+//             // Redirect to a different page if print was canceled
+//             window.location.reload(true);
+//         }
+//     }, 500);
+// } 
+
+
+function printSKUContentFunction(content) {
     var stock_id = $('#stock_id').val();
     var skui = $('#product_tag_number').val();
+
     // Function to get CSRF token from meta tag
-    function getCsrfToken(){
+    function getCsrfToken() {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        }
+    }
+
     // Set up Axios defaults
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    // axios.get('sanctum/csrf-cookie').then(response => {
-    axios.post('/osms/api/add_sku/' + stock_id, {
-        skui: skui
-    }).then(response => {
-        console.log(response);
-    }).catch(error => console.log(error.response));
-    // });
-
-
-
+    // Store the original content
     var originalContent = document.body.innerHTML;
-    // Set body content to the content you want to print
-    document.body.innerHTML = content;
-    // Call window.print() to print the content
-        window.print();
-    // Restore original content
-    document.body.innerHTML = originalContent;
-    setTimeout(function() {
-        if (!window.matchMedia('print').matches) {
-            // Redirect to a different page if print was canceled
-            window.location.reload(true);
+
+    // Flag to determine if print dialog was canceled
+    var printInProgress = false;
+
+    // Define what happens before and after print
+    function beforePrint() {
+        console.log('Before print event triggered');
+        printInProgress = true;
+        // Store barcode data when print dialog is opened
+        axios.post('/osms/api/add_sku/' + stock_id, { skui: skui })
+            .then(response => {
+                console.log('Data stored:', response);
+            })
+            .catch(error => console.log('Error storing data:', error.response));
+    }
+
+    function afterPrint() {
+        console.log('After print event triggered');
+        // Restore original content after printing
+        document.body.innerHTML = originalContent;
+
+        // Use a small delay to check if print was canceled
+        setTimeout(function() {
+            if (printInProgress) {
+                Swal.fire({
+                    title: 'Did you complete the print?',
+                    text: "Please confirm if you completed the print.",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, printed!',
+                    cancelButtonText: 'No, canceled'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log('Print completed');
+                        setTimeout(function() {
+                                    // window.location.reload(true);
+                                    window.location.href = "{{ route('stock_list') }}";
+                                }, 2000);
+                    } else {
+                        console.log('Print dialog was cancelled');
+                        // Delete the barcode if print was cancelled
+                        axios.post('/osms/api/delete_sku/' + stock_id)
+                            .then(response => {
+                                console.log('Data deleted:', response);
+                                setTimeout(function() {
+                                    window.location.reload(true);
+                                }, 2000);
+                            })
+                            .catch(error => Swal.fire({
+                                icon: "error",
+                                title: error.response.data.message,
+                            }));
+                    }
+                    printInProgress = false; // Reset the flag
+                });
+            }
+        }, 500);
+    }
+
+    // Show a confirmation dialog before starting the print
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to print this document?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, print it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Add event listeners for beforeprint and afterprint
+            window.addEventListener('beforeprint', beforePrint);
+            window.addEventListener('afterprint', afterPrint);
+
+            // Set the body content to the content you want to print
+            document.body.innerHTML = content;
+
+            // Call window.print() to print the content
+            window.print();
+
+            // Clean up event listeners after printing
+            window.removeEventListener('beforeprint', beforePrint);
+            window.removeEventListener('afterprint', afterPrint);
         }
-    }, 500);
-}    
+    });
+}
+
+
+
+
+
+
+
+
+
 //------sku print end-------
 
 
