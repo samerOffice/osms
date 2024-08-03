@@ -118,7 +118,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/product_and_price_dependancy',{
+ axios.post('/api/product_and_price_dependancy',{
         data: selectedProduct
       }).then(response=>{
       $('#sub_total').val(response.data);
@@ -181,7 +181,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/submit_invoice',invoiceFormData).then(response=>{
+ axios.post('/api/submit_invoice',invoiceFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
          window.location.reload();

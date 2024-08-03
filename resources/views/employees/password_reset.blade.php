@@ -162,7 +162,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/new_password_set',passwordResetFormData).then(response=>{
+ axios.post('/api/new_password_set',passwordResetFormData).then(response=>{
   console.log(response);
 
   Swal.fire({

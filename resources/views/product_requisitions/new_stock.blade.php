@@ -393,7 +393,7 @@ document.getElementById('addButton').addEventListener('click', function() {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
     axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/osms/api/product_information_dependancy',{
+    axios.post('/api/product_information_dependancy',{
             data: selectedProductId
         }).then(response=>{
             var data = response;
@@ -480,7 +480,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/product_information_dependancy',{
+ axios.post('/api/product_information_dependancy',{
         data: selectedProduct
       }).then(response=>{
         // Update the select element for product_unit_type
@@ -512,7 +512,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/requisition_store',requisitionOrderFormData).then(response=>{
+ axios.post('/api/requisition_store',requisitionOrderFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
         window.location.href = "{{ route('requisition_list') }}";

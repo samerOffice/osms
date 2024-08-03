@@ -340,7 +340,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/division',{
+ axios.post('/api/division',{
         data: selectedDivision
       }).then(response=>{
       $('#district').html(response.data);
@@ -507,7 +507,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
   
  axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/register',registerFormData).then(response=>{
+ axios.post('/api/register',registerFormData).then(response=>{
   window.location.href = myDashboardUrl;
   }).catch(error => Swal.fire({
               icon: "error",

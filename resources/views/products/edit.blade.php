@@ -214,7 +214,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 // axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/item_category_and_product_category_dependancy',{
+ axios.post('/api/item_category_and_product_category_dependancy',{
         data: selectedItemCategory
       }).then(response=>{
       $('#product_category_id').html(response.data);
@@ -292,7 +292,7 @@ function generateProductBarCodeID() {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
     // axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/osms/api/update_product/' + product_id, updateProductFormData).then(response=>{
+    axios.post('/api/update_product/' + product_id, updateProductFormData).then(response=>{
     console.log(response);
     setTimeout(function() {
             window.location.reload();

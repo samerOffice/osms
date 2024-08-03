@@ -99,7 +99,7 @@ $('.select2bs4').select2({
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
     // axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/osms/api/update_business_type/' + business_type_id, updateBusinessTypeFormData).then(response=>{
+    axios.post('/api/update_business_type/' + business_type_id, updateBusinessTypeFormData).then(response=>{
     console.log(response);
     setTimeout(function() {
             window.location.reload();
