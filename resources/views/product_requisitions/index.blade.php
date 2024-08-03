@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Item Category List
+Purchased Product List
 @endsection
 
 
@@ -61,12 +61,13 @@ Item Category List
         <br>
         <br>      
             <div class="row" style="width: 60%;margin: 0 auto;">
-                <div class="col-6">
+              <div class="col-2"></div>
+                <div class="col-8">
                     <!-- small box -->
-                    <div class="small-box" style="background-color: #d5eaff">
+                    <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
                         <h3><i class="ion ion-ios-compose-outline"></i></h3>
-                        <h5>Request New Product</h5>
+                        <h5>New Product Purchase</h5>
                       </div>
                       <div class="icon">
                         <i class="ion ion-plus"></i>
@@ -74,20 +75,21 @@ Item Category List
                       <a href="{{route('new_stock')}}" class="small-box-footer" style="color: black">Click here</a>
                     </div>
                   </div>
+                  <div class="col-2"></div>
 
-                  <div class="col-6">
+                  {{-- <div class="col-6">
                     <!-- small box -->
                     <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
                         <h3><i class="ion ion-bag"></i></h3>
-                        <h5>Request Inventory Refill</h5>
+                        <h5>Inventory Refill</h5>
                       </div>
                       <div class="icon">
                         <i class="ion ion-plus"></i>
                       </div>
                       <a href="#" class="small-box-footer" style="color: black">Click here</a>
                     </div>
-                  </div>      
+                  </div> --}}
             </div>
 
     <br>
@@ -95,7 +97,7 @@ Item Category List
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Requested Product List</h3>
+                          <h3 class="card-title">Purchased Product List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -110,7 +112,7 @@ Item Category List
                               <th>Supplier</th>
                               <th>Ordered By</th>
                               <th>Status</th>
-                              @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                              @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                               <th>Action</th>
                               @endif
                             </tr>
@@ -134,18 +136,30 @@ Item Category List
                               <td>{{$requisition_order->order_by}}</td>             
                               <td>
                                 @if($requisition_order->requisition_status == 1)
-                                Pending
+                                <h5><span class="badge badge-warning">Pending</span></h5>                        
                                 @elseif($requisition_order->requisition_status == 2)
-                                Declined
+                                <h5><span class="badge badge-danger">Declined</span></h5>   
                                 @else
-                                Delivered
+                                <h5><span class="badge badge-success">Delivered</span></h5>
                                 @endif
                               </td>             
                               @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+
+                              @if($requisition_order->requisition_status == 2)
                               <td>
-                                <a href="{{route('requisition_edit_data',$requisition_order->id)}}" style="color: white"><button class="btn btn-success">Edit</button></a>
-                                <a href="" style="color: white"><button class="btn btn-warning">Approval</button></a>
+                                <button type="button" disabled class="btn btn-secondary">Declined</button>
                               </td>
+                              @elseif($requisition_order->requisition_status == 3)
+                              <td>
+                                <button type="button" disabled class="btn btn-success">Delivered</button>
+                              </td>
+                              @else
+                              <td>
+                                <a href="{{route('requisition_edit_data',$requisition_order->id)}}" style="color: white"><button class="btn btn-success"> <i class="fa-solid fa-pen-to-square"></i>Edit</button></a>
+                                <a href="{{route('requisition_view',$requisition_order->id)}}" style="color: white"><button class="btn btn-primary">Approval</button></a>
+                              </td>
+                              @endif
+
                               @endif
                             </tr> 
                             @endforeach              
@@ -169,23 +183,36 @@ Item Category List
 
 @push('masterScripts')
 <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+     $(document).ready(function() {
+    $('#example1').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from printing
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from CSV
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from Excel
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from PDF
+                }
+            }
+        ]
     });
-
-  
-    
+});  
   </script>
   @endpush

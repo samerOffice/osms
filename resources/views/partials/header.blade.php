@@ -6,18 +6,23 @@
     </li>
   </ul>
 
-  <div class="row" style="margin-left:5%">    
-    <span><img src="{{asset('public/img/otithee_logo.png')}}"  height="17px" width="auto" alt="logo"></span>
+  <div class="row" style="margin-left:5%;">    
+    <span style="padding-top:5px"><img src="{{asset('public/img/otithee_logo.png')}}"  height="17px" width="auto" alt="logo"></span>
   <em> 
     <h5 style="color: green; font-weight: bold; margin-top:1px">&nbsp;Shop Management System </h5>
   </em>      
   </div>
 
+
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
+    <form id="logOut">
+      <button type="submit" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
+      <input type="hidden" id="myLoginUrl" value="{{ route('login') }}">
+    </form>
     <!-- Navbar Search -->
     <!-- Messages Dropdown Menu -->
-    <li class="nav-item dropdown">
+    {{-- <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
         {{ Auth::user()->name }}&nbsp;<i class="far fa-user"></i>
       </a>
@@ -26,13 +31,11 @@
         <a class="dropdown-item" href="{{route('password_reset')}}"><i class="fa-solid fa-lock"></i>&nbsp;Password Reset</a>
         <input type="hidden" id="myLoginUrl" value="{{ route('login') }}">
         <a class="dropdown-item" href="" >
-          <form id="logOut">
-          <button type="submit" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
-          </form>
+          
         
         </a>
       </div>
-    </li>
+    </li> --}}
     
   </ul>
 </nav>
@@ -55,14 +58,15 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 
+
   axios.post('api/logout').then(response=>{
+
       if((response.data.flag) == 1){
         window.location.href = myLoginUrl;
         console.log(response);
       }else{
         console.log(response);
       }
-  });
 });
 
 </script>

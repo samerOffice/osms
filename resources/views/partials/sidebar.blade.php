@@ -1,11 +1,38 @@
 <aside class="main-sidebar sidebar-dark-info elevation-4">
+    @if($current_module->module_status == 1) <!--general module-->
     <!-- Brand Logo -->
+    <a href="{{route('home')}}"><img src="{{asset('public/img/dashboardlogo.gif')}}"  width="100%" alt="logo"></a>
+    @endif
     
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" style="margin-top:10px;">
       <!-- Sidebar user panel (optional) -->
-      <div class="pb-3 mb-3">
+      <!-- <div class="pb-3 mb-3">
       
+      </div> -->
+    
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
+        <div class="info" >
+          <a href="#" class="d-block"><font color="#fff">Hello</font> {{ Auth::user()->name }}&nbsp;!</a>
+        </div>
+      </div> -->
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline" style="">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex" >
+        <div class="info" >
+          <a href="#" class="d-block"><font color="#fff">Welcome</font> {{ Auth::user()->name }}&nbsp;!</a>
+        </div>
       </div>
 
       <!-- Sidebar Menu -->
@@ -20,7 +47,7 @@
               Dashboard
             </p>
           </a>
-        </li>
+         </li>
 
         <li class="nav-item nav-link @if(Request::is('branch_list')) nav-link active @endif" 
             style="@if(Request::is('branch_list')) background-color: #908ec4; @endif">
@@ -59,49 +86,67 @@
         <li class="nav-item nav-link @if(Request::is('supplier_list')) nav-link active @endif" 
             style="@if(Request::is('supplier_list')) background-color: #908ec4; @endif">
            <a href="{{route('supplier_list')}}" >
-            <i class="nav-icon fa-solid fa-user" style=" @if(Request::is('supplier_list')) color: white; @endif"></i>
+            <i class="nav-icon fa-solid fa-users" style=" @if(Request::is('supplier_list')) color: white; @endif"></i>
             <p style="@if(Request::is('supplier_list')) color:white; @endif"> Supplier</p>
           </a>
         </li>
 
-        
 
-          {{-- <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon fas fa-cog"></i>
+        <li class="nav-item @if(Request::is('add_item_category')) menu-open 
+            @elseif(Request::is('item_category_list')) menu-open 
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-user"></i>
               <p>
-                Settings
-                <i class="right fas fa-angle-left"></i>
+                Personal Info
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Designations</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Roles</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Business Types</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Users</p>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('add_personal_info')}}" class="nav-link {{ Request::is('add_personal_info') ? 'nav-link active' : ''}}" style="{{ Request::is('add_personal_info') ? 'background-color: #908ec4; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_personal_info') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('add_personal_info') ? 'color: white; !important' : ''}}">Profile</p>
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="{{route('password_reset')}}" class="nav-link {{ Request::is('password_reset') ? 'nav-link active' : ''}}" style="{{ Request::is('password_reset') ? 'background-color: #908ec4; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('password_reset') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('password_reset') ? 'color: white; !important' : ''}}">Password Reset</p>
+                  </a>
+                </li>
+                
+              </ul>
+          </li>
 
+
+        <div style="padding: 10px 0px 0px 0px;">
+          <div style="background-color:#908ec4;height:10px;"></div>
+        </div>
+
+        <style>
+          .fahadsidebar{
+            bottom: 0px;
+          }
+        </style>
+
+        <div class="fahadsidebar" style="padding: 0px 10px 10px 10px;">
+          <br><div style=""><p><font color="#e7fdfe" size="4"><b>About OSMS</b></font></p></div>
+          <div style="text-align: justify;color:#fff;">
+          <p><font color="#fff">Otithee Shop Management <br>System is a comprehensive <br>retail solution designed to <br>streamline and optimize shop <br>operations.</font></p>
+          <p><font color="#ffdfdf">Efficient Retail <br>Management Solution.</font></p>
+          <p><font color="#e7fdfe" size="4"><b>Get in Touch</b></font></p>
+          <p><font color="#fff"><b>Address:</b></font></p>
+          <p><font color="#fef5e7">9/A Dhanmondi, Dhaka-1209.</font></p>
+          <p><font color="#fff"><b>Phone:</b></font></p>
+          <p><font color="#fef5e7">+8801790004664</font></p>
+          </div>
+        <br>
+        <br>
+        </div>
+
+        
 
           @if((auth()->user()->role_id == 1))
           <li class="nav-item @if(Request::is('designation_list')) menu-open 
@@ -265,6 +310,71 @@
       </li>
       @endif
 
+    
+      {{-- <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
+      @elseif(Request::is('employee_list')) menu-open 
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-person-walking-arrow-right"></i>
+        <p>
+          Leave Management
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Leave Application</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Leave Application List</p>
+            </a>
+          </li> 
+          
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Report</p>
+            </a>
+          </li> 
+
+          <li class="nav-item">
+            <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Settings</p>
+            </a>
+          </li> 
+        </ul>
+      </li> --}}
+
+
+    {{-- @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))  
+      <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
+      @elseif(Request::is('employee_list')) menu-open 
+      @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-chart-simple"></i>
+        <p>
+          Employee Performance
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Performance Summary Report</p>
+            </a>
+          </li>
+          
+      @endif --}}
+     
+
       {{-- @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item ">
         <a href="#" class="nav-link ">
@@ -370,13 +480,12 @@
             </li>
 
 
-            <li class="nav-item @if(Request::is('requisition_list')) menu-open 
-            
-            @endif">
+            @if(Auth::user()->review_requisition == 1)
+            <li class="nav-item @if(Request::is('requisition_list')) menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-box"></i>
               <p>
-                Product Request
+                Product Purchase
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -386,11 +495,39 @@
                 <li class="nav-item">
                   <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
                     <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
-                    <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Requested Products</p>
+                    <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Purchased Products</p>
                   </a>
                 </li>       
               </ul>
             </li>
+            @endif
+
+            <li class="nav-item @if(Request::is('add_product')) menu-open 
+            @elseif(Request::is('product_list')) menu-open
+            @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-gem"></i>
+              <p>
+                Product
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('add_product')}}" class="nav-link {{ Request::is('add_product') ? 'nav-link active' : ''}}" style="{{ Request::is('add_product') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('add_product') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('add_product') ? 'color: white; !important' : ''}}">Add Product</p>
+                  </a>
+                </li>       
+                <li class="nav-item">
+                  <a href="{{route('product_list')}}" class="nav-link {{ Request::is('product_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+                    <i class="far fa-circle nav-icon" style="{{ Request::is('product_list') ? 'color: white; !important' : ''}}"></i>
+                    <p style="{{ Request::is('product_list') ? 'color: white; !important' : ''}}">Product List</p>
+                  </a>
+                </li>       
+              </ul>
+            </li>
+
 
 
       {{-- <li class="nav-item">
@@ -402,22 +539,22 @@
 
 
          <li class="nav-item nav-link 
-            @if(Request::is('add_product')) nav-link active
+            @if(Request::is('stock_list')) nav-link active
             @endif
             " 
-          style="@if(Request::is('add_product')) background-color: #1cdf1c;
+          style="@if(Request::is('stock_list')) background-color: #1cdf1c;
               @endif
               ">
-              <a href="{{route('add_product')}}">
-              <i class="nav-icon fas fa-gem" 
-              style="@if(Request::is('add_product')) color: white;
+              <a href="{{route('stock_list')}}">
+              <i class="nav-icon fa-solid fa-layer-group" 
+              style="@if(Request::is('stock_list')) color: white;
               @endif
               ">
               </i>
-              <p style="@if(Request::is('add_product')) color:white;
+              <p style="@if(Request::is('stock_list')) color:white;
               @endif
               ">
-                Product Entry
+                Stock
               </p>
               </a>
             </li>

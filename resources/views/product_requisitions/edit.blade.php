@@ -21,7 +21,7 @@ New Product Request Form
                     <div class="col-12">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                     <div class="card-header">                                   
-                        <h4 class="card-title ">Edit Request</h4>
+                        <h4 class="card-title ">Edit Purchase Request</h4>
                         <input type="hidden" id="orderId" name="" value="{{$id}}">
                     </div>
 
@@ -31,7 +31,7 @@ New Product Request Form
                 <div id="form-container">
                     <!-- Rows will be added here dynamically -->
                 </div>
-                <button class="add-button btn btn-success" id="addButton">Add</button>
+                <button type="button" class="add-button btn btn-success" id="addButton">Add</button>
                 
                 <div class="row">
                     <div class="form-group col-5"></div>
@@ -65,11 +65,21 @@ New Product Request Form
 <script>
   $(document).ready(function() {
         fetchProductData();
-
         $('#addButton').on('click', function() {
-            addRow({});
+            fetchProductList().then(productList => {
+                addRow({}, productList);
+            });
         });
     });
+
+    function fetchProductList() {
+    return axios.get('/osms/api/products') // Adjust the URL as needed
+        .then(response => response.data)
+        .catch(error => {
+            console.error('Failed to fetch product list:', error);
+            return [];
+        });
+    }
 
     function fetchProductData() {
         var requisition_order_id = document.getElementById('orderId').value;
@@ -89,10 +99,13 @@ New Product Request Form
                         console.log('Adding row for product:', product);
                         addRow({
                             trackId: product.product_track_id,
+                            productId: product.requested_product_id,
                             productName: product.requested_product_name,
                             productWeight: product.requested_product_weight,
                             unit: product.requested_product_unit_type,
                             productDetails: product.requested_product_details,
+                            productMFGDate: product.requested_product_mfg_date,
+                            productExpiryDate: product.requested_product_expiry_date,
                             quantity: product.requested_product_quantity,
                             unitPrice: product.requested_product_unit_price
                         });
@@ -108,7 +121,15 @@ New Product Request Form
 
     }
 
-    function addRow(data) {
+    function addRow(data, productList = []) {
+
+        const productOptions = `
+        <option value="">Select</option>
+        ${productList.map(product => 
+            `<option value="${product.id}">${product.product_name}</option>`
+        ).join('')}
+    `;
+
         const container = $('#form-container');
         const newRow = $(`
             <div class="form-row">
@@ -120,49 +141,50 @@ New Product Request Form
 
                   <div class="form-group col-2">
                     <label for="product_name" class="col-form-label text-start">Product Name</label>
-                    <input type="text" class="form-control" value="${data.productName || ''}" name="product_name[]" placeholder="Product Name">
+                    <select name="product_id[]" class="form-control select2bs4 product_name">
+                    <option value="${data.productId || ''}">${data.productName || ''}</option>
+                    ${productOptions}
+                 </select>
                   </div>
 
                 <div class="form-group col-1">
-                    <label for="product_weight" class="col-form-label text-start">Product Weight</label>
-                    <input type="number" class="form-control" value="${data.productWeight || ''}" name="product_weight[]" > 
+                    <label for="product_weight" class="col-form-label text-start">Weight</label>
+                    <input type="text" readonly class="form-control product_weight" value="${data.productWeight || ''}" name="product_weight[]" > 
                 </div>
 
                 <div class="form-group col-1">
                     <label for="product_unit_type" class="col-form-label text-start">Unit</label>
-                    <select name="product_unit_type[]" class="form-control select2bs4">
-                        <option>--Select--</option>
-                        <option value="Dozen" ${data.unit === 'Dozen' ? 'selected' : ''}>Dozen</option>
-                        <option value="Box" ${data.unit === 'Box' ? 'selected' : ''}>Box</option>
-                        <option value="Gram" ${data.unit === 'Gram' ? 'selected' : ''}>Gram</option>
-                        <option value="Kg" ${data.unit === 'Kg' ? 'selected' : ''}>Kg</option>
-                        <option value="Liter" ${data.unit === 'Liter' ? 'selected' : ''}>Liter</option>
-                        <option value="Meter" ${data.unit === 'Meter' ? 'selected' : ''}>Meter</option>
-                        <option value="Unit" ${data.unit === 'Unit' ? 'selected' : ''}>Unit</option>
-                        <option value="Pair" ${data.unit === 'Pair' ? 'selected' : ''}>Pair</option>
-                        <option value="Piece" ${data.unit === 'Piece' ? 'selected' : ''}>Piece</option>
-                        <option value="Others" ${data.unit === 'Others' ? 'selected' : ''}>Others</option>
-                    </select>  
+                    <input type="text" readonly class="form-control product_unit_type" value="${data.unit || ''}" name="product_unit_type[]" > 
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="product_details" class="col-form-label text-start">Details</label>
+                    <textarea readonly name="product_details[]" class="form-control product_details">${data.productDetails || ''}</textarea>
                 </div>
 
                 <div class="form-group col-2">
-                    <label for="product_details" class="col-form-label text-start">Product Details</label>
-                    <textarea name="product_details[]" class="form-control">${data.productDetails || ''}</textarea>
+                    <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
+                    <input type="date" class="form-control product_mfg_date" value="${data.productMFGDate || ''}" name="product_mfg_date[]">
                 </div>
 
-                <div class="form-group col-1">
+                <div class="form-group col-2">
+                    <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
+                    <input type="date" class="form-control product_expiry_date" value="${data.productExpiryDate || ''}" name="product_expiry_date[]">
+                </div>
+
+                <div class="form-group col-2">
                     <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                     <input type="number" class="form-control product_quantity" value="${data.quantity || ''}" name="product_quantity[]">
                 </div>
 
 
-               <div class="form-group col-1">
+               <div class="form-group col-2">
                     <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                     <input type="number"  class="form-control product_unit_price" value="${data.unitPrice || ''}" name="product_unit_price[]">
                </div>
 
-                <div class="form-group col-1">
-                    <label for="product_subtotal" class="col-form-label text-start">Sub Total (BDT)</label>
+                <div class="form-group col-2">
+                    <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                     <input type="text" readonly class="form-control product_subtotal" value="${data.quantity && data.unitPrice ? (data.quantity * data.unitPrice).toFixed(2) : '--'}" name="product_subtotal[]" >
                 </div>
 
@@ -174,27 +196,7 @@ New Product Request Form
             </div>
         `);
 
-
-        // const newRow = $(`
-        //     <div class="form-row">
-        //         <input type="text" name="productTrackId" placeholder="Product Track ID" value="${data.trackId || ''}" readonly>
-        //         <input type="text" name="productName" placeholder="Product Name" value="${data.productName || ''}">
-        //         <input type="number" name="productWeight" placeholder="Product Weight" value="${data.productWeight || ''}">
-        //         <select name="unit">
-        //             <option>--Select--</option>
-        //             <option value="Liter" ${data.unit === 'Liter' ? 'selected' : ''}>Liter</option>
-        //             <option value="Kg" ${data.unit === 'Kg' ? 'selected' : ''}>Kg</option>
-        //         </select>
-        //         <textarea name="productDetails" placeholder="Product Details">${data.productDetails || ''}</textarea>
-        //         <input type="number" name="productQuantity" class="product_quantity" placeholder="Quantity" value="${data.quantity || ''}">
-        //         <input type="number" name="productUnitPrice" class="product_unit_price" placeholder="Unit Price" value="${data.unitPrice || ''}">
-        //         <div class="product_subtotal">${data.quantity && data.unitPrice ? (data.quantity * data.unitPrice).toFixed(2) : '--'}</div>
-        //         <button type="button" class="remove-button">x</button>
-        //     </div>
-        // `);
-
         container.append(newRow);
-
         newRow.find('.remove-button').on('click', function() {
             newRow.remove();
             updateTotal();
@@ -206,9 +208,56 @@ New Product Request Form
             updateTotal();
         });
 
+
+        newRow.find('.product_name').on('change', function(event) {
+        const selectedProductId = $(this).val();
+        if (selectedProductId) {
+            fetchProductDetails(selectedProductId, newRow);
+        } else {
+            // Clear the related fields if no product is selected
+            newRow.find('.product_weight').val('');
+            newRow.find('.product_unit_type').val('');
+            newRow.find('.product_details').val('');
+        }
+    });
+
         calculateProductUnitPrice(newRow);
         updateTotal();
     }
+
+
+
+    //-------------------------functions start -----------------------------
+
+
+    function fetchProductDetails(productId, rowElement) {
+    // Function to get CSRF token from meta tag
+    function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
+
+    // Set up Axios defaults
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+    axios.post('/osms/api/product_information_dependancy', { data: productId })
+        .then(response => {
+
+            console.log(response.data);
+            const data = response.data;
+            if (data) {
+                rowElement.find('.product_weight').val(data.product_weight || '');
+                rowElement.find('.product_unit_type').val(data.product_unit_type || '');
+                rowElement.find('.product_details').val(data.product_details || '');
+                // Update other fields if necessary
+            } else {
+                console.error('No data received for the selected product.');
+            }
+        })
+        .catch(error => {
+            console.error('Failed to fetch product details:', error);
+        });
+}
 
     
     function generateProductTrackID(row) {
@@ -249,7 +298,7 @@ New Product Request Form
         $('#totalAmount').val(total.toFixed(2));
     }
 
-
+//----------------------- functions end ---------------------------
 
 //requisition order update start
 document.getElementById('requisitionOrderFormUpdate').addEventListener('submit',function(event){
@@ -267,7 +316,7 @@ function getCsrfToken() {
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-axios.get('sanctum/csrf-cookie').then(response=>{
+// axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/requisition_update/'+ requisition_order_id, requisitionOrderFormUpdateData).then(response=>{
   console.log(response);
   setTimeout(function() {
@@ -281,11 +330,11 @@ axios.get('sanctum/csrf-cookie').then(response=>{
         
   }).catch(error => Swal.fire({
               icon: "error",
-              title: error.response.data.message.email,
+              title: error.response.data.message,
               }))
  });
 
-});
+// });
 //requisition order update end
 </script>
  @endpush

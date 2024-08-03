@@ -1,73 +1,8 @@
 @extends('master')
 
 @section('title')
-Welcome
+Item Category
 @endsection
-
-@push('css')
-<style>
-    .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
-@endpush
-
 
 @section('content')
 <div class="content-wrapper">
@@ -81,7 +16,6 @@ input:checked + .slider:before {
                 <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>
-
                
             <div class="col-12">
                 <br>
@@ -99,10 +33,10 @@ input:checked + .slider:before {
                               
                               <div class="form-group">
                                 <label> Status </label>
-                                <label class="switch">
-                                    <input type="checkbox" id="toggleButton" name="active_status" value="" class="toggle-switch-checkbox">
-                                    <span class="slider round"></span>
-                                  </label>
+                                  <select required class="form-control select2bs4" id="active_status" name="active_status" style="width: 100%;">                                  
+                                    <option value="1">Active</option>
+                                    <option value="2">Inactive</option>                                                          
+                                 </select>
                               </div>
                             </div>
                             <!-- /.card-body -->
@@ -134,17 +68,7 @@ input:checked + .slider:before {
 <script type="text/javascript">
 
 
-// Event listener to toggle the input value when the switch is clicked
-$('.toggle-switch-checkbox').change(function() {
-           
-           if ($(this).is(':checked')) {
-               // Checkbox is checked and '1' is for activate
-               $('#toggleButton').val(1);
-           } else {
-               // Checkbox is unchecked and '2' is for deactivate
-               $('#toggleButton').val(2);
-           }
-       });   
+
 
 document.getElementById('itemCategoryForm').addEventListener('submit',function(event){
   event.preventDefault();
@@ -164,7 +88,7 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/osms/api/submit_item_category',itemCategoryFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
-         window.location.reload();
+    window.location.href = "{{ route('item_category_list') }}";
       }, 2000);
   Swal.fire({
               icon: "success",

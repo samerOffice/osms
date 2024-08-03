@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Department List
+Stock List
 @endsection
 
 
@@ -12,37 +12,12 @@ Department List
     <div class="content-header">
       <div class="container-fluid">
         <br>
-        <div class="row">
-
-          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-          <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_department')}}">
-                <i class="fas fa-plus"></i> Add Department
-            </a>
-          </div>
-          @endif
-           
-          <div class="col-12">
-            <br>
-            @if ($message = Session::get('success'))
-            <div class="alert alert-info" role="alert">
-              <div class="row">
-                <div class="col-11">
-                  {{ $message }}
-                </div>
-                <div class="col-1">
-                  <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-              </div>
-            </div>
-            @endif
-        </div>
-     
+        <div class="row">   
             <div class="col-12">
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Department List</h3>
+                      <h3 class="card-title">Stock List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -50,27 +25,27 @@ Department List
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Company Name</th>
-                          <th>Branch Name</th>
-                          <th>Department Name</th>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-                          <th>Action</th>
-                          @endif
+                          {{-- <th>Company Name</th> --}}
+                          {{-- <th>Warehouse Name</th> --}}
+                          <th>Product Name</th>
+                          <th>Current Quantity</th>
+                          <th>Details</th>
+                          {{-- <th>Purchase Date</th> --}}
+                          {{-- <th>Stored By</th> --}}
                         </tr>
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($departments as $department)
+                            @foreach($stocks as $stock)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$department->company_name}}</td>
-                          <td>{{$department->branch_name}}</td>
-                          <td>{{$department->dept_name}}</td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-                          <td>
-                            <a href="{{route('edit_department',$department->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
-                          </td>
-                          @endif
+                          {{-- <td>{{$stock->company_name}}</td> --}}
+                          {{-- <td>{{$stock->warehouse_name}}</td> --}}
+                          <td>{{$stock->product_name}}</td>
+                          <td>{{$stock->total_quantity}}</td>
+                          <td><a href="{{route('view_stock',$stock->product_id)}}">Details</a></td>
+                          {{-- <td>{{$stock->purchase_date}}</td> --}}
+                          {{-- <td>{{$stock->stored_by}}</td> --}}
                         </tr> 
                         @endforeach              
                  
@@ -91,7 +66,7 @@ Department List
 
 @push('masterScripts')
 <script>
-    $(document).ready(function() {
+       $(document).ready(function() {
     $('#example1').DataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -122,5 +97,6 @@ Department List
         ]
     });
 });
+   
   </script>
   @endpush

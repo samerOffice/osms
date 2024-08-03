@@ -304,19 +304,9 @@ class EmpController extends Controller
         }
 
 
-
-
-
-
-
-
-
-
-
-    
     
     //personal information add ui/ux
-    public function add_additional_member_info(){
+    public function add_personal_info(){
 
         $current_modules = array();
         $current_modules['module_status'] = '2';
