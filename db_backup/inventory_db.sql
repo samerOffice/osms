@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2024 at 03:29 PM
+-- Generation Time: Aug 03, 2024 at 07:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,8 +42,8 @@ CREATE TABLE `barcodes_and_skus` (
 --
 
 INSERT INTO `barcodes_and_skus` (`id`, `stock_id`, `company_id`, `barcode`, `sku`, `created_at`, `updated_at`) VALUES
-(26, 1, 11, 'Pro-20240801-170758-294', NULL, '2024-08-01 11:07:04', '2024-08-01 11:07:04'),
-(28, 4, 11, 'Pro-20240801-171006-373', NULL, '2024-08-01 11:10:08', '2024-08-01 11:10:08');
+(1, 5, 11, 'Pro-20240803-112952-547', NULL, '2024-08-03 05:29:54', '2024-08-03 05:29:54'),
+(2, 1, 11, NULL, 'SKU-Lenovo 203 tablet-3-2024-07-30-20240803-114110-593', '2024-08-03 05:41:12', '2024-08-03 05:41:12');
 
 -- --------------------------------------------------------
 
@@ -293,6 +293,7 @@ CREATE TABLE `stocks` (
   `product_subtotal` varchar(255) DEFAULT NULL,
   `purchase_date` date DEFAULT NULL,
   `product_stored_by` int(255) DEFAULT NULL,
+  `label_status` int(10) DEFAULT NULL COMMENT '1 = Labeled, 2 = Not Labeled',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -301,12 +302,12 @@ CREATE TABLE `stocks` (
 -- Dumping data for table `stocks`
 --
 
-INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `quantity`, `product_unit_price`, `product_subtotal`, `purchase_date`, `product_stored_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 11, 1, 3, '45500', '136500.00', '2024-07-30', 1, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
-(2, 2, 11, 1, 4, '17000', '68000.00', '2024-07-30', 1, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
-(3, 1, 11, 2, 4, '42000', '168000.00', '2024-07-30', 1, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
-(4, 3, 11, 2, 4, '15400', '61600.00', '2024-07-30', 1, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
-(5, 1, 11, 1, 5, '39700', '198500.00', '2024-07-31', 1, '2024-07-31 07:32:25', '2024-07-31 07:32:25');
+INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `quantity`, `product_unit_price`, `product_subtotal`, `purchase_date`, `product_stored_by`, `label_status`, `created_at`, `updated_at`) VALUES
+(1, 1, 11, 1, 3, '45500', '136500.00', '2024-07-30', 1, 1, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
+(2, 2, 11, 1, 4, '17000', '68000.00', '2024-07-30', 1, NULL, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
+(3, 1, 11, 2, 4, '42000', '168000.00', '2024-07-30', 1, NULL, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
+(4, 3, 11, 2, 4, '15400', '61600.00', '2024-07-30', 1, NULL, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
+(5, 1, 11, 1, 5, '39700', '198500.00', '2024-07-31', 1, 1, '2024-07-31 07:32:25', '2024-07-31 07:32:25');
 
 -- --------------------------------------------------------
 
@@ -417,7 +418,7 @@ ALTER TABLE `warehouses`
 -- AUTO_INCREMENT for table `barcodes_and_skus`
 --
 ALTER TABLE `barcodes_and_skus`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `inventory_log`

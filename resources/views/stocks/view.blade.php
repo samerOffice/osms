@@ -83,7 +83,13 @@ View Stock
                         <td>{{$stock->product_subtotal}} BDT</td>
                         <td>{{$stock->purchase_date}}</td>                      
                         <td>{{$stock->purchased_by}}</td>                  
-                        <td><a href="{{route('add_label',$stock->id)}}">Add Label</a></td>                  
+                        <td>
+                            @if($stock->label_status == 1)
+                            <h5><span class="badge badge-secondary">Labeled</span></h5>
+                            @else
+                            <a href="{{route('add_label',$stock->id)}}">Add Label</a>
+                            @endif
+                        </td>                  
                       </tr>
                       @endforeach                
                       </tbody>
