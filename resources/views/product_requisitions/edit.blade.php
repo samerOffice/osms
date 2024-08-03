@@ -73,7 +73,7 @@ New Product Request Form
     });
 
     function fetchProductList() {
-    return axios.get('/osms/api/products') // Adjust the URL as needed
+    return axios.get('/api/products') // Adjust the URL as needed
         .then(response => response.data)
         .catch(error => {
             console.error('Failed to fetch product list:', error);
@@ -93,7 +93,7 @@ New Product Request Form
         axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
         // axios.get('sanctum/csrf-cookie').then(response=>{
-        axios.get('/osms/api/requisition_edit/'+requisition_order_id).then(response=>{           
+        axios.get('/api/requisition_edit/'+requisition_order_id).then(response=>{           
             if (Array.isArray(response.data)) {
                     response.data.forEach(function(product) {
                         console.log('Adding row for product:', product);
@@ -240,7 +240,7 @@ New Product Request Form
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    axios.post('/osms/api/product_information_dependancy', { data: productId })
+    axios.post('/api/product_information_dependancy', { data: productId })
         .then(response => {
 
             console.log(response.data);
@@ -317,7 +317,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 // axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/requisition_update/'+ requisition_order_id, requisitionOrderFormUpdateData).then(response=>{
+ axios.post('/api/requisition_update/'+ requisition_order_id, requisitionOrderFormUpdateData).then(response=>{
   console.log(response);
   setTimeout(function() {
         window.location.href = "{{ route('requisition_list') }}";
