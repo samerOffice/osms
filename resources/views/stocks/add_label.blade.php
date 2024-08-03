@@ -48,7 +48,7 @@ View label
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <input type="text" id="stock_id" name="stock_id" value="{{$label->id}}">
+                    <input type="hidden" id="stock_id" name="stock_id" value="{{$label->id}}">
                   <strong><i class="fas fa-file-alt mr-1"></i> Product Name : </strong><span id="product_name">{{$label->stock_product_name}}</span>
                   <hr>
                   <strong><i class="fa-solid fa-weight-hanging mr-1"></i> Product Weight : </strong><span>{{$label->stock_product_weight}} {{$label->stock_product_unit_type}}</span>
