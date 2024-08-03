@@ -151,6 +151,10 @@ class ProductRequisitionController extends Controller
         $product_weights = $request->product_weight;
         $product_unit_types = $request->product_unit_type;
         $product_details = $request->product_details;
+
+        $product_mfg_dates = $request->product_mfg_date;
+        $product_expiry_dates = $request->product_expiry_date;
+        
         $product_quantities = $request->product_quantity;
         $product_unit_prices = $request->product_unit_price;
         $product_subtotals = $request->product_subtotal;
@@ -161,6 +165,10 @@ class ProductRequisitionController extends Controller
             $product_weight = $product_weights[$key] ?? null;
             $product_unit_type = $product_unit_types[$key] ?? null; 
             $product_detail = $product_details[$key] ?? null;
+
+            $product_mfg_date = $product_mfg_dates[$key] ?? null;
+            $product_expiry_date = $product_expiry_dates[$key] ?? null;
+
             $product_quantity = $product_quantities[$key] ?? null;
             $product_unit_price = $product_unit_prices[$key] ?? null;
             $product_subtotal = $product_subtotals[$key] ?? null;
@@ -174,6 +182,10 @@ class ProductRequisitionController extends Controller
                 'product_weight' => $product_weight,
                 'product_unit_type' => $product_unit_type,
                 'product_details' => $product_detail,
+
+                'product_mfg_date' => $product_mfg_date,
+                'product_expiry_date' => $product_expiry_date,
+
                 'product_quantity' => $product_quantity,
                 'product_unit_price' => $product_unit_price,          
                 'product_subtotal' => $product_subtotal          
@@ -226,6 +238,10 @@ class ProductRequisitionController extends Controller
                                 'product_requisitions.product_weight as requested_product_weight',
                                 'product_requisitions.product_unit_type as requested_product_unit_type',
                                 'product_requisitions.product_details as requested_product_details',
+
+                                'product_requisitions.product_mfg_date as requested_product_mfg_date',
+                                'product_requisitions.product_expiry_date as requested_product_expiry_date',
+
                                 'product_requisitions.product_quantity as requested_product_quantity',
                                 'product_requisitions.product_unit_price as requested_product_unit_price',
                                 'product_requisitions.product_subtotal as requested_product_subtotal',                                
@@ -269,6 +285,10 @@ class ProductRequisitionController extends Controller
             $product_weights = $request->product_weight;
             $product_unit_types = $request->product_unit_type;
             $product_details = $request->product_details;
+
+            $product_mfg_dates = $request->product_mfg_date;
+            $product_expiry_dates = $request->product_expiry_date;
+
             $product_quantities = $request->product_quantity;
             $product_unit_prices = $request->product_unit_price;
             $product_subtotals = $request->product_subtotal;
@@ -285,6 +305,10 @@ class ProductRequisitionController extends Controller
                 $product_weight = $product_weights[$key] ?? null;
                 $product_unit_type = $product_unit_types[$key] ?? null;
                 $product_detail = $product_details[$key] ?? null;
+
+                $product_mfg_date = $product_mfg_dates[$key] ?? null;
+                $product_expiry_date = $product_expiry_dates[$key] ?? null;
+
                 $product_quantity = $product_quantities[$key] ?? null;
                 $product_unit_price = $product_unit_prices[$key] ?? null;
                 $product_subtotal = $product_subtotals[$key] ?? null;
@@ -298,6 +322,10 @@ class ProductRequisitionController extends Controller
                         'product_weight' => $product_weight,
                         'product_unit_type' => $product_unit_type,
                         'product_details' => $product_detail,
+
+                        'product_mfg_date' => $product_mfg_date,
+                        'product_expiry_date' => $product_expiry_date,
+
                         'product_quantity' => $product_quantity,
                         'product_unit_price' => $product_unit_price,
                         'product_subtotal' => $product_subtotal
@@ -395,13 +423,13 @@ class ProductRequisitionController extends Controller
         $requisition_id = $request->approved_requisition_id;
         
         $update = DB::connection('inventory')
-        ->table('requisition_orders')
-        ->where('id', $requisition_id)
-        ->update([
-            'requisition_reviewed_by' => $user_id,
-            'requisition_status' => 3,
-            'requisition_deliver_date' => Carbon::now()->format('Y-m-d')
-        ]);
+                    ->table('requisition_orders')
+                    ->where('id', $requisition_id)
+                    ->update([
+                        'requisition_reviewed_by' => $user_id,
+                        'requisition_status' => 3,
+                        'requisition_deliver_date' => Carbon::now()->format('Y-m-d')
+                    ]);
 
         $order_track = DB::connection('inventory')
                         ->table('requisition_orders')
@@ -425,17 +453,17 @@ class ProductRequisitionController extends Controller
 
         foreach($purchased_products as $purchased_product){
             $stocks = DB::connection('inventory')
-            ->table('stocks')
-            ->insertGetId([
-                'product_id' => $purchased_product->product_id,
-                'company_id' => $company_id,
-                'warehouse_id' => $warehouse_id,
-                'quantity' => $purchased_product->product_quantity,
-                'product_unit_price' => $purchased_product->product_unit_price,
-                'product_subtotal' => $purchased_product->product_subtotal,
-                'purchase_date' => $product_deliver_date,
-                'product_stored_by' => $requisition_reviewed_by              
-                ]);
+                        ->table('stocks')
+                        ->insertGetId([
+                            'product_id' => $purchased_product->product_id,
+                            'company_id' => $company_id,
+                            'warehouse_id' => $warehouse_id,
+                            'quantity' => $purchased_product->product_quantity,
+                            'product_unit_price' => $purchased_product->product_unit_price,
+                            'product_subtotal' => $purchased_product->product_subtotal,
+                            'purchase_date' => $product_deliver_date,
+                            'product_stored_by' => $requisition_reviewed_by              
+                            ]);
         }
        
         return redirect()->route('requisition_list')->withSuccess('Order is reviewed successfully'); 
