@@ -50,9 +50,9 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => 'emp_db',
-            'username' => 'root',
-            'password' => '',
+            'database' => env('Employee_DB'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_general_ci',
@@ -64,7 +64,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-         // end -:- Main Connection
+        // end -:- Main Connection
 
         // start -:- Inventory DB Connection
         'inventory' => [
@@ -72,9 +72,9 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => 'localhost',
             'port' => '3306',
-            'database' => 'inventory_db',
-            'username' => 'root',
-            'password' => '',
+            'database' => env('Inventory_DB'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => '',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_general_ci',
@@ -85,16 +85,16 @@ return [
         ],
         // end -:- Inventory DB Connection
 
-        
+
         // start -:- POS DB Connection
         'pos' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => 'localhost',
             'port' => '3306',
-            'database' => 'pos_db',
-            'username' => 'root',
-            'password' => '',
+            'database' => env('Pos_DB'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => '',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_general_ci',
@@ -167,7 +167,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [

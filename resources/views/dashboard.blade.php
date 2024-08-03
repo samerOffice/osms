@@ -49,7 +49,7 @@ Welcome
 @if (Auth::check())
 
   @if($current_module->module_status == 1) <!--general module-->
-  <div class="content-wrapper" style="background-image: url('{{ asset('public/img/2.png') }}'); background-repeat: no-repeat;background-size: cover;">
+  <div class="content-wrapper" style="background-image: url('{{ asset('img/2.png') }}'); background-repeat: no-repeat;background-size: cover;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -57,7 +57,7 @@ Welcome
         {{-- <h4 align=center>Welcome, <b>{{Auth::user()->name}}</b>!</h4>   
         <h4 align=center>To</h4>
         <div class="row" style="margin-left: 35%">    
-            <span style="margin-top:20px !important;"><img src="{{asset('public/img/otithee_logo.png')}}"  height="25px" width="auto" alt="logo"></span>
+            <span style="margin-top:20px !important;"><img src="{{asset('img/otithee_logo.png')}}"  height="25px" width="auto" alt="logo"></span>
         <em> 
           <h1 style="color: green; font-weight: bold; margin-top: 17px">&nbsp;Shop Management System </h1>
         </em>      
@@ -67,7 +67,7 @@ Welcome
           <div class="col-lg-4 col-md-4 col-sm-4">
             <h4 align="center">Employee Management</h4>
             <!-- small box -->
-              <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/employee_dashboard.jpg') }}');  background-size: cover;">   
+              <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/employee_dashboard.jpg') }}');  background-size: cover;">   
               </div>
               <br> 
               <div style="position: relative">
@@ -85,7 +85,7 @@ Welcome
           <div class="col-lg-4 col-md-4 col-sm-4">
             <h4 align="center">Inventory Management</h4>
             <!-- small box -->
-            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/inventory_dashboard.jpg') }}');  background-size: cover;" >      
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/inventory_dashboard.jpg') }}');  background-size: cover;" >      
             </div>
             <br>
               <div style="position: relative;">
@@ -102,7 +102,7 @@ Welcome
           <div class="col-lg-4 col-md-4 col-sm-4">
             <h4 align="center">Point of Sale</h4>
             <!-- small box -->
-            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/pos_dashboard.jpg') }}');  background-size: cover;" >
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/pos_dashboard.jpg') }}');  background-size: cover;" >
             </div>
              <br>
             <div style="position: relative">
@@ -117,7 +117,7 @@ Welcome
           {{-- <div class="col-lg-3 col-md-3 col-sm-3">
             <h4 align="center">Delivery Tracking System</h4>
             <!-- small box -->
-            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/tracking_dashboard.jpg') }}');  background-size: cover;" >
+            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/tracking_dashboard.jpg') }}');  background-size: cover;" >
             </div>
              <br>
             <div style="position: relative">
@@ -969,7 +969,7 @@ Welcome
         display: flex;
         justify-content: center;
         align-items: center;">
-        <img src="{{'public/img/employees.jpg'}}" width="900px" alt="">
+        <img src="{{'img/employees.jpg'}}" width="900px" alt="">
         </div>   
       </div>
     </div>
@@ -1597,7 +1597,7 @@ Welcome
         display: flex;
         justify-content: center;
         align-items: center;">
-        <img src="{{'public/img/inventory.jpg'}}" width="700px" alt="">
+        <img src="{{'img/inventory.jpg'}}" width="700px" alt="">
         </div>
       </div>
     </div>
@@ -1898,7 +1898,7 @@ Welcome
         display: flex;
         justify-content: center;
         align-items: center;">
-        <img src="{{'public/img/pos.jpg'}}" width="700px" alt="">
+        <img src="{{'img/pos.jpg'}}" width="700px" alt="">
         </div>
       </div>
     </div>

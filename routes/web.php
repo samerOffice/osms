@@ -25,6 +25,17 @@ use App\Http\Controllers\API\Inventory\StockController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
 
+#### CLEAR ALL IN ONE ####
+use Illuminate\Support\Facades\Artisan;
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('optimize:clear');
+    Artisan::call('optimize');
+    return 'Caches cleared and configuration files regenerated.';
+});
+
+
 Route::get('/', [HomeController::class, 'index'])->name('login');
 Route::get('/registration', [HomeController::class, 'registration'])->name('registration');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('home');

@@ -4,32 +4,49 @@ namespace App\Http\Controllers\API\Emp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
-    public function give_attendance(){
-        $current_modules = array();
-        $current_modules['module_status'] = '2';
-        $update_module = DB::table('current_modules')
-                    // ->where('id', $request->id)
-                    ->update($current_modules);
+    public function give_attendance()
+    {
+        $current_modules = ['module_status' => '2'];
+        DB::table('current_modules')->update($current_modules);
         $current_module = DB::table('current_modules')->first();
-
-    $user_id = Auth::user()->id;
-
+    
+        $user_id = Auth::user()->id;
+    
+        // Get user designation
         $designation = DB::table('users')
-                            ->leftJoin('designations','users.designation','=','designations.id')
-                            ->select('designations.designation_name as designation_name')
-                            ->where('users.id',$user_id)
-                            ->first();
-                            
-        // dd($designation->designation_name);
-        
-        return view('attendances.create',compact('current_module','designation'));
+            ->leftJoin('designations', 'users.designation', '=', 'designations.id')
+            ->select('designations.designation_name as designation_name')
+            ->where('users.id', $user_id)
+            ->first();
+    
+        // Get the last attendance record
+        $attendances = DB::table('attendances')
+            ->select('user_id', 'attendance_date', 'created_at')
+            ->where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+    
+        $canAttend = true; // Default value
+    
+        // Check if the user has attended within the last 24 hours
+        if ($attendances) {
+            $lastAttendanceTime = \Carbon\Carbon::parse($attendances->created_at);
+            $hoursSinceLastAttendance = \Carbon\Carbon::now()->diffInHours($lastAttendanceTime);
+    
+            if ($hoursSinceLastAttendance < 24) {
+                $canAttend = false;
+            }
+        }
+    
+        return view('attendances.create', compact('current_module', 'designation', 'attendances', 'canAttend'));
     }
+    
 
     public function submit_attendance(Request $request){
         $user_id = Auth::user()->id;
@@ -53,7 +70,7 @@ class AttendanceController extends Controller
 
     }
 
-    
+
     //web
     public function attendance_list(){
         $current_modules = array();
