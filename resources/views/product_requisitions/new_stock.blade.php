@@ -153,7 +153,7 @@ New Product Request Form
                                                 </div>
 
                                                 <div class="form-group col-1">
-                                                    <label for="product_weight" class="col-form-label text-start">Product Weight</label>
+                                                    <label for="product_weight" class="col-form-label text-start">Weight</label>
                                                     <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                                                 </div>
                                     
@@ -177,7 +177,7 @@ New Product Request Form
                                                 </div>
                                     
                                                 <div class="form-group col-2">
-                                                <label for="product_details" class="col-form-label text-start">Product Details</label>
+                                                <label for="product_details" class="col-form-label text-start">Details</label>
                                                 <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                                                 </div>
                                     
@@ -192,7 +192,7 @@ New Product Request Form
                                                 </div>
                                     
                                                 <div class="form-group col-1">
-                                                <label for="product_subtotal" class="col-form-label text-start">Sub Total (BDT)</label>
+                                                <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                                                 <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                                                 </div>
                                                 
@@ -307,7 +307,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                             </div>
 
                              <div class="form-group col-1">
-                                <label for="product_weight" class="col-form-label text-start">Product Weight</label>
+                                <label for="product_weight" class="col-form-label text-start">Weight</label>
                                 <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                             </div>
                 
@@ -318,7 +318,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                             </div>
                 
                             <div class="form-group col-2">
-                            <label for="product_details" class="col-form-label text-start">Product Details</label>
+                            <label for="product_details" class="col-form-label text-start">Details</label>
                             <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                             </div>
                 
@@ -333,7 +333,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                             </div>
                 
                             <div class="form-group col-1">
-                            <label for="product_subtotal" class="col-form-label text-start">Sub Total (BDT)</label>
+                            <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                             <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                             </div>
                             

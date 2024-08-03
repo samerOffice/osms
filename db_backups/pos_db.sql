@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2024 at 01:43 PM
+-- Generation Time: Aug 03, 2024 at 07:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `customers` (
   `id` int(100) NOT NULL,
   `customer_name` varchar(100) DEFAULT NULL,
   `company_id` int(100) DEFAULT NULL,
-  `membership_id` int(100) DEFAULT NULL,
+  `membership_id` varchar(100) DEFAULT NULL,
   `customer_phone_number` int(11) DEFAULT NULL,
   `customer_email` varchar(100) DEFAULT NULL,
   `customer_address` text DEFAULT NULL,

@@ -431,6 +431,8 @@ class ProductRequisitionController extends Controller
                 'company_id' => $company_id,
                 'warehouse_id' => $warehouse_id,
                 'quantity' => $purchased_product->product_quantity,
+                'product_unit_price' => $purchased_product->product_unit_price,
+                'product_subtotal' => $purchased_product->product_subtotal,
                 'purchase_date' => $product_deliver_date,
                 'product_stored_by' => $requisition_reviewed_by              
                 ]);

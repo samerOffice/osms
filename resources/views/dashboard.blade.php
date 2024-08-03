@@ -64,7 +64,7 @@ Welcome
         </div> --}}
        
         <div class="row mt-4">
-          <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="col-lg-4 col-md-4 col-sm-4">
             <h4 align="center">Employee Management</h4>
             <!-- small box -->
               <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/employee_dashboard.jpg') }}');  background-size: cover;">   
@@ -82,7 +82,7 @@ Welcome
            </div>
           
           <!-- ./col -->
-          <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="col-lg-4 col-md-4 col-sm-4">
             <h4 align="center">Accounts & Inventory Management</h4>
             <!-- small box -->
             <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/inventory_dashboard.jpg') }}');  background-size: cover;" >      
@@ -99,7 +99,7 @@ Welcome
               <br>           
            </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="col-lg-4 col-md-4 col-sm-4">
             <h4 align="center">Point of Sale</h4>
             <!-- small box -->
             <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/pos_dashboard.jpg') }}');  background-size: cover;" >
@@ -114,7 +114,7 @@ Welcome
             </div>   
           </div>
 
-          <div class="col-lg-3 col-md-6 col-sm-12">
+          {{-- <div class="col-lg-3 col-md-3 col-sm-3">
             <h4 align="center">Delivery Tracking System</h4>
             <!-- small box -->
             <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/tracking_dashboard.jpg') }}');  background-size: cover;" >
@@ -127,7 +127,7 @@ Welcome
               <button type="submit" class="btn tracking_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
             </form>
             </div>   
-          </div>
+          </div> --}}
          
         </div>
       </div><!-- /.container-fluid -->
@@ -273,6 +273,9 @@ Welcome
           <!-- /.col -->
         </div>
       </div>
+      <br>
+<br>
+<br>
     </section>
 </div>
 

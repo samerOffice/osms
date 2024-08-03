@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Item Category List
+Purchased Product List
 @endsection
 
 
@@ -61,9 +61,10 @@ Item Category List
         <br>
         <br>      
             <div class="row" style="width: 60%;margin: 0 auto;">
-                <div class="col-6">
+              <div class="col-2"></div>
+                <div class="col-8">
                     <!-- small box -->
-                    <div class="small-box" style="background-color: #d5eaff">
+                    <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
                         <h3><i class="ion ion-ios-compose-outline"></i></h3>
                         <h5>New Product Purchase</h5>
@@ -74,8 +75,9 @@ Item Category List
                       <a href="{{route('new_stock')}}" class="small-box-footer" style="color: black">Click here</a>
                     </div>
                   </div>
+                  <div class="col-2"></div>
 
-                  <div class="col-6">
+                  {{-- <div class="col-6">
                     <!-- small box -->
                     <div class="small-box" style="background-color: #d4ff76">
                       <div class="inner">
@@ -87,7 +89,7 @@ Item Category List
                       </div>
                       <a href="#" class="small-box-footer" style="color: black">Click here</a>
                     </div>
-                  </div>      
+                  </div> --}}
             </div>
 
     <br>
@@ -181,20 +183,36 @@ Item Category List
 
 @push('masterScripts')
 <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });  
+     $(document).ready(function() {
+    $('#example1').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from printing
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from CSV
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from Excel
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exclude the last column (Labeling) from PDF
+                }
+            }
+        ]
+    });
+});  
   </script>
   @endpush
