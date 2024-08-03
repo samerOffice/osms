@@ -83,7 +83,7 @@ Welcome
           
           <!-- ./col -->
           <div class="col-lg-4 col-md-4 col-sm-4">
-            <h4 align="center">Accounts & Inventory Management</h4>
+            <h4 align="center">Inventory Management</h4>
             <!-- small box -->
             <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('public/img/inventory_dashboard.jpg') }}');  background-size: cover;" >      
             </div>

@@ -63,33 +63,33 @@ Product
                                 </div>  --}}
 
                               <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                   <div class="form-group">
                                     <label >Product Name <small style="color: red">*</small></label>
                                     <input type="text" required class="form-control" id="product_name" name="product_name">
                                     {{-- <input type="text" required class="form-control" id="product_name" name="product_name" oninput="generateBarcode()"> --}}
                                   </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                   <div class="form-group">
                                     <label >Product Labeling Type <small style="color: red">*</small></label>
-                                    <select required class="form-control select2bs4" id="labeling_type" name="labeling_type" style="width: 100%;">                                  
+                                    <select class="form-control select2bs4" id="labeling_type" name="labeling_type" style="width: 100%;">                                  
                                         <option value="">Select</option>                                        
                                         <option value="1">SKU</option>                                                                                              
                                         <option value="2">Barcode</option>                                                                                              
                                     </select>
                                   </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-4"></div>
                                 <div class="col-4"></div>
                                 <div class="col-4">
                                   <svg id="barcode"></svg>
                                 </div> --}}
                               </div>                                                         
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                   <label >Tag Number</label>
                                   <input type="text" readonly  class="form-control" id="product_tag_number" name="product_tag_number" >
-                                </div>                         
+                                </div>--}}
                               
                               <div class="form-group">
                                 <label>Product Details</label>
@@ -149,7 +149,7 @@ Product
                               </div> --}}
                          
 
-                              <div class="row">
+                              {{-- <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                 <label>Product Entry Date</label>
                                 <input type="date" readonly  class="form-control" id="product_entry_date" name="product_entry_date" value="{{ date('Y-m-d') }}">
@@ -162,7 +162,7 @@ Product
                                 <label>Product Expiry Date</label>
                                 <input type="date"  class="form-control" id="product_expiry_date" name="product_expiry_date" >
                                 </div>
-                              </div>
+                              </div> --}}
 
                               {{-- <div class="form-group">
                                 <br>

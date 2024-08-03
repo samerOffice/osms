@@ -55,10 +55,10 @@ Product Edit
                                 </div>
                             </div>
 
-                            <div class="col-md-12 col-sm-12">
+                            {{-- <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <label >Product Labeling Type <small style="color: red">*</small></label>
-                                    <select required class="form-control select2bs4" id="labeling_type" name="labeling_type" style="width: 100%;">                                  
+                                    <select  class="form-control select2bs4" id="labeling_type" name="labeling_type" style="width: 100%;">                                  
                                         <option value="{{$product->labeling_type}}">
                                             @if($product->labeling_type == 1)
                                             SKU
@@ -70,20 +70,20 @@ Product Edit
                                         <option value="2">Barcode</option>                                                                                              
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-12 col-sm-12">
+                            {{-- <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <span><label for="">Old Tag Number :</label><br> {{$product->product_tag_number}}</span>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-12 col-sm-12">
+                            {{-- <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <label>New Tag Number<small style="color: red">*</small></label>
                                     <input type="text" readonly required  id="product_tag_number" name="product_tag_number" class="form-control form-control-lg" />
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
@@ -119,7 +119,7 @@ Product Edit
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-4">
+                            {{-- <div class="col-md-4 col-sm-4">
                                 <div  class="form-group mb-4">
                                     <label>Product Entry Date</label>
                                     <input type="date"  class="form-control" id="product_entry_date" name="product_entry_date" value="{{$product->product_entry_date}}">
@@ -138,7 +138,7 @@ Product Edit
                                     <label>Product Expiry Date</label>
                                     <input type="date"  class="form-control" id="product_expiry_date" name="product_expiry_date" value="{{$product->product_expiry_date}}">
                                 </div>
-                            </div>
+                            </div> --}}
 
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group mb-4">

@@ -54,7 +54,7 @@ Product List
                               <th>Item Category</th>
                               <th>Product Category</th>
                               <th>Product Name</th>
-                              <th>Tag Number</th>
+                              {{-- <th>Tag Number</th> --}}
                               <th>Weight</th>
                               <th>Unit</th>
                               <th>Status</th>
@@ -70,9 +70,9 @@ Product List
                               <td>{{$i++}}</td>
                               <td>{{$product->item_category_name}}</td>               
                               <td>{{$product->product_category_name}}</td>                
-                              <td>{{$product->product_name}}</td>                
-                              <td>{{$product->product_tag_number}}</td>                
-                              <td>{{$product->product_weight}}</td>            
+                              <td>{{$product->product_name}}</td> 
+                              {{-- <td>{{$product->product_tag_number}}</td>--}}
+                              <td>{{$product->product_weight}}</td>
                               <td>{{$product->product_unit_type}}</td>                             
                               <td>
                               @if($product->product_status == 1)

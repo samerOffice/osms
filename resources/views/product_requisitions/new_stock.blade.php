@@ -176,28 +176,38 @@ New Product Request Form
                                                 </select>   --}}
                                                 </div>
                                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-6">
                                                 <label for="product_details" class="col-form-label text-start">Details</label>
                                                 <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                                                 </div>
+
+                                                <div class="form-group col-2">
+                                                    <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
+                                                    <input type="date" class="form-control product_mfg_date" name="product_mfg_date[]"> 
+                                                </div>
+                    
+                                                <div class="form-group col-2">
+                                                    <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
+                                                    <input type="date" class="form-control product_expiry_date" name="product_expiry_date[]"> 
+                                                </div>
                                     
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-2">
                                                 <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                                                 <input type="number" required class="form-control product_quantity" name="product_quantity[]">
                                                 </div>
                                                 
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-2">
                                                 <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                                                 <input type="number" required class="form-control product_unit_price" name="product_unit_price[]">
                                                 </div>
                                     
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-2">
                                                 <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                                                 <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                                                 </div>
                                                 
                                                 <div class="form-group">
-                                                <a style="margin-top: 35px" class="btn btn-success" id="addButton">Add</a>   
+                                                <a style="margin-top: 35px; color:white" class="btn btn-lg btn-info" id="addButton"><i class="fas fa-plus"></i></a>   
                                                 </div>
 
                                                 </div> 
@@ -290,7 +300,7 @@ document.getElementById('addButton').addEventListener('click', function() {
         const container = document.getElementById('form-container');
         const newRow = document.createElement('div');
         newRow.className = 'form-row';
-        newRow.innerHTML = `<div class="row" style="width: 100%">
+        newRow.innerHTML = `<div class="row" style="width: 100%; margin-top: 70px !important;">
 
                             <div class="form-group col-2">
                                 <label for="product_track_id" class="col-form-label text-start">Product Track ID</label>
@@ -306,7 +316,7 @@ document.getElementById('addButton').addEventListener('click', function() {
                                 </select> 
                             </div>
 
-                             <div class="form-group col-1">
+                            <div class="form-group col-1">
                                 <label for="product_weight" class="col-form-label text-start">Weight</label>
                                 <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                             </div>
@@ -317,28 +327,39 @@ document.getElementById('addButton').addEventListener('click', function() {
                              
                             </div>
                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-6">
                             <label for="product_details" class="col-form-label text-start">Details</label>
                             <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                             </div>
+
+                            <div class="form-group col-2">
+                            <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
+                            <input type="date" class="form-control product_mfg_date" name="product_mfg_date[]"> 
+                            </div>
+                    
+                            <div class="form-group col-2">
+                            <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
+                            <input type="date" class="form-control product_expiry_date" name="product_expiry_date[]"> 
+                            </div>
+
                 
-                            <div class="form-group col-1">
+                            <div class="form-group col-2">
                             <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                             <input type="number" class="form-control product_quantity" name="product_quantity[]">
                             </div>
                                 
-                            <div class="form-group col-1">
+                            <div class="form-group col-2">
                             <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                             <input type="number"  class="form-control product_unit_price" name="product_unit_price[]">
                             </div>
                 
-                            <div class="form-group col-1">
+                            <div class="form-group col-2">
                             <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                             <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                             </div>
                             
                             <div class="form-group">                                        
-                            <button style="margin-top:35px !important" class="remove-button btn btn-danger">x</button>   
+                            <button style="margin-top:35px !important; color: white" class="remove-button btn btn-danger">x</button>   
                             </div>
                         </div>                                         
                     `;
