@@ -56,9 +56,6 @@ function getCsrfToken() {
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-
-
-
   axios.post('api/logout').then(response=>{
 
       if((response.data.flag) == 1){
@@ -68,6 +65,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
         console.log(response);
       }
 });
+
+  });
 
 </script>
 @endpush
