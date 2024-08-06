@@ -38,23 +38,23 @@ New Product Request Form
                             </div>
     
                             <div class="col-3">
-                                <label  class="col-form-label text-start">Order Date</label>         
+                                <label  class="col-form-label text-start">Purchase Date</label>         
                                 <input type="date" readonly id="requisition_order_date" name="requisition_order_date" value="{{ date('Y-m-d') }}" class="form-control" />
                             </div> 
 
                             <div class="col-3">
-                                <label  class="col-form-label text-start">Order By</label>         
-                                <input type="text" readonly id="requisition_order_by_name" name="requisition_order_by_name" value="{{$user_name}}" class="form-control" />
-                                <input type="hidden" id="requisition_order_by" name="requisition_order_by" value="{{$user_id}}" class="form-control" />
+                                <label  class="col-form-label text-start">Sale By</label>         
+                                <input type="text" readonly id="sale_by_name" name="sale_by_name" value="{{$user_name}}" class="form-control" />
+                                <input type="hidden" id="sale_by" name="sale_by" value="{{$user_id}}" class="form-control" />
                             </div> 
 
                             
                             <div class="col-3">
-                                <label for="client" class="col-form-label text-start">Warehouse</label>         
-                                <select class="form-control select2bs4" id="warehouse_id" name="warehouse_id" style="width: 100%;">
+                                <label for="client" class="col-form-label text-start">Outlet</label>         
+                                <select class="form-control select2bs4" id="outlet_id" name="outlet_id" style="width: 100%;">
                                     <option value="">--Select--</option>
-                                    @foreach($warehouses as $warehouse)
-                                    <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
+                                    @foreach($outlets as $outlet)
+                                    <option value="{{$outlet->id}}">{{$outlet->outlet_name}}</option>
                                     @endforeach
                                 </select>
                             </div> 
@@ -65,18 +65,18 @@ New Product Request Form
                     <div class="col-12">
                         <div class="mb-3 row">
                             <div class="col-6">
-                                <label for="client" class="col-form-label text-start">Supplier</label>         
+                                <label for="client" class="col-form-label text-start">Customer</label>         
                                 <select class="form-control select2bs4" id="supplier_id" required name="supplier_id" style="width: 100%;">
                                     <option value="">--Select--</option>
-                                    <option value="new">New Supplier</option>
-                                    @foreach($suppliers as $supplier)
-                                    <option value="{{$supplier->id}}">{{$supplier->full_name}}</option>
+                                    <option value="new">New Customer</option>
+                                    @foreach($customers as $customer)
+                                    <option value="{{$customer->id}}">{{$customer->customer_name}}</option>
                                     @endforeach
                                 </select>
                             </div>                          
                             <div class="col-6" style="display: none" id="new_supplier">
                                 <button type="button" style="margin-top: 35px" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-supplier">
-                                    Add New Supplier
+                                    Add New Customer
                                 </button>
                             </div>
     
@@ -85,7 +85,7 @@ New Product Request Form
                                 <div class="modal-dialog modal-lg">        
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" style="color:blueviolet">Supplier Details</h4>
+                                    <h4 class="modal-title" style="color:blueviolet">Customer Details</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -94,24 +94,25 @@ New Product Request Form
                                     <div class="row">
                                     <div class="col-md-12 col-sm-12">
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                        <label>Supplier Name <small style="color: red">*</small></label>
-                                        <input type="text" placeholder="Supplier Name" id="full_name" name="full_name" class="form-control form-control-lg" />
+                                        <label>Customer Name <small style="color: red">*</small></label>
+                                        <input type="text" placeholder="Supplier Name" id="customer_name" name="customer_name" class="form-control form-control-lg" />
                                         </div> 
                                     </div>
     
                                     <div class="col-md-12 col-sm-12">
                                         <div data-mdb-input-init class="form-outline mb-4">
                                         <label>Mobile Number <small style="color: red">*</small></label>
-                                        <input type="text" placeholder="016xxxxxxxx" id="mobile_number" name="mobile_number" class="form-control form-control-lg" />
+                                        <input type="text" placeholder="016xxxxxxxx" id="customer_phone_number" name="customer_phone_number" class="form-control form-control-lg" />
                                         </div> 
                                     </div>
-    
+
+
                                     <div class="col-md-12 col-sm-12">
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                        <label>Address <small style="color: red">*</small></label>
-                                        <textarea name="official_address" id="official_address"  class="form-control form-control-lg"></textarea>
+                                        <label>Email</label>
+                                        <input type="email"  id="customer_email" name="customer_email" class="form-control form-control-lg" />
                                         </div> 
-                                    </div>                                   
+                                    </div>                                 
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -136,19 +137,20 @@ New Product Request Form
                                         <div class="form-row">
                                             <div class="row" style="width: 100%">
                                                 <div class="form-group col-2">
-                                                    <label for="product_track_id" class="col-form-label text-start">Product Track ID</label>
-                                                    <input type="text" readonly class="form-control product_track_id" name="product_track_id[]">
+                                                    <label for="sku" class="col-form-label text-start">SKU</label>
+                                                    <input type="text" placeholder="Type SKU Number" onkeyup="skuDetails()" class="form-control sku" name="sku[]">
+                                                    <input type="text" placeholder="Type SKU Number" class="form-control stock_product_id" name="stock_product_id[]">
                                                 </div>
 
                                                 <div class="form-group col-2">
-                                                    <label for="product_name" class="col-form-label text-start">Product Name</label>
-                                                    {{-- <input type="text" class="form-control" name="product_name[]" placeholder="Product Name"> --}}
-                                                    <select name="product_id[]" class="form-control select2bs4 product_name">
+                                                    <label for="product_name" class="col-form-label text-start">Product</label>
+                                                    <input type="text" readonly class="form-control product_name" name="product_name[]" >
+                                                    {{-- <select name="product_id[]" class="form-control select2bs4 product_name">
                                                         <option>--Select--</option>
                                                         @foreach($products as $product)
                                                         <option value="{{$product->id}}">{{$product->product_name}}</option>
                                                         @endforeach
-                                                    </select> 
+                                                    </select>  --}}
                                                 </div>
 
                                                 <div class="form-group col-1">
@@ -159,20 +161,6 @@ New Product Request Form
                                                 <div class="form-group col-1">
                                                 <label for="product_unit_type" class="col-form-label text-start">Unit</label>
                                                 <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
-                                                {{-- <select  name="product_unit_type[]" class="form-control select2bs4 product_unit_type">
-                                                    <option>--Select--</option>
-                                                    <option value="Dozen">Dozen</option>
-                                                    <option value="Box">Box</option>
-                                                    <option value="Gram">Gram</option>
-                                                    <option value="Kg">Kg</option>
-                                                    <option value="Liter">Liter</option>
-                                                    <option value="ML">ML</option>
-                                                    <option value="Meter">Meter</option>
-                                                    <option value="Unit">Unit</option>
-                                                    <option value="Pair">Pair</option>
-                                                    <option value="Piece">Piece</option>
-                                                    <option value="Others">Others</option>
-                                                </select>   --}}
                                                 </div>
                                     
                                                 <div class="form-group col-6">
@@ -182,22 +170,22 @@ New Product Request Form
 
                                                 <div class="form-group col-2">
                                                     <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
-                                                    <input type="date" class="form-control product_mfg_date" name="product_mfg_date[]"> 
+                                                    <input type="date" readonly class="form-control product_mfg_date" name="product_mfg_date[]"> 
                                                 </div>
                     
                                                 <div class="form-group col-2">
                                                     <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
-                                                    <input type="date" class="form-control product_expiry_date" name="product_expiry_date[]"> 
+                                                    <input type="date" readonly class="form-control product_expiry_date" name="product_expiry_date[]"> 
                                                 </div>
                                     
                                                 <div class="form-group col-2">
                                                 <label for="product_quantity" class="col-form-label text-start">Quantity</label>
-                                                <input type="number" required class="form-control product_quantity" name="product_quantity[]">
+                                                <input type="number" required class="form-control product_quantity"  name="product_quantity[]">
                                                 </div>
                                                 
                                                 <div class="form-group col-2">
                                                 <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
-                                                <input type="number" required class="form-control product_unit_price" name="product_unit_price[]">
+                                                <input type="text" readonly required class="form-control product_unit_price" name="product_unit_price[]">
                                                 </div>
                                     
                                                 <div class="form-group col-2">
@@ -302,17 +290,12 @@ document.getElementById('addButton').addEventListener('click', function() {
         newRow.innerHTML = `<div class="row" style="width: 100%; margin-top: 70px !important;">
 
                             <div class="form-group col-2">
-                                <label for="product_track_id" class="col-form-label text-start">Product Track ID</label>
-                                <input type="text" readonly class="form-control product_track_id" id="product_track_id" name="product_track_id[]">
+                                <label for="sku" class="col-form-label text-start">SKU</label>
+                                <input type="text" placeholder="Type SKU Number" class="form-control sku" id="sku" name="sku[]">
                             </div>
                             <div class="form-group col-2">
-                                <label for="product_name" class="col-form-label text-start">Product Name</label>
-                                <select name="product_id[]" class="form-control select2bs4 pro_name">
-                                    <option>--Select--</option>
-                                    @foreach($products as $product)
-                                    <option value="{{$product->id}}">{{$product->product_name}}</option>
-                                    @endforeach
-                                </select> 
+                                <label for="product_name" class="col-form-label text-start">Product</label>
+                                 <input type="text" readonly class="form-control product_name" name="product_name[]" >
                             </div>
 
                             <div class="form-group col-1">
@@ -333,12 +316,12 @@ document.getElementById('addButton').addEventListener('click', function() {
 
                             <div class="form-group col-2">
                             <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
-                            <input type="date" class="form-control product_mfg_date" name="product_mfg_date[]"> 
+                            <input type="date" readonly class="form-control product_mfg_date" name="product_mfg_date[]"> 
                             </div>
                     
                             <div class="form-group col-2">
                             <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
-                            <input type="date" class="form-control product_expiry_date" name="product_expiry_date[]"> 
+                            <input type="date" readonly class="form-control product_expiry_date" name="product_expiry_date[]"> 
                             </div>
 
                 
@@ -381,7 +364,7 @@ document.getElementById('addButton').addEventListener('click', function() {
     //for new added row dynamic product dependancy dropdown logic start
     newRow.querySelector('.pro_name').addEventListener('change',function(event){
     event.preventDefault();
-    const selectedProductId = this.value;
+    const selectedSkuId = this.value;
 
     // Function to get CSRF token from meta tag
     function getCsrfToken() {
@@ -393,7 +376,7 @@ document.getElementById('addButton').addEventListener('click', function() {
 
     axios.get('sanctum/csrf-cookie').then(response=>{
     axios.post('/api/product_information_dependancy',{
-            data: selectedProductId
+            data: selectedSkuId
         }).then(response=>{
             var data = response;
                     newRow.querySelector('.product_unit_type').value = data.data.product_unit_type;
@@ -418,20 +401,20 @@ document.getElementById('addButton').addEventListener('click', function() {
     }
 
 
-    function generateProductTrackID(row) {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
-        // Example format: INV-YYYYMMDD-HHMMSS-SSS
-        const orderID = `Pro-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
+    // function generateProductTrackID(row) {
+    //     const now = new Date();
+    //     const year = now.getFullYear();
+    //     const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    //     const day = String(now.getDate()).padStart(2, '0');
+    //     const hours = String(now.getHours()).padStart(2, '0');
+    //     const minutes = String(now.getMinutes()).padStart(2, '0');
+    //     const seconds = String(now.getSeconds()).padStart(2, '0');
+    //     const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+     
+    //     const orderID = `Pro-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
         
-        $(row).find(".product_track_id").val(orderID);
-    }
+    //     $(row).find(".sku").val(orderID);
+    // }
 
     function updateTotal() {       
         var total = 0;
@@ -458,41 +441,61 @@ document.getElementById('addButton').addEventListener('click', function() {
 
 
 
-//product dependancy dropdown logic start
-$('.product_name').on('change',function(event){
-  event.preventDefault();
-  var selectedProduct = $('.product_name').val();
+//initial sku product dependancy dropdown logic start
 
-  if (selectedProduct == '') {
-        $('.product_weight').val('');
-        $('.product_unit_type').val('');
-        $('.product_details').html('');
+function skuDetails(){
+    var selectedSku = $('.sku').val();
+
+    // Clear fields initially
+    clearProductFields();
+
+    if (selectedSku == '') {
         return false;
-      }
+    }
 
-// Function to get CSRF token from meta tag
-function getCsrfToken() {
-  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  }
-// Set up Axios defaults
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+    // Function to get CSRF token from meta tag
+    function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
 
-axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/api/product_information_dependancy',{
-        data: selectedProduct
-      }).then(response=>{
-        // Update the select element for product_unit_type
-        $('.product_unit_type').val(response.data.product_unit_type);
-        // Update the input element for product_details
-        $('.product_details').val(response.data.product_details);
-        // Update the input element for product_weight
-        $('.product_weight').val(response.data.product_weight);
-        console.log(response.data);
-      });
- });
-});
-//product dependancy dropdown logic end
+    // Set up Axios defaults
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+    axios.get('sanctum/csrf-cookie').then(response => {
+        axios.post('/api/sku_product_information_dependancy', {
+            data: selectedSku
+        }).then(response => {
+            if (response.data && response.data.product_name) {
+                $('.product_name').val(response.data.product_name);    
+                $('.product_weight').val(response.data.product_weight);
+                $('.product_unit_type').val(response.data.product_unit_type);
+                $('.product_details').val(response.data.product_details);
+                $('.product_mfg_date').val(response.data.product_mfg_date);
+                $('.product_expiry_date').val(response.data.product_expiry_date);
+                $('.product_unit_price').val(response.data.product_unit_price);
+                $('.stock_product_id').val(response.data.stock_id);
+            }
+            console.log(response.data);
+        }).catch(error => {
+            console.error('Error fetching product information:', error);
+        });
+    });
+}
+
+
+function clearProductFields(){
+    $('.product_name').val('');
+    $('.product_weight').val('');
+    $('.product_unit_type').val('');
+    $('.product_details').val('');
+    $('.product_mfg_date').val('');
+    $('.product_expiry_date').val('');
+    $('.product_unit_price').val('');
+    $('.product_subtotal').val('');
+}
+ 
+//initial sku product dependancy dropdown logic end
 
 
 

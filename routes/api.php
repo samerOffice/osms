@@ -158,3 +158,4 @@ Route::middleware('auth:sanctum')->post('/delete_product/{product_id}',[App\Http
 //...............********* pos module ********................
 // Route::middleware('auth:sanctum')->post('/submit_invoice',[App\Http\Controllers\API\POS\InvoiceController::class,'submit_invoice']);
 Route::post('/product_and_price_dependancy',[App\Http\Controllers\API\POS\InvoiceController::class,'product_and_price_dependancy']);
+Route::post('/sku_product_information_dependancy',[App\Http\Controllers\API\POS\InvoiceController::class,'SkuProductInfoDependancy']);
