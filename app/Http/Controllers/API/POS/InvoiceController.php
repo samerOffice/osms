@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
@@ -19,7 +20,6 @@ class InvoiceController extends Controller
                     ->where('id',$selectedProductId)
                     ->first();
 
-
         $product_price = $product->product_single_price;
   
     //   $str="<option value=''>-- Select --</option>";
@@ -30,6 +30,100 @@ class InvoiceController extends Controller
       echo $product_price;
       }
 
+
+
+      public function new_invoice(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '4';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $user_id = Auth::user()->id;
+        $user_name = Auth::user()->name;
+        $user_company_id = Auth::user()->company_id;
+
+
+        // $item_categories = DB::connection('inventory')
+        // ->table('item_categories')
+        // ->where('company_id',$user_company_id)
+        // ->get();
+
+        $customers = DB::connection('pos')
+                        ->table('customers')
+                        ->where('company_id',$user_company_id)
+                        ->where('active_status',1)
+                        ->get();
+
+        $outlets = DB::connection('pos')
+                        ->table('outlets')
+                        ->where('company_id',$user_company_id)
+                        ->where('outlet_status',1)
+                        ->get();
+
+        $products = DB::connection('inventory')
+                    ->table('products')
+                    ->where('shop_company_id',$user_company_id)
+                    ->where('product_status',1)
+                    ->get();
+
+        return view('invoices.create',compact('current_module','user_id','user_name','customers','outlets','products'));
+    }
+
+
+
+    public function SkuProductInfoDependancy(Request $request){
+
+            $selectedSku = $request->input('data');
+            $stock = DB::connection('inventory')
+                        ->table('barcodes_and_skus')
+                        ->select('stock_id')
+                        ->where('sku',$selectedSku)
+                        ->first();
+
+            $stock_id = $stock->stock_id;
+
+            $stock_product = DB::connection('inventory')
+                            ->table('stocks')
+                            ->leftJoin('products','stocks.product_id','products.id')
+                            ->select('stocks.*',
+                            'products.product_name as stock_product_name',
+                            'products.product_weight as stock_product_weight',
+                            'products.product_unit_type as stock_product_unit_type',                           
+                            'products.additional_product_details as stock_product_details'                           
+                            )
+                            ->where('stocks.id',$stock_id)
+                            ->first();     
+
+            if ($stock_product) {
+            $response = [
+                'product_name' => $stock_product->stock_product_name,
+                'product_weight' => $stock_product->stock_product_weight,
+                'product_unit_type' => $stock_product->stock_product_unit_type,
+                'product_details' => $stock_product->stock_product_details,
+                'product_mfg_date' => $stock_product->product_mfg_date,
+                'product_expiry_date' => $stock_product->product_expiry_date,
+                'product_unit_price' => $stock_product->product_unit_price,
+                'product_subtotal' => $stock_product->product_subtotal,
+                'stock_id' => $stock_product->id
+            ];
+        } else {
+            $response = [
+                'product_name' => '',
+                'product_weight' => '',
+                'product_unit_type' => '',
+                'product_details' => '',
+                'product_mfg_date' => '',
+                'product_expiry_date' => '',
+                'product_unit_price' => '',
+                'stock_id' => ''
+            ];
+        }
+
+            return response()->json($response);       
+      }
 
 
 
