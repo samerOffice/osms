@@ -310,7 +310,7 @@ Welcome
           <div class="page-title-wrapper">
             <div class="page-title-heading">
               <div class="page-title-icon">
-                <span><img src="{{asset('dist/img/emp.png')}}" width="35px" alt="logo"></span>
+                <span><img src="{{ asset('dist/img/emp.png') }}" width="35px" alt="logo"></span>
               </div>
               <div>Employee Dashboard
                 <div class="page-title-subheading"> An Employee Management System simplifies HR processes by automating payroll, attendance, and employee data management.
