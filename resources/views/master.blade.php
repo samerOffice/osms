@@ -35,7 +35,7 @@
   <!-- summernote -->
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
   <!-- Fahad Employee Module Dashboard CSS -->
-  <link href="{{asset('public/dist/css/fahad.css')}}" rel="stylesheet">
+  <link href="{{ asset('dist/css/fahad.css') }}" rel="stylesheet">
   @stack('css')
 </head>
 
