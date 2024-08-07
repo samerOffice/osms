@@ -23,7 +23,7 @@ New Product Request Form
                     <div class="col-12">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                     <div class="card-header">                                   
-                        <h4 class="card-title ">Add Sale</h4>
+                        <h4 class="card-title ">Add New Sale</h4>
                     </div>
 
                 <div class="card-body" >
