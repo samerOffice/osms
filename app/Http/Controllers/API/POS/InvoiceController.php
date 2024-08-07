@@ -105,6 +105,7 @@ class InvoiceController extends Controller
                 'product_details' => $stock_product->stock_product_details,
                 'product_mfg_date' => $stock_product->product_mfg_date,
                 'product_expiry_date' => $stock_product->product_expiry_date,
+                'product_quantity' => $stock_product->quantity,
                 'product_unit_price' => $stock_product->product_unit_price,
                 'product_subtotal' => $stock_product->product_subtotal,
                 'stock_id' => $stock_product->id

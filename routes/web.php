@@ -150,7 +150,7 @@ Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->na
 //...............********* pos module ********................
 
 //invoice
-Route::get('/new_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
+Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
 
 // Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
 Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
