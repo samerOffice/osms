@@ -220,7 +220,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 // axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/member_details_dependancy',{
+ axios.post('/api/member_details_dependancy',{
         data: selectedMember
       }).then(response=>{
 

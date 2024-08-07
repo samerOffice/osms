@@ -171,7 +171,7 @@ Product List
             axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
             axios.get('sanctum/csrf-cookie').then(response=>{
-            axios.post('/osms/api/delete_product/'+ row_id).then(response=>{
+            axios.post('/api/delete_product/'+ row_id).then(response=>{
               console.log(response);
               setTimeout(function() {
                   window.location.reload();

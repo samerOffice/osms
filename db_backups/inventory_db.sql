@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2024 at 07:49 AM
+-- Generation Time: Aug 06, 2024 at 10:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,7 +43,8 @@ CREATE TABLE `barcodes_and_skus` (
 
 INSERT INTO `barcodes_and_skus` (`id`, `stock_id`, `company_id`, `barcode`, `sku`, `created_at`, `updated_at`) VALUES
 (1, 5, 11, 'Pro-20240803-112952-547', NULL, '2024-08-03 05:29:54', '2024-08-03 05:29:54'),
-(2, 1, 11, NULL, 'SKU-Lenovo 203 tablet-3-2024-07-30-20240803-114110-593', '2024-08-03 05:41:12', '2024-08-03 05:41:12');
+(2, 1, 11, NULL, 'SKU-Lenovo 203 tablet-3-2024-07-30-20240803-114110-593', '2024-08-03 05:41:12', '2024-08-03 05:41:12'),
+(3, 9, 11, NULL, 'SKU-Rupchanda Soyabin Oil-5-2024-08-03-20240803-170523-537', '2024-08-03 11:05:27', '2024-08-03 11:05:27');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,8 @@ CREATE TABLE `item_categories` (
 INSERT INTO `item_categories` (`id`, `company_id`, `name`, `active_status`, `created_at`, `updated_at`) VALUES
 (1, 11, 'Electronics', 1, '2024-07-28 11:29:10', '2024-07-28 11:29:10'),
 (2, 11, 'Furniture', 1, '2024-07-28 11:29:45', '2024-07-28 11:29:45'),
-(3, 11, 'Steel', 2, '2024-07-28 11:32:18', '2024-07-28 11:32:18');
+(3, 11, 'Steel', 2, '2024-07-28 11:32:18', '2024-07-28 11:32:18'),
+(4, 11, 'Oil', 1, '2024-08-03 07:41:14', '2024-08-03 07:41:14');
 
 -- --------------------------------------------------------
 
@@ -133,7 +135,8 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `item_category_id`, `product_category_id`, `product_type`, `product_name`, `product_track_name`, `product_unit_price`, `labeling_type`, `batch_number`, `product_tag_number`, `product_weight`, `product_unit_type`, `quantity`, `product_total_price`, `additional_product_details`, `product_entry_date`, `product_mfg_date`, `product_expiry_date`, `product_status`, `total_product_in_a_batch`, `product_batch_price`, `current_available_product_in_a_batch`, `shop_company_id`, `shop_branch_id`, `shop_depth_id`, `shop_outlet_id`, `shop_warehouse_id`, `vendor_id`, `vendor_company_id`, `vendor_branch_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 3, NULL, 'Lenovo 203 tablet', 'Lenovo 203 laptop', NULL, 1, NULL, 'SKU-Electronics- Laptop -Lenovo 203 tablet-20240729-165427-336', '3', 'Kg', NULL, NULL, 'Lenovo 15\" LED', '2024-07-29', '2022-06-15', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 05:51:59', '2024-07-29 05:51:59'),
 (2, 2, 1, NULL, 'Otobi Wooden Table', 'Otobi Wooden Table', NULL, 1, NULL, 'SKU-Furniture- Table -Otobi Wooden Table-20240729-115238-464', '7.5', 'Kg', NULL, NULL, 'Otobi Latest Folding Table', '2024-07-29', NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 05:53:10', '2024-07-29 05:53:10'),
-(3, 2, 1, NULL, 'Hatil Table', 'Hatil Table', NULL, 1, NULL, 'SKU-Furniture- Table -Hatil Table-20240729-122841-832', '6', 'Kg', NULL, NULL, 'new hatil folding table', '2024-07-29', '2022-07-13', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 06:29:03', '2024-07-29 06:29:03');
+(3, 2, 1, NULL, 'Hatil Table', 'Hatil Table', NULL, 1, NULL, 'SKU-Furniture- Table -Hatil Table-20240729-122841-832', '6', 'Kg', NULL, NULL, 'new hatil folding table', '2024-07-29', '2022-07-13', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 06:29:03', '2024-07-29 06:29:03'),
+(6, 4, 4, NULL, 'Rupchanda Soyabin Oil', NULL, NULL, NULL, NULL, NULL, '7', 'Liter', NULL, NULL, 'Rupchanda 5L Fresh soyabin oil', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-03 07:44:29', '2024-08-03 07:44:29');
 
 -- --------------------------------------------------------
 
@@ -174,7 +177,8 @@ CREATE TABLE `product_categories` (
 INSERT INTO `product_categories` (`id`, `company_id`, `name`, `item_category_id`, `active_status`, `created_at`, `updated_at`) VALUES
 (1, 11, 'Table', 2, 1, '2024-07-28 11:35:45', '2024-07-28 11:35:45'),
 (2, 11, 'Chair', 2, 2, '2024-07-28 11:36:04', '2024-07-28 11:36:04'),
-(3, 11, 'Laptop', 1, 1, '2024-07-29 05:50:21', '2024-07-29 05:50:21');
+(3, 11, 'Laptop', 1, 1, '2024-07-29 05:50:21', '2024-07-29 05:50:21'),
+(4, 11, 'Soyabin Oil', 4, 1, '2024-08-03 07:41:34', '2024-08-03 07:41:34');
 
 -- --------------------------------------------------------
 
@@ -190,6 +194,8 @@ CREATE TABLE `product_requisitions` (
   `product_weight` varchar(100) DEFAULT NULL,
   `product_unit_type` varchar(100) DEFAULT NULL,
   `product_details` text DEFAULT NULL,
+  `product_mfg_date` date DEFAULT NULL,
+  `product_expiry_date` date DEFAULT NULL,
   `product_quantity` int(100) DEFAULT NULL,
   `product_unit_price` varchar(100) DEFAULT NULL,
   `product_subtotal` varchar(100) DEFAULT NULL,
@@ -201,12 +207,17 @@ CREATE TABLE `product_requisitions` (
 -- Dumping data for table `product_requisitions`
 --
 
-INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track_id`, `product_id`, `product_weight`, `product_unit_type`, `product_details`, `product_quantity`, `product_unit_price`, `product_subtotal`, `created_at`, `updated_at`) VALUES
-(3, 'ORD-20240730-133937-277', 'Pro-20240730-134039-328', 1, '3', 'Kg', 'Lenovo 15\" LED', 3, '45500', '136500.00', '2024-07-30 07:40:40', '2024-07-30 07:40:40'),
-(4, 'ORD-20240730-133937-277', 'Pro-20240730-134017-938', 2, '7.5', 'Kg', 'Otobi Latest Folding Table', 4, '17000', '68000.00', '2024-07-30 07:40:40', '2024-07-30 07:40:40'),
-(5, 'ORD-20240730-134212-651', 'Pro-20240730-134224-687', 1, '3', 'Kg', 'Lenovo 15\" LED', 4, '42000', '168000.00', '2024-07-30 07:42:38', '2024-07-30 07:42:38'),
-(6, 'ORD-20240730-134212-651', 'Pro-20240730-134236-388', 3, '6', 'Kg', 'new hatil folding table', 4, '15400', '61600.00', '2024-07-30 07:42:38', '2024-07-30 07:42:38'),
-(8, 'ORD-20240731-133133-801', 'Pro-20240731-133209-353', 1, '3', 'Kg', 'Lenovo 15\" LED', 5, '39700', '198500.00', '2024-07-31 07:32:11', '2024-07-31 07:32:11');
+INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track_id`, `product_id`, `product_weight`, `product_unit_type`, `product_details`, `product_mfg_date`, `product_expiry_date`, `product_quantity`, `product_unit_price`, `product_subtotal`, `created_at`, `updated_at`) VALUES
+(3, 'ORD-20240730-133937-277', 'Pro-20240730-134039-328', 1, '3', 'Kg', 'Lenovo 15\" LED', NULL, NULL, 3, '45500', '136500.00', '2024-07-30 07:40:40', '2024-07-30 07:40:40'),
+(4, 'ORD-20240730-133937-277', 'Pro-20240730-134017-938', 2, '7.5', 'Kg', 'Otobi Latest Folding Table', NULL, NULL, 4, '17000', '68000.00', '2024-07-30 07:40:40', '2024-07-30 07:40:40'),
+(5, 'ORD-20240730-134212-651', 'Pro-20240730-134224-687', 1, '3', 'Kg', 'Lenovo 15\" LED', NULL, NULL, 4, '42000', '168000.00', '2024-07-30 07:42:38', '2024-07-30 07:42:38'),
+(6, 'ORD-20240730-134212-651', 'Pro-20240730-134236-388', 3, '6', 'Kg', 'new hatil folding table', NULL, NULL, 4, '15400', '61600.00', '2024-07-30 07:42:38', '2024-07-30 07:42:38'),
+(8, 'ORD-20240731-133133-801', 'Pro-20240731-133209-353', 1, '3', 'Kg', 'Lenovo 15\" LED', NULL, NULL, 5, '39700', '198500.00', '2024-07-31 07:32:11', '2024-07-31 07:32:11'),
+(11, 'ORD-20240803-134707-362', 'Pro-20240803-153913-521', 6, '7', 'Liter', 'Rupchanda 5L Fresh soyabin oil', '2024-06-12', '2024-08-06', 2, '370', '740.00', '2024-08-03 09:39:33', '2024-08-03 09:39:33'),
+(12, 'ORD-20240803-134707-362', 'Pro-20240803-134808-566', 2, '7.5', 'Kg', 'Otobi Latest Folding Table', NULL, NULL, 4, '14700', '58800.00', '2024-08-03 09:39:33', '2024-08-03 09:39:33'),
+(13, 'ORD-20240803-134707-362', 'Pro-20240803-153931-752', 3, '6', 'Kg', 'new hatil folding table', NULL, NULL, 8, '12400', '99200.00', '2024-08-03 09:39:33', '2024-08-03 09:39:33'),
+(16, 'ORD-20240803-165020-181', 'Pro-20240803-165049-040', 6, '7', 'Liter', 'Rupchanda 5L Fresh soyabin oil', '2022-07-13', '2024-08-17', 5, '380', '1900.00', '2024-08-03 10:51:32', '2024-08-03 10:51:32'),
+(17, 'ORD-20240803-165020-181', 'Pro-20240803-165130-905', 2, '7.5', 'Kg', 'Otobi Latest Folding Table', NULL, NULL, 8, '14500', '116000.00', '2024-08-03 10:51:32', '2024-08-03 10:51:32');
 
 -- --------------------------------------------------------
 
@@ -275,7 +286,9 @@ CREATE TABLE `requisition_orders` (
 INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_reviewed_by`, `supplier_id`, `requisition_status`, `total_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
 (1, 11, 1, 'ORD-20240730-133937-277', '2024-07-30', '2024-07-30', 11, 1, 1, 1, 2, 3, '204500.00', NULL, '2024-07-30 07:40:20', '2024-07-30 07:40:20'),
 (2, 11, 1, 'ORD-20240730-134212-651', '2024-07-30', '2024-07-30', 11, 2, 1, 1, 3, 3, '229600.00', NULL, '2024-07-30 07:42:38', '2024-07-30 07:42:38'),
-(3, 11, 1, 'ORD-20240731-133133-801', '2024-07-31', '2024-07-31', 11, 1, 1, 1, 2, 3, '198500.00', NULL, '2024-07-31 07:31:57', '2024-07-31 07:31:57');
+(3, 11, 1, 'ORD-20240731-133133-801', '2024-07-31', '2024-07-31', 11, 1, 1, 1, 2, 3, '198500.00', NULL, '2024-07-31 07:31:57', '2024-07-31 07:31:57'),
+(4, 11, 1, 'ORD-20240803-134707-362', '2024-08-03', '2024-08-03', 11, 2, 1, 1, 4, 3, '158740.00', NULL, '2024-08-03 07:48:12', '2024-08-03 07:48:12'),
+(5, 11, 1, 'ORD-20240803-165020-181', '2024-08-03', '2024-08-03', 11, 1, 1, 1, 3, 3, '117900.00', NULL, '2024-08-03 10:51:21', '2024-08-03 10:51:21');
 
 -- --------------------------------------------------------
 
@@ -288,6 +301,8 @@ CREATE TABLE `stocks` (
   `product_id` int(255) DEFAULT NULL,
   `company_id` int(255) DEFAULT NULL,
   `warehouse_id` int(255) DEFAULT NULL,
+  `product_mfg_date` date DEFAULT NULL,
+  `product_expiry_date` date DEFAULT NULL,
   `quantity` int(100) DEFAULT NULL,
   `product_unit_price` varchar(255) DEFAULT NULL,
   `product_subtotal` varchar(255) DEFAULT NULL,
@@ -302,12 +317,17 @@ CREATE TABLE `stocks` (
 -- Dumping data for table `stocks`
 --
 
-INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `quantity`, `product_unit_price`, `product_subtotal`, `purchase_date`, `product_stored_by`, `label_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 11, 1, 3, '45500', '136500.00', '2024-07-30', 1, 1, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
-(2, 2, 11, 1, 4, '17000', '68000.00', '2024-07-30', 1, NULL, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
-(3, 1, 11, 2, 4, '42000', '168000.00', '2024-07-30', 1, NULL, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
-(4, 3, 11, 2, 4, '15400', '61600.00', '2024-07-30', 1, NULL, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
-(5, 1, 11, 1, 5, '39700', '198500.00', '2024-07-31', 1, 1, '2024-07-31 07:32:25', '2024-07-31 07:32:25');
+INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `product_mfg_date`, `product_expiry_date`, `quantity`, `product_unit_price`, `product_subtotal`, `purchase_date`, `product_stored_by`, `label_status`, `created_at`, `updated_at`) VALUES
+(1, 1, 11, 1, NULL, NULL, 3, '45500', '136500.00', '2024-07-30', 1, 1, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
+(2, 2, 11, 1, NULL, NULL, 4, '17000', '68000.00', '2024-07-30', 1, NULL, '2024-07-30 07:41:06', '2024-07-30 07:41:06'),
+(3, 1, 11, 2, NULL, NULL, 4, '42000', '168000.00', '2024-07-30', 1, NULL, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
+(4, 3, 11, 2, NULL, NULL, 4, '15400', '61600.00', '2024-07-30', 1, NULL, '2024-07-30 07:43:05', '2024-07-30 07:43:05'),
+(5, 1, 11, 1, NULL, NULL, 5, '39700', '198500.00', '2024-07-31', 1, 1, '2024-07-31 07:32:25', '2024-07-31 07:32:25'),
+(6, 6, 11, 2, NULL, NULL, 2, '370', '740.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
+(7, 2, 11, 2, NULL, NULL, 4, '14700', '58800.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
+(8, 3, 11, 2, NULL, NULL, 8, '12400', '99200.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
+(9, 6, 11, 1, '2022-07-13', '2024-08-17', 5, '380', '1900.00', '2024-08-03', 1, 1, '2024-08-03 10:51:41', '2024-08-03 10:51:41'),
+(10, 2, 11, 1, NULL, NULL, 8, '14500', '116000.00', '2024-08-03', 1, NULL, '2024-08-03 10:51:41', '2024-08-03 10:51:41');
 
 -- --------------------------------------------------------
 
@@ -418,7 +438,7 @@ ALTER TABLE `warehouses`
 -- AUTO_INCREMENT for table `barcodes_and_skus`
 --
 ALTER TABLE `barcodes_and_skus`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inventory_log`
@@ -430,13 +450,13 @@ ALTER TABLE `inventory_log`
 -- AUTO_INCREMENT for table `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_batch`
@@ -448,13 +468,13 @@ ALTER TABLE `product_batch`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_requisitions`
 --
 ALTER TABLE `product_requisitions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `product_sales`
@@ -472,13 +492,13 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `requisition_orders`
 --
 ALTER TABLE `requisition_orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `warehouses`

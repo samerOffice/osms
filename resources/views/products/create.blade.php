@@ -308,7 +308,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/item_category_and_product_category_dependancy',{
+ axios.post('/api/item_category_and_product_category_dependancy',{
         data: selectedItemCategory
       }).then(response=>{
       $('#product_category_id').html(response.data);
@@ -331,7 +331,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/submit_product',productFormData).then(response=>{
+ axios.post('/api/submit_product',productFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
          window.location.reload();

@@ -48,7 +48,7 @@ View label
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <input type="text" id="stock_id" name="stock_id" value="{{$label->id}}">
+                    <input type="hidden" id="stock_id" name="stock_id" value="{{$label->id}}">
                   <strong><i class="fas fa-file-alt mr-1"></i> Product Name : </strong><span id="product_name">{{$label->stock_product_name}}</span>
                   <hr>
                   <strong><i class="fa-solid fa-weight-hanging mr-1"></i> Product Weight : </strong><span>{{$label->stock_product_weight}} {{$label->stock_product_unit_type}}</span>
@@ -195,7 +195,7 @@ $('.select2bs4').select2({
         console.log('Before print event triggered');
         printInProgress = true;
         // Store barcode data when print dialog is opened
-        axios.post('/osms/api/add_barcode/' + stock_id, { barcode: barcode })
+        axios.post('/api/add_barcode/' + stock_id, { barcode: barcode })
             .then(response => {
                 console.log('Data stored:', response);
             })
@@ -229,7 +229,7 @@ $('.select2bs4').select2({
                     } else {
                         console.log('Print dialog was cancelled');
                         // Delete the barcode if print was cancelled
-                        axios.post('/osms/api/delete_barcode/' + stock_id)
+                        axios.post('/api/delete_barcode/' + stock_id)
                             .then(response => {
                                 console.log('Data deleted:', response);
                                 setTimeout(function() {
@@ -320,7 +320,7 @@ function generateSKUs(sku, quantity) {
 //     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 //     // axios.get('sanctum/csrf-cookie').then(response => {
-//     axios.post('/osms/api/add_sku/' + stock_id, {
+//     axios.post('/api/add_sku/' + stock_id, {
 //         skui: skui
 //     }).then(response => {
 //         console.log(response);
@@ -369,7 +369,7 @@ function printSKUContentFunction(content) {
         console.log('Before print event triggered');
         printInProgress = true;
         // Store barcode data when print dialog is opened
-        axios.post('/osms/api/add_sku/' + stock_id, { skui: skui })
+        axios.post('/api/add_sku/' + stock_id, { skui: skui })
             .then(response => {
                 console.log('Data stored:', response);
             })
@@ -403,7 +403,7 @@ function printSKUContentFunction(content) {
                     } else {
                         console.log('Print dialog was cancelled');
                         // Delete the barcode if print was cancelled
-                        axios.post('/osms/api/delete_sku/' + stock_id)
+                        axios.post('/api/delete_sku/' + stock_id)
                             .then(response => {
                                 console.log('Data deleted:', response);
                                 setTimeout(function() {

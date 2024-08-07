@@ -195,7 +195,7 @@ var formData = new FormData(this);
 
 
  axios.get('sanctum/csrf-cookie').then(response=>{
-  axios.post('/osms/api/login',formData).then(response=>{
+  axios.post('/api/login',formData).then(response=>{
 
       if((response.data.flag) == 1){
         window.location.href = myDashboardUrl;

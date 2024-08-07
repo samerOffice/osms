@@ -31,6 +31,7 @@ Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('optimize:clear');
+    Artisan::call('route:clear');
     Artisan::call('optimize');
     return 'Caches cleared and configuration files regenerated.';
 });
@@ -147,7 +148,10 @@ Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->na
 
 
 //...............********* pos module ********................
+
 //invoice
-Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
+Route::get('/new_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
+
+// Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
 Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
 Route::get('/invoice_show_data', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
