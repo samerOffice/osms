@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2024 at 10:55 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Aug 07, 2024 at 06:47 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -52,22 +52,22 @@ CREATE TABLE `customers` (
 CREATE TABLE `invoices` (
   `id` int(100) NOT NULL,
   `invoice_date` date DEFAULT NULL,
-  `product_id` int(100) DEFAULT NULL,
+  `invoice_track_id` varchar(100) DEFAULT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `branch_id` int(100) DEFAULT NULL,
+  `outlet_id` int(100) DEFAULT NULL,
   `customer_id` int(100) DEFAULT NULL,
   `emp_id` int(100) DEFAULT NULL,
   `payment_method_id` int(100) DEFAULT NULL,
   `transaction_id` int(100) DEFAULT NULL,
-  `sub_total` varchar(100) DEFAULT NULL,
+  `total_amount` varchar(100) DEFAULT NULL,
   `tax_id` int(100) DEFAULT NULL,
   `tax_amount` varchar(100) DEFAULT NULL,
   `discount_amount` varchar(100) DEFAULT NULL,
-  `total_amount` varchar(100) DEFAULT NULL,
+  `grand_total` varchar(100) DEFAULT NULL,
   `terms_and_conditions` text DEFAULT NULL,
   `payment_status` int(11) DEFAULT NULL COMMENT '1=pending, 2=completed, 3=cancelled',
   `policy_id` int(100) DEFAULT NULL,
-  `company_id` int(100) DEFAULT NULL,
-  `branch_id` int(100) DEFAULT NULL,
-  `outlet_id` int(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -76,20 +76,20 @@ CREATE TABLE `invoices` (
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `invoice_date`, `product_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `sub_total`, `tax_id`, `tax_amount`, `discount_amount`, `total_amount`, `terms_and_conditions`, `payment_status`, `policy_id`, `company_id`, `branch_id`, `outlet_id`, `created_at`, `updated_at`) VALUES
-(1, '2024-05-21', 1, NULL, 2, 1, NULL, '1250', NULL, NULL, '100', '1150.00', NULL, NULL, NULL, 12, NULL, NULL, '2024-05-21 12:44:11', '2024-05-21 12:44:11'),
-(2, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:02:28', '2024-06-01 06:02:28'),
-(3, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:15:42', '2024-06-01 06:15:42'),
-(4, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:16:06', '2024-06-01 06:16:06'),
-(5, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:17:10', '2024-06-01 06:17:10'),
-(6, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:20:09', '2024-06-01 06:20:09'),
-(7, '2024-06-01', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-01 06:24:58', '2024-06-01 06:24:58'),
-(8, '2024-06-06', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-06 05:31:33', '2024-06-06 05:31:33'),
-(9, '2024-06-24', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '100', '50900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-24 12:09:41', '2024-06-24 12:09:41'),
-(10, '2024-06-27', 3, NULL, 1, 1, NULL, '1200', NULL, NULL, '10', '1190.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 12:52:57', '2024-06-27 12:52:57'),
-(11, '2024-06-27', 3, NULL, 1, 1, NULL, '1200', NULL, NULL, '10', '1190.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:03:13', '2024-06-27 13:03:13'),
-(12, '2024-06-27', 4, NULL, 1, 1, NULL, '25000', NULL, NULL, '100', '24900.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-06-27 13:21:53', '2024-06-27 13:21:53'),
-(13, '2024-07-25', 2, NULL, 1, 1, NULL, '51000', NULL, NULL, '10', '50990.00', NULL, NULL, NULL, 11, NULL, NULL, '2024-07-25 09:40:28', '2024-07-25 09:40:28');
+INSERT INTO `invoices` (`id`, `invoice_date`, `invoice_track_id`, `company_id`, `branch_id`, `outlet_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `total_amount`, `tax_id`, `tax_amount`, `discount_amount`, `grand_total`, `terms_and_conditions`, `payment_status`, `policy_id`, `created_at`, `updated_at`) VALUES
+(1, '2024-05-21', NULL, 12, NULL, NULL, NULL, 2, 1, NULL, '1150.00', NULL, NULL, '100', '1250', NULL, NULL, NULL, '2024-05-21 12:44:11', '2024-05-21 12:44:11'),
+(2, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:02:28', '2024-06-01 06:02:28'),
+(3, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:15:42', '2024-06-01 06:15:42'),
+(4, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:16:06', '2024-06-01 06:16:06'),
+(5, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:17:10', '2024-06-01 06:17:10'),
+(6, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:20:09', '2024-06-01 06:20:09'),
+(7, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:24:58', '2024-06-01 06:24:58'),
+(8, '2024-06-06', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-06 05:31:33', '2024-06-06 05:31:33'),
+(9, '2024-06-24', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-24 12:09:41', '2024-06-24 12:09:41'),
+(10, '2024-06-27', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '1190.00', NULL, NULL, '10', '1200', NULL, NULL, NULL, '2024-06-27 12:52:57', '2024-06-27 12:52:57'),
+(11, '2024-06-27', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '1190.00', NULL, NULL, '10', '1200', NULL, NULL, NULL, '2024-06-27 13:03:13', '2024-06-27 13:03:13'),
+(12, '2024-06-27', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '24900.00', NULL, NULL, '100', '25000', NULL, NULL, NULL, '2024-06-27 13:21:53', '2024-06-27 13:21:53'),
+(13, '2024-07-25', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50990.00', NULL, NULL, '10', '51000', NULL, NULL, NULL, '2024-07-25 09:40:28', '2024-07-25 09:40:28');
 
 -- --------------------------------------------------------
 
@@ -100,9 +100,10 @@ INSERT INTO `invoices` (`id`, `invoice_date`, `product_id`, `customer_id`, `emp_
 CREATE TABLE `invoice_items` (
   `id` int(100) NOT NULL,
   `invoice_id` int(100) DEFAULT NULL,
-  `product_id` int(100) DEFAULT NULL,
-  `unit_price` varchar(100) DEFAULT NULL,
+  `stock_id` int(255) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
+  `unit_price` varchar(100) DEFAULT NULL,
+  `sub_total` varchar(100) DEFAULT NULL,
   `remaining_product_in_batch` int(100) DEFAULT NULL COMMENT 'If product is batch',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -175,6 +176,13 @@ CREATE TABLE `payment_methods` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment_methods`
+--
+
+INSERT INTO `payment_methods` (`id`, `payment_method_name`, `active_status`, `created_at`, `updated_at`) VALUES
+(1, 'Cash', 1, '2024-08-07 16:45:24', '2024-08-07 16:45:24');
 
 -- --------------------------------------------------------
 
@@ -335,7 +343,7 @@ ALTER TABLE `outlets`
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `policies`

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-New Product Request Form
+New Sale
 @endsection
 
 @section('content')
@@ -29,27 +29,39 @@ New Product Request Form
                 <div class="card-body" >
                 {{-- form starts  --}}
                 <form id="requisitionOrderForm" enctype="multipart/form-data">
-                <div class="row" style=" margin: 0 10px; padding: 20px;"> 
+                <div class="row" style=" margin: 0 10px; padding: 10px;"> 
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <label  class="col-form-label text-start">Invoice Number</label>         
-                                <input type="text" readonly id="sale_order_id" name="sale_order_id" class="form-control" />
+                                <input type="text" readonly style="background-color: #e7ffd9" id="sale_order_id" name="sale_order_id" class="form-control" />
                             </div>
     
-                            <div class="col-3">
+                            <div class="col-4">
                                 <label  class="col-form-label text-start">Purchase Date</label>         
-                                <input type="date" readonly id="requisition_order_date" name="requisition_order_date" value="{{ date('Y-m-d') }}" class="form-control" />
+                                <input type="date" readonly style="background-color: #e7ffd9" id="requisition_order_date" name="requisition_order_date" value="{{ date('Y-m-d') }}" class="form-control" />
                             </div> 
 
-                            <div class="col-3">
+                            <div class="col-4">
                                 <label  class="col-form-label text-start">Sale By</label>         
-                                <input type="text" readonly id="sale_by_name" name="sale_by_name" value="{{$user_name}}" class="form-control" />
+                                <input type="text" readonly style="background-color: #e7ffd9" id="sale_by_name" name="sale_by_name" value="{{$user_name}}" class="form-control" />
                                 <input type="hidden" id="sale_by" name="sale_by" value="{{$user_id}}" class="form-control" />
-                            </div> 
+                            </div>                                               
+                            </div>
+                    </div>
 
-                            
-                            <div class="col-3">
+                    <div class="col-12">
+                        <div class="mb-3 row">
+
+                        <div class="col-3">
+                                <label for="client" class="col-form-label text-start">Payment Method</label>         
+                                <select class="form-control select2bs4" id="payment_id" name="payment_id" style="width: 100%;">
+                                    <option value="">--Select--</option>
+                                    <option value="1">Cash</option>
+                                </select>
+                        </div>
+                        
+                        <div class="col-4">
                                 <label for="client" class="col-form-label text-start">Outlet</label>         
                                 <select class="form-control select2bs4" id="outlet_id" name="outlet_id" style="width: 100%;">
                                     <option value="">--Select--</option>
@@ -57,14 +69,9 @@ New Product Request Form
                                     <option value="{{$outlet->id}}">{{$outlet->outlet_name}}</option>
                                     @endforeach
                                 </select>
-                            </div> 
-                                               
-                            </div>
-                    </div>
+                        </div>
 
-                    <div class="col-12">
-                        <div class="mb-3 row">
-                            <div class="col-6">
+                            <div class="col-3">
                                 <label for="client" class="col-form-label text-start">Customer</label>         
                                 <select class="form-control select2bs4" id="supplier_id" required name="supplier_id" style="width: 100%;">
                                     <option value="">--Select--</option>
@@ -74,7 +81,7 @@ New Product Request Form
                                     @endforeach
                                 </select>
                             </div>                          
-                            <div class="col-6" style="display: none" id="new_supplier">
+                            <div class="col-2" style="display: none" id="new_supplier">
                                 <button type="button" style="margin-top: 35px" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-supplier">
                                     Add New Customer
                                 </button>
@@ -136,15 +143,15 @@ New Product Request Form
                                     <div id="form-container">
                                         <div class="form-row">
                                             <div class="row" style="width: 100%">
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-3">
                                                     <label for="sku" class="col-form-label text-start">SKU</label>
                                                     <input type="text" placeholder="Type SKU Number" onkeyup="skuDetails()" class="form-control sku" name="sku[]">
-                                                    <input type="text" placeholder="Type SKU Number" class="form-control stock_product_id" name="stock_product_id[]">
+                                                    <input type="hidden" placeholder="Type SKU Number" class="form-control stock_product_id" name="stock_product_id[]">
                                                 </div>
 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-3">
                                                     <label for="product_name" class="col-form-label text-start">Product</label>
-                                                    <input type="text" readonly class="form-control product_name" name="product_name[]" >
+                                                    <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_name" name="product_name[]" >
                                                     {{-- <select name="product_id[]" class="form-control select2bs4 product_name">
                                                         <option>--Select--</option>
                                                         @foreach($products as $product)
@@ -154,43 +161,43 @@ New Product Request Form
                                                 </div>
 
                                                 <div class="form-group col-1">
-                                                    <label for="product_weight" class="col-form-label text-start">Weight</label>
-                                                    <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
+                                                    <label for="product_weight"  class="col-form-label text-start">Weight</label>
+                                                    <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_weight" name="product_weight[]"> 
                                                 </div>
                                     
                                                 <div class="form-group col-1">
                                                 <label for="product_unit_type" class="col-form-label text-start">Unit</label>
-                                                <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
+                                                <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_unit_type" name="product_unit_type[]">
                                                 </div>
                                     
-                                                <div class="form-group col-6">
+                                                <div class="form-group col-4">
                                                 <label for="product_details" class="col-form-label text-start">Details</label>
-                                                <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
+                                                <textarea readonly style="background-color: #e7ffd9" name="product_details[]" class="form-control product_details"></textarea>
                                                 </div>
 
                                                 <div class="form-group col-2">
                                                     <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
-                                                    <input type="date" readonly class="form-control product_mfg_date" name="product_mfg_date[]"> 
+                                                    <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_mfg_date" name="product_mfg_date[]"> 
                                                 </div>
                     
                                                 <div class="form-group col-2">
                                                     <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
-                                                    <input type="date" readonly class="form-control product_expiry_date" name="product_expiry_date[]"> 
+                                                    <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_expiry_date" name="product_expiry_date[]"> 
                                                 </div>
                                     
                                                 <div class="form-group col-2">
                                                 <label for="product_quantity" class="col-form-label text-start">Quantity</label>
-                                                <input type="number" required class="form-control product_quantity"  name="product_quantity[]">
+                                                <input type="number" required  class="form-control product_quantity" onkeyup="availableQuantityCheck()"  name="product_quantity[]">
                                                 </div>
                                                 
                                                 <div class="form-group col-2">
                                                 <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
-                                                <input type="text" readonly required class="form-control product_unit_price" name="product_unit_price[]">
+                                                <input type="text" readonly  style="background-color: #e7ffd9" class="form-control product_unit_price" name="product_unit_price[]">
                                                 </div>
                                     
                                                 <div class="form-group col-2">
                                                 <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
-                                                <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
+                                                <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_subtotal" name="product_subtotal[]">
                                                 </div>
                                                 
                                                 <div class="form-group">
@@ -208,18 +215,48 @@ New Product Request Form
                     </div>
                 </div>
 
-                    <div class="form-group col-5">
-                        
+                    <!-- total amount start -->
+                    <div class="form-group col-4"></div>
+                    <div class="form-group col-4" style="padding-left: 160px">
+                    <label class="col-form-label">Total Amount (BDT)</label>
                     </div>
+                    <div class="form-group col-4">                   
+                    <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
+                    </div>
+                    <!-- total amount end -->
 
-                    <div class="form-group col-4">
-                       
+                     <!-- TAX amount start -->
+                     <div class="form-group col-4"></div>
+                    <div class="form-group col-4" style="padding-left: 160px">
+                    <label class="col-form-label">Tax (BDT)</label>
                     </div>
+                    <div class="form-group col-4">                   
+                    <input type="text"  class="form-control" id="taxAmount" onkeyup="taxAmountCalculation()" name="tax_amount">
+                    </div>
+                    <!-- TAX amount end -->
 
-                    <div class="form-group col-3">
-                        <label class="col-form-label" style="color: green">Total Amount (BDT)</label>
-                        <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
+                    <!-- Discount amount start -->
+                    <div class="form-group col-4"></div>
+                    <div class="form-group col-4" style="padding-left: 160px">
+                    <label class="col-form-label">Discount (BDT)</label>
                     </div>
+                    <div class="form-group col-4">                   
+                    <input type="text"  class="form-control" id="discountAmount" onkeyup="discountAmountCalculation()" name="discount_amount">
+                    </div>
+                    <!-- Discount amount end -->
+
+                     <!-- Grand Total start -->
+                     <div class="form-group col-4"></div>
+                    <div class="form-group col-4" style="padding-left: 160px">
+                    <label class="col-form-label" style="color:green">Grand Total (BDT)</label>
+                    </div>
+                    <div class="form-group col-4">                   
+                    <input type="text" readonly style="background-color: powderblue"  class="form-control" id="grandTotal" name="grand_total">
+                    </div>
+                    <!-- Grand Total end -->
+
+                   
+                    
             
                     <div class="col-12"> 
                         <br>     
@@ -278,7 +315,7 @@ function generateOrderID() {
             const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
 
             // Example format: ORD-YYYYMMDD-HHMMSS-SSS
-            const orderID = `ORD-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
+            const orderID = `INVOICE-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
             return orderID;
         }
 
@@ -289,39 +326,40 @@ document.getElementById('addButton').addEventListener('click', function() {
         newRow.className = 'form-row';
         newRow.innerHTML = `<div class="row" style="width: 100%; margin-top: 70px !important;">
 
-                            <div class="form-group col-2">
+                            <div class="form-group col-3">
                                 <label for="sku" class="col-form-label text-start">SKU</label>
-                                <input type="text" placeholder="Type SKU Number" class="form-control sku" id="sku" name="sku[]">
+                                 <input type="text" placeholder="Type SKU Number" onkeyup="skuDetailsForDynamicRow()" class="form-control sku" name="sku[]">
+                                <input type="hidden" placeholder="Type SKU Number" class="form-control stock_product_id" name="stock_product_id[]">
                             </div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-3">
                                 <label for="product_name" class="col-form-label text-start">Product</label>
-                                 <input type="text" readonly class="form-control product_name" name="product_name[]" >
+                                 <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_name" name="product_name[]" >
                             </div>
 
                             <div class="form-group col-1">
                                 <label for="product_weight" class="col-form-label text-start">Weight</label>
-                                <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
+                                <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_weight" name="product_weight[]"> 
                             </div>
                 
                             <div class="form-group col-1">
                             <label for="product_unit_type" class="col-form-label text-start">Unit</label>
-                            <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
+                            <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_unit_type" name="product_unit_type[]">
                              
                             </div>
                 
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                             <label for="product_details" class="col-form-label text-start">Details</label>
-                            <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
+                            <textarea readonly style="background-color: #e7ffd9" name="product_details[]" class="form-control product_details"></textarea>
                             </div>
 
                             <div class="form-group col-2">
                             <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
-                            <input type="date" readonly class="form-control product_mfg_date" name="product_mfg_date[]"> 
+                            <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_mfg_date" name="product_mfg_date[]"> 
                             </div>
                     
                             <div class="form-group col-2">
                             <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
-                            <input type="date" readonly class="form-control product_expiry_date" name="product_expiry_date[]"> 
+                            <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_expiry_date" name="product_expiry_date[]"> 
                             </div>
 
                 
@@ -332,12 +370,12 @@ document.getElementById('addButton').addEventListener('click', function() {
                                 
                             <div class="form-group col-2">
                             <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
-                            <input type="number"  class="form-control product_unit_price" name="product_unit_price[]">
+                            <input type="number" readonly style="background-color: #e7ffd9"  class="form-control product_unit_price" name="product_unit_price[]">
                             </div>
                 
                             <div class="form-group col-2">
                             <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
-                            <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
+                            <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_subtotal" name="product_subtotal[]">
                             </div>
                             
                             <div class="form-group">                                        
@@ -351,48 +389,99 @@ document.getElementById('addButton').addEventListener('click', function() {
             updateTotal();
         });
 
+        newRow.querySelector('.sku').addEventListener('input', function() {
+                skuDetailsForDynamicRow(newRow);
+            });
+
         newRow.querySelectorAll('.product_quantity, .product_unit_price').forEach(function(input) {
             input.addEventListener('input', function() {
+                availableQuantityCheckForDynamicProduct(newRow);
                 calculateProductUnitPrice(newRow);
-                generateProductTrackID(newRow);
                 updateTotal();
             });
         });
 
 
+        //-----------------dynamic sku product dependancy logic start------------- 
+            function skuDetailsForDynamicRow(row){   
+                const selectedDynamicSku = $(row).find(".sku").val();
 
-    //for new added row dynamic product dependancy dropdown logic start
-    newRow.querySelector('.pro_name').addEventListener('change',function(event){
-    event.preventDefault();
-    const selectedSkuId = this.value;
+                // Clear fields initially
+                clearDynamicProductFields(newRow);
+               
+                if (selectedDynamicSku == '') {
+                    return false;
+                }
 
-    // Function to get CSRF token from meta tag
-    function getCsrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    }
-    // Set up Axios defaults
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+                // Function to get CSRF token from meta tag
+                function getCsrfToken() {
+                    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                }
 
-    axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/api/product_information_dependancy',{
-            data: selectedSkuId
-        }).then(response=>{
-            var data = response;
-                    newRow.querySelector('.product_unit_type').value = data.data.product_unit_type;
-                    newRow.querySelector('.product_details').value = data.data.product_details;
-                    newRow.querySelector('.product_weight').value = data.data.product_weight;
-            console.log(response.data);
-        });
-    });
-    });
-    //for new added row dynamic product dependancy dropdown logic end
+                // Set up Axios defaults
+                axios.defaults.withCredentials = true;
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    });
+                axios.get('sanctum/csrf-cookie').then(response => {
+                    axios.post('/api/sku_product_information_dependancy', {
+                        data: selectedDynamicSku
+                    }).then(response => {
+                        if (response.data && response.data.product_name) {
+
+                            newRow.querySelector('.product_name').value = response.data.product_name;
+                            newRow.querySelector('.product_weight').value = response.data.product_weight;
+                            newRow.querySelector('.product_unit_type').value = response.data.product_unit_type;
+                            newRow.querySelector('.product_details').value = response.data.product_details;
+                            newRow.querySelector('.product_mfg_date').value = response.data.product_mfg_date;
+                            newRow.querySelector('.product_expiry_date').value = response.data.product_expiry_date;
+                            newRow.querySelector('.product_unit_price').value = response.data.product_unit_price;
+                            newRow.querySelector('.stock_product_id').value = response.data.stock_id;
+
+                            availableDynamicStock = response.data.product_quantity;
+                        }
+                        console.log(response.data);
+                    }).catch(error => {
+                        console.error('Error fetching product information:', error);
+                    });
+                });
+            }
+
+            function availableQuantityCheckForDynamicProduct(row) {
+                    const enteredDynamicQuantity = row.querySelector('.product_quantity').value;
+                    if (enteredDynamicQuantity > availableDynamicStock) {
+                        alert('Not enough stock available!');
+                        row.querySelector('.product_quantity').value = '';
+                    }
+                }
+
+            function clearDynamicProductFields(row){             
+                row.querySelector('.product_name').value = '';
+                row.querySelector('.product_weight').value = '';
+                row.querySelector('.product_unit_type').value = '';
+                row.querySelector('.product_details').value = '';
+                row.querySelector('.product_mfg_date').value = '';
+                row.querySelector('.product_expiry_date').value = '';
+                row.querySelector('.product_unit_price').value = '';
+                row.querySelector('.product_subtotal').value = '';              
+            }
+
+            function availableQuantityCheckForDynamicProduct(row) {
+               
+                const enteredDynamicQuantity = $(row).find(".product_quantity").val();
+               
+                if (enteredDynamicQuantity > availableDynamicStock) {
+                    alert('Not enough stock available!');
+                    $(row).find(".product_quantity").val('');
+                }
+            }
 
 
+//--------------dynamic sku product dependancy logic end--------------------
 
-    function calculateProductUnitPrice(row) {
+});
+
+
+function calculateProductUnitPrice(row) {
         var productQuantity = $(row).find(".product_quantity").val();
         var productUnitPrice = $(row).find(".product_unit_price").val();
        
@@ -401,22 +490,7 @@ document.getElementById('addButton').addEventListener('click', function() {
     }
 
 
-    // function generateProductTrackID(row) {
-    //     const now = new Date();
-    //     const year = now.getFullYear();
-    //     const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    //     const day = String(now.getDate()).padStart(2, '0');
-    //     const hours = String(now.getHours()).padStart(2, '0');
-    //     const minutes = String(now.getMinutes()).padStart(2, '0');
-    //     const seconds = String(now.getSeconds()).padStart(2, '0');
-    //     const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
-     
-    //     const orderID = `Pro-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
-        
-    //     $(row).find(".sku").val(orderID);
-    // }
-
-    function updateTotal() {       
+function updateTotal() {       
         var total = 0;
         $('.product_subtotal').each(function() {
             var subtotal = parseFloat($(this).val());
@@ -425,6 +499,7 @@ document.getElementById('addButton').addEventListener('click', function() {
             }
         });
         $('#totalAmount').val(total.toFixed(2));
+        $('#grandTotal').val(total.toFixed(2));
     }
 
     // Initialize event listeners for the initial row
@@ -432,22 +507,25 @@ document.getElementById('addButton').addEventListener('click', function() {
         input.addEventListener('input', function() {
             var row = input.closest('.form-row');
             calculateProductUnitPrice(row);
-            generateProductTrackID(row);
+            // generateProductTrackID(row);
             updateTotal();
         });
     });
+
 
 //----------------------dynamic add new row end-----------------------
 
 
 
-//initial sku product dependancy dropdown logic start
 
+//--------------------initial sku product dependancy logic start---------------
+let availableStock = 0;
 function skuDetails(){
     var selectedSku = $('.sku').val();
 
     // Clear fields initially
     clearProductFields();
+    availableStock = 0;
 
     if (selectedSku == '') {
         return false;
@@ -475,6 +553,7 @@ function skuDetails(){
                 $('.product_expiry_date').val(response.data.product_expiry_date);
                 $('.product_unit_price').val(response.data.product_unit_price);
                 $('.stock_product_id').val(response.data.stock_id);
+                availableStock = response.data.product_quantity;
             }
             console.log(response.data);
         }).catch(error => {
@@ -483,6 +562,13 @@ function skuDetails(){
     });
 }
 
+function availableQuantityCheck() {
+    var enteredQuantity = parseInt($('.product_quantity').val());
+    if (enteredQuantity > availableStock) {
+        alert('Not enough stock available!');
+        parseInt($('.product_quantity').val(''));
+    }
+}
 
 function clearProductFields(){
     $('.product_name').val('');
@@ -494,8 +580,71 @@ function clearProductFields(){
     $('.product_unit_price').val('');
     $('.product_subtotal').val('');
 }
- 
-//initial sku product dependancy dropdown logic end
+
+//-------------initial sku product dependancy logic end-----------------
+
+
+
+//----- Tax amount Calculation start
+function taxAmountCalculation(){
+    var total_amount = parseInt($('#totalAmount').val());
+    var tax_amount = $('#taxAmount').val(); // Get the value as a string first
+
+    var grand_total = total_amount - tax_amount
+
+    if(tax_amount === ''){
+        $('#grandTotal').val(total_amount.toFixed(2));
+    }else{
+        tax_amount = parseInt(tax_amount); // Parse tax_amount only if it's not empty
+        var grand_total = total_amount + tax_amount;
+        $('#grandTotal').val(grand_total.toFixed(2));
+    }
+}
+//----- Tax amount Calculation end
+
+
+
+//----- Discount amount Calculation start
+function discountAmountCalculation(){
+
+    var total_amount = $('#totalAmount').val();
+    var tax_amount = $('#taxAmount').val();
+    var discount_amount = $('#discountAmount').val();
+
+    if(discount_amount === ''){
+
+        if(tax_amount === ''){
+            total_amount = parseInt(total_amount);
+            $('#grandTotal').val(total_amount.toFixed(2));
+        }else{
+            total_amount = parseInt(total_amount);
+            tax_amount = parseInt(tax_amount);
+            var amount_with_tax = total_amount + tax_amount;
+            $('#grandTotal').val(amount_with_tax.toFixed(2));
+        }
+       
+    }else{
+
+        if(tax_amount === ''){
+            total_amount = parseInt(total_amount);
+            discount_amount = parseInt(discount_amount);
+
+            var grand_total = total_amount - discount_amount;
+            $('#grandTotal').val(grand_total.toFixed(2));
+        }else{
+            total_amount = parseInt(total_amount);
+            tax_amount = parseInt(tax_amount);
+            discount_amount = parseInt(discount_amount);
+
+            var amount_with_tax = total_amount + tax_amount;
+            var grand_total = amount_with_tax - discount_amount;
+            $('#grandTotal').val(grand_total.toFixed(2));
+        }
+    
+    }
+}
+//----- Discount amount Calculation end
+
 
 
 
