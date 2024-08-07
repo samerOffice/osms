@@ -12054,13 +12054,14 @@ legend{
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff',endColorstr='#ffffff',GradientType=0)
 }
 /*!* Font Awesome Free 5.6.3 by @fontawesome - https://fontawesome.com * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)*/
-@font-face{
+/* @font-face{
     font-family:'font awesome 5 free';
     font-style:normal;
     font-weight:900;
     src:url(assets/fonts/fa-solid-900.eot);
     src:url(assets/fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(assets/fonts/fa-solid-900.woff2) format("woff2"),url(assets/fonts/fa-solid-900.woff) format("woff"),url(assets/fonts/fa-solid-900.ttf) format("truetype"),url(assets/fonts/fa-solid-900.svg#fontawesome) format("svg")
-}
+} */
+
 .fa,.fas{
     font-family:'font awesome 5 free';
     font-weight:900
