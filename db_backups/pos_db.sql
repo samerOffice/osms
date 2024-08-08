@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2024 at 06:47 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Aug 08, 2024 at 09:46 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `customers` (
   `id` int(100) NOT NULL,
-  `customer_name` varchar(100) DEFAULT NULL,
   `company_id` int(100) DEFAULT NULL,
+  `customer_name` varchar(100) DEFAULT NULL,
   `membership_id` varchar(100) DEFAULT NULL,
   `customer_phone_number` varchar(20) DEFAULT NULL,
   `customer_email` varchar(100) DEFAULT NULL,
@@ -38,10 +38,17 @@ CREATE TABLE `customers` (
   `birth_date` date DEFAULT NULL,
   `registration_date` date DEFAULT NULL,
   `points` varchar(100) DEFAULT NULL,
-  `active_status` int(11) DEFAULT NULL,
+  `active_status` int(11) DEFAULT NULL COMMENT '1 = active, 2 = inactive',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `company_id`, `customer_name`, `membership_id`, `customer_phone_number`, `customer_email`, `customer_address`, `birth_date`, `registration_date`, `points`, `active_status`, `created_at`, `updated_at`) VALUES
+(1, 11, 'Fahad Ahmed', 'Member-11-9566', '01513470130', 'fahad@gmail.com', NULL, NULL, '2024-08-08', NULL, 1, '2024-08-08 07:09:12', '2024-08-08 07:09:12');
 
 -- --------------------------------------------------------
 
@@ -77,19 +84,8 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`id`, `invoice_date`, `invoice_track_id`, `company_id`, `branch_id`, `outlet_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `total_amount`, `tax_id`, `tax_amount`, `discount_amount`, `grand_total`, `terms_and_conditions`, `payment_status`, `policy_id`, `created_at`, `updated_at`) VALUES
-(1, '2024-05-21', NULL, 12, NULL, NULL, NULL, 2, 1, NULL, '1150.00', NULL, NULL, '100', '1250', NULL, NULL, NULL, '2024-05-21 12:44:11', '2024-05-21 12:44:11'),
-(2, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:02:28', '2024-06-01 06:02:28'),
-(3, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:15:42', '2024-06-01 06:15:42'),
-(4, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:16:06', '2024-06-01 06:16:06'),
-(5, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:17:10', '2024-06-01 06:17:10'),
-(6, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:20:09', '2024-06-01 06:20:09'),
-(7, '2024-06-01', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-01 06:24:58', '2024-06-01 06:24:58'),
-(8, '2024-06-06', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-06 05:31:33', '2024-06-06 05:31:33'),
-(9, '2024-06-24', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50900.00', NULL, NULL, '100', '51000', NULL, NULL, NULL, '2024-06-24 12:09:41', '2024-06-24 12:09:41'),
-(10, '2024-06-27', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '1190.00', NULL, NULL, '10', '1200', NULL, NULL, NULL, '2024-06-27 12:52:57', '2024-06-27 12:52:57'),
-(11, '2024-06-27', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '1190.00', NULL, NULL, '10', '1200', NULL, NULL, NULL, '2024-06-27 13:03:13', '2024-06-27 13:03:13'),
-(12, '2024-06-27', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '24900.00', NULL, NULL, '100', '25000', NULL, NULL, NULL, '2024-06-27 13:21:53', '2024-06-27 13:21:53'),
-(13, '2024-07-25', NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '50990.00', NULL, NULL, '10', '51000', NULL, NULL, NULL, '2024-07-25 09:40:28', '2024-07-25 09:40:28');
+(1, '2024-08-08', 'INVOICE-20240808-130820-627', 11, NULL, 2, 1, 1, 1, NULL, '91760.00', NULL, NULL, '50', '91710.00', NULL, 1, NULL, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
+(2, '2024-08-08', 'INVOICE-20240808-131734-136', 11, NULL, NULL, NULL, 1, 1, NULL, '91000.00', NULL, NULL, '20', '90980.00', NULL, 1, NULL, '2024-08-08 07:17:56', '2024-08-08 07:17:56');
 
 -- --------------------------------------------------------
 
@@ -108,6 +104,15 @@ CREATE TABLE `invoice_items` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoice_items`
+--
+
+INSERT INTO `invoice_items` (`id`, `invoice_id`, `stock_id`, `quantity`, `unit_price`, `sub_total`, `remaining_product_in_batch`, `created_at`, `updated_at`) VALUES
+(1, 1, 9, 2, '380', '760.00', NULL, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
+(2, 1, 1, 2, '45500', '91000.00', NULL, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
+(3, 2, 1, 2, '45500', '91000.00', NULL, '2024-08-08 07:17:56', '2024-08-08 07:17:56');
 
 -- --------------------------------------------------------
 
@@ -307,19 +312,19 @@ ALTER TABLE `tax_calculations`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `offers`

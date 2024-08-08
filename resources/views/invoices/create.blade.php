@@ -28,7 +28,7 @@ New Sale
 
                 <div class="card-body" >
                 {{-- form starts  --}}
-                <form id="requisitionOrderForm" enctype="multipart/form-data">
+                <form id="saleForm" enctype="multipart/form-data">
                 <div class="row" style=" margin: 0 10px; padding: 10px;"> 
                     <div class="col-12">
                         <div class="mb-3 row">
@@ -73,7 +73,7 @@ New Sale
 
                             <div class="col-3">
                                 <label for="client" class="col-form-label text-start">Customer</label>         
-                                <select class="form-control select2bs4" id="supplier_id" required name="supplier_id" style="width: 100%;">
+                                <select class="form-control select2bs4" id="customer_id" name="customer_id" style="width: 100%;">
                                     <option value="">--Select--</option>
                                     <option value="new">New Customer</option>
                                     @foreach($customers as $customer)
@@ -81,14 +81,14 @@ New Sale
                                     @endforeach
                                 </select>
                             </div>                          
-                            <div class="col-2" style="display: none" id="new_supplier">
-                                <button type="button" style="margin-top: 35px" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-supplier">
+                            <div class="col-2" style="display: none" id="new_customer">
+                                <button type="button" style="margin-top: 35px" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-customer">
                                     Add New Customer
                                 </button>
                             </div>
     
-                            <!-- modal supplier start -->
-                            <div class="modal fade" id="modal-supplier">
+                            <!-- modal customer start -->
+                            <div class="modal fade" id="modal-customer">
                                 <div class="modal-dialog modal-lg">        
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -102,7 +102,7 @@ New Sale
                                     <div class="col-md-12 col-sm-12">
                                         <div data-mdb-input-init class="form-outline mb-4">
                                         <label>Customer Name <small style="color: red">*</small></label>
-                                        <input type="text" placeholder="Supplier Name" id="customer_name" name="customer_name" class="form-control form-control-lg" />
+                                        <input type="text" placeholder="Customer Name" id="customer_name" name="customer_name" class="form-control form-control-lg" />
                                         </div> 
                                     </div>
     
@@ -128,7 +128,7 @@ New Sale
                                 </div>
                                 </div> 
                             </div>
-                        <!-- modal supplier ends -->
+                        <!-- modal customer ends -->
                             </div>
                     </div>           
                 
@@ -291,11 +291,11 @@ const orderIdField = document.getElementById("sale_order_id");
 orderIdField.value = generateOrderID();
 
 
-$('#supplier_id').change(function() {
+$('#customer_id').change(function() {
     if ($(this).val() === 'new') {
-        $('#new_supplier').show();
+        $('#new_customer').show();
     } else {
-        $('#new_supplier').hide();
+        $('#new_customer').hide();
         $('#full_name').val('');
         $('#mobile_number').val('');
         $('#official_address').val('');
@@ -470,7 +470,11 @@ document.getElementById('addButton').addEventListener('click', function() {
                 const enteredDynamicQuantity = $(row).find(".product_quantity").val();
                
                 if (enteredDynamicQuantity > availableDynamicStock) {
-                    alert('Not enough stock available!');
+                    // alert('Not enough stock available!');
+                    Swal.fire({
+                    icon: "warning",
+                    title: 'Not enough stock available!',
+                    });
                     $(row).find(".product_quantity").val('');
                 }
             }
@@ -565,7 +569,11 @@ function skuDetails(){
 function availableQuantityCheck() {
     var enteredQuantity = parseInt($('.product_quantity').val());
     if (enteredQuantity > availableStock) {
-        alert('Not enough stock available!');
+        // alert('Not enough stock available!');
+        Swal.fire({
+                    icon: "warning",
+                    title: 'Not enough stock available!',
+                    });
         parseInt($('.product_quantity').val(''));
     }
 }
@@ -649,9 +657,9 @@ function discountAmountCalculation(){
 
 
 //..............requisition purchase order submit start................
-document.getElementById('requisitionOrderForm').addEventListener('submit',function(event){
+document.getElementById('saleForm').addEventListener('submit',function(event){
 event.preventDefault();
-var requisitionOrderFormData = new FormData(this);
+var saleFormData = new FormData(this);
 
 // Function to get CSRF token from meta tag
 function getCsrfToken() {
@@ -663,10 +671,11 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/api/requisition_store',requisitionOrderFormData).then(response=>{
+ axios.post('/api/sale_store',saleFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
-        window.location.href = "{{ route('requisition_list') }}";
+        // window.location.href = "{{ route('requisition_list') }}";
+        window.location.reload();
       }, 2000);
   Swal.fire({
               icon: "success",

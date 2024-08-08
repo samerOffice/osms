@@ -149,9 +149,9 @@ Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->na
 
 //...............********* pos module ********................
 
-//invoice
+//invoice (sale)
 Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
 
-// Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
-Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
-Route::get('/invoice_show_data', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+
+// Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
+// Route::get('/invoice_show_data', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
