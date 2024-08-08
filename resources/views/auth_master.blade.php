@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
   <!--select2 -->
   <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+
   <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 </head>
 <body class="hold-transition login-page" style="background-image: url('{{ asset('img/login_bg.jpg') }}');">
@@ -38,5 +39,7 @@
 <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+
+
 </body>
 </html>
