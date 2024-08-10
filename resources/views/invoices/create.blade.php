@@ -674,8 +674,8 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/api/sale_store',saleFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
-        // window.location.href = "{{ route('requisition_list') }}";
-        window.location.reload();
+        window.location.href = "{{ route('invoice_show_data', ':id') }}".replace(':id', response.data.invoice_id);
+        // window.location.reload();
       }, 2000);
   Swal.fire({
               icon: "success",
@@ -685,7 +685,7 @@ axios.get('sanctum/csrf-cookie').then(response=>{
         
   }).catch(error => Swal.fire({
               icon: "error",
-              title: error.response.data.message.email,
+              title: error.response.data,
               }))
  });
 
