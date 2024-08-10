@@ -36,6 +36,10 @@
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
   <!-- Fahad Employee Module Dashboard CSS -->
   <link href="{{ asset('dist/css/fahad.css') }}" rel="stylesheet">
+
+   <!-- invoice custom css (samer)  -->
+  <link href="{{ asset('dist/css/custom-invoice.css') }}" rel="stylesheet">
+
   @stack('css')
 </head>
 

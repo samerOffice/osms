@@ -84,6 +84,7 @@ class InvoiceController extends Controller
                             'products.additional_product_details as stock_product_details'                           
                             )
                             ->where('stocks.id',$stock_id)
+                            // ->where('stocks.quantity','>', 0)
                             ->first();     
 
             if ($stock_product) {
@@ -125,7 +126,7 @@ class InvoiceController extends Controller
         $random_number = rand(1000, 9999);
         $membership_id = 'Member-'.$user_company_id.'-'.$random_number;
 
-        if($get_customer_id == 'new'){       
+        if($get_customer_id == 'new'){      
             $customer_id = DB::connection('pos')
                             ->table('customers')
                             ->insertGetId([
@@ -142,28 +143,28 @@ class InvoiceController extends Controller
         }
 
         $invoice = DB::connection('pos')
-                                ->table('invoices')
-                                ->insertGetId([
-                                    'invoice_date' => Carbon::now()->toDateString(),
-                                    'invoice_track_id' => $request->sale_order_id,
-                                    'company_id' => $user_company_id,
-                                    'outlet_id' => $request->outlet_id,
-                                    'customer_id' => $customer_id,
-                                    'emp_id' => $request->sale_by,
-                                    'payment_method_id' => $request->payment_id,
-                                    'total_amount' => $request->total_amount,
-                                    'tax_amount' => $request->tax_amount,
-                                    'discount_amount' => $request->discount_amount,
-                                    'grand_total' => $request->grand_total,
-                                    'payment_status' => 1,
-                                    ]);
+                    ->table('invoices')
+                    ->insertGetId([
+                        'invoice_date' => Carbon::now()->toDateString(),
+                        'invoice_track_id' => $request->sale_order_id,
+                        'company_id' => $user_company_id,
+                        'outlet_id' => $request->outlet_id,
+                        'customer_id' => $customer_id,
+                        'emp_id' => $request->sale_by,
+                        'payment_method_id' => $request->payment_id,
+                        'total_amount' => $request->total_amount,
+                        'tax_amount' => $request->tax_amount,
+                        'discount_amount' => $request->discount_amount,
+                        'grand_total' => $request->grand_total,
+                        'payment_status' => 1,
+                        ]);
 
-        $invoice_data =  DB::connection('pos')
-                            ->table('invoices')
-                            ->where('id',$invoice)
-                            ->first();
+        // $invoice_data =  DB::connection('pos')
+        //                     ->table('invoices')
+        //                     ->where('id',$invoice)
+        //                     ->first();
 
-        $last_invoice_id = $invoice_data->id;
+        // $last_invoice_id = $invoice_data->id;
 
         
         $stock_ids = $request->stock_product_id;   
@@ -181,22 +182,111 @@ class InvoiceController extends Controller
             DB::connection('pos')
                 ->table('invoice_items')
                 ->insert([
-                'invoice_id' => $last_invoice_id,
+                'invoice_id' => $invoice,
                 'stock_id' => $stock_id,
                 'quantity' => $product_quantity,
                 'unit_price' => $product_unit_price,          
                 'sub_total' => $product_subtotal          
             ]); 
                   
-            // $latest_stock_quantity = DB::connection('inventory');
+         $latest_stock_quantity = DB::connection('inventory')
+                                  ->table('stocks')
+                                  ->select('quantity')
+                                  ->where('id',$stock_id)
+                                  ->first();
+
+        if ($latest_stock_quantity){
+        // Calculate the new stock quantity
+        $new_stock_quantity = $latest_stock_quantity->quantity - $product_quantity;
+
+        // Update the stock quantity in the stocks table
+        DB::connection('inventory')
+            ->table('stocks')
+            ->where('id', $stock_id)
+            ->update(['quantity' => $new_stock_quantity]);
+        }
+
         }
 
         $response = [
             'success' => true,
-            'message' => 'Sale is added successfully'
+            'message' => 'Sale is added successfully',
+            'invoice_id' => $invoice
         ];
 
-        return response()->json($response,200);
+         return response()->json($response,200);
+
+        // return redirect()->route('invoice_show_data',[
+        //     'last_invoice_id' => $invoice
+        //     ]);
+    }
+
+      public function invoice_show_data($last_invoice_id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '4';
+        $update_module = DB::table('current_modules')
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+
+        $invoice_data = DB::connection('pos')
+                            ->table('invoices')
+                            ->leftJoin('outlets','invoices.outlet_id','outlets.id')
+                            ->leftJoin('customers','invoices.customer_id','customers.id')
+                            // ->leftJoin('payment_methods','invoices.payment_method_id','payment_methods.id')
+                            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.companies', 'invoices.company_id', '=', 'companies.id')
+                            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.branches', 'invoices.branch_id', '=', 'branches.id')
+                            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.users', 'invoices.emp_id', '=', 'users.id')
+                            ->select(
+                                'invoices.invoice_date as invoice_date',
+                                'invoices.invoice_track_id as invoice_order_number',
+                                'invoices.total_amount as invoice_total_amount',
+                                'invoices.tax_amount as invoice_tax_amount',
+                                'invoices.discount_amount as invoice_discount_amount',
+                                'invoices.grand_total as invoice_grand_total',
+                                'invoices.terms_and_conditions as invoice_terms_and_conditions',
+                                'invoices.payment_status as invoice_payment_status',
+                                'invoices.payment_method_id as payment_method',
+
+                                'users.name as sale_by',
+
+                                'companies.company_name as shop_name',
+                                'companies.company_address as shop_address',
+                                'companies.contact_no as shop_contact_no',
+                                
+                                'branches.br_name as branch_name',
+
+                                'outlets.outlet_name as shop_outlet_name',
+                                'outlets.outlet_address as shop_outlet_address',
+
+                                'customers.customer_name as buyer_name',
+                                'customers.customer_phone_number as buyer_number',
+                                'customers.membership_id as membership_number'
+                            )
+
+                            ->where('invoices.id', $last_invoice_id)
+                             ->first();
+// dd($invoice_data);
+
+        $item_data = DB::connection('pos')
+                    ->table('invoice_items')
+                    ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.stocks', 'invoice_items.stock_id', '=', 'stocks.id')
+                    ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.products', 'stocks.product_id', '=', 'products.id')                   
+                    ->select(
+                        'invoice_items.*',
+                        'products.product_name as sold_product_name'                 
+                        )
+                    ->where('invoice_id',$last_invoice_id)
+                    ->get();
+
+   
+        //   $result = (array) $result;
+        //   $filteredData = array_filter($result, function($value) {
+        //     return $value != 0;
+        // });
+
+         return view('invoices.show_invoice',compact('current_module','invoice_data','item_data'));
     }
 
 
@@ -245,37 +335,5 @@ class InvoiceController extends Controller
     // }
 
 
-    // public function invoice_show_data(){
-
-    //     $current_modules = array();
-    //     $current_modules['module_status'] = '4';
-    //     $update_module = DB::table('current_modules')
-    //                     ->update($current_modules);
-    //     $current_module = DB::table('current_modules')->first();
-
-
-    //     $last_inserted_data = DB::connection('pos')
-    //                          ->table('invoices')
-    //                          ->orderBy('id', 'desc')
-    //                          ->first();
-
-    //     $last_inserted_id = $last_inserted_data->id;
-
-
-    //     $result = DB::connection('pos')
-    //                 ->table('invoices')
-    //                 ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.products', 'invoices.product_id', '=', 'products.id')
-    //                 ->select('products.product_name','invoices.*')
-    //                 ->where('invoices.id',$last_inserted_id)
-    //                 ->first();
-
-
-    //       $result = (array) $result;
-    //       $filteredData = array_filter($result, function($value) {
-    //         return $value != 0;
-    //     });
-
-
-    //     return view('invoices.show_invoice',compact('filteredData','current_module','last_inserted_id'));
-    // }
+  
 }

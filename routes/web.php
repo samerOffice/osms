@@ -154,4 +154,4 @@ Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add
 
 
 // Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
-// Route::get('/invoice_show_data', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+ Route::get('/invoice_show_data/{last_invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
