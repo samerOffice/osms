@@ -121,6 +121,48 @@
         </li>
 
 
+
+        @if((auth()->user()->role_id == 1))
+        <li class="nav-item @if(Request::is('designation_list')) menu-open 
+                              @elseif(Request::is('business_type_list')) menu-open
+                              @elseif(Request::is('user_list')) menu-open
+          @endif">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Settings
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a href="{{route('designation_list')}}" class="nav-link {{ Request::is('designation_list') ? 'nav-link active' : ''}}" style="{{ Request::is('designation_list') ? 'background-color: #908ec4; !important' : ''}}">
+                <i class="far fa-circle nav-icon" style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}"></i>
+                <p style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}">Designation</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{route('business_type_list')}}" class="nav-link {{ Request::is('business_type_list') ? 'nav-link active' : ''}}" style="{{ Request::is('business_type_list') ? 'background-color: #908ec4; !important' : ''}}">
+                <i class="far fa-circle nav-icon" style="{{ Request::is('business_type_list') ? 'color: white; !important' : ''}}"></i>
+                <p style="{{ Request::is('business_type_list') ? 'color: white; !important' : ''}}">Business Type</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{route('user_list')}}" class="nav-link {{ Request::is('user_list') ? 'nav-link active' : ''}}" style="{{ Request::is('user_list') ? 'background-color: #908ec4; !important' : ''}}">
+                <i class="far fa-circle nav-icon" style="{{ Request::is('user_list') ? 'color: white; !important' : ''}}"></i>
+                <p style="{{ Request::is('user_list') ? 'color: white; !important' : ''}}">Users</p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+        @endif
+
+
+
         <div style="padding: 10px 0px 0px 0px;">
           <div style="background-color:#908ec4;height:10px;"></div>
         </div>
@@ -165,46 +207,6 @@
           <br>
         </div>
 
-
-
-        @if((auth()->user()->role_id == 1))
-        <li class="nav-item @if(Request::is('designation_list')) menu-open 
-                              @elseif(Request::is('business_type_list')) menu-open
-                              @elseif(Request::is('user_list')) menu-open
-          @endif">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Settings
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-
-            <li class="nav-item">
-              <a href="{{route('designation_list')}}" class="nav-link {{ Request::is('designation_list') ? 'nav-link active' : ''}}" style="{{ Request::is('designation_list') ? 'background-color: #908ec4; !important' : ''}}">
-                <i class="far fa-circle nav-icon" style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}"></i>
-                <p style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}">Designation</p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a href="{{route('business_type_list')}}" class="nav-link {{ Request::is('business_type_list') ? 'nav-link active' : ''}}" style="{{ Request::is('business_type_list') ? 'background-color: #908ec4; !important' : ''}}">
-                <i class="far fa-circle nav-icon" style="{{ Request::is('business_type_list') ? 'color: white; !important' : ''}}"></i>
-                <p style="{{ Request::is('business_type_list') ? 'color: white; !important' : ''}}">Business Type</p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a href="{{route('user_list')}}" class="nav-link {{ Request::is('user_list') ? 'nav-link active' : ''}}" style="{{ Request::is('user_list') ? 'background-color: #908ec4; !important' : ''}}">
-                <i class="far fa-circle nav-icon" style="{{ Request::is('user_list') ? 'color: white; !important' : ''}}"></i>
-                <p style="{{ Request::is('user_list') ? 'color: white; !important' : ''}}">Users</p>
-              </a>
-            </li>
-
-          </ul>
-        </li>
-        @endif
 
 
         @elseif($current_module->module_status == 2) <!--employee module-->

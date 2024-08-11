@@ -22,8 +22,10 @@ Login
             class="img-fluid" alt="Phone image">
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <img src="{{ asset('img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
-            <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>    
+          <img src="{{ asset('img/osmslogo.png')}}"  height="50px" width="auto" alt="logo" style="align-content: center">
+          <br>
+          {{-- <img src="{{ asset('img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
+          <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>     --}}
             <br>
              <input type="hidden" id="myDashboardUrl" value="{{ route('home') }}">
             <form id="loginForm">

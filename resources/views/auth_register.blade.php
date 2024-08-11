@@ -17,13 +17,17 @@ header("Location: $redirectRoute");
     <div class="container mt-1" style="background-color: white; animation: 1.5s fadeIn; border-radius: 15px;" >
       <div class="row d-flex align-items-center justify-content-center h-80"  style="padding: 20px">
         <div class="col-md-8 col-lg-7 col-xl-6">
+          <div style="padding-left: 10%">
+            <img src="{{ asset('img/osmslogo.png')}}"  height="50px" width="auto" alt="logo">
+          </div>
+          
           <img src="{{asset('img/login_side_image1.jpg')}}"
             class="img-fluid" alt="Phone image">
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <img src="{{asset('img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
-            <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>    
-            <br>
+          {{-- <img src="{{asset('img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
+          <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>     --}}
+             
              <input type="hidden" id="myDashboardUrl" value="{{ route('home') }}">
             <form id="registerForm">
             <!-- Name input -->

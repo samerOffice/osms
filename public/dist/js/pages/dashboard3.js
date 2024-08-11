@@ -77,6 +77,8 @@ $(function () {
     }
   })
 
+
+
   var $visitorsChart = $('#visitors-chart')
   // eslint-disable-next-line no-unused-vars
   var visitorsChart = new Chart($visitorsChart, {

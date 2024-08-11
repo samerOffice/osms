@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,7 @@ class HomeController extends Controller
                   ->update($current_modules);
       
       $current_module = DB::table('current_modules')->first();
+
 
       return view('dashboard',compact('current_module'));
     }
@@ -87,7 +89,26 @@ class HomeController extends Controller
                    ->where('id', 1)
                   ->update($current_modules);
       $current_module = DB::table('current_modules')->first();
-      return view('dashboard',compact('current_module'));
+
+      $user_company_id = Auth::user()->company_id;
+        
+        $employees = DB::table('users')
+        ->leftJoin('employees','users.id','employees.user_id')
+        ->leftJoin('companies','users.company_id','companies.id')
+        ->leftJoin('designations','users.designation','designations.id')
+        ->leftJoin('branches','users.branch_id','branches.id')
+        ->select('employees.*',
+        'users.name as emp_name', 
+        'users.joining_date as emp_joining_date', 
+        'users.email as emp_email', 
+        'companies.company_name as emp_company_name',
+        'branches.br_name as emp_br_name',
+        'designations.designation_name as emp_designation_name')
+        ->where('users.company_id', $user_company_id)
+        ->where('users.role_id', '3')
+        ->get();
+
+      return view('dashboard',compact('current_module','employees'));
 
       
     }
