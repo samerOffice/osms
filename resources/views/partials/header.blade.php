@@ -6,11 +6,16 @@
     </li>
   </ul>
 
-  <div class="row" style="margin-left:5%;">    
+  {{-- <div class="row" style="margin-left:5%;">    
     <span style="padding-top:5px"><img src="{{asset('img/otithee_logo.png')}}"  height="17px" width="auto" alt="logo"></span>
   <em> 
     <h5 style="color: green; font-weight: bold; margin-top:1px">&nbsp;Shop Management System </h5>
   </em>      
+  </div> --}}
+
+  <div class="row" style="margin-left:2%;">    
+    <span style="padding-top:5px"><img src="{{asset('img/osmslogo.png')}}"  height="40px" width="auto" alt="logo"></span>
+      
   </div>
 
 

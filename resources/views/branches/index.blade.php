@@ -107,6 +107,7 @@ Branch List
 <script>
       $(document).ready(function() {
     $('#example1').DataTable({
+      responsive: true, // Enable responsive behavior
         dom: 'Bfrtip',
         buttons: [
             {

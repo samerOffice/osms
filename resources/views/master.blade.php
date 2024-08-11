@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
-    OSMS | @yield('title')
+    Otithee ShopNet | @yield('title')
   </title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -39,6 +39,8 @@
 
    <!-- invoice custom css (samer)  -->
   <link href="{{ asset('dist/css/custom-invoice.css') }}" rel="stylesheet">
+  <!-- general dashboard css (samer) -->
+  <link href="{{ asset('dist/css/general-dashboard.css') }}" rel="stylesheet">
 
   @stack('css')
 </head>
@@ -117,8 +119,24 @@
 
   <!-- AdminLTE for demo purposes -->
   {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
+ 
+ <!-- jQuery Knob Chart -->
+{{-- <script src="{{asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script> --}}
+
+<!---- dashboard js  -->
+<script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
+{{-- <script src="{{asset('dist/js/pages/dashboard2.js')}}"></script> --}}
+<script src="{{asset('dist/js/pages/dashboard3.js')}}"></script>
+
+<!-- Fahad Employee Module Dashboard JS -->
+<script type="text/javascript" src="{{asset('dist/js/fahad.js')}}"></script>
+
+
+
+
+
+
+
   
 </body>
 
