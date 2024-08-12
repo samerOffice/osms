@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2024 at 09:46 AM
+-- Generation Time: Aug 12, 2024 at 02:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,6 +45,29 @@ INSERT INTO `barcodes_and_skus` (`id`, `stock_id`, `company_id`, `barcode`, `sku
 (1, 5, 11, 'Pro-20240803-112952-547', NULL, '2024-08-03 05:29:54', '2024-08-03 05:29:54'),
 (2, 1, 11, NULL, 'SKU-Lenovo 203 tablet-3-2024-07-30-20240803-114110-593', '2024-08-03 05:41:12', '2024-08-03 05:41:12'),
 (3, 9, 11, NULL, 'SKU-Rupchanda Soyabin Oil-5-2024-08-03-20240803-170523-537', '2024-08-03 11:05:27', '2024-08-03 11:05:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `damage_and_burned_products`
+--
+
+CREATE TABLE `damage_and_burned_products` (
+  `id` int(255) NOT NULL,
+  `entry_date` date DEFAULT NULL,
+  `stock_id` int(255) DEFAULT NULL,
+  `product_id` int(255) DEFAULT NULL,
+  `quantity` int(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `damage_and_burned_products`
+--
+
+INSERT INTO `damage_and_burned_products` (`id`, `entry_date`, `stock_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, '2024-08-12', 8, NULL, 6, '2024-08-12 12:08:04', '2024-08-12 12:08:04');
 
 -- --------------------------------------------------------
 
@@ -325,7 +348,7 @@ INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `product
 (5, 1, 11, 1, NULL, NULL, 5, '39700', '198500.00', '2024-07-31', 1, 1, '2024-07-31 07:32:25', '2024-07-31 07:32:25'),
 (6, 6, 11, 2, NULL, NULL, 2, '370', '740.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
 (7, 2, 11, 2, NULL, NULL, 4, '14700', '58800.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
-(8, 3, 11, 2, NULL, NULL, 8, '12400', '99200.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
+(8, 3, 11, 2, NULL, NULL, 2, '12400', '99200.00', '2024-08-03', 1, NULL, '2024-08-03 09:39:51', '2024-08-03 09:39:51'),
 (9, 6, 11, 1, '2022-07-13', '2024-08-17', 5, '380', '1900.00', '2024-08-03', 1, 1, '2024-08-03 10:51:41', '2024-08-03 10:51:41'),
 (10, 2, 11, 1, NULL, NULL, 8, '14500', '116000.00', '2024-08-03', 1, NULL, '2024-08-03 10:51:41', '2024-08-03 10:51:41');
 
@@ -362,6 +385,12 @@ INSERT INTO `warehouses` (`id`, `company_id`, `branch_id`, `warehouse_name`, `wa
 -- Indexes for table `barcodes_and_skus`
 --
 ALTER TABLE `barcodes_and_skus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `damage_and_burned_products`
+--
+ALTER TABLE `damage_and_burned_products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -439,6 +468,12 @@ ALTER TABLE `warehouses`
 --
 ALTER TABLE `barcodes_and_skus`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `damage_and_burned_products`
+--
+ALTER TABLE `damage_and_burned_products`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `inventory_log`

@@ -170,6 +170,103 @@ class StockController extends Controller
     }
 
 
+    public function damage_product($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '3';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+       
+    
+          $damage_product = DB::connection('inventory')
+                            ->table('stocks')
+                            ->leftJoin('products','stocks.product_id','products.id')
+                            ->select(
+                                'stocks.*',
+                                'products.product_name as stock_product_name',
+                                'products.product_weight as stock_product_weight',
+                                'products.product_unit_type as stock_product_unit_type',
+                                'products.additional_product_details as stock_product_details'      
+                                ) 
+                            ->where('stocks.id', $id)
+                            ->first();
+        
+         return view('stocks.damage_product',compact('current_module','damage_product'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function update_damage_product(Request $request, $id){    
+        
+        
+        $damage_product_quantity = $request->damage_product;
+
+        $current_product_quantity = DB::connection('inventory')
+                                    ->table('stocks')
+                                    ->select('quantity')
+                                    ->where('id', $id)
+                                    ->first();
+        
+        $current_product_quantity_in_stock = $current_product_quantity->quantity;
+
+        $updated_quantity = ($current_product_quantity_in_stock) - ($damage_product_quantity);
+
+        // Update the stock quantity in the stocks table
+       $updated_stock = DB::connection('inventory')
+            ->table('stocks')
+            ->where('id', $id)
+            ->update(['quantity' => $updated_quantity]);
+
+            $user_company_id = Auth::user()->company_id;
+            $store_damage_product = DB::connection('inventory')
+                                    ->table('damage_and_burned_products')
+                                            ->insertGetId([
+                                            'entry_date'=>Carbon::now()->toDateString(),
+                                            'stock_id'=>$id,                                           
+                                            'quantity'=>$damage_product_quantity    
+                                            ]);
+    
+            $response = [
+                'success' => true,
+                'message' => 'Damaged Product is added successfully'
+            ];
+    
+            return response()->json($response,200);
+        
+           
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function add_barcode(Request $request, $stock_id){
         
         $barcode = $request->input('barcode');
