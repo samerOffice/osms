@@ -43,14 +43,14 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3>{{$total_item_categories}}</h3>
   
                   <p>Total Item Categories</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-layer-group"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('item_category_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -58,14 +58,14 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <h3>{{$total_product_categories}}</h3>
   
                   <p>Total Product Categories</p>
                 </div>
                 <div class="icon">
                   <i class="ionicons ion-android-list"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('product_category_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -73,14 +73,14 @@
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3>{{$total_products}}</h3>
   
                   <p>Total Products</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('product_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -95,7 +95,7 @@
               <!-- Custom tabs (Charts with tabs)-->  
                 <div class="card card-info">
                   <div class="card-header">
-                    <h3 class="card-title">Stock Chart</h3>
+                    <h3 class="card-title">Monthly Sale and Purchase Chart</h3>
     
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -124,42 +124,46 @@
                       <div class="widget-content-outer">
                         <div class="widget-content-wrapper">
                           <div class="widget-content-left pr-2 fsize-1">
-                            <div class="widget-numbers mt-0 fsize-3 text-info">71%</div>
+                            <div id="available-products-percentage" class="widget-numbers mt-0 fsize-3 text-info">0%</div>
                           </div>
                           <div class="widget-content-right w-100">
                             <div class="progress-bar-xs progress">
-                              <div class="progress-bar bg-info" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
+                              <div id="progress-bar-available-product" class="progress-bar bg-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                             </div>
                           </div>
                         </div>
                         <div class="widget-content-left fsize-1">
-                          <div class="text-muted opacity-6">Available Products</div>
+                          <div class="text-muted opacity-6">Total Available Products</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+
+
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                  <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+                  <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
                     <div class="widget-content">
                       <div class="widget-content-outer">
                         <div class="widget-content-wrapper">
                           <div class="widget-content-left pr-2 fsize-1">
-                            <div class="widget-numbers mt-0 fsize-3 text-secondary">54%</div>
+                            <div id="near-expired-products-percentage" class="widget-numbers mt-0 fsize-3 text-secondary">0%</div>
                           </div>
                           <div class="widget-content-right w-100">
                             <div class="progress-bar-xs progress">
-                              <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
+                              <div id="progress-bar-near-expired-product" class="progress-bar bg-secondary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                             </div>
                           </div>
                         </div>
                         <div class="widget-content-left fsize-1">
-                          <div class="text-muted opacity-6">Near-Expired Products</div>
+                          <div class="text-muted opacity-6">Near-Expired Products In Stock</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div class="col-sm-12 col-md-12 col-lg-12">
                   <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
                     <div class="widget-content">

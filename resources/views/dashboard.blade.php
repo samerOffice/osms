@@ -288,13 +288,12 @@ $(document).ready(function() {
 });
 
 
-
+  //---------------------------------------
+  // - MONTHLY SALES CHART (Main Dashboard)
+  //---------------------------------------
 
 $(function () {
   'use strict'
-  //-----------------------
-  // - MONTHLY SALES CHART -
-  //-----------------------
 
   // Get context with jQuery - using jQuery's .get() method.
   var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
@@ -355,11 +354,186 @@ $(function () {
   }
   )
 
-  //---------------------------
-  // - END MONTHLY SALES CHART -
-  //---------------------------
 })
 
+  //---------------------------------------------
+  // - END MONTHLY SALES CHART - (Main Dashboard)
+  //---------------------------------------------
+
+
+
+
+
+  //----------------------------------------------------
+  // - Purchase vs Sale CHART Start- (Inventory Dashboard)
+  //-----------------------------------------------------
+
+
+  $(function () {
+  'use strict'
+
+  // Function to fetch dynamic data from API
+  function getMonthlyData() {
+    return axios.get('/api/monthly_sales_purchases') // Replace with your API endpoint
+      .then(function (response) {
+        return response.data; // Expecting { sales: [...], purchases: [...] }
+      })
+      .catch(function (error) {
+        console.error('Error fetching data:', error);
+        return {
+          sales: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Default data in case of error
+          purchases: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        };
+      });
+  }
+
+  // Initialize the chart after fetching data
+  getMonthlyData().then(function (data) {
+    var ticksStyle = {
+      fontColor: '#495057',
+      fontStyle: 'bold'
+    };
+
+    var mode = 'index';
+    var intersect = true;
+
+    var $salesChart = $('#sales-chart');
+
+    var salesChart = new Chart($salesChart, {
+      type: 'bar',
+      data: {
+        labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+        datasets: [
+          {
+            label: 'Sales',
+            backgroundColor: '#007bff',
+            borderColor: '#007bff',
+            data: data.sales // Dynamic sales data from API
+          },
+          {
+            label: 'Purchases',
+            backgroundColor: '#ced4da',
+            borderColor: '#ced4da',
+            data: data.purchases // Dynamic purchases data from API
+          }
+        ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          mode: mode,
+          intersect: intersect
+        },
+        hover: {
+          mode: mode,
+          intersect: intersect
+        },
+        legend: {
+          display: true // Display legend
+        },
+        scales: {
+          yAxes: [{
+            display: false,
+            gridLines: {
+              display: true,
+              lineWidth: '4px',
+              color: 'rgba(0, 0, 0, .2)',
+              zeroLineColor: 'transparent'
+            },
+            ticks: $.extend({
+              beginAtZero: true,
+              callback: function (value) {
+                if (value >= 1000) {
+                  value /= 1000;
+                  value += ' BDT';
+                }
+                return  value;
+              }
+            }, ticksStyle)
+          }],
+          xAxes: [{
+            display: true,
+            gridLines: {
+              display: false
+            },
+            ticks: ticksStyle
+          }]
+        }
+      }
+    });
+  });
+
+});
+
+  //----------------------------------------------------
+  // - Purchase vs Sale CHART End- (Inventory Dashboard)
+  //-----------------------------------------------------
+
+
+
+ //-------------------- Available Product Percentage (start)---------
+
+   // Function to update the widget
+   function updateAvailableProducts(percentage) {
+    // Update the percentage text
+    document.getElementById('available-products-percentage').textContent = percentage + '%';
+    
+    // Update the progress bar width and aria-valuenow
+    var progressBar = document.getElementById('progress-bar-available-product');
+    progressBar.style.width = percentage + '%';
+    progressBar.setAttribute('aria-valuenow', percentage);
+  }
+
+  // Function to fetch data from the API using Axios
+  function fetchAvailableProducts() {
+    return axios.get('/api/total_available_products') // Replace with your API endpoint
+      .then(response => {
+        // Assuming the API returns an object with a `percentage` field
+        var percentage = response.data.total_available_products;
+        updateAvailableProducts(percentage);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        // Optionally, handle errors or show a default message
+      });
+  }
+  // Call the function to fetch and update data on page load
+  fetchAvailableProducts();
+
+  //-------------------- Available Product Percentage (end)---------
+
+
+
+   //-------------------- Near-Expired Product Percentage (start)---------
+
+   // Function to update the widget
+   function updateNearExpiredProducts(percentage) {
+    // Update the percentage text
+    document.getElementById('near-expired-products-percentage').textContent = percentage + '%';
+    
+    // Update the progress bar width and aria-valuenow
+    var progressBar = document.getElementById('progress-bar-near-expired-product');
+    progressBar.style.width = percentage + '%';
+    progressBar.setAttribute('aria-valuenow', percentage);
+  }
+
+  // Function to fetch data from the API using Axios
+  function fetchNearExpiredProducts() {
+    return axios.get('/api/total_near_expired_products') // Replace with your API endpoint
+      .then(response => {
+        // Assuming the API returns an object with a `percentage` field
+        var percentage = response.data.total_near_expired_products;
+        updateNearExpiredProducts(percentage);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        // Optionally, handle errors or show a default message
+      });
+  }
+  // Call the function to fetch and update data on page load
+  fetchNearExpiredProducts();
+
+  //-------------------Near-Expired Product Percentage (end)---------
 </script>
 @endpush
 

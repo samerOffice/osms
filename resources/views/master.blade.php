@@ -126,7 +126,7 @@
 <!---- dashboard js  -->
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 {{-- <script src="{{asset('dist/js/pages/dashboard2.js')}}"></script> --}}
-<script src="{{asset('dist/js/pages/dashboard3.js')}}"></script>
+{{-- <script src="{{asset('dist/js/pages/dashboard3.js')}}"></script> --}}
 
 <!-- Fahad Employee Module Dashboard JS -->
 <script type="text/javascript" src="{{asset('dist/js/fahad.js')}}"></script>
