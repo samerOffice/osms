@@ -155,6 +155,7 @@ Route::get('/damage_product/{product_id}', [StockController::class, 'damage_prod
 Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
 // Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
  Route::get('/invoice_show_data/{last_invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+ Route::get('/sale_list', [InvoiceController::class, 'sale_list'])->name('sale_list');
 
 //customer
 Route::get('/customer_list', [CustomerController::class, 'customer_list'])->name('customer_list');

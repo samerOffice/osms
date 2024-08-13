@@ -641,6 +641,25 @@
         </a>
       </li>
 
+      <li class="nav-item nav-link 
+          @if(Request::is('sale_list')) nav-link active
+          @endif
+          " style="@if(Request::is('sale_list')) background-color: #20ceea;
+            @endif
+            ">
+      <a href="{{route('sale_list')}}">
+        <i class="nav-icon fa-solid fa-list" style="@if(Request::is('sale_list')) color: white;
+            @endif
+            ">
+        </i>
+        <p style="@if(Request::is('sale_list')) color:white;
+            @endif
+            ">
+          Sales List
+        </p>
+      </a>
+    </li>
+
 
       <li class="nav-item nav-link 
             @if(Request::is('customer_list')) nav-link active
@@ -664,12 +683,7 @@
      
 
 
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-regular fa-credit-card"></i>
-          <p> Payment Methods</p>
-        </a>
-      </li>
+     
 
       <li class="nav-item">
         <a href="#" class="nav-link">

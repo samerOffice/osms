@@ -27,6 +27,27 @@ class InvoiceController extends Controller
 
 
 
+    public function sale_list(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '4';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $user_company_id = Auth::user()->company_id;
+
+        $sales = DB::connection('pos')
+                        ->table('invoices')
+                        ->where('company_id',$user_company_id)
+                        ->get();
+
+        return view('invoices.index',compact('current_module','sales'));
+    }
+
+
+
       public function new_invoice(){
 
         $current_modules = array();
