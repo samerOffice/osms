@@ -1,0 +1,47 @@
+@media (min-width: 992px) {
+    .sidebar-collapse .fahadsidebar {
+      display: none;
+  }
+  
+  }
+  
+    .employee_button_position {
+      background-color: #ff5d6c;
+      color: white;
+      margin: 0;
+      position: absolute;
+      left: 40%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+  
+    .inventory_button_position {
+      background-color: #1cdf1c;
+      color: white;
+      margin: 0;
+      position: absolute;
+      left: 40%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+  
+    .pos_button_position {
+      background-color: #20ceea;
+      color: white;
+      margin: 0;
+      position: absolute;
+      left: 40%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+  
+  
+    .tracking_button_position {
+      background-color: #e6753e;
+      color: white;
+      margin: 0;
+      position: absolute;
+      left: 40%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }

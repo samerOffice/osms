@@ -85,7 +85,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/submit_item_category',itemCategoryFormData).then(response=>{
+ axios.post('/api/submit_item_category',itemCategoryFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
     window.location.href = "{{ route('item_category_list') }}";

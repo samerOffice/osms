@@ -68,7 +68,8 @@ Stock List
 <script>
        $(document).ready(function() {
     $('#example1').DataTable({
-        dom: 'Bfrtip',
+      responsive: true, // Enable responsive behavior  
+      dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'print',

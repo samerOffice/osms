@@ -54,7 +54,7 @@ Product List
                               <th>Item Category</th>
                               <th>Product Category</th>
                               <th>Product Name</th>
-                              <th>Tag Number</th>
+                              {{-- <th>Tag Number</th> --}}
                               <th>Weight</th>
                               <th>Unit</th>
                               <th>Status</th>
@@ -70,9 +70,9 @@ Product List
                               <td>{{$i++}}</td>
                               <td>{{$product->item_category_name}}</td>               
                               <td>{{$product->product_category_name}}</td>                
-                              <td>{{$product->product_name}}</td>                
-                              <td>{{$product->product_tag_number}}</td>                
-                              <td>{{$product->product_weight}}</td>            
+                              <td>{{$product->product_name}}</td> 
+                              {{-- <td>{{$product->product_tag_number}}</td>--}}
+                              <td>{{$product->product_weight}}</td>
                               <td>{{$product->product_unit_type}}</td>                             
                               <td>
                               @if($product->product_status == 1)
@@ -117,7 +117,8 @@ Product List
 <script>
       $(document).ready(function() {
     $('#example1').DataTable({
-        dom: 'Bfrtip',
+      responsive: true, // Enable responsive behavior  
+      dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'print',
@@ -171,7 +172,7 @@ Product List
             axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
             axios.get('sanctum/csrf-cookie').then(response=>{
-            axios.post('/osms/api/delete_product/'+ row_id).then(response=>{
+            axios.post('/api/delete_product/'+ row_id).then(response=>{
               console.log(response);
               setTimeout(function() {
                   window.location.reload();

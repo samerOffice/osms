@@ -252,7 +252,7 @@ function showDiv() {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    axios.post('/osms/api/level_designation_dependancy',{
+    axios.post('/api/level_designation_dependancy',{
             data: selectedLevel
           }).then(response=>{
           $('#designation_name').html(response.data);
@@ -280,7 +280,7 @@ function showDiv() {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
-    axios.post('/osms/api/branch_warehouse_dependancy',{
+    axios.post('/api/branch_warehouse_dependancy',{
             data: selectedBranch
           }).then(response=>{
           $('#warehouse_id').html(response.data);
@@ -309,7 +309,7 @@ function showDiv() {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
-    axios.post('/osms/api/branch_outlet_dependancy',{
+    axios.post('/api/branch_outlet_dependancy',{
             data: selectedBranch
           }).then(response=>{
           $('#outlet_id').html(response.data);
@@ -374,7 +374,7 @@ function showDiv() {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
    
-    axios.post('/osms/api/update_employee_official_info/' + emp_id, updateEmpOfficialInfoFormData).then(response=>{
+    axios.post('/api/update_employee_official_info/' + emp_id, updateEmpOfficialInfoFormData).then(response=>{
     console.log(response);
     setTimeout(function() {
             window.location.reload();

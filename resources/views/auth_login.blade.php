@@ -18,12 +18,14 @@ Login
     <div class="container mt-1" style="background-color: white; animation: 1.5s fadeIn; border-radius: 15px;" >
       <div class="row d-flex align-items-center justify-content-center h-80"  style="padding: 20px">
         <div class="col-md-8 col-lg-7 col-xl-6">
-          <img src="{{asset('public/img/login_side_image1.jpg')}}"
+          <img src="{{ asset('img/login_side_image1.jpg')}}"
             class="img-fluid" alt="Phone image">
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <img src="{{asset('public/img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
-            <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>    
+          <img src="{{ asset('img/osmslogo.png')}}"  height="50px" width="auto" alt="logo" style="align-content: center">
+          <br>
+          {{-- <img src="{{ asset('img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
+          <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>     --}}
             <br>
              <input type="hidden" id="myDashboardUrl" value="{{ route('home') }}">
             <form id="loginForm">
@@ -81,8 +83,8 @@ function getCsrfToken() {
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
- axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/login',loginFormData).then(response=>{
+
+ axios.post('api/login',loginFormData).then(response=>{
 
       if((response.data.flag) == 1){
         window.location.href = myDashboardUrl;
@@ -93,7 +95,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
        
       }
   });
- });
+
 
 });
 

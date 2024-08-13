@@ -6,11 +6,16 @@
     </li>
   </ul>
 
-  <div class="row" style="margin-left:5%;">    
-    <span style="padding-top:5px"><img src="{{asset('public/img/otithee_logo.png')}}"  height="17px" width="auto" alt="logo"></span>
+  {{-- <div class="row" style="margin-left:5%;">    
+    <span style="padding-top:5px"><img src="{{asset('img/otithee_logo.png')}}"  height="17px" width="auto" alt="logo"></span>
   <em> 
     <h5 style="color: green; font-weight: bold; margin-top:1px">&nbsp;Shop Management System </h5>
   </em>      
+  </div> --}}
+
+  <div class="row" style="margin-left:2%;">    
+    <span style="padding-top:5px"><img src="{{asset('img/osmslogo.png')}}"  height="40px" width="auto" alt="logo"></span>
+      
   </div>
 
 
@@ -22,21 +27,7 @@
     </form>
     <!-- Navbar Search -->
     <!-- Messages Dropdown Menu -->
-    {{-- <li class="nav-item dropdown">
-      <a class="nav-link" data-toggle="dropdown" href="#">
-        {{ Auth::user()->name }}&nbsp;<i class="far fa-user"></i>
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="{{route('add_additional_member_info')}}"><i class="fa fa-user"></i>&nbsp;Profile</a>
-        <a class="dropdown-item" href="{{route('password_reset')}}"><i class="fa-solid fa-lock"></i>&nbsp;Password Reset</a>
-        <input type="hidden" id="myLoginUrl" value="{{ route('login') }}">
-        <a class="dropdown-item" href="" >
-          
-        
-        </a>
-      </div>
-    </li> --}}
-    
+   
   </ul>
 </nav>
 
@@ -55,18 +46,15 @@ function getCsrfToken() {
 // Set up Axios defaults
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+  axios.post('api/logout').then(response=>{
 
-
-  // axios.get('sanctum/csrf-cookie').then(response=>{
-  axios.post('/osms/api/logout').then(response=>{
       if((response.data.flag) == 1){
         window.location.href = myLoginUrl;
         console.log(response);
       }else{
         console.log(response);
       }
-  });
-//  });
+});
 });
 
 </script>

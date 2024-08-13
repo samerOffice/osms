@@ -169,7 +169,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/branch_warehouse_dependancy',{
+ axios.post('/api/branch_warehouse_dependancy',{
         data: selectedBranch
       }).then(response=>{
       $('#warehouse_id').html(response.data);
@@ -199,7 +199,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/branch_outlet_dependancy',{
+ axios.post('/api/branch_outlet_dependancy',{
         data: selectedBranch
       }).then(response=>{
       $('#outlet_id').html(response.data);
@@ -255,7 +255,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/department_store',addDepartmentFormData).then(response=>{
+ axios.post('/api/department_store',addDepartmentFormData).then(response=>{
   console.log(response);
   window.location.reload();
   Swal.fire({

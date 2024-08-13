@@ -99,7 +99,8 @@ Supplier List
 <script>
       $(document).ready(function() {
     $('#example1').DataTable({
-        dom: 'Bfrtip',
+      responsive: true, // Enable responsive behavior
+      dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'print',
@@ -152,7 +153,7 @@ Supplier List
             axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
             axios.get('sanctum/csrf-cookie').then(response=>{
-            axios.post('/osms/api/delete_supplier/'+ row_id).then(response=>{
+            axios.post('/api/delete_supplier/'+ row_id).then(response=>{
               console.log(response);
               setTimeout(function() {
                   window.location.reload();

@@ -141,7 +141,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/branch_store',branchFormData).then(response=>{
+ axios.post('/api/branch_store',branchFormData).then(response=>{
   console.log(response);
   window.location.reload();
   Swal.fire({

@@ -120,7 +120,7 @@ $('.summernote').summernote();
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
     // axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/osms/api/update_warehouse/' + warehouse_id, updatewarehouseFormData).then(response=>{
+    axios.post('/api/update_warehouse/' + warehouse_id, updatewarehouseFormData).then(response=>{
     console.log(response);
     setTimeout(function() {
             window.location.reload();

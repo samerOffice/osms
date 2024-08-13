@@ -73,7 +73,7 @@ New Product Request Form
     });
 
     function fetchProductList() {
-    return axios.get('/osms/api/products') // Adjust the URL as needed
+    return axios.get('/api/products') // Adjust the URL as needed
         .then(response => response.data)
         .catch(error => {
             console.error('Failed to fetch product list:', error);
@@ -93,7 +93,7 @@ New Product Request Form
         axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
         // axios.get('sanctum/csrf-cookie').then(response=>{
-        axios.get('/osms/api/requisition_edit/'+requisition_order_id).then(response=>{           
+        axios.get('/api/requisition_edit/'+requisition_order_id).then(response=>{           
             if (Array.isArray(response.data)) {
                     response.data.forEach(function(product) {
                         console.log('Adding row for product:', product);
@@ -104,6 +104,8 @@ New Product Request Form
                             productWeight: product.requested_product_weight,
                             unit: product.requested_product_unit_type,
                             productDetails: product.requested_product_details,
+                            productMFGDate: product.requested_product_mfg_date,
+                            productExpiryDate: product.requested_product_expiry_date,
                             quantity: product.requested_product_quantity,
                             unitPrice: product.requested_product_unit_price
                         });
@@ -155,23 +157,33 @@ New Product Request Form
                     <input type="text" readonly class="form-control product_unit_type" value="${data.unit || ''}" name="product_unit_type[]" > 
                 </div>
 
-                <div class="form-group col-2">
+                <div class="form-group col-6">
                     <label for="product_details" class="col-form-label text-start">Details</label>
                     <textarea readonly name="product_details[]" class="form-control product_details">${data.productDetails || ''}</textarea>
                 </div>
 
-                <div class="form-group col-1">
+                <div class="form-group col-2">
+                    <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
+                    <input type="date" class="form-control product_mfg_date" value="${data.productMFGDate || ''}" name="product_mfg_date[]">
+                </div>
+
+                <div class="form-group col-2">
+                    <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
+                    <input type="date" class="form-control product_expiry_date" value="${data.productExpiryDate || ''}" name="product_expiry_date[]">
+                </div>
+
+                <div class="form-group col-2">
                     <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                     <input type="number" class="form-control product_quantity" value="${data.quantity || ''}" name="product_quantity[]">
                 </div>
 
 
-               <div class="form-group col-1">
+               <div class="form-group col-2">
                     <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                     <input type="number"  class="form-control product_unit_price" value="${data.unitPrice || ''}" name="product_unit_price[]">
                </div>
 
-                <div class="form-group col-1">
+                <div class="form-group col-2">
                     <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                     <input type="text" readonly class="form-control product_subtotal" value="${data.quantity && data.unitPrice ? (data.quantity * data.unitPrice).toFixed(2) : '--'}" name="product_subtotal[]" >
                 </div>
@@ -228,7 +240,7 @@ New Product Request Form
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    axios.post('/osms/api/product_information_dependancy', { data: productId })
+    axios.post('/api/product_information_dependancy', { data: productId })
         .then(response => {
 
             console.log(response.data);
@@ -305,7 +317,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 // axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/requisition_update/'+ requisition_order_id, requisitionOrderFormUpdateData).then(response=>{
+ axios.post('/api/requisition_update/'+ requisition_order_id, requisitionOrderFormUpdateData).then(response=>{
   console.log(response);
   setTimeout(function() {
         window.location.href = "{{ route('requisition_list') }}";

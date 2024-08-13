@@ -151,6 +151,10 @@ class ProductRequisitionController extends Controller
         $product_weights = $request->product_weight;
         $product_unit_types = $request->product_unit_type;
         $product_details = $request->product_details;
+
+        $product_mfg_dates = $request->product_mfg_date;
+        $product_expiry_dates = $request->product_expiry_date;
+        
         $product_quantities = $request->product_quantity;
         $product_unit_prices = $request->product_unit_price;
         $product_subtotals = $request->product_subtotal;
@@ -161,6 +165,10 @@ class ProductRequisitionController extends Controller
             $product_weight = $product_weights[$key] ?? null;
             $product_unit_type = $product_unit_types[$key] ?? null; 
             $product_detail = $product_details[$key] ?? null;
+
+            $product_mfg_date = $product_mfg_dates[$key] ?? null;
+            $product_expiry_date = $product_expiry_dates[$key] ?? null;
+
             $product_quantity = $product_quantities[$key] ?? null;
             $product_unit_price = $product_unit_prices[$key] ?? null;
             $product_subtotal = $product_subtotals[$key] ?? null;
@@ -174,6 +182,10 @@ class ProductRequisitionController extends Controller
                 'product_weight' => $product_weight,
                 'product_unit_type' => $product_unit_type,
                 'product_details' => $product_detail,
+
+                'product_mfg_date' => $product_mfg_date,
+                'product_expiry_date' => $product_expiry_date,
+
                 'product_quantity' => $product_quantity,
                 'product_unit_price' => $product_unit_price,          
                 'product_subtotal' => $product_subtotal          
@@ -226,6 +238,10 @@ class ProductRequisitionController extends Controller
                                 'product_requisitions.product_weight as requested_product_weight',
                                 'product_requisitions.product_unit_type as requested_product_unit_type',
                                 'product_requisitions.product_details as requested_product_details',
+
+                                'product_requisitions.product_mfg_date as requested_product_mfg_date',
+                                'product_requisitions.product_expiry_date as requested_product_expiry_date',
+
                                 'product_requisitions.product_quantity as requested_product_quantity',
                                 'product_requisitions.product_unit_price as requested_product_unit_price',
                                 'product_requisitions.product_subtotal as requested_product_subtotal',                                
@@ -269,6 +285,10 @@ class ProductRequisitionController extends Controller
             $product_weights = $request->product_weight;
             $product_unit_types = $request->product_unit_type;
             $product_details = $request->product_details;
+
+            $product_mfg_dates = $request->product_mfg_date;
+            $product_expiry_dates = $request->product_expiry_date;
+
             $product_quantities = $request->product_quantity;
             $product_unit_prices = $request->product_unit_price;
             $product_subtotals = $request->product_subtotal;
@@ -285,6 +305,10 @@ class ProductRequisitionController extends Controller
                 $product_weight = $product_weights[$key] ?? null;
                 $product_unit_type = $product_unit_types[$key] ?? null;
                 $product_detail = $product_details[$key] ?? null;
+
+                $product_mfg_date = $product_mfg_dates[$key] ?? null;
+                $product_expiry_date = $product_expiry_dates[$key] ?? null;
+
                 $product_quantity = $product_quantities[$key] ?? null;
                 $product_unit_price = $product_unit_prices[$key] ?? null;
                 $product_subtotal = $product_subtotals[$key] ?? null;
@@ -298,6 +322,10 @@ class ProductRequisitionController extends Controller
                         'product_weight' => $product_weight,
                         'product_unit_type' => $product_unit_type,
                         'product_details' => $product_detail,
+
+                        'product_mfg_date' => $product_mfg_date,
+                        'product_expiry_date' => $product_expiry_date,
+
                         'product_quantity' => $product_quantity,
                         'product_unit_price' => $product_unit_price,
                         'product_subtotal' => $product_subtotal
@@ -395,13 +423,13 @@ class ProductRequisitionController extends Controller
         $requisition_id = $request->approved_requisition_id;
         
         $update = DB::connection('inventory')
-        ->table('requisition_orders')
-        ->where('id', $requisition_id)
-        ->update([
-            'requisition_reviewed_by' => $user_id,
-            'requisition_status' => 3,
-            'requisition_deliver_date' => Carbon::now()->format('Y-m-d')
-        ]);
+                    ->table('requisition_orders')
+                    ->where('id', $requisition_id)
+                    ->update([
+                        'requisition_reviewed_by' => $user_id,
+                        'requisition_status' => 3,
+                        'requisition_deliver_date' => Carbon::now()->format('Y-m-d')
+                    ]);
 
         $order_track = DB::connection('inventory')
                         ->table('requisition_orders')
@@ -425,21 +453,120 @@ class ProductRequisitionController extends Controller
 
         foreach($purchased_products as $purchased_product){
             $stocks = DB::connection('inventory')
-            ->table('stocks')
-            ->insertGetId([
-                'product_id' => $purchased_product->product_id,
-                'company_id' => $company_id,
-                'warehouse_id' => $warehouse_id,
-                'quantity' => $purchased_product->product_quantity,
-                'product_unit_price' => $purchased_product->product_unit_price,
-                'product_subtotal' => $purchased_product->product_subtotal,
-                'purchase_date' => $product_deliver_date,
-                'product_stored_by' => $requisition_reviewed_by              
-                ]);
+                        ->table('stocks')
+                        ->insertGetId([
+                            'product_id' => $purchased_product->product_id,
+                            'company_id' => $company_id,
+                            'warehouse_id' => $warehouse_id,
+                            'product_mfg_date' => $purchased_product->product_mfg_date,
+                            'product_expiry_date' => $purchased_product->product_expiry_date,
+                            'quantity' => $purchased_product->product_quantity,
+                            'product_unit_price' => $purchased_product->product_unit_price,
+                            'product_subtotal' => $purchased_product->product_subtotal,
+                            'purchase_date' => $product_deliver_date,
+                            'product_stored_by' => $requisition_reviewed_by              
+                            ]);
         }
        
         return redirect()->route('requisition_list')->withSuccess('Order is reviewed successfully'); 
     }
+
+
+
+    //inventory dashboard chart data
+    public function monthlySalesPurchases(){
+
+        $user_company_id = Auth::user()->company_id;
+        $current_year = Carbon::now()->format('Y');
+
+        //----purchase sum start
+        $purchases_by_month = DB::connection('inventory')
+            ->table('requisition_orders')
+            ->select(DB::raw('MONTH(requisition_deliver_date) as month'), DB::raw('SUM(total_amount) as total_purchase'))
+            ->whereYear('requisition_deliver_date', $current_year)
+            ->where('company_id', $user_company_id)
+            ->groupBy(DB::raw('MONTH(requisition_deliver_date)'))
+            ->orderBy('month')
+            ->get();
+
+        // Initialize an array with all months set to 0
+        $monthly_purchases = array_fill(1, 12, 0);
+
+        // Populate the array with actual data
+        foreach ($purchases_by_month as $purchase) {
+            $monthly_purchases[$purchase->month] = $purchase->total_purchase;
+        }
+        //----purchase sum end
+
+
+        //----sale sum start
+        $sales_by_month = DB::connection('pos')
+            ->table('invoices')
+            ->select(DB::raw('MONTH(invoice_date) as month'), DB::raw('SUM(grand_total) as total_sale'))
+            ->whereYear('invoice_date', $current_year)
+            ->where('company_id', $user_company_id)
+            ->groupBy(DB::raw('MONTH(invoice_date)'))
+            ->orderBy('month')
+            ->get();
+
+        // Initialize an array with all months set to 0
+        $monthly_sales = array_fill(1, 12, 0);
+
+        // Populate the array with actual data
+        foreach ($sales_by_month as $sale) {
+            $monthly_sales[$sale->month] = $sale->total_sale;
+        }
+        //----sale sum end
+
+
+        return response()->json([
+             'sales' => array_values($monthly_sales),
+            'purchases' => array_values($monthly_purchases)
+        ]);
+    }
+
+
+    public function totalAvailableProducts(){
+        
+                $user_company_id = Auth::user()->company_id;
+                
+                $total_available_products = DB::connection('inventory')
+                                            ->table('products')
+                                            ->where('shop_company_id',$user_company_id)
+                                            ->where('product_status',1)
+                                            ->count('id');
+
+                return response()->json([
+                    'total_available_products' => $total_available_products
+            ]);
+
+    }
+
+
+    public function totalNearExpiredProducts(){
+        
+        $user_company_id = Auth::user()->company_id;
+
+        // Get the current date and time
+        $today = Carbon::now();
+
+        // Calculate the date one month from today
+        $oneMonthFromNow = $today->addMonth()->toDateString();
+
+        // Reset $today to the current date again, because `addMonth()` modifies the original Carbon instance
+        $today = Carbon::now()->toDateString();
+        
+        $total_near_expired_products = DB::connection('inventory')
+                                    ->table('stocks')
+                                    ->where('company_id',$user_company_id)
+                                    ->whereBetween('product_expiry_date', [$today, $oneMonthFromNow])
+                                    ->count('id');
+
+        return response()->json([
+            'total_near_expired_products' => $total_near_expired_products
+    ]);
+
+}
 
 
 

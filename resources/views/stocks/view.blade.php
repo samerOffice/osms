@@ -57,16 +57,20 @@ View Stock
                       <thead>
                       <tr>
                         <th>Serial No.</th>
+                        {{-- <th>Stock No.</th> --}}
                         <th>Warehouse</th>
                         <th>Product</th>
                         <th>Product Weight</th>
                         <th>Product Details</th>
+                        <th>MFG Date</th>
+                        <th>Expiry Date</th>
                         <th>Product Quantity</th>
                         <th>Unit Price</th>                      
                         <th>Subtotal</th>
                         <th>Purchase Date</th>
                         <th>Purchased By</th>
                         <th>Labeling</th>
+                        <th>Damage Report</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -74,10 +78,13 @@ View Stock
                         @foreach($stocks as $stock)
                       <tr>
                         <td>{{$i++}}</td>
+                        {{-- <td>{{$stock->id}}</td> --}}
                         <td>{{$stock->warehouse_name}}</td>
                         <td>{{$stock->stock_product_name}}</td>
                         <td>{{$stock->stock_product_weight}} {{$stock->stock_product_unit_type}}</td>
                         <td>{{$stock->stock_product_details}}</td>
+                        <td>{{$stock->product_mfg_date}}</td>
+                        <td>{{$stock->product_expiry_date}}</td>
                         <td>{{$stock->quantity}}</td>
                         <td>{{$stock->product_unit_price}} BDT</td>
                         <td>{{$stock->product_subtotal}} BDT</td>
@@ -89,7 +96,11 @@ View Stock
                             @else
                             <a href="{{route('add_label',$stock->id)}}">Add Label</a>
                             @endif
-                        </td>                  
+                        </td>
+                          
+                        <td>
+                            <a href="{{route('damage_product',$stock->id)}}" style="color: white"><button class="btn btn-danger"> <i class="fa-solid fa-pen-to-square"></i> Detail</button></a>
+                        </td>               
                       </tr>
                       @endforeach                
                       </tbody>

@@ -17,13 +17,17 @@ header("Location: $redirectRoute");
     <div class="container mt-1" style="background-color: white; animation: 1.5s fadeIn; border-radius: 15px;" >
       <div class="row d-flex align-items-center justify-content-center h-80"  style="padding: 20px">
         <div class="col-md-8 col-lg-7 col-xl-6">
-          <img src="{{asset('public/img/login_side_image1.jpg')}}"
+          <div style="padding-left: 10%">
+            <img src="{{ asset('img/osmslogo.png')}}"  height="50px" width="auto" alt="logo">
+          </div>
+          
+          <img src="{{asset('img/login_side_image1.jpg')}}"
             class="img-fluid" alt="Phone image">
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <img src="{{asset('public/img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
-            <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>    
-            <br>
+          {{-- <img src="{{asset('img/otithee_logo.png')}}"  height="auto" width="103px" alt="logo" style="align-content: center">
+          <h4 style="font-family: system-ui;"><a href="" class="h4"><em style="color: green; font-weight: bold"> Shop Management System</em> </a></h4>     --}}
+             
              <input type="hidden" id="myDashboardUrl" value="{{ route('home') }}">
             <form id="registerForm">
             <!-- Name input -->
@@ -81,7 +85,7 @@ header("Location: $redirectRoute");
                 <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
                     <button type="button" class="btn btn-lg btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-company">
-                        Company Details
+                        Shop Details
                     </button>
                 </div> 
                 </div>
@@ -136,7 +140,7 @@ header("Location: $redirectRoute");
              <div class="modal-dialog modal-lg">        
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title" style="color:blueviolet">Company Details</h4>
+                  <h4 class="modal-title" style="color:blueviolet">Shop Details</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -146,28 +150,28 @@ header("Location: $redirectRoute");
 
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
-                        <label>Company Name <small style="color: red">*</small></label>
-                      <input type="text"  placeholder="Company Name" id="company_name" name="company_name" class="form-control form-control-lg" />
+                        <label>Shop Name <small style="color: red">*</small></label>
+                      <input type="text"  placeholder="Shop Name" id="company_name" name="company_name" class="form-control form-control-lg" />
                      </div> 
                     </div>
 
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
-                        <label>Company Email</label>
-                      <input type="email" placeholder="Company Email" id="company_email" name="company_email" class="form-control form-control-lg" />
+                        <label>Shop Official Email</label>
+                      <input type="email" placeholder="Email" id="company_email" name="company_email" class="form-control form-control-lg" />
                      </div> 
                     </div>
 
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
-                        <label>Company Contact Number <small style="color: red">*</small></label>
+                        <label>Official Contact Number <small style="color: red">*</small></label>
                       <input type="text"  placeholder="Contact No." id="company_contact_no" name="company_contact_no" class="form-control form-control-lg" />
                      </div> 
                     </div>
 
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
-                        <label>Company Trade License Number <small style="color: red">*</small></label>
+                        <label>Shop Trade License Number <small style="color: red">*</small></label>
                       <input type="text"  placeholder="License No." id="company_license_no" name="company_license_no" class="form-control form-control-lg" />
                      </div> 
                     </div>
@@ -175,14 +179,14 @@ header("Location: $redirectRoute");
 
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
-                        <label>Company Registration Number</label>
-                      <input type="text" placeholder="Registration No." id="company_reg_no" name="company_reg_no" class="form-control form-control-lg" />
+                        <label>Shop BIN Number</label>
+                      <input type="text" placeholder="BIN Number" id="company_reg_no" name="company_reg_no" class="form-control form-control-lg" />
                      </div> 
                     </div>
 
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
-                        <label>Company Address</label>
+                        <label>Shop Address</label>
                       <textarea name="company_address"  id="company_address"  class="form-control form-control-lg"></textarea>
                      </div> 
                     </div>
@@ -211,7 +215,7 @@ header("Location: $redirectRoute");
                     <div class="col-md-6 col-sm-12">
                      <div data-mdb-input-init class="form-outline mb-4">
                         <label>Country</label>
-                      <input type="text" placeholder="Country Name" id="company_country" name="company_country" class="form-control form-control-lg" />
+                      <input type="text"  id="company_country" name="company_country" class="form-control form-control-lg" />
                      </div> 
                     </div>
 
@@ -340,7 +344,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/division',{
+ axios.post('/api/division',{
         data: selectedDivision
       }).then(response=>{
       $('#district').html(response.data);
@@ -507,7 +511,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
   
  axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/osms/api/register',registerFormData).then(response=>{
+ axios.post('/api/register',registerFormData).then(response=>{
   window.location.href = myDashboardUrl;
   }).catch(error => Swal.fire({
               icon: "error",

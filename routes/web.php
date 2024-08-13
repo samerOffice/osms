@@ -25,6 +25,18 @@ use App\Http\Controllers\API\Inventory\StockController;
 use App\Http\Controllers\API\POS\InvoiceController;
 
 
+#### CLEAR ALL IN ONE ####
+use Illuminate\Support\Facades\Artisan;
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('optimize:clear');
+    Artisan::call('route:clear');
+    Artisan::call('optimize');
+    return 'Caches cleared and configuration files regenerated.';
+});
+
+
 Route::get('/', [HomeController::class, 'index'])->name('login');
 Route::get('/registration', [HomeController::class, 'registration'])->name('registration');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('home');
@@ -133,10 +145,14 @@ Route::post('/requisition_order_receive', [ProductRequisitionController::class, 
 Route::get('/stock_list', [StockController::class, 'stock_list'])->name('stock_list');
 Route::get('/view_stock/{product_id}', [StockController::class, 'view_stock'])->name('view_stock');
 Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->name('add_label');
+Route::get('/damage_product/{product_id}', [StockController::class, 'damage_product'])->name('damage_product');
 
 
 //...............********* pos module ********................
-//invoice
-Route::get('/add_invoice', [InvoiceController::class, 'add_invoice'])->name('add_invoice');
-Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
-Route::get('/invoice_show_data', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+
+//invoice (sale)
+Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
+
+
+// Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
+ Route::get('/invoice_show_data/{last_invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
