@@ -156,6 +156,8 @@ class InvoiceController extends Controller
                         'tax_amount' => $request->tax_amount,
                         'discount_amount' => $request->discount_amount,
                         'grand_total' => $request->grand_total,
+                        'due_amount' => $request->due_amount,
+                        'paid_amount' => $request->paid_amount,
                         'payment_status' => 1,
                         ]);
 
@@ -245,6 +247,8 @@ class InvoiceController extends Controller
                                 'invoices.tax_amount as invoice_tax_amount',
                                 'invoices.discount_amount as invoice_discount_amount',
                                 'invoices.grand_total as invoice_grand_total',
+                                'invoices.due_amount as invoice_due_amount',
+                                'invoices.paid_amount as invoice_paid_amount',
                                 'invoices.terms_and_conditions as invoice_terms_and_conditions',
                                 'invoices.payment_status as invoice_payment_status',
                                 'invoices.payment_method_id as payment_method',
@@ -333,6 +337,42 @@ class InvoiceController extends Controller
 
     //     return redirect()->route('invoice_show_data');
     // }
+
+
+    public function previousAndCurrentMonthSale(){
+
+        $user_company_id = Auth::user()->company_id;
+
+        $current_date = Carbon::now();
+
+        // Get the previous month
+        $previous_month = $current_date->subMonth()->format('m');
+        
+       
+        $previous_month_sale = DB::connection('pos')
+                                ->table('invoices')
+                                ->whereMonth('invoice_date',$previous_month)
+                                ->whereYear('invoice_date', $current_date->year) // Ensure it's the previous month of the same year
+                                ->where('company_id',$user_company_id)
+                                ->sum('paid_amount');
+
+
+
+        $current_month = Carbon::now()->format('m');
+
+        $current_month_sale = DB::connection('pos')
+                                ->table('invoices')
+                                ->whereMonth('invoice_date',$current_month)
+                                ->whereYear('invoice_date', $current_date->year) // Ensure it's the current year
+                                ->where('company_id',$user_company_id)
+                                ->sum('paid_amount');
+
+                            
+        return response()->json([
+            'previous_month_sale' => $previous_month_sale,
+            'current_month_sale' => $current_month_sale
+        ]);
+    }
 
 
   

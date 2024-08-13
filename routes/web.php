@@ -23,6 +23,7 @@ use App\Http\Controllers\API\Inventory\ProductRequisitionController;
 use App\Http\Controllers\API\Inventory\StockController;
 
 use App\Http\Controllers\API\POS\InvoiceController;
+use App\Http\Controllers\API\POS\CustomerController;
 
 
 #### CLEAR ALL IN ONE ####
@@ -152,7 +153,10 @@ Route::get('/damage_product/{product_id}', [StockController::class, 'damage_prod
 
 //invoice (sale)
 Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
-
-
 // Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
  Route::get('/invoice_show_data/{last_invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+
+//customer
+Route::get('/customer_list', [CustomerController::class, 'customer_list'])->name('customer_list');
+Route::get('/add_customer', [CustomerController::class, 'add_customer'])->name('add_customer');
+Route::get('/edit_customer/{customer_id}', [CustomerController::class, 'edit_customer'])->name('edit_customer');

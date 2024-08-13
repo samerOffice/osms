@@ -142,9 +142,9 @@ class SupplierController extends Controller
         $deleted = DB::table('suppliers')->where('id', $id)->delete();
 
         if ($deleted == true) {
-                    return response()->json(['success' => true, 'error' => false, 'message' => 'Supplier is Deleted Successfully !']);
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Supplier is Deleted Successfully!']);
                 } else {
-                    return response()->json(['success' => false, 'error' => true, 'message' => 'Supplier Failed To Deleted !']);
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Supplier Failed To Deleted!']);
                 }
 
         // return redirect('/divisions')->with('alert', 'Division is deleted successfully');

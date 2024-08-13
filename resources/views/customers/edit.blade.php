@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Supplier
+Customer
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@ Supplier
         <br>
         <div class="row">
             <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="{{route('supplier_list')}}">
+                <a class="btn btn-outline-info float-right" href="{{route('customer_list')}}">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
             </div>
@@ -21,37 +21,41 @@ Supplier
                 <br>
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Update Supplier Details</h3>
+                    <h3 class="card-title">Update Customer Details</h3>
                   </div>  
                     <div class="card-body">
-                        <form id="updateSupplierForm" >
+                        <form id="updateCustomerForm" >
                             <div class="row">  
                                 <div class="col-md-12 col-sm-12">
                                     <div  class="form-group mb-4">
-                                        <label>Supplier Name <small style="color: red">*</small></label>
-                                        <input type="text" required  id="full_name" value="{{$supplier->full_name}}" name="full_name" class="form-control form-control-lg" />
+                                        <label>Customer Name <small style="color: red">*</small></label>
+                                        <input type="text" required  id="customer_name" value="{{$customer->customer_name}}" name="customer_name" class="form-control form-control-lg" />
                                     </div> 
-                                </div>
-                    
-                                <div class="col-md-12 col-sm-12">
-                                <div  class="form-group mb-4">
-                                    <label>Mobile Number <small style="color: red">*</small></label>
-                                    <input type="text" required  id="mobile_number" value="{{$supplier->mobile_number}}" name="mobile_number" class="form-control form-control-lg" />
                                 </div>
 
+
                                 <div class="col-md-12 col-sm-12">
-                                    <div  class="form-group mb-4">
-                                        <label>Official Address <small style="color: red">*</small></label>
-                                        <textarea name="official_address" required id="official_address"  class="form-control form-control-lg summernote">{{$supplier->official_address}}</textarea>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                    <label>Mobile Number <small style="color: red">*</small></label>
+                                    <input type="text" required placeholder="016xxxxxxxx" id="customer_phone_number" value="{{$customer->customer_phone_number}}" name="customer_phone_number" class="form-control form-control-lg" />
                                     </div> 
-                                    </div>
+                                </div>
+    
+    
+                                <div class="col-md-12 col-sm-12">
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                    <label>Email</label>
+                                    <input type="email"  id="customer_email" value="{{$customer->customer_email}}" name="customer_email" class="form-control form-control-lg" />
+                                    </div> 
+                                </div>
+
 
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group mb-4">
                                         <label>Active Status <small style="color: red">*</small></label>
                                         <select class="form-control select2bs4" required id="active_status" name="active_status" style="width: 100%;">
-                                            <option selected value="{{$supplier->active_status}}">
-                                                @if(($supplier->active_status) == 1)
+                                            <option selected value="{{$customer->active_status}}">
+                                                @if(($customer->active_status) == 1)
                                                 Active
                                                 @else
                                                 Inactive
@@ -62,11 +66,10 @@ Supplier
                                         </select>
                                     </div> 
                                 </div>
-                    
-                                        
+                               
                               </div>
 
-                            <input type="hidden" value="{{$supplier->id}}" name="id" id="supplier_id">
+                            <input type="hidden" value="{{$customer->id}}" name="id" id="customer_id">
                             <button type="submit" id="sub" class="btn btn-info float-right mr-4">Update</button>
                           </form>
                     </div>
@@ -98,12 +101,12 @@ $('.summernote').summernote();
 });
 
 
-    document.getElementById('updateSupplierForm').addEventListener('submit',function(event){
+    document.getElementById('updateCustomerForm').addEventListener('submit',function(event){
     event.preventDefault();
 
 
-    var updateSupplierFormData = new FormData(this);
-    var supplier_id = document.getElementById('supplier_id').value;
+    var updateCustomerFormData = new FormData(this);
+    var customer_id = document.getElementById('customer_id').value;
 
    
     // Function to get CSRF token from meta tag
@@ -115,10 +118,11 @@ $('.summernote').summernote();
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
     // axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/api/update_supplier/' + supplier_id, updateSupplierFormData).then(response=>{
+    axios.post('/api/update_customer/' + customer_id, updateCustomerFormData).then(response=>{
     console.log(response);
     setTimeout(function() {
-            window.location.reload();
+            // window.location.reload();
+            window.location.href = "{{ route('customer_list') }}";
         }, 2000);
     Swal.fire({
                 icon: "success",

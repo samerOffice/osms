@@ -199,45 +199,41 @@ class StockController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public function update_damage_product(Request $request, $id){    
         
         
         $damage_product_quantity = $request->damage_product;
 
-        $current_product_quantity = DB::connection('inventory')
+        $current_product = DB::connection('inventory')
                                     ->table('stocks')
-                                    ->select('quantity')
+                                    ->select('quantity','product_unit_price','product_id')
                                     ->where('id', $id)
                                     ->first();
         
-        $current_product_quantity_in_stock = $current_product_quantity->quantity;
+        $current_product_id_in_stock = $current_product->product_id;
+        $current_product_quantity_in_stock = $current_product->quantity;
+        $current_product_unit_price_in_stock = $current_product->product_unit_price;
 
         $updated_quantity = ($current_product_quantity_in_stock) - ($damage_product_quantity);
+        $updated_subtotal = ($updated_quantity) * ($current_product_unit_price_in_stock);
 
         // Update the stock quantity in the stocks table
        $updated_stock = DB::connection('inventory')
-            ->table('stocks')
-            ->where('id', $id)
-            ->update(['quantity' => $updated_quantity]);
+                        ->table('stocks')
+                        ->where('id', $id)
+                        ->update([
+                            'quantity' => $updated_quantity,
+                            'product_subtotal' => $updated_subtotal
+                        ]);
 
             $user_company_id = Auth::user()->company_id;
             $store_damage_product = DB::connection('inventory')
                                     ->table('damage_and_burned_products')
                                             ->insertGetId([
                                             'entry_date'=>Carbon::now()->toDateString(),
-                                            'stock_id'=>$id,                                           
+                                            'company_id'=>$user_company_id,                                          
+                                            'stock_id'=>$id,                                          
+                                            'product_id'=>$current_product_id_in_stock,                                           
                                             'quantity'=>$damage_product_quantity    
                                             ]);
     

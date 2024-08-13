@@ -127,18 +127,22 @@ function damageProduct(){
     var current_quantity = $('#current_quantity').html();
     var damage_product_quantity = $('#damage_quantity').val();
 
-    current_quantity = parseInt(current_quantity);
-    damage_product_quantity = parseInt(damage_product_quantity);
+    // current_quantity = parseInt(current_quantity);
+    // damage_product_quantity = parseInt(damage_product_quantity);
 
     if(damage_product_quantity > current_quantity){
         Swal.fire({
                     icon: "warning",
                     title: 'Damage product quantity is greater than current product quantity!',
                     });
-        return false;
-    }else{
+                    return false;
+        // $('#damage_quantity').val(0);
+}
 
-        document.getElementById('updateProductQuantityForm').addEventListener('submit',function(event){
+}
+
+
+document.getElementById('updateProductQuantityForm').addEventListener('submit',function(event){
         event.preventDefault();
 
         var updateProductQuantityFormData = new FormData(this);
@@ -172,11 +176,6 @@ function damageProduct(){
         // });
 
         });
-    }
-}
-
-
    
-    
 </script>
   @endpush
