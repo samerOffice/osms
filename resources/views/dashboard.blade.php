@@ -292,39 +292,32 @@ $(document).ready(function() {
   // - MONTHLY SALES CHART (Main Dashboard)
   //---------------------------------------
 
-$(function () {
-  'use strict'
+  $(function () {
+  'use strict';
 
   // Get context with jQuery - using jQuery's .get() method.
-  var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
+  var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
 
+  // Define salesChartData initially with dummy data
   var salesChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','Aug', 'Sep','Oct', 'Nov', 'Dec'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
         label: 'Digital Goods',
         backgroundColor: '#16aaff',
-        // borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
-        // pointColor: '#3b8bba',
-        // pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
-        // pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [28, 48, 40, 19, 86, 27, 90, 81, 75, 55, 75, 10]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // Placeholder data
       },
       {
         label: 'Electronics',
         backgroundColor: '#d92550',
-        // borderColor: 'rgba(210, 214, 222, 1)',
         pointRadius: false,
-        // pointColor: 'rgba(210, 214, 222, 1)',
-        // pointStrokeColor: '#c1c7d1',
         pointHighlightFill: '#fff',
-        // pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55, 40, 50, 80, 90, 95, 100]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // Placeholder data
       }
     ]
-  }
+  };
 
   var salesChartOptions = {
     maintainAspectRatio: false,
@@ -344,17 +337,31 @@ $(function () {
         }
       }]
     }
-  }
-  // This will get the first returned node in the jQuery collection.
-  // eslint-disable-next-line no-unused-vars
+  };
+
+  // Initialize the chart
   var salesChart = new Chart(salesChartCanvas, {
     type: 'line',
     data: salesChartData,
     options: salesChartOptions
-  }
-  )
+  });
 
-})
+  // Fetch dynamic data using Axios
+  axios.get('/api/previous_and_current_monthly_sales') // Replace with your actual API endpoint
+    .then(function (response) {
+      var data = response.data;
+
+      // Update the chart data with the dynamic data
+      salesChartData.datasets[0].data = data.previous_month_sale; // Replace with your data keys
+      salesChartData.datasets[1].data = data.current_month_sale; // Replace with your data keys
+
+      // Re-render the chart to reflect the new data
+      salesChart.update();
+    })
+    .catch(function (error) {
+      console.error('Error fetching sales data:', error);
+    });
+});
 
   //---------------------------------------------
   // - END MONTHLY SALES CHART - (Main Dashboard)
@@ -472,68 +479,100 @@ $(function () {
 
 
  //-------------------- Available Product Percentage (start)---------
-
-   // Function to update the widget
-   function updateAvailableProducts(percentage) {
+// Function to update the widget
+function updateAvailableProducts(percentage) {
     // Update the percentage text
-    document.getElementById('available-products-percentage').textContent = percentage + '%';
+    document.getElementById('available-products-percentage').textContent = percentage.toFixed(2) + '%';
     
     // Update the progress bar width and aria-valuenow
     var progressBar = document.getElementById('progress-bar-available-product');
-    progressBar.style.width = percentage + '%';
-    progressBar.setAttribute('aria-valuenow', percentage);
-  }
+    progressBar.style.width = percentage.toFixed(2) + '%';
+    progressBar.setAttribute('aria-valuenow', percentage.toFixed(2));
+}
 
-  // Function to fetch data from the API using Axios
-  function fetchAvailableProducts() {
+// Function to fetch data from the API using Axios
+function fetchAvailableProducts() {
     return axios.get('/api/total_available_products') // Replace with your API endpoint
-      .then(response => {
-        // Assuming the API returns an object with a `percentage` field
-        var percentage = response.data.total_available_products;
-        updateAvailableProducts(percentage);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        // Optionally, handle errors or show a default message
-      });
-  }
-  // Call the function to fetch and update data on page load
-  fetchAvailableProducts();
+        .then(response => {
+            // Assuming the API returns an object with a `percentage` field
+            var percentage = response.data.percentage;
+            updateAvailableProducts(percentage);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally, handle errors or show a default message
+        });
+}
+
+// Call the function to fetch and update data on page load
+fetchAvailableProducts();
 
   //-------------------- Available Product Percentage (end)---------
 
 
 
    //-------------------- Near-Expired Product Percentage (start)---------
-
-   // Function to update the widget
-   function updateNearExpiredProducts(percentage) {
+  // Function to update the widget
+function updateNearExpiredProducts(percentage) {
     // Update the percentage text
-    document.getElementById('near-expired-products-percentage').textContent = percentage + '%';
+    document.getElementById('near-expired-products-percentage').textContent = percentage.toFixed(2) + '%';
     
     // Update the progress bar width and aria-valuenow
     var progressBar = document.getElementById('progress-bar-near-expired-product');
-    progressBar.style.width = percentage + '%';
-    progressBar.setAttribute('aria-valuenow', percentage);
-  }
+    progressBar.style.width = percentage.toFixed(2) + '%';
+    progressBar.setAttribute('aria-valuenow', percentage.toFixed(2));
+}
 
-  // Function to fetch data from the API using Axios
-  function fetchNearExpiredProducts() {
+// Function to fetch data from the API using Axios
+function fetchNearExpiredProducts() {
     return axios.get('/api/total_near_expired_products') // Replace with your API endpoint
-      .then(response => {
-        // Assuming the API returns an object with a `percentage` field
-        var percentage = response.data.total_near_expired_products;
-        updateNearExpiredProducts(percentage);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        // Optionally, handle errors or show a default message
-      });
-  }
-  // Call the function to fetch and update data on page load
-  fetchNearExpiredProducts();
+        .then(response => {
+            // Assuming the API returns an object with a `percentage` field
+            var percentage = response.data.percentage;
+            updateNearExpiredProducts(percentage);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally, handle errors or show a default message
+        });
+}
 
+// Call the function to fetch and update data on page load
+fetchNearExpiredProducts();
   //-------------------Near-Expired Product Percentage (end)---------
+
+
+
+
+   //-------------------- Damaged Product Percentage (start)---------
+   // Function to update the widget
+function updateDamagedProducts(percentage) {
+    // Update the percentage text
+    document.getElementById('damaged-products-percentage').textContent = percentage.toFixed(2) + '%';
+    
+    // Update the progress bar width and aria-valuenow
+    var progressBar = document.getElementById('progress-bar-damaged-product');
+    progressBar.style.width = percentage.toFixed(2) + '%';
+    progressBar.setAttribute('aria-valuenow', percentage.toFixed(2));
+}
+
+// Function to fetch data from the API using Axios
+function fetchDamagedProducts() {
+    return axios.get('/api/total_damaged_products') // Replace with your API endpoint
+        .then(response => {
+            // Assuming the API returns an object with a `percentage` field
+            var percentage = response.data.percentage;
+            updateDamagedProducts(percentage);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally, handle errors or show a default message
+        });
+}
+
+// Call the function to fetch and update data on page load
+fetchDamagedProducts();
+  //-------------------Damaged Product Percentage (end)---------
 </script>
 @endpush
 

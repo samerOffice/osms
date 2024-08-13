@@ -99,7 +99,13 @@ Invoice
         @if($invoice_data->invoice_discount_amount != '')
         <p align="right" class="" style="padding-right: 80px;"><b>Discount: {{number_format($invoice_data->invoice_discount_amount, 2)}} BDT</b></p>
         @endif
-        <p align="right" class="" style="padding-right: 80px; color:green"><b>Grand Total: {{$invoice_data->invoice_grand_total}} BDT</b></p>
+        <p align="right" class="" style="padding-right: 80px;"><b>Grand Total: {{$invoice_data->invoice_grand_total}} BDT</b></p>
+        @if(($invoice_data->invoice_due_amount == '') || ($invoice_data->invoice_due_amount == 0))
+        <p align="right" class="" style="padding-right: 80px; color: red"><b>Due: 0.00 BDT</b></p>
+        @else
+        <p align="right" class="" style="padding-right: 80px; color: red"><b>Due: {{number_format($invoice_data->invoice_due_amount, 2)}} BDT</b></p>
+        @endif
+        <p align="right" class="" style="padding-right: 80px; color:green"><b>Paid: {{number_format($invoice_data->invoice_paid_amount, 2)}} BDT</b></p>
         <br>
         <h3>Terms and Conditions</h3>
         <p>All sales are final. Please make the payment within 7 days. Late payments will incur a 5% penalty.</p>
@@ -113,4 +119,7 @@ Invoice
     </div>
     </body>
 @endsection
+
+
+
 

@@ -494,27 +494,6 @@
       </li>
 
 
-      @if(Auth::user()->review_requisition == 1)
-      <li class="nav-item @if(Request::is('requisition_list')) menu-open @endif">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-solid fa-box"></i>
-          <p>
-            Product Purchase
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-
-
-          <li class="nav-item">
-            <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
-              <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Purchased Products</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      @endif
 
       <li class="nav-item @if(Request::is('add_product')) menu-open 
             @elseif(Request::is('product_list')) menu-open
@@ -541,6 +520,29 @@
           </li>
         </ul>
       </li>
+
+
+      @if(Auth::user()->review_requisition == 1)
+      <li class="nav-item @if(Request::is('requisition_list')) menu-open @endif">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fa-solid fa-box"></i>
+          <p>
+            Product Purchase
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+
+
+          <li class="nav-item">
+            <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Purchased Products</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      @endif
 
 
 
@@ -639,12 +641,27 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-solid fa-users"></i>
-          <p> Customers</p>
+
+      <li class="nav-item nav-link 
+            @if(Request::is('customer_list')) nav-link active
+            @endif
+            " style="@if(Request::is('customer_list')) background-color: #20ceea;
+              @endif
+              ">
+        <a href="{{route('customer_list')}}">
+          <i class="nav-icon fa-solid fa-users" style="@if(Request::is('customer_list')) color: white;
+              @endif
+              ">
+          </i>
+          <p style="@if(Request::is('customer_list')) color:white;
+              @endif
+              ">
+            Customers
+          </p>
         </a>
       </li>
+
+     
 
 
       <li class="nav-item">

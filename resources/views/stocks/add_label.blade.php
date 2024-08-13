@@ -514,7 +514,8 @@ function generateProductBarCodeID() {
       const seconds = String(now.getSeconds()).padStart(2, '0');
       const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
       // Example format: INV-YYYYMMDD-HHMMSS-SSS
-      const orderID = `SKU-${productName}-${productQuantity}-${productPurchaseDate}-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
+    //   const orderID = `SKU-${productName}-${productQuantity}-${productPurchaseDate}-${year}${month}${day}-${hours}${minutes}${seconds}-${milliseconds}`;
+      const orderID = `SKU-${hours}${minutes}${seconds}-${milliseconds}`;
         $("#product_tag_number").val(orderID);    
   }
 
