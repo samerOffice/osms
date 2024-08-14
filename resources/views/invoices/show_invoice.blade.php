@@ -10,6 +10,8 @@ Invoice
    <div class="content-wrapper">
         <div class="container-fluid">
         <div class="invoice-box">
+             <!-- Start of the part you want to print -->
+             <div class="print-section">
         <table>
             <tr class="top">
                 <td colspan="4">
@@ -110,6 +112,9 @@ Invoice
         <h3>Terms and Conditions</h3>
         <p>All sales are final. Please make the payment within 7 days. Late payments will incur a 5% penalty.</p>
 
+        </div>
+        <!-- End of the part you want to print -->
+
         <!-- Print Button -->
         <div class="print-button">
             <button onclick="window.print()">Print Invoice</button>
@@ -117,6 +122,25 @@ Invoice
     </div>
         </div>
     </div>
+
+
+    <style>
+        /* Print-only styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .print-section, .print-section * {
+                visibility: visible;
+            }
+            .print-section {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+        }
+    </style>
     </body>
 @endsection
 

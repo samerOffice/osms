@@ -636,7 +636,7 @@
           <p style="@if(Request::is('add_invoice')) color:white;
               @endif
               ">
-            Invoices
+            Sale & Invoice
           </p>
         </a>
       </li>
@@ -680,11 +680,30 @@
         </a>
       </li>
 
+
+      <li class="nav-item nav-link 
+            @if(Request::is('customer_due_list')) nav-link active
+            @endif
+            " style="@if(Request::is('customer_due_list')) background-color: #20ceea;
+              @endif
+              ">
+        <a href="{{route('customer_due_list')}}">
+          <i class="nav-icon fa-regular fa-clipboard" style="@if(Request::is('customer_due_list')) color: white;
+              @endif
+              ">
+          </i>
+          <p style="@if(Request::is('customer_due_list')) color:white;
+              @endif
+              ">
+            Customer Due List
+          </p>
+        </a>
+      </li>
+
      
 
 
-     
-
+  
       <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-gem"></i>

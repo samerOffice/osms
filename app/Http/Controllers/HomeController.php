@@ -38,8 +38,35 @@ class HomeController extends Controller
       
       $current_module = DB::table('current_modules')->first();
 
+      $user_company_id = Auth::user()->company_id;
 
-      return view('dashboard',compact('current_module'));
+      $total_branch = DB::table('branches')
+      ->where('company_id',$user_company_id)
+      ->count('id');
+
+      $total_department = DB::table('departments')
+            ->where('company_id',$user_company_id)
+            ->count('id');
+
+
+      $total_warehouse = DB::connection('inventory')
+              ->table('warehouses')
+              ->where('company_id',$user_company_id)
+              ->count('id');
+
+
+      $total_outlet = DB::connection('pos')
+              ->table('outlets')
+              ->where('company_id',$user_company_id)
+              ->count('id');
+
+
+      return view('dashboard',compact('current_module',
+                                      'total_branch',
+                                      'total_department',
+                                      'total_warehouse',
+                                      'total_outlet'
+                                    ));
     }
 
 
@@ -66,7 +93,145 @@ class HomeController extends Controller
                    ->where('id', 1)
                   ->update($current_modules);
       $current_module = DB::table('current_modules')->first();
-      return view('dashboard',compact('current_module'));
+
+
+      //----------- top seller and top selling information start ----------------------
+
+      $user_role_id = Auth::user()->role_id;
+      $user_company_id = Auth::user()->company_id;
+      $current_month = Carbon::now()->format('m');
+
+      
+      if($user_role_id == 1){
+        $top_seller_info = DB::connection('pos')
+                ->table('invoices')
+                ->select('emp_id', DB::raw('SUM(paid_amount) as total_sales'))
+                ->whereMonth('invoice_date', $current_month)
+                // ->where('company_id',$user_company_id)
+                ->groupBy('emp_id')
+                ->orderByDesc('total_sales')
+                ->first();
+
+        $top_seller_id = $top_seller_info->emp_id;
+        $max_selling_amount = $top_seller_info->total_sales;
+  
+        $top_seller = DB::table('users')
+                          ->select('name')
+                          ->where('id',$top_seller_id)
+                          ->first();
+  
+        $top_seller_name = $top_seller->name;
+        
+        $designation = DB::table('users')
+                              ->leftJoin('designations','users.designation','designations.id')
+                              ->select('designations.designation_name as seller_designation')
+                              ->where('users.id',$top_seller_id)
+                              ->first();
+        $top_seller_designation = $designation->seller_designation;
+      }else{
+        $top_seller_info = DB::connection('pos')
+                ->table('invoices')
+                ->select('emp_id', DB::raw('SUM(paid_amount) as total_sales'))
+                ->whereMonth('invoice_date', $current_month)
+                ->where('company_id',$user_company_id)
+                ->groupBy('emp_id')
+                ->orderByDesc('total_sales')
+                ->first();
+
+        $top_seller_id = $top_seller_info->emp_id;
+        $max_selling_amount = $top_seller_info->total_sales;
+  
+        $top_seller = DB::table('users')
+                          ->select('name')
+                          ->where('id',$top_seller_id)
+                          ->first();
+  
+        $top_seller_name = $top_seller->name;
+        
+        $designation = DB::table('users')
+                              ->leftJoin('designations','users.designation','designations.id')
+                              ->select('designations.designation_name as seller_designation')
+                              ->where('users.id',$top_seller_id)
+                              ->first();
+        $top_seller_designation = $designation->seller_designation;
+      }
+      
+    //----------- top seller and top selling information end ----------------------
+
+
+    //----------- top selling product information start ----------------------
+
+    if($user_role_id == 1){
+
+      $top_selling = DB::connection('pos')
+      ->table('invoice_items')
+      ->leftJoin('invoices','invoice_items.invoice_id','invoices.id')
+      ->select('invoice_items.stock_id as max_stock_id',
+                DB::raw('COUNT(invoice_items.stock_id) as stock_count'))
+      ->whereMonth('invoice_items.invoice_date', $current_month)
+      ->groupBy('invoice_items.stock_id')
+      ->orderByDesc('stock_count')
+      // ->where('invoices.company_id', $user_company_id)
+      ->first();
+
+      
+    $top_selling_stock_id = $top_selling->max_stock_id;
+   
+
+    $product = DB::connection('inventory')
+                  ->table('stocks')
+                  ->leftJoin('products','stocks.product_id','products.id')
+                  ->select('products.product_name as product_name', 'products.additional_product_details as product_desc')
+                  ->where('stocks.id', $top_selling_stock_id)
+                  ->first();
+
+    $top_selling_product_name = $product->product_name;
+    $top_selling_product_desc = $product->product_desc;
+
+    }else{
+      $top_selling = DB::connection('pos')
+      ->table('invoice_items')
+      ->leftJoin('invoices','invoice_items.invoice_id','invoices.id')
+      ->select('invoice_items.stock_id as max_stock_id',
+                DB::raw('COUNT(invoice_items.stock_id) as stock_count'))
+      ->whereMonth('invoice_items.invoice_date', $current_month)
+      ->groupBy('invoice_items.stock_id')
+      ->orderByDesc('stock_count')
+      ->where('invoices.company_id', $user_company_id)
+      ->first();
+
+    $top_selling_stock_id = $top_selling->max_stock_id;
+
+    $product = DB::connection('inventory')
+                  ->table('stocks')
+                  ->leftJoin('products','stocks.product_id','products.id')
+                  ->select('products.product_name as product_name', 'products.additional_product_details as product_desc')
+                  ->where('stocks.id', $top_selling_stock_id)
+                  ->first();
+
+    $top_selling_product_name = $product->product_name;
+    $top_selling_product_desc = $product->product_desc;
+
+    }
+    
+    //----------- top selling product information end ----------------------
+
+
+
+      $sales = DB::connection('pos')
+                      ->table('invoices')
+                      ->where('company_id',$user_company_id)
+                      ->get();
+
+
+      return view('dashboard',compact('current_module',
+                                      'sales',
+                                      'top_seller_name',
+                                      'top_seller_designation',
+                                      'max_selling_amount',
+                                      'top_selling_product_name',
+                                      'top_selling_product_desc'
+                                    ));
       
     }
 
@@ -104,7 +269,14 @@ class HomeController extends Controller
                             ->where('company_id',$user_company_id)
                             ->count('total_amount');
 
-      return view('dashboard',compact('current_module','total_item_categories','total_product_categories','total_products'));
+
+   
+
+      return view('dashboard',compact('current_module',
+                                      'total_item_categories',
+                                      'total_product_categories',
+                                      'total_products'
+                                    ));
       
     }
 

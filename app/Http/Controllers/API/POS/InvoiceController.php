@@ -12,21 +12,6 @@ class InvoiceController extends Controller
 {
     
 
-    // public function product_and_price_dependancy(Request $request){
-
-    //     $selectedProductId = $request->input('data');
-    //     $product = DB::connection('inventory')
-    //                 ->table('products')
-    //                 ->where('id',$selectedProductId)
-    //                 ->first();
-
-    //     $product_price = $product->product_single_price;
-  
-    //     echo $product_price;
-    //   }
-
-
-
     public function sale_list(){
 
         $current_modules = array();
@@ -205,6 +190,7 @@ class InvoiceController extends Controller
             DB::connection('pos')
                 ->table('invoice_items')
                 ->insert([
+                'invoice_date' => Carbon::now()->toDateString(),
                 'invoice_id' => $invoice,
                 'stock_id' => $stock_id,
                 'quantity' => $product_quantity,
@@ -317,49 +303,6 @@ class InvoiceController extends Controller
 
 
 
-    // public function add_invoice(){
-
-    //     $current_modules = array();
-    //     $current_modules['module_status'] = '4';
-    //     $update_module = DB::table('current_modules')
-    //                     ->update($current_modules);
-    //     $current_module = DB::table('current_modules')->first();
-
-    //     $user_company_id = Auth::user()->company_id;
-
-    //     $products = DB::connection('inventory')
-    //                        ->table('products')
-    //                        ->where('shop_company_id',$user_company_id)
-    //                        ->get();
-
-    //     return view('invoices.create',compact('current_module','products'));
-    // }
-
-
-
-     ///// note :: must be update after 22/05/2024 
-
-    //  public function submit_invoice(Request $request){
-    //     $user_id = Auth::user()->id;
-    //     $user_company_id = Auth::user()->company_id;
-       
-    //     $item_category = DB::connection('pos')
-    //                     ->table('invoices')
-    //                     ->insertGetId([
-    //                     'invoice_date' =>$request->invoice_date,
-    //                     'product_id' =>$request->product_id,
-    //                     'emp_id' =>$user_id,
-    //                     'payment_method_id' =>$request->payment_method_id,
-    //                     'sub_total' =>$request->sub_total,
-    //                     'discount_amount' =>$request->discount_amount,
-    //                     'total_amount' =>$request->total_amount,
-    //                     'company_id' =>$user_company_id                
-    //                     ]);
-
-    //     return redirect()->route('invoice_show_data');
-    // }
-
-
     public function previousAndCurrentMonthSale(){
 
         $user_company_id = Auth::user()->company_id;
@@ -395,6 +338,40 @@ class InvoiceController extends Controller
         ]);
     }
 
+
+
+    public function currentYearSale()
+    {
+        $user_company_id = Auth::user()->company_id;
+        $current_year = date('Y');
+    
+        $sales = DB::connection('pos')
+            ->table('invoices')
+            ->select(DB::raw('MONTH(invoice_date) as month'), DB::raw('SUM(paid_amount) as total_sale'))
+            ->whereYear('invoice_date', $current_year)
+            ->where('company_id', $user_company_id)
+            ->groupBy(DB::raw('MONTH(invoice_date)'))
+            ->orderBy('month')
+            ->get();
+    
+        // Initialize an array with all months set to 0
+        $months = array_fill(1, 12, 0);
+    
+        // Populate the array with actual data
+        foreach ($sales as $sale) {
+            $months[$sale->month] = $sale->total_sale;
+        }
+    
+        // Prepare labels and values for the chart
+        $monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $labels = $monthNames;
+        $values = array_values($months);
+    
+        return response()->json([
+            'labels' => $labels,
+            'values' => $values
+        ]);
+    }
 
   
 }
