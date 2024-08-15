@@ -85,10 +85,10 @@ class HomeController extends Controller
     echo $str;
     }
 
-    public function pos_module_active(Request $request){
+    public function pos_module_active(){
       // dd( $request->current_module_status);
       $current_modules = array();
-      $current_modules['module_status'] = $request->current_module_status;
+      $current_modules['module_status'] = 4;
       $update_module = DB::table('current_modules')
                    ->where('id', 1)
                   ->update($current_modules);
@@ -217,7 +217,6 @@ class HomeController extends Controller
     //----------- top selling product information end ----------------------
 
 
-
       $sales = DB::connection('pos')
                       ->table('invoices')
                       ->where('company_id',$user_company_id)
@@ -235,10 +234,13 @@ class HomeController extends Controller
       
     }
 
-    public function inventory_module_active(Request $request){
+
+
+
+    public function inventory_module_active(){
       // dd( $request->current_module_status);
       $current_modules = array();
-      $current_modules['module_status'] = $request->current_module_status;
+      $current_modules['module_status'] = 3;
       $update_module = DB::table('current_modules')
                    ->where('id', 1)
                   ->update($current_modules);
@@ -282,10 +284,10 @@ class HomeController extends Controller
 
 
 
-    public function emp_module_active(Request $request){
+    public function emp_module_active(){
       // dd( $request->current_module_status);
       $current_modules = array();
-      $current_modules['module_status'] = $request->current_module_status;
+      $current_modules['module_status'] = 2;
       $update_module = DB::table('current_modules')
                    ->where('id', 1)
                   ->update($current_modules);

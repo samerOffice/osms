@@ -110,7 +110,7 @@ Invoice
         <p align="right" class="" style="padding-right: 80px; color:green"><b>Paid: {{number_format($invoice_data->invoice_paid_amount, 2)}} BDT</b></p>
         <br>
         <h3>Terms and Conditions</h3>
-        <p>All sales are final. Please make the payment within 7 days. Late payments will incur a 5% penalty.</p>
+        <p>{{$terms_and_conditions->descriptions}}</p>
 
         </div>
         <!-- End of the part you want to print -->

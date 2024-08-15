@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2024 at 02:44 PM
+-- Generation Time: Aug 15, 2024 at 03:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,6 +54,32 @@ INSERT INTO `customers` (`id`, `company_id`, `customer_name`, `membership_id`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customer_dues`
+--
+
+CREATE TABLE `customer_dues` (
+  `id` int(255) NOT NULL,
+  `due_clear_date` date DEFAULT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `invoice_id` int(255) DEFAULT NULL,
+  `customer_id` int(255) DEFAULT NULL,
+  `due_clear_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer_dues`
+--
+
+INSERT INTO `customer_dues` (`id`, `due_clear_date`, `company_id`, `invoice_id`, `customer_id`, `due_clear_amount`, `created_at`, `updated_at`) VALUES
+(1, '2024-08-15', 11, 1, 2, '20', '2024-08-15 06:07:44', '2024-08-15 06:07:44'),
+(2, '2024-08-15', 11, 1, 2, '5', '2024-08-15 06:59:35', '2024-08-15 06:59:35'),
+(3, '2024-08-15', 11, 1, 2, '1', '2024-08-15 12:40:34', '2024-08-15 12:40:34');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `invoices`
 --
 
@@ -88,7 +114,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`id`, `invoice_date`, `due_clear_date`, `invoice_track_id`, `company_id`, `branch_id`, `outlet_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `total_amount`, `tax_id`, `tax_amount`, `discount_amount`, `grand_total`, `due_amount`, `paid_amount`, `terms_and_conditions`, `payment_status`, `policy_id`, `created_at`, `updated_at`) VALUES
-(1, '2024-08-13', NULL, 'INVOICE-20240813-170242-026', 11, NULL, 2, 2, 1, 1, NULL, '840.00', NULL, '10', '20', '830.00', '30', '800.00', NULL, 1, NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
+(1, '2024-08-15', NULL, 'INVOICE-20240813-170242-026', 11, NULL, 2, 2, 1, 1, NULL, '840.00', NULL, '10', '20', '830.00', '4', '826', NULL, 1, NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
 (2, '2024-08-14', NULL, 'INVOICE-20240814-115321-284', 11, NULL, 2, 2, 1, 1, NULL, '25400.00', NULL, NULL, '100', '25300.00', NULL, '25300.00', NULL, 1, NULL, '2024-08-14 05:54:08', '2024-08-14 05:54:08'),
 (3, '2024-08-14', NULL, 'INVOICE-20240814-115440-721', 11, NULL, 2, 1, 1, 1, NULL, '13540.00', NULL, NULL, '100', '13440.00', '40', '13400.00', NULL, 1, NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
 (4, '2024-08-14', NULL, 'INVOICE-20240814-120530-946', 11, NULL, 2, 2, 1, 1, NULL, '12700.00', NULL, NULL, NULL, '12700.00', NULL, '12700.00', NULL, 1, NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53');
@@ -249,6 +275,27 @@ CREATE TABLE `tax_calculations` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `terms_and_conditions`
+--
+
+CREATE TABLE `terms_and_conditions` (
+  `id` int(255) NOT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `descriptions` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `terms_and_conditions`
+--
+
+INSERT INTO `terms_and_conditions` (`id`, `company_id`, `descriptions`, `created_at`, `updated_at`) VALUES
+(1, 11, 'All sales are final. Please make the payment within 7 days. Late payments will incur a 5% penalty.', '2024-08-15 08:55:18', '2024-08-15 08:55:18');
+
 --
 -- Indexes for dumped tables
 --
@@ -257,6 +304,12 @@ CREATE TABLE `tax_calculations` (
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer_dues`
+--
+ALTER TABLE `customer_dues`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -314,6 +367,12 @@ ALTER TABLE `tax_calculations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `terms_and_conditions`
+--
+ALTER TABLE `terms_and_conditions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -322,6 +381,12 @@ ALTER TABLE `tax_calculations`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `customer_dues`
+--
+ALTER TABLE `customer_dues`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `invoices`
@@ -376,6 +441,12 @@ ALTER TABLE `pos_log`
 --
 ALTER TABLE `tax_calculations`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `terms_and_conditions`
+--
+ALTER TABLE `terms_and_conditions`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

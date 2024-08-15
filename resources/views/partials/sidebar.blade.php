@@ -701,20 +701,30 @@
       </li>
 
      
-
-
-  
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-gem"></i>
           <p> Offers</p>
         </a>
-      </li>
+      </li> --}}
 
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fa-solid fa-list"></i>
-          <p> Policies</p>
+
+        <li class="nav-item nav-link 
+            @if(Request::is('terms_and_conditions')) nav-link active
+            @endif
+            " style="@if(Request::is('terms_and_conditions')) background-color: #20ceea;
+              @endif
+              ">
+        <a href="{{route('terms_and_conditions')}}">
+          <i class="nav-icon fa-solid fa-list" style="@if(Request::is('terms_and_conditions')) color: white;
+              @endif
+              ">
+          </i>
+          <p style="@if(Request::is('terms_and_conditions')) color:white;
+              @endif
+              ">
+            Terms & Conditions
+          </p>
         </a>
       </li>
 

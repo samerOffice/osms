@@ -25,6 +25,7 @@ use App\Http\Controllers\API\Inventory\StockController;
 use App\Http\Controllers\API\POS\InvoiceController;
 use App\Http\Controllers\API\POS\CustomerController;
 use App\Http\Controllers\API\POS\DueController;
+use App\Http\Controllers\API\POS\TermAndConditionController;
 
 
 #### CLEAR ALL IN ONE ####
@@ -49,9 +50,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('home');
 
 //.............**************** for dynamic module **************....................
-Route::post('/pos_module_active', [HomeController::class, 'pos_module_active'])->name('posModuleActive');
-Route::post('/inventory_module_active', [HomeController::class, 'inventory_module_active'])->name('inventoryModuleActive');
-Route::post('/emp_module_active', [HomeController::class, 'emp_module_active'])->name('empModuleActive');
+Route::get('/pos_module_active', [HomeController::class, 'pos_module_active'])->name('posModuleActive');
+Route::get('/inventory_module_active', [HomeController::class, 'inventory_module_active'])->name('inventoryModuleActive');
+Route::get('/emp_module_active', [HomeController::class, 'emp_module_active'])->name('empModuleActive');
 
 //............**************** Super Admin/Admin Dashboard module **************...................
 //branch
@@ -114,14 +115,13 @@ Route::get('/payroll_list', [PayrollController::class, 'index'])->name('payroll_
 
 //dependencies
 // Route::post('/employee_details_dependancy', [PayrollController::class, 'employee_details_dependancy']);
-Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
+Route::get('/payroll_show_data/{payroll_id}', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
 Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('generate-csv');
 
 
 //attendance
 Route::get('/give_attendance', [AttendanceController::class, 'give_attendance'])->name('give_attendance');
 Route::get('/attendance_list',[AttendanceController::class,'attendance_list'])->name('attendance_list');
-
 
 
 
@@ -155,12 +155,14 @@ Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->na
 Route::get('/damage_product/{product_id}', [StockController::class, 'damage_product'])->name('damage_product');
 
 
+
+
 //...............********* pos module ********................
 
 //invoice (sale)
 Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add_invoice');
 // Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
- Route::get('/invoice_show_data/{last_invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+ Route::get('/invoice_show_data/{invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
  Route::get('/sale_list', [InvoiceController::class, 'sale_list'])->name('sale_list');
 
 //customer
@@ -169,8 +171,13 @@ Route::get('/add_customer', [CustomerController::class, 'add_customer'])->name('
 Route::get('/edit_customer/{customer_id}', [CustomerController::class, 'edit_customer'])->name('edit_customer');
 
 
-//customer due list
+//customer due
 Route::get('/customer_due_list', [DueController::class, 'customer_due_list'])->name('customer_due_list');
 Route::get('/due_details/{customer_mobile_number}', [DueController::class, 'due_details'])->name('due_details');
+Route::post('/clear_due', [DueController::class, 'clear_due'])->name('clear_due');
+
+//terms and conditions
+Route::get('/terms_and_conditions', [TermAndConditionController::class, 'terms_and_conditions'])->name('terms_and_conditions');
+Route::get('/add_terms_and_conditions', [TermAndConditionController::class, 'add_terms_and_conditions'])->name('add_terms_and_conditions');
 
 });
