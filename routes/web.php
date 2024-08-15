@@ -39,6 +39,11 @@ Route::get('/clear-cache', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('login');
 Route::get('/registration', [HomeController::class, 'registration'])->name('registration');
+
+
+
+
+Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('home');
 
 //.............**************** for dynamic module **************....................
@@ -156,3 +161,5 @@ Route::get('/add_invoice', [InvoiceController::class, 'new_invoice'])->name('add
 
 // Route::post('/submit_invoice',[InvoiceController::class,'submit_invoice'])->name('submit_invoice');
  Route::get('/invoice_show_data/{last_invoice_id}', [InvoiceController::class, 'invoice_show_data'])->name('invoice_show_data');
+
+});
