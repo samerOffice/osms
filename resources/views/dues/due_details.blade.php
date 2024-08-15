@@ -89,7 +89,7 @@ Customer List
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form method="post" action="" onsubmit="return validateClearAmount({{$due->due_amount}}, 'clear_due_amount_{{$due->id}}')">
+                                        <form method="post" action="{{route('clear_due')}}" onsubmit="return validateClearAmount({{$due->due_amount}}, 'clear_due_amount_{{$due->id}}')">
                                             @csrf
                                             <div class="modal-body">
                                                 <label for="">Due Amount: <span style="color: red">{{$due->due_amount}} BDT</span></label><br>
@@ -167,8 +167,13 @@ function validateClearAmount(dueAmount, clearAmountId) {
     clearAmount = parseFloat(clearAmount);
 
     if (clearAmount > dueAmount) {
-        alert('The clear amount cannot be greater than the due amount.');
-        return false; // Prevent form submission
+        // alert('The clear amount cannot be greater than the due amount.');
+        Swal.fire({
+                    icon: "warning",
+                    title: 'This amount cannot be greater than the due amount.!',
+                    });
+                    return false;
+        
     }
 
     return true; // Allow form submission

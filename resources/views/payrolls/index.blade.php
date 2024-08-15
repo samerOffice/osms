@@ -47,6 +47,7 @@ Payroll List
                           <th>Designation</th>
                           <th>Salary Date</th>
                           <th>Paid Salary Amount (BDT)</th>
+                          <th>Action</th>                         
                         </tr>
                         </thead>
                         <tbody>
@@ -58,7 +59,11 @@ Payroll List
                           <td>{{$payroll->member_name}}</td>
                           <td>{{$payroll->member_desingation_name}}</td>
                           <td>{{$payroll->salary_date}}</td>
-                          <td>{{$payroll->final_pay_amount}}</td>                          
+                          <td>{{$payroll->final_pay_amount}}</td> 
+                          <td>
+                            <a href="{{route('payroll_show_data', $payroll->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i> Details</button></a>
+                            {{-- <button class="btn btn-outline-danger" onclick="deleteOperation({{$sale->id}})"><i class="fa-solid fa-trash"></i> Delete</button> --}}
+                          </td>                         
                         </tr> 
                         @endforeach              
                  

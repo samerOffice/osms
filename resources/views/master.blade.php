@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="img/fav.webp" />
+  <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/fav.webp')}}" />
   
   <title>
     Otithee ShopNet | @yield('title')
@@ -42,6 +42,10 @@
 
    <!-- invoice custom css (samer)  -->
   <link href="{{ asset('dist/css/custom-invoice.css') }}" rel="stylesheet">
+
+  <!-- payroll custom css (samer)  -->
+  <link href="{{ asset('dist/css/custom-payroll.css') }}" rel="stylesheet">
+
   <!-- general dashboard css (samer) -->
   <link href="{{ asset('dist/css/general-dashboard.css') }}" rel="stylesheet">
 

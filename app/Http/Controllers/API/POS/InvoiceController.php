@@ -172,7 +172,7 @@ class InvoiceController extends Controller
         //                     ->where('id',$invoice)
         //                     ->first();
 
-        // $last_invoice_id = $invoice_data->id;
+        // $invoice_id = $invoice_data->id;
 
         
         $stock_ids = $request->stock_product_id;   
@@ -226,11 +226,11 @@ class InvoiceController extends Controller
          return response()->json($response,200);
 
         // return redirect()->route('invoice_show_data',[
-        //     'last_invoice_id' => $invoice
+        //     'invoice_id' => $invoice
         //     ]);
     }
 
-      public function invoice_show_data($last_invoice_id){
+      public function invoice_show_data($invoice_id){
 
         $current_modules = array();
         $current_modules['module_status'] = '4';
@@ -238,6 +238,7 @@ class InvoiceController extends Controller
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
+        
 
         $invoice_data = DB::connection('pos')
                             ->table('invoices')
@@ -276,7 +277,7 @@ class InvoiceController extends Controller
                                 'customers.membership_id as membership_number'
                             )
 
-                            ->where('invoices.id', $last_invoice_id)
+                            ->where('invoices.id', $invoice_id)
                              ->first();
 // dd($invoice_data);
 
@@ -288,8 +289,17 @@ class InvoiceController extends Controller
                         'invoice_items.*',
                         'products.product_name as sold_product_name'                 
                         )
-                    ->where('invoice_id',$last_invoice_id)
+                    ->where('invoice_id',$invoice_id)
                     ->get();
+
+            
+        $user_company_id = Auth::user()->company_id;
+        
+        $terms_and_conditions = DB::connection('pos')
+                                ->table('terms_and_conditions')
+                                ->where('company_id',$user_company_id)
+                                ->first();
+            
 
    
         //   $result = (array) $result;
@@ -297,7 +307,7 @@ class InvoiceController extends Controller
         //     return $value != 0;
         // });
 
-         return view('invoices.show_invoice',compact('current_module','invoice_data','item_data'));
+         return view('invoices.show_invoice',compact('current_module','invoice_data','item_data','terms_and_conditions'));
     }
 
 

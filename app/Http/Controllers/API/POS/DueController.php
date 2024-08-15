@@ -82,12 +82,53 @@ class DueController extends Controller
                         ->where('due_amount', '!=', '')
                         ->where('due_amount', '!=', 0)
                         ->get();
-
-        
         
         // dd($due_details);
 
       
         return view('dues.due_details',compact('current_module','customer_details','total_due_amount','due_details'));
+    }
+
+    public function clear_due(Request $request){
+        
+        $invoice_id = $request->invoice_id;
+        $due_clear_amount = $request->clear_due_amount;
+        
+        $details_from_invoice = DB::connection('pos')
+                                    ->table('invoices')
+                                    ->select('company_id','customer_id','due_amount','paid_amount')
+                                    ->where('id',$invoice_id)
+                                    ->first();
+
+       $company_id = $details_from_invoice->company_id;
+       $customer_id = $details_from_invoice->customer_id;
+       $due_amount = $details_from_invoice->due_amount;
+       $paid_amount = $details_from_invoice->paid_amount;
+
+       $remaining_due_amount = $due_amount - $due_clear_amount;
+       $updated_paid_amount = $paid_amount + $due_clear_amount;
+
+       $update =  DB::connection('pos')
+                    ->table('invoices')
+                    ->where('id', $invoice_id)
+                    ->update([
+                        'invoice_date' => Carbon::now()->toDateString(),
+                        'due_amount' => $remaining_due_amount,
+                        'paid_amount' => $updated_paid_amount
+                    ]);
+
+
+        $insert = DB::connection('pos')
+        ->table('customer_dues')
+        ->insertGetId([
+            'due_clear_date' => Carbon::now()->toDateString(),
+            'company_id' => $company_id,
+            'invoice_id' => $invoice_id,
+            'customer_id' => $customer_id,
+            'due_clear_amount' => $due_clear_amount
+            ]);
+
+    return redirect()->route('customer_due_list')->withSuccess('Due is cleared and updated successfully'); 
+        
     }
 }

@@ -42,8 +42,8 @@ Welcome
               <br>
               <!-- info row -->
 
-              <form id="payrollForm">
-               
+              <form action="{{route('store_payroll')}}" method="post">
+                @csrf
                 <div class="row invoice-info">
                   <div class="col-md-4 col-sm-12 invoice-col">
                       <label>Employee Name</label>
@@ -775,44 +775,6 @@ $('#any_deduction').on('keyup',function(){
     var final_pay_amount = (total_payable_salary-(advance_less+any_deduction));
     $('#final_pay_amount').val(final_pay_amount);
 });
-
-
-
-//..............Payroll submit start................
-    document.getElementById('payrollForm').addEventListener('submit',function(event){
-    event.preventDefault();
-    var payrollFormData = new FormData(this);
-
-    // Function to get CSRF token from meta tag
-    function getCsrfToken() {
-      return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      }
-
-    // Set up Axios defaults
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
-
-    axios.get('sanctum/csrf-cookie').then(response=>{
-    axios.post('/api/store_payroll',payrollFormData).then(response=>{
-      console.log(response);
-      setTimeout(function() {
-            window.location.href = "{{ route('payroll_show_data', ':id') }}".replace(':id', response.data.payroll_id);
-            // window.location.reload();
-          }, 2000);
-      Swal.fire({
-                  icon: "success",
-                  title: ''+ response.data.message,
-                });
-            return false;
-            
-      }).catch(error => Swal.fire({
-                  icon: "error",
-                  title: error.response.data,
-                  }))
-    });
-
-    });
-//................Payroll submit end.................
 
   </script>
   @endpush
