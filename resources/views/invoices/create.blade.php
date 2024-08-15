@@ -248,12 +248,40 @@ New Sale
                      <!-- Grand Total start -->
                      <div class="form-group col-4"></div>
                     <div class="form-group col-4" style="padding-left: 160px">
-                    <label class="col-form-label" style="color:green">Grand Total (BDT)</label>
+                    <label class="col-form-label" >Grand Total (BDT)</label>
                     </div>
                     <div class="form-group col-4">                   
                     <input type="text" readonly style="background-color: powderblue"  class="form-control" id="grandTotal" name="grand_total">
                     </div>
                     <!-- Grand Total end -->
+
+
+                     <!-- Due amount start -->
+                     <div class="form-group col-4"></div>
+                     <div class="form-group col-4" style="padding-left: 160px">
+                     <label class="col-form-label" style="color: red">Due (BDT)</label>
+                     </div>
+                     <div class="form-group col-4">                   
+                     <input type="text"  class="form-control" id="dueAmount" onkeyup="dueAmountCalculation()" name="due_amount">
+                     </div>
+                     <!-- Due amount end -->
+
+
+                    <!-- Paid amount start -->
+                    <div class="form-group col-4"></div>
+                    <div class="form-group col-4" style="padding-left: 160px">
+                    <label class="col-form-label" style="color:green">Paid (BDT)</label>
+                    </div>
+                    <div class="form-group col-4">                   
+                    <input type="text" readonly  class="form-control" id="paidAmount" name="paid_amount">
+                    </div>
+                    <!-- Paid amount end -->
+
+
+                   
+
+
+                    
 
                    
                     
@@ -503,6 +531,7 @@ function updateTotal() {
             }
         });
         $('#totalAmount').val(total.toFixed(2));
+        $('#paidAmount').val(total.toFixed(2));
         $('#grandTotal').val(total.toFixed(2));
     }
 
@@ -601,11 +630,14 @@ function taxAmountCalculation(){
     var grand_total = total_amount - tax_amount
 
     if(tax_amount === ''){
+        $('#paidAmount').val(total_amount.toFixed(2));
         $('#grandTotal').val(total_amount.toFixed(2));
     }else{
         tax_amount = parseInt(tax_amount); // Parse tax_amount only if it's not empty
         var grand_total = total_amount + tax_amount;
+        $('#paidAmount').val(grand_total.toFixed(2));
         $('#grandTotal').val(grand_total.toFixed(2));
+        
     }
 }
 //----- Tax amount Calculation end
@@ -623,11 +655,13 @@ function discountAmountCalculation(){
 
         if(tax_amount === ''){
             total_amount = parseInt(total_amount);
+            $('#paidAmount').val(total_amount.toFixed(2));
             $('#grandTotal').val(total_amount.toFixed(2));
         }else{
             total_amount = parseInt(total_amount);
             tax_amount = parseInt(tax_amount);
             var amount_with_tax = total_amount + tax_amount;
+            $('#paidAmount').val(amount_with_tax.toFixed(2));
             $('#grandTotal').val(amount_with_tax.toFixed(2));
         }
        
@@ -638,6 +672,7 @@ function discountAmountCalculation(){
             discount_amount = parseInt(discount_amount);
 
             var grand_total = total_amount - discount_amount;
+            $('#paidAmount').val(grand_total.toFixed(2));
             $('#grandTotal').val(grand_total.toFixed(2));
         }else{
             total_amount = parseInt(total_amount);
@@ -646,12 +681,39 @@ function discountAmountCalculation(){
 
             var amount_with_tax = total_amount + tax_amount;
             var grand_total = amount_with_tax - discount_amount;
+            $('#paidAmount').val(grand_total.toFixed(2));
             $('#grandTotal').val(grand_total.toFixed(2));
         }
     
     }
 }
 //----- Discount amount Calculation end
+
+
+
+//----- Due amount Calculation start
+function dueAmountCalculation(){
+
+    var total_amount = parseInt($('#totalAmount').val());
+    var due_amount = $('#dueAmount').val(); // Get the value as a string first
+
+    if(due_amount === ''){
+        var grand_total = parseInt($('#grandTotal').val());
+        $('#paidAmount').val(grand_total.toFixed(2));
+    }else{
+        
+        due_amount = parseInt(due_amount); // Parse tax_amount only if it's not empty
+
+        var grand_total = parseInt($('#grandTotal').val());
+
+        var paid_amount = grand_total - due_amount;
+        
+        $('#paidAmount').val(paid_amount.toFixed(2));
+        // $('#grandTotal').val(grand_total.toFixed(2));
+        
+    }
+}
+//----- Due amount Calculation end
 
 
 

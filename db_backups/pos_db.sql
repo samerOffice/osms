@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2024 at 09:46 AM
+-- Generation Time: Aug 15, 2024 at 06:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `company_id`, `customer_name`, `membership_id`, `customer_phone_number`, `customer_email`, `customer_address`, `birth_date`, `registration_date`, `points`, `active_status`, `created_at`, `updated_at`) VALUES
-(1, 11, 'Fahad Ahmed', 'Member-11-9566', '01513470130', 'fahad@gmail.com', NULL, NULL, '2024-08-08', NULL, 1, '2024-08-08 07:09:12', '2024-08-08 07:09:12');
+(1, 11, 'Fahad Ahmed', 'Member-11-9566', '01513470130', 'fahad@gmail.com', NULL, NULL, '2024-08-08', NULL, 1, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
+(2, 11, 'Abul Kauser', 'Member-11-8265', '01513470137', 'kauser@gmail.com', NULL, NULL, '2024-08-13', NULL, 1, '2024-08-13 09:04:33', '2024-08-13 09:04:33');
 
 -- --------------------------------------------------------
 
@@ -59,6 +60,7 @@ INSERT INTO `customers` (`id`, `company_id`, `customer_name`, `membership_id`, `
 CREATE TABLE `invoices` (
   `id` int(100) NOT NULL,
   `invoice_date` date DEFAULT NULL,
+  `due_clear_date` date DEFAULT NULL,
   `invoice_track_id` varchar(100) DEFAULT NULL,
   `company_id` int(100) DEFAULT NULL,
   `branch_id` int(100) DEFAULT NULL,
@@ -72,6 +74,8 @@ CREATE TABLE `invoices` (
   `tax_amount` varchar(100) DEFAULT NULL,
   `discount_amount` varchar(100) DEFAULT NULL,
   `grand_total` varchar(100) DEFAULT NULL,
+  `due_amount` varchar(100) DEFAULT NULL,
+  `paid_amount` varchar(100) DEFAULT NULL,
   `terms_and_conditions` text DEFAULT NULL,
   `payment_status` int(11) DEFAULT NULL COMMENT '1=pending, 2=completed, 3=cancelled',
   `policy_id` int(100) DEFAULT NULL,
@@ -83,9 +87,11 @@ CREATE TABLE `invoices` (
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `invoice_date`, `invoice_track_id`, `company_id`, `branch_id`, `outlet_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `total_amount`, `tax_id`, `tax_amount`, `discount_amount`, `grand_total`, `terms_and_conditions`, `payment_status`, `policy_id`, `created_at`, `updated_at`) VALUES
-(1, '2024-08-08', 'INVOICE-20240808-130820-627', 11, NULL, 2, 1, 1, 1, NULL, '91760.00', NULL, NULL, '50', '91710.00', NULL, 1, NULL, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
-(2, '2024-08-08', 'INVOICE-20240808-131734-136', 11, NULL, NULL, NULL, 1, 1, NULL, '91000.00', NULL, NULL, '20', '90980.00', NULL, 1, NULL, '2024-08-08 07:17:56', '2024-08-08 07:17:56');
+INSERT INTO `invoices` (`id`, `invoice_date`, `due_clear_date`, `invoice_track_id`, `company_id`, `branch_id`, `outlet_id`, `customer_id`, `emp_id`, `payment_method_id`, `transaction_id`, `total_amount`, `tax_id`, `tax_amount`, `discount_amount`, `grand_total`, `due_amount`, `paid_amount`, `terms_and_conditions`, `payment_status`, `policy_id`, `created_at`, `updated_at`) VALUES
+(1, '2024-08-13', NULL, 'INVOICE-20240813-170242-026', 11, NULL, 2, 2, 1, 1, NULL, '840.00', NULL, '10', '20', '830.00', '30', '800.00', NULL, 1, NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
+(2, '2024-08-14', NULL, 'INVOICE-20240814-115321-284', 11, NULL, 2, 2, 1, 1, NULL, '25400.00', NULL, NULL, '100', '25300.00', NULL, '25300.00', NULL, 1, NULL, '2024-08-14 05:54:08', '2024-08-14 05:54:08'),
+(3, '2024-08-14', NULL, 'INVOICE-20240814-115440-721', 11, NULL, 2, 1, 1, 1, NULL, '13540.00', NULL, NULL, '100', '13440.00', '40', '13400.00', NULL, 1, NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
+(4, '2024-08-14', NULL, 'INVOICE-20240814-120530-946', 11, NULL, 2, 2, 1, 1, NULL, '12700.00', NULL, NULL, NULL, '12700.00', NULL, '12700.00', NULL, 1, NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53');
 
 -- --------------------------------------------------------
 
@@ -95,6 +101,7 @@ INSERT INTO `invoices` (`id`, `invoice_date`, `invoice_track_id`, `company_id`, 
 
 CREATE TABLE `invoice_items` (
   `id` int(100) NOT NULL,
+  `invoice_date` date DEFAULT NULL,
   `invoice_id` int(100) DEFAULT NULL,
   `stock_id` int(255) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
@@ -109,10 +116,12 @@ CREATE TABLE `invoice_items` (
 -- Dumping data for table `invoice_items`
 --
 
-INSERT INTO `invoice_items` (`id`, `invoice_id`, `stock_id`, `quantity`, `unit_price`, `sub_total`, `remaining_product_in_batch`, `created_at`, `updated_at`) VALUES
-(1, 1, 9, 2, '380', '760.00', NULL, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
-(2, 1, 1, 2, '45500', '91000.00', NULL, '2024-08-08 07:09:12', '2024-08-08 07:09:12'),
-(3, 2, 1, 2, '45500', '91000.00', NULL, '2024-08-08 07:17:56', '2024-08-08 07:17:56');
+INSERT INTO `invoice_items` (`id`, `invoice_date`, `invoice_id`, `stock_id`, `quantity`, `unit_price`, `sub_total`, `remaining_product_in_batch`, `created_at`, `updated_at`) VALUES
+(1, '2024-08-13', 1, 3, 2, '420', '840.00', NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
+(2, '2024-08-14', 2, 4, 2, '12700', '25400.00', NULL, '2024-08-14 05:54:08', '2024-08-14 05:54:08'),
+(3, '2024-08-14', 3, 4, 1, '12700', '12700.00', NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
+(4, '2024-08-14', 3, 3, 2, '420', '840.00', NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
+(5, '2024-08-14', 4, 4, 1, '12700', '12700.00', NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53');
 
 -- --------------------------------------------------------
 
@@ -312,19 +321,19 @@ ALTER TABLE `tax_calculations`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `offers`

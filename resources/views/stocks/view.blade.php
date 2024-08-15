@@ -91,15 +91,27 @@ View Stock
                         <td>{{$stock->purchase_date}}</td>                      
                         <td>{{$stock->purchased_by}}</td>                  
                         <td>
+                            @if($stock->quantity != 0)
+
+                            <!-- label or not label check start -->
                             @if($stock->label_status == 1)
                             <h5><span class="badge badge-secondary">Labeled</span></h5>
                             @else
                             <a href="{{route('add_label',$stock->id)}}">Add Label</a>
                             @endif
+                            <!-- label or not label check end -->
+
+                            @else
+                            <h5><span class="badge badge-danger">Damaged</span></h5>
+                            @endif
                         </td>
                           
                         <td>
-                            <a href="{{route('damage_product',$stock->id)}}" style="color: white"><button class="btn btn-danger"> <i class="fa-solid fa-pen-to-square"></i> Detail</button></a>
+                            @if($stock->quantity == 0)
+                            <a href="" style="color: white"><button class="btn btn-danger" disabled> All Damaged</button></a>
+                            @else
+                            <a href="{{route('damage_product',$stock->id)}}" style="color: white"><button class="btn btn-warning"> <i class="fa-solid fa-pen-to-square"></i> Detail</button></a>
+                            @endif
                         </td>               
                       </tr>
                       @endforeach                

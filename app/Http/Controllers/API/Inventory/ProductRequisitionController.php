@@ -502,7 +502,7 @@ class ProductRequisitionController extends Controller
         //----sale sum start
         $sales_by_month = DB::connection('pos')
             ->table('invoices')
-            ->select(DB::raw('MONTH(invoice_date) as month'), DB::raw('SUM(grand_total) as total_sale'))
+            ->select(DB::raw('MONTH(invoice_date) as month'), DB::raw('SUM(paid_amount) as total_sale'))
             ->whereYear('invoice_date', $current_year)
             ->where('company_id', $user_company_id)
             ->groupBy(DB::raw('MONTH(invoice_date)'))
@@ -527,48 +527,92 @@ class ProductRequisitionController extends Controller
 
 
     public function totalAvailableProducts(){
+        $user_company_id = Auth::user()->company_id;
         
-                $user_company_id = Auth::user()->company_id;
-                
-                $total_available_products = DB::connection('inventory')
-                                            ->table('products')
-                                            ->where('shop_company_id',$user_company_id)
-                                            ->where('product_status',1)
-                                            ->count('id');
-
-                return response()->json([
-                    'total_available_products' => $total_available_products
-            ]);
-
+        // Total number of products
+        $total_products = DB::connection('inventory')
+                            ->table('products')
+                            ->where('shop_company_id', $user_company_id)
+                            ->count('id');
+                            
+        // Total number of available products
+        $total_available_products = DB::connection('inventory')
+                                      ->table('products')
+                                      ->where('shop_company_id', $user_company_id)
+                                      ->where('product_status', 1)
+                                      ->count('id');
+    
+        // Calculate the percentage of available products
+        $percentage = $total_products > 0 ? ($total_available_products / $total_products) * 100 : 0;
+    
+        return response()->json([
+            'percentage' => $percentage,
+        ]);
     }
 
 
-    public function totalNearExpiredProducts(){
-        
-        $user_company_id = Auth::user()->company_id;
+    
 
+
+    public function totalNearExpiredProducts(){
+        $user_company_id = Auth::user()->company_id;
+    
         // Get the current date and time
         $today = Carbon::now();
-
+    
         // Calculate the date one month from today
         $oneMonthFromNow = $today->addMonth()->toDateString();
-
+    
         // Reset $today to the current date again, because `addMonth()` modifies the original Carbon instance
         $today = Carbon::now()->toDateString();
-        
+    
+        // Total number of products
+        $total_products = DB::connection('inventory')
+                            ->table('stocks')
+                            ->where('company_id', $user_company_id)
+                            ->count('id');
+    
+        // Total number of near-expired products
         $total_near_expired_products = DB::connection('inventory')
-                                    ->table('stocks')
-                                    ->where('company_id',$user_company_id)
-                                    ->whereBetween('product_expiry_date', [$today, $oneMonthFromNow])
-                                    ->count('id');
-
+                                         ->table('stocks')
+                                         ->where('company_id', $user_company_id)
+                                         ->whereBetween('product_expiry_date', [$today, $oneMonthFromNow])
+                                         ->count('id');
+    
+        // Calculate the percentage of near-expired products
+        $percentage = $total_products > 0 ? ($total_near_expired_products / $total_products) * 100 : 0;
+    
         return response()->json([
-            'total_near_expired_products' => $total_near_expired_products
-    ]);
+            'percentage' => $percentage,
+        ]);
+    }
 
-}
-
-
+    public function totalDamagedProducts(){
+        $user_company_id = Auth::user()->company_id;
+    
+        // Get the current month
+        $current_month = Carbon::now()->format('m');
+    
+        // Total number of damaged products for the current month
+        $total_damaged_products = DB::connection('inventory')
+                                    ->table('damage_and_burned_products')
+                                    ->where('company_id', $user_company_id)
+                                    ->whereMonth('entry_date', $current_month)
+                                    ->sum('quantity');
+    
+        // Total number of products in stock
+        $total_products = DB::connection('inventory')
+                            ->table('stocks')
+                            ->where('company_id', $user_company_id)
+                            ->sum('quantity');
+    
+        // Calculate the percentage of damaged products
+        $percentage = $total_products > 0 ? ($total_damaged_products / $total_products) * 100 : 0;
+    
+        return response()->json([
+            'percentage' => $percentage,
+        ]);
+    }
 
 
 }

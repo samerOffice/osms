@@ -10,6 +10,8 @@ Invoice
    <div class="content-wrapper">
         <div class="container-fluid">
         <div class="invoice-box">
+             <!-- Start of the part you want to print -->
+             <div class="print-section">
         <table>
             <tr class="top">
                 <td colspan="4">
@@ -99,10 +101,19 @@ Invoice
         @if($invoice_data->invoice_discount_amount != '')
         <p align="right" class="" style="padding-right: 80px;"><b>Discount: {{number_format($invoice_data->invoice_discount_amount, 2)}} BDT</b></p>
         @endif
-        <p align="right" class="" style="padding-right: 80px; color:green"><b>Grand Total: {{$invoice_data->invoice_grand_total}} BDT</b></p>
+        <p align="right" class="" style="padding-right: 80px;"><b>Grand Total: {{$invoice_data->invoice_grand_total}} BDT</b></p>
+        @if(($invoice_data->invoice_due_amount == '') || ($invoice_data->invoice_due_amount == 0))
+        <p align="right" class="" style="padding-right: 80px; color: red"><b>Due: 0.00 BDT</b></p>
+        @else
+        <p align="right" class="" style="padding-right: 80px; color: red"><b>Due: {{number_format($invoice_data->invoice_due_amount, 2)}} BDT</b></p>
+        @endif
+        <p align="right" class="" style="padding-right: 80px; color:green"><b>Paid: {{number_format($invoice_data->invoice_paid_amount, 2)}} BDT</b></p>
         <br>
         <h3>Terms and Conditions</h3>
         <p>All sales are final. Please make the payment within 7 days. Late payments will incur a 5% penalty.</p>
+
+        </div>
+        <!-- End of the part you want to print -->
 
         <!-- Print Button -->
         <div class="print-button">
@@ -111,6 +122,28 @@ Invoice
     </div>
         </div>
     </div>
+
+
+    <style>
+        /* Print-only styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .print-section, .print-section * {
+                visibility: visible;
+            }
+            .print-section {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+        }
+    </style>
     </body>
 @endsection
+
+
+
 

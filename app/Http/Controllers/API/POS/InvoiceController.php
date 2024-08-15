@@ -12,18 +12,24 @@ class InvoiceController extends Controller
 {
     
 
-    // public function product_and_price_dependancy(Request $request){
+    public function sale_list(){
 
-    //     $selectedProductId = $request->input('data');
-    //     $product = DB::connection('inventory')
-    //                 ->table('products')
-    //                 ->where('id',$selectedProductId)
-    //                 ->first();
+        $current_modules = array();
+        $current_modules['module_status'] = '4';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                    ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
 
-    //     $product_price = $product->product_single_price;
-  
-    //     echo $product_price;
-    //   }
+        $user_company_id = Auth::user()->company_id;
+
+        $sales = DB::connection('pos')
+                        ->table('invoices')
+                        ->where('company_id',$user_company_id)
+                        ->get();
+
+        return view('invoices.index',compact('current_module','sales'));
+    }
 
 
 
@@ -156,6 +162,8 @@ class InvoiceController extends Controller
                         'tax_amount' => $request->tax_amount,
                         'discount_amount' => $request->discount_amount,
                         'grand_total' => $request->grand_total,
+                        'due_amount' => $request->due_amount,
+                        'paid_amount' => $request->paid_amount,
                         'payment_status' => 1,
                         ]);
 
@@ -182,6 +190,7 @@ class InvoiceController extends Controller
             DB::connection('pos')
                 ->table('invoice_items')
                 ->insert([
+                'invoice_date' => Carbon::now()->toDateString(),
                 'invoice_id' => $invoice,
                 'stock_id' => $stock_id,
                 'quantity' => $product_quantity,
@@ -245,6 +254,8 @@ class InvoiceController extends Controller
                                 'invoices.tax_amount as invoice_tax_amount',
                                 'invoices.discount_amount as invoice_discount_amount',
                                 'invoices.grand_total as invoice_grand_total',
+                                'invoices.due_amount as invoice_due_amount',
+                                'invoices.paid_amount as invoice_paid_amount',
                                 'invoices.terms_and_conditions as invoice_terms_and_conditions',
                                 'invoices.payment_status as invoice_payment_status',
                                 'invoices.payment_method_id as payment_method',
@@ -292,48 +303,75 @@ class InvoiceController extends Controller
 
 
 
-    // public function add_invoice(){
+    public function previousAndCurrentMonthSale(){
 
-    //     $current_modules = array();
-    //     $current_modules['module_status'] = '4';
-    //     $update_module = DB::table('current_modules')
-    //                     ->update($current_modules);
-    //     $current_module = DB::table('current_modules')->first();
+        $user_company_id = Auth::user()->company_id;
 
-    //     $user_company_id = Auth::user()->company_id;
+        $current_date = Carbon::now();
 
-    //     $products = DB::connection('inventory')
-    //                        ->table('products')
-    //                        ->where('shop_company_id',$user_company_id)
-    //                        ->get();
-
-    //     return view('invoices.create',compact('current_module','products'));
-    // }
-
-
-
-     ///// note :: must be update after 22/05/2024 
-
-    //  public function submit_invoice(Request $request){
-    //     $user_id = Auth::user()->id;
-    //     $user_company_id = Auth::user()->company_id;
+        // Get the previous month
+        $previous_month = $current_date->subMonth()->format('m');
+        
        
-    //     $item_category = DB::connection('pos')
-    //                     ->table('invoices')
-    //                     ->insertGetId([
-    //                     'invoice_date' =>$request->invoice_date,
-    //                     'product_id' =>$request->product_id,
-    //                     'emp_id' =>$user_id,
-    //                     'payment_method_id' =>$request->payment_method_id,
-    //                     'sub_total' =>$request->sub_total,
-    //                     'discount_amount' =>$request->discount_amount,
-    //                     'total_amount' =>$request->total_amount,
-    //                     'company_id' =>$user_company_id                
-    //                     ]);
+        $previous_month_sale = DB::connection('pos')
+                                ->table('invoices')
+                                ->whereMonth('invoice_date',$previous_month)
+                                ->whereYear('invoice_date', $current_date->year) // Ensure it's the previous month of the same year
+                                ->where('company_id',$user_company_id)
+                                ->sum('paid_amount');
 
-    //     return redirect()->route('invoice_show_data');
-    // }
 
+
+        $current_month = Carbon::now()->format('m');
+
+        $current_month_sale = DB::connection('pos')
+                                ->table('invoices')
+                                ->whereMonth('invoice_date',$current_month)
+                                ->whereYear('invoice_date', $current_date->year) // Ensure it's the current year
+                                ->where('company_id',$user_company_id)
+                                ->sum('paid_amount');
+
+                            
+        return response()->json([
+            'previous_month_sale' => $previous_month_sale,
+            'current_month_sale' => $current_month_sale
+        ]);
+    }
+
+
+
+    public function currentYearSale()
+    {
+        $user_company_id = Auth::user()->company_id;
+        $current_year = date('Y');
+    
+        $sales = DB::connection('pos')
+            ->table('invoices')
+            ->select(DB::raw('MONTH(invoice_date) as month'), DB::raw('SUM(paid_amount) as total_sale'))
+            ->whereYear('invoice_date', $current_year)
+            ->where('company_id', $user_company_id)
+            ->groupBy(DB::raw('MONTH(invoice_date)'))
+            ->orderBy('month')
+            ->get();
+    
+        // Initialize an array with all months set to 0
+        $months = array_fill(1, 12, 0);
+    
+        // Populate the array with actual data
+        foreach ($sales as $sale) {
+            $months[$sale->month] = $sale->total_sale;
+        }
+    
+        // Prepare labels and values for the chart
+        $monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $labels = $monthNames;
+        $values = array_values($months);
+    
+        return response()->json([
+            'labels' => $labels,
+            'values' => $values
+        ]);
+    }
 
   
 }

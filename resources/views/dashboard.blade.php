@@ -98,122 +98,101 @@ Dashboard
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Sale Report</h5>
+      <div class="col-md-6 col-sm-6">
+        <!-- Monthly Sales (over the year) CHART -->
+            <div class="card">
+              <div class="card-header" style="background-color: #16aaff; color : white">
+                <h3 class="card-title">Monthly Sales Chart</h3>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <div class="btn-group">
-                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                  <i class="fas fa-wrench"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                  <a href="#" class="dropdown-item">Action</a>
-                  <a href="#" class="dropdown-item">Another action</a>
-                  <a href="#" class="dropdown-item">Something else here</a>
-                  <a class="dropdown-divider"></a>
-                  <a href="#" class="dropdown-item">Separated link</a>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" style="color: white">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove" style="color: white">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
               </div>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
+              <div class="card-body">
+                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+              <!-- /.card-body -->
             </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-8">
-                <p class="text-center">
-                  <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                </p>
-
-                <div class="chart">
-                  <!-- Sales Chart Canvas -->
-                  <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
-                </div>
-                <!-- /.chart-responsive -->
-              </div>
-              <!-- /.col -->
-              <div class="col-md-4">
-                <p class="text-center">
-                  <strong>Goal Completion</strong>
-                </p>
-
-                <div class="progress-group">
-                  Previous Month Total Sale
-                  {{-- <span class="float-right"><b>160</b>/200</span> --}}
-                  <div class="progress progress-sm">
-                    <div class="progress-bar bg-info" style="width: 80%"></div>
-                  </div>
-                </div>
-                <!-- /.progress-group -->
-
-                <div class="progress-group">
-                  This Month Total Sale
-                  {{-- <span class="float-right"><b>310</b>/400</span> --}}
-                  <div class="progress progress-sm">
-                    <div class="progress-bar bg-danger" style="width: 75%"></div>
-                  </div>
-                </div>
-
-               
-                <!-- /.progress-group -->
-              </div>
-              <!-- /.col -->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- ./card-body -->
-          <div class="card-footer">
-            <div class="row">
-              <div class="col-sm-3 col-6">
-                <div class="description-block border-right">
-                  <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                  <h5 class="description-header">$35,210.43</h5>
-                  <span class="description-text">TOTAL REVENUE</span>
-                </div>
-                <!-- /.description-block -->
-              </div>
-              <!-- /.col -->
-              <div class="col-sm-3 col-6">
-                <div class="description-block border-right">
-                  <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                  <h5 class="description-header">$10,390.90</h5>
-                  <span class="description-text">TOTAL COST</span>
-                </div>
-                <!-- /.description-block -->
-              </div>
-              <!-- /.col -->
-              <div class="col-sm-3 col-6">
-                <div class="description-block border-right">
-                  <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                  <h5 class="description-header">$24,813.53</h5>
-                  <span class="description-text">TOTAL PROFIT</span>
-                </div>
-                <!-- /.description-block -->
-              </div>
-              <!-- /.col -->
-              <div class="col-sm-3 col-6">
-                <div class="description-block">
-                  <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
-                  <h5 class="description-header">1200</h5>
-                  <span class="description-text">GOAL COMPLETIONS</span>
-                </div>
-                <!-- /.description-block -->
-              </div>
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
+            <!-- /.card -->
+            <!-- Monthly Sales (over the year) CHART -->
       </div>
       <!-- /.col -->
+
+      <div class="col-md-6 col-sm-6">
+                  <!-- Small boxes (Stat box) -->
+                  <div class="row">
+                    <div class="col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-info">
+                        <div class="inner">
+                          <h3>{{$total_branch}}</h3>
+          
+                          <p>Total Branches</p>
+                        </div>
+                        <div class="icon">
+                          <i class="fa-solid fa-building"></i>
+                        </div>
+                        <a href="{{route('branch_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-danger">
+                        <div class="inner">
+                          <h3>{{$total_outlet}}</h3>
+          
+                          <p>Total Outlets</p>
+                        </div>
+                        <div class="icon">
+                          <i class="fa-solid fa-store"></i>
+                        </div>
+                        <a href="{{route('outlet_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <div class="col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-warning">
+                        <div class="inner">
+                          <h3>{{$total_warehouse}}</h3>
+          
+                          <p>Total Warehouses</p>
+                        </div>
+                        <div class="icon">
+                          <i class="fa-solid fa-warehouse"></i>
+                        </div>
+                        <a href="{{route('warehouse_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <div class="col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-primary">
+                        <div class="inner">
+                          <h3>{{$total_department}}</h3>
+          
+                          <p>Total Departments</p>
+                        </div>
+                        <div class="icon">
+                          <i class="fa-solid fa-hotel"></i>
+                        </div>
+                        <a href="{{route('department_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+                    </div>
+                    <!-- ./col -->
+                    
+                    
+                  </div>
+                  <!-- /.row -->
+      </div>
     </div>
   </div>
   <br>
@@ -288,77 +267,57 @@ $(document).ready(function() {
 });
 
 
-  //---------------------------------------
-  // - MONTHLY SALES CHART (Main Dashboard)
-  //---------------------------------------
+  //-------------------------------------------------------
+  // - MONTHLY SALES CHART (OVER THE YEAR) (Main Dashboard)
+  //--------------------------------------------------------
 
-$(function () {
-  'use strict'
+  $(function () {
+  'use strict';
 
-  // Get context with jQuery - using jQuery's .get() method.
-  var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
+  // Function to fetch data from API
+  function fetchDataAndRenderChart() {
+    axios.get('/api/current_year_sales') // Replace with your actual API endpoint
+      .then(function (response) {
+        const salesData = response.data; // Assuming API returns data in the format you need
 
-  var salesChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','Aug', 'Sep','Oct', 'Nov', 'Dec'],
-    datasets: [
-      {
-        label: 'Digital Goods',
-        backgroundColor: '#16aaff',
-        // borderColor: 'rgba(60,141,188,0.8)',
-        pointRadius: false,
-        // pointColor: '#3b8bba',
-        // pointStrokeColor: 'rgba(60,141,188,1)',
-        pointHighlightFill: '#fff',
-        // pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [28, 48, 40, 19, 86, 27, 90, 81, 75, 55, 75, 10]
-      },
-      {
-        label: 'Electronics',
-        backgroundColor: '#d92550',
-        // borderColor: 'rgba(210, 214, 222, 1)',
-        pointRadius: false,
-        // pointColor: 'rgba(210, 214, 222, 1)',
-        // pointStrokeColor: '#c1c7d1',
-        pointHighlightFill: '#fff',
-        // pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55, 40, 50, 80, 90, 95, 100]
-      }
-    ]
+        // Prepare the data for the chart
+        const donutData = {
+          labels: salesData.labels, // ['January', 'February', ...]
+          datasets: [
+            {
+              data: salesData.values, // [700, 500, ...]
+              backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', 'green', 'blue', 'orange', 'red', 'powderblue', 'yellow'],
+            }
+          ]
+        };
+
+        const donutOptions = {
+          maintainAspectRatio: false,
+          responsive: true,
+        };
+
+        // Get context with jQuery - using jQuery's .get() method.
+        const donutChartCanvas = $('#donutChart').get(0).getContext('2d');
+
+        // Create the chart with the dynamic data
+        new Chart(donutChartCanvas, {
+          type: 'doughnut',
+          data: donutData,
+          options: donutOptions
+        });
+      })
+      .catch(function (error) {
+        console.error('Error fetching sales data:', error);
+      });
   }
 
-  var salesChartOptions = {
-    maintainAspectRatio: false,
-    responsive: true,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
-      }]
-    }
-  }
-  // This will get the first returned node in the jQuery collection.
-  // eslint-disable-next-line no-unused-vars
-  var salesChart = new Chart(salesChartCanvas, {
-    type: 'line',
-    data: salesChartData,
-    options: salesChartOptions
-  }
-  )
+  // Fetch data and render chart on page load
+  fetchDataAndRenderChart();
+});
 
-})
-
-  //---------------------------------------------
-  // - END MONTHLY SALES CHART - (Main Dashboard)
-  //---------------------------------------------
+  //--------------------------------------------------------------
+  // - END MONTHLY SALES CHART (OVER THE YEAR) - (Main Dashboard)
+  //----------------------------------------------------------------
 
 
 
@@ -472,68 +431,100 @@ $(function () {
 
 
  //-------------------- Available Product Percentage (start)---------
-
-   // Function to update the widget
-   function updateAvailableProducts(percentage) {
+// Function to update the widget
+function updateAvailableProducts(percentage) {
     // Update the percentage text
-    document.getElementById('available-products-percentage').textContent = percentage + '%';
+    document.getElementById('available-products-percentage').textContent = percentage.toFixed(2) + '%';
     
     // Update the progress bar width and aria-valuenow
     var progressBar = document.getElementById('progress-bar-available-product');
-    progressBar.style.width = percentage + '%';
-    progressBar.setAttribute('aria-valuenow', percentage);
-  }
+    progressBar.style.width = percentage.toFixed(2) + '%';
+    progressBar.setAttribute('aria-valuenow', percentage.toFixed(2));
+}
 
-  // Function to fetch data from the API using Axios
-  function fetchAvailableProducts() {
+// Function to fetch data from the API using Axios
+function fetchAvailableProducts() {
     return axios.get('/api/total_available_products') // Replace with your API endpoint
-      .then(response => {
-        // Assuming the API returns an object with a `percentage` field
-        var percentage = response.data.total_available_products;
-        updateAvailableProducts(percentage);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        // Optionally, handle errors or show a default message
-      });
-  }
-  // Call the function to fetch and update data on page load
-  fetchAvailableProducts();
+        .then(response => {
+            // Assuming the API returns an object with a `percentage` field
+            var percentage = response.data.percentage;
+            updateAvailableProducts(percentage);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally, handle errors or show a default message
+        });
+}
+
+// Call the function to fetch and update data on page load
+fetchAvailableProducts();
 
   //-------------------- Available Product Percentage (end)---------
 
 
 
    //-------------------- Near-Expired Product Percentage (start)---------
-
-   // Function to update the widget
-   function updateNearExpiredProducts(percentage) {
+  // Function to update the widget
+function updateNearExpiredProducts(percentage) {
     // Update the percentage text
-    document.getElementById('near-expired-products-percentage').textContent = percentage + '%';
+    document.getElementById('near-expired-products-percentage').textContent = percentage.toFixed(2) + '%';
     
     // Update the progress bar width and aria-valuenow
     var progressBar = document.getElementById('progress-bar-near-expired-product');
-    progressBar.style.width = percentage + '%';
-    progressBar.setAttribute('aria-valuenow', percentage);
-  }
+    progressBar.style.width = percentage.toFixed(2) + '%';
+    progressBar.setAttribute('aria-valuenow', percentage.toFixed(2));
+}
 
-  // Function to fetch data from the API using Axios
-  function fetchNearExpiredProducts() {
+// Function to fetch data from the API using Axios
+function fetchNearExpiredProducts() {
     return axios.get('/api/total_near_expired_products') // Replace with your API endpoint
-      .then(response => {
-        // Assuming the API returns an object with a `percentage` field
-        var percentage = response.data.total_near_expired_products;
-        updateNearExpiredProducts(percentage);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        // Optionally, handle errors or show a default message
-      });
-  }
-  // Call the function to fetch and update data on page load
-  fetchNearExpiredProducts();
+        .then(response => {
+            // Assuming the API returns an object with a `percentage` field
+            var percentage = response.data.percentage;
+            updateNearExpiredProducts(percentage);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally, handle errors or show a default message
+        });
+}
 
+// Call the function to fetch and update data on page load
+fetchNearExpiredProducts();
   //-------------------Near-Expired Product Percentage (end)---------
+
+
+
+
+   //-------------------- Damaged Product Percentage (start)---------
+   // Function to update the widget
+function updateDamagedProducts(percentage) {
+    // Update the percentage text
+    document.getElementById('damaged-products-percentage').textContent = percentage.toFixed(2) + '%';
+    
+    // Update the progress bar width and aria-valuenow
+    var progressBar = document.getElementById('progress-bar-damaged-product');
+    progressBar.style.width = percentage.toFixed(2) + '%';
+    progressBar.setAttribute('aria-valuenow', percentage.toFixed(2));
+}
+
+// Function to fetch data from the API using Axios
+function fetchDamagedProducts() {
+    return axios.get('/api/total_damaged_products') // Replace with your API endpoint
+        .then(response => {
+            // Assuming the API returns an object with a `percentage` field
+            var percentage = response.data.percentage;
+            updateDamagedProducts(percentage);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally, handle errors or show a default message
+        });
+}
+
+// Call the function to fetch and update data on page load
+fetchDamagedProducts();
+  //-------------------Damaged Product Percentage (end)---------
 </script>
 @endpush
 
