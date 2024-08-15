@@ -174,13 +174,10 @@ function getCsrfToken() {
 // Set up Axios defaults
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
-  axios.post('api/logout').then(response=>{
-
-
+ 
 const baseUrl = "{{ url('/api') }}/";
 
 axios.post(baseUrl+'logout').then(response=>{
-
 
       if((response.data.flag) == 1){
         window.location.href = myLoginUrl;
@@ -190,6 +187,7 @@ axios.post(baseUrl+'logout').then(response=>{
       }
 });
 });
+
 
 </script>
 @endpush
