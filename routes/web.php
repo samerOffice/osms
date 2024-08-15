@@ -25,7 +25,9 @@ use App\Http\Controllers\API\Inventory\StockController;
 use App\Http\Controllers\API\POS\InvoiceController;
 use App\Http\Controllers\API\POS\CustomerController;
 use App\Http\Controllers\API\POS\DueController;
+
 use App\Http\Controllers\API\POS\TermAndConditionController;
+
 
 
 #### CLEAR ALL IN ONE ####
@@ -156,7 +158,6 @@ Route::get('/damage_product/{product_id}', [StockController::class, 'damage_prod
 
 
 
-
 //...............********* pos module ********................
 
 //invoice (sale)
@@ -179,5 +180,6 @@ Route::post('/clear_due', [DueController::class, 'clear_due'])->name('clear_due'
 //terms and conditions
 Route::get('/terms_and_conditions', [TermAndConditionController::class, 'terms_and_conditions'])->name('terms_and_conditions');
 Route::get('/add_terms_and_conditions', [TermAndConditionController::class, 'add_terms_and_conditions'])->name('add_terms_and_conditions');
+
 
 });

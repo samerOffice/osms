@@ -14,7 +14,9 @@
   </div> --}}
 
   <div class="row" style="margin-left:2%;">    
-    <span style="padding-top:5px"><img src="{{asset('img/osmslogo.png')}}"  height="40px" width="auto" alt="logo"></span>
+
+    <span style="padding-top:5px"><a href="{{route('home')}}"><img src="{{asset('img/osmslogo.png')}}"  height="40px" width="auto" alt="logo"></a></span>
+
       
   </div>
 
@@ -147,8 +149,6 @@
 </script>
 
 
-
-
     <form id="logOut">
       <button type="submit" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
       <input type="hidden" id="myLoginUrl" value="{{ route('login') }}">
@@ -174,10 +174,13 @@ function getCsrfToken() {
 // Set up Axios defaults
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+  axios.post('api/logout').then(response=>{
+
 
 const baseUrl = "{{ url('/api') }}/";
 
 axios.post(baseUrl+'logout').then(response=>{
+
 
       if((response.data.flag) == 1){
         window.location.href = myLoginUrl;

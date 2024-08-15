@@ -76,8 +76,10 @@ New Sale
                                 <select class="form-control select2bs4" id="customer_id" name="customer_id" style="width: 100%;">
                                     <option value="">--Select--</option>
                                     <option value="new">New Customer</option>
-                                    @foreach($customers as $customer)
+                                    @foreach($customers as $customer)                                 
+
                                     <option value="{{$customer->id}}">{{$customer->customer_name}} ({{$customer->customer_phone_number}})</option>
+
                                     @endforeach
                                 </select>
                             </div>                          

@@ -177,12 +177,16 @@
           <br>
           <div style="">
             <p>
-              <font color="#e7fdfe" size="4"><b>About OSMS</b></font>
+
+              <font color="#e7fdfe" size="4"><b>About Otithee ShopNet</b></font>
+
             </p>
           </div>
           <div style="text-align: justify;color:#fff;">
             <p>
-              <font color="#fff">Otithee Shop Management <br>System is a comprehensive <br>retail solution designed to <br>streamline and optimize shop <br>operations.</font>
+
+              <font color="#fff">Otithee ShopNet System is a <br>comprehensive retail solution <br>designed to streamline and <br>optimize shop operations.</font>
+
             </p>
             <p>
               <font color="#ffdfdf">Efficient Retail <br>Management Solution.</font>
@@ -193,20 +197,24 @@
             <p>
               <font color="#fff"><b>Address:</b></font>
             </p>
-            <p>
-              <font color="#fef5e7">9/A Dhanmondi, Dhaka-1209.</font>
+
+            <p style="margin-top: -15px;">
+              <font color="#fef5e7">Police Plaza Concord, Tower-A, <br>
+                Floor #8N, 10E, Plot #02, Road <br>#144, Gulshan-1, Dhaka-1212.</font>
+
             </p>
             <p>
               <font color="#fff"><b>Phone:</b></font>
             </p>
-            <p>
-              <font color="#fef5e7">+8801790004664</font>
+
+            <p style="margin-top: -15px;">
+              <font color="#fef5e7">+8801907802744</font>
+
             </p>
           </div>
           <br>
           <br>
         </div>
-
 
 
         @elseif($current_module->module_status == 2) <!--employee module-->
@@ -316,7 +324,8 @@
               </a>
             </li>
 
-            <li class="nav-item">
+
+           <li class="nav-item">
               <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Employee List</p>
@@ -457,6 +466,7 @@
             </a>
           </li>
 
+
           <li class="nav-item">
             <a href="{{route('item_category_list')}}" class="nav-link {{ Request::is('item_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('item_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('item_category_list') ? 'color: white; !important' : ''}}"></i>
@@ -465,6 +475,7 @@
           </li>
         </ul>
       </li>
+
 
       <li class="nav-item @if(Request::is('add_product_category')) menu-open 
             @elseif(Request::is('product_category_list')) menu-open 
@@ -701,6 +712,7 @@
       </li>
 
      
+
       {{-- <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-gem"></i>

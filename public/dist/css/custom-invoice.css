@@ -30,7 +30,8 @@
             text-align: right;
         }
         .invoice-box table tr.top table td {
-            padding-bottom: 20px;
+
+            padding-bottom: 5px;
         }
         .invoice-box table tr.top table td.title {
             font-size: 45px;
@@ -38,15 +39,18 @@
             color: #333;
         }
         .invoice-box table tr.information table td {
-            padding-bottom: 40px;
+
+            padding-bottom: 5px;
         }
         .invoice-box table tr.heading td {
-            background-color: #eee;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
+            background-color: #d9d9d9;
+     
         }
+     
         .invoice-box table tr.details td {
-            padding-bottom: 20px;
+
+            padding-bottom: 5px;
+
         }
         .invoice-box table tr.item td {
             border-bottom: 1px solid #eee;
