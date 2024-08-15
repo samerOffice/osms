@@ -25,6 +25,9 @@ use App\Http\Controllers\API\Inventory\StockController;
 use App\Http\Controllers\API\POS\InvoiceController;
 use App\Http\Controllers\API\POS\CustomerController;
 
+use App\Http\Controllers\API\POS\TermAndConditionController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -173,8 +176,15 @@ Route::post('/sku_product_information_dependancy',[App\Http\Controllers\API\POS\
 Route::middleware('auth:sanctum')->post('/sale_store', [App\Http\Controllers\API\POS\InvoiceController::class, 'sale_store']);
 Route::get('/previous_and_current_monthly_sales',[App\Http\Controllers\API\POS\InvoiceController::class,'previousAndCurrentMonthSale']);
 Route::get('/current_year_sales',[App\Http\Controllers\API\POS\InvoiceController::class,'currentYearSale']);
+
 //customer
 Route::middleware('auth:sanctum')->post('/customer_store',[App\Http\Controllers\API\POS\CustomerController::class,'customer_store']);
 Route::middleware('auth:sanctum')->get('/edit_customer/{customer_id}',[App\Http\Controllers\API\POS\CustomerController::class,'edit_customer_via_api']);
 Route::middleware('auth:sanctum')->post('/update_customer/{customer_id}',[App\Http\Controllers\API\POS\CustomerController::class,'update_customer']);
+
 Route::middleware('auth:sanctum')->post('/delete_customer/{customer_id}',[App\Http\Controllers\API\POS\CustomerController::class,'delete_customer']);
+
+//terms and conditions
+Route::middleware('auth:sanctum')->post('/store_terms_and_conditions',[App\Http\Controllers\API\POS\TermAndConditionController::class,'store_terms_and_conditions']);
+Route::middleware('auth:sanctum')->post('/update_terms_and_conditions/{terms_and_conditions_id}',[App\Http\Controllers\API\POS\TermAndConditionController::class,'update_terms_and_conditions']);
+

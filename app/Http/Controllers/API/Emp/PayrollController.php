@@ -90,7 +90,6 @@ class PayrollController extends Controller
     public function store_payroll(Request $request)
     {
         
-        
         $payroll = DB::table('payrolls')
         ->insertGetId([
         'employee'=>$request->employee,
@@ -126,12 +125,20 @@ class PayrollController extends Controller
         ]);
 
 
-         return redirect()->route('payroll_show_data');
+        //  return redirect()->route('payroll_show_data');
+
+        $response = [
+            'success' => true,
+            'message' => 'Payroll is added successfully',
+            'payroll_id' => $payroll
+        ];
+
+         return response()->json($response,200);
 
     }
 
 
-    public function payroll_show_data(){
+    public function payroll_show_data($payroll_id){
 
         $current_modules = array();
         $current_modules['module_status'] = '2';
@@ -140,41 +147,112 @@ class PayrollController extends Controller
         $current_module = DB::table('current_modules')->first();
 
 
-        $last_inserted_data = DB::table('payrolls')
-                             ->orderBy('id', 'desc')
-                             ->first();
+        $member_payroll_info = DB::table('payrolls')
+                               ->where('id',$payroll_id)
+                               ->first();
 
-        $last_inserted_id = $last_inserted_data->id;
+        $employee_id = $member_payroll_info->employee;
+        $company_id = $member_payroll_info->company;
 
-        $member_payroll_info = DB::table('users')
-                                ->leftJoin('designations','users.designation','designations.id')
-                                ->leftJoin('branches','users.branch_id','branches.id')
-                                ->leftJoin('payrolls','users.id','payrolls.employee')
-                                ->select(
-                                'users.name as member_name',
-                                'payrolls.*',
-                                'users.id as member_id',
-                                'users.joining_date as member_joining_date',
-                                'branches.br_name as member_br_name',
-                                'designations.designation_name as member_designation_name')
-                                ->where('payrolls.id', $last_inserted_id)
-                                ->first();
+        $employee_info = DB::table('users')
+                            ->where('id',$employee_id)
+                            ->first();
 
-          $member_payroll_info = (array) $member_payroll_info;
-          $filteredData = array_filter($member_payroll_info, function($value) {
-            return $value != 0;
-        });
+        $employee_name = $employee_info->name;
+        $designation_id = $employee_info->designation;
+        $branch_id = $employee_info->branch_id;
+        $warehouse_id = $employee_info->warehouse_id;
+        $outlet_id = $employee_info->outlet_id;
 
 
-        $member_name = $filteredData['member_name'] ?? null;
-        $member_id = $filteredData['member_id'] ?? null;
-        $member_designation_name = $filteredData['member_designation_name'] ?? null; // Fix typo
-        $member_br_name = $filteredData['member_br_name'] ?? null; // Fix typo
+        $designation = DB::table('designations')
+                        ->where('id',$designation_id)
+                        ->first();
+        $designation_name = $designation->designation_name;
+        
+        $company = DB::table('companies')
+                    ->where('id',$company_id)
+                    ->first();
+        $shop_name = $company->company_name;
+
+
+        $branch = DB::table('branches')
+                    ->where('id',$branch_id)
+                    ->first();
+      
+
+
+        $warehouse = DB::connection('inventory')
+                        ->table('warehouses')
+                        ->where('id',$warehouse_id)
+                        ->first();
+       
+
+
+        $outlet = DB::connection('pos')
+                    ->table('outlets')
+                    ->where('id',$outlet_id)
+                    ->first();
+       
+
+        // dd($member_payroll_info);
+         
+        return view('payrolls.show_data',compact('current_module',
+                                                'member_payroll_info',
+                                                'employee_name',
+                                                'designation_name',
+                                                'shop_name',
+                                                'branch',
+                                                'warehouse',
+                                                'outlet',
+                                                'payroll_id'));
+    }
+
+
+    // public function payroll_show_data($payroll_id){
+
+    //     $current_modules = array();
+    //     $current_modules['module_status'] = '2';
+    //     $update_module = DB::table('current_modules')
+    //                     ->update($current_modules);
+    //     $current_module = DB::table('current_modules')->first();
+
+
+    //     $payroll_info = DB::table('payrolls')
+    //                     ->where('id',$payroll_id)
+    //                     ->first();
+
+    //     $payroll_id = $payroll_info->id;
+
+    //     $member_payroll_info = DB::table('users')
+    //                             ->leftJoin('designations','users.designation','designations.id')
+    //                             ->leftJoin('branches','users.branch_id','branches.id')
+    //                             ->leftJoin('payrolls','users.id','payrolls.employee')
+    //                             ->select(
+    //                             'users.name as member_name',
+    //                             'payrolls.*',
+    //                             'users.id as member_id',
+    //                             'users.joining_date as member_joining_date',
+    //                             'branches.br_name as member_br_name',
+    //                             'designations.designation_name as member_designation_name')
+    //                             ->where('payrolls.id', $payroll_id)
+    //                             ->first();
      
 
-        // Pass the filtered data to the Blade view
-        return view('payrolls.show_data',compact('filteredData','member_name','member_id','member_designation_name','member_br_name','current_module','last_inserted_id'));
-    }
+    //       $member_payroll_info = (array) $member_payroll_info;
+    //       $filteredData = array_filter($member_payroll_info, function($value) {
+    //         return $value != 0;
+    //     });
+
+
+    //     $member_name = $filteredData['member_name'] ?? null;
+    //     $member_id = $filteredData['member_id'] ?? null;
+    //     $member_designation_name = $filteredData['member_designation_name'] ?? null;
+    //     $member_br_name = $filteredData['member_br_name'] ?? null;
+     
+       
+    //     return view('payrolls.show_data',compact('filteredData','member_name','member_id','member_designation_name','member_br_name','current_module','payroll_id'));
+    // }
 
 
 

@@ -21,132 +21,199 @@ Payroll
       <div class="container-fluid">
         <br>
 
-        <div class="invoice p-3 mt-3" id="payroll_details">         
-            <div class="row">          
-                <div class="col-12">
-                    <br>
-                    <div class="card">
+        <div id="payroll_details"> 
+        <div class="payroll-slip">
 
-                        <div class="card-header">
-                          <h3 class="card-title">{{$member_name}}</h3><br>
-                          <h3 class="card-title">{{$member_designation_name}}</h3>
-                        </div>
+          <div class="header">
+            <h3 align="center">Payroll Slip</h3>       
+        </div>
+          
+          <div class="row">
+            <div class="col-8">
+              <h4>{{$shop_name}}</h4>
+            </div>
+            <div class="col-4">
+              <h6><span style="color: blue">Salary Date: </span>{{ \Carbon\Carbon::parse($member_payroll_info->salary_date)->format('j F, Y') }}</h6>
+            </div>
+          </div>
+          <br>
+          <div class="payroll_details" style="font-size: 16px">
+              <div><span>Employee Name: </span>{{$employee_name}}</div>
+              <div><span>Designation: </span>{{$designation_name}}</div>
+              @if($branch && $branch->br_name != '')
+              <div><span>Branch: </span>{{$branch->br_name}}</div>
+              @endif
+              @if($warehouse && $warehouse->warehouse_name != '')
+              <div><span>Warehouse: </span>{{$warehouse->warehouse_name}}</div>
+              @endif
+              @if($outlet && $outlet->outlet_name != '')
+            <div><span>Outlet: </span>{{$outlet->outlet_name}}</div>
+              @endif
+          </div>
+          
+             <div class="table-container">
+              <table style="font-size: 16px">
+                <tbody>
+                    <tr>
+                      <td>Total Working Days (Days)</td>
+                      <td>{{$member_payroll_info->total_working_day}}</td>
+                    </tr>
 
-                        <div class="card-body">
-                            <table id="" class="table table-bordered table-striped">
-                                <thead>
-                                    @foreach($filteredData as $key => $value)
-                                    @if( ($key !== '_token')
-                                    && 
-                                    ($key !== 'id')
-                                    && 
-                                    ($key !== 'employee')
-                                    && 
-                                    ($key !== 'company')
-                                    && 
-                                    ($key !== 'member_joining_date')
-                                    && 
-                                    ($key !== 'member_id')
-                                    && 
-                                    ($key !== 'created_at')
-                                    && 
-                                    ($key !== 'updated_at')
-                                    )
-                                    <tr>
-                                        <th>
-                                            @if($key === 'member_name')
-                                            Name
-                                            @elseif($key === 'member_designation_name')
-                                            Designation
-                                            @elseif($key === 'member_br_name')
-                                            Branch
-                                            @elseif($key === 'joining_date')
-                                            Joining Date
-                                            @elseif($key === 'salary_date')
-                                            Salary Date
-                                            @elseif($key === 'total_working_day')
-                                            Total Working Days (Days)
-                                            @elseif($key === 'total_leave')
-                                            Total Leave Days (Days)
-                                            @elseif($key === 'total_number_of_pay_day')
-                                            Total Number of Payable Days (Days)
-                                            @elseif($key === 'per_day_salary')
-                                            Per Day Salary (BDT)
-                                            @elseif($key === 'monthly_salary')
-                                            Monthly Salary (BDT)
-                                            @elseif($key === 'monthly_holiday_bonus')
-                                            Monthly Holiday Bonus (BDT)
-                                            @elseif($key === 'total_daily_allowance')
-                                            Total Daily Allowance (BDT)
-                                            @elseif($key === 'total_travel_allowance')
-                                            Total Travel Allowance (BDT)
-                                            @elseif($key === 'rental_cost_allowance')
-                                            Rental Cost Allowance (BDT)
-                                            @elseif($key === 'hospital_bill_allowance')
-                                            Hospital Bill Allowance (BDT)
-                                            @elseif($key === 'insurance_allowance')
-                                            Insurance Allowance (BDT)
-                                            @elseif($key === 'sales_commission')
-                                            Sales Commission (BDT)
-                                            @elseif($key === 'retail_commission')
-                                            Retail Commission (BDT)
-                                            @elseif($key === 'total_others')
-                                            Total Others (BDT)
-                                            @elseif($key === 'total_salary')
-                                            Total Salary (BDT)
-                                            @elseif($key === 'yearly_bonus')
-                                            Yearly Bonus (BDT)
-                                            @elseif($key === 'total_payable_salary')
-                                            Total Payable Salary (BDT)
-                                            @elseif($key === 'advance_less')
-                                            Advance Less (BDT)
-                                            @elseif($key === 'any_deduction')
-                                            Any Deduction (BDT)
-                                            @elseif($key === 'final_pay_amount')
-                                            <span style="color: green">Final Amount (BDT)</span>
-                                            @elseif($key === 'loan_advance')
-                                            Loan Advance (BDT)
-                                            @else
-                                            {{$key}}
-                                            @endif
-                                        </th>
-                                        <td>{{ $value }}</td>
-                                    </tr>
-                                    @endif
-                                    @endforeach
-                                </thead>                          
-                              </table>
-                        </div>
-                      </div>
-                </div>            
-            </div>  
-                
-            <div class="row no-print">
-                <div class="col-12">
-                  <a  id="invoice_print" target="_blank"  class="btn btn-danger float-right" style="margin-right: 5px;">
-                    <i class="fas fa-print"></i> Print
-                  </a>
-                  <form method="post" action="{{route('generate-csv')}}">
-                    @csrf
-                    <input type="hidden" name="payroll" value="{{$last_inserted_id}}">
-                  <button type="submit" class="btn btn-success"><i class="fas fa-download"></i> Download CSV</button>
-                </form>
-                </div>
+                  <tr>
+                    <td>Total Leave Days (Days)</td>
+                    <td>{{$member_payroll_info->total_leave}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Total Number of Payable Days (Days)</td>
+                    <td>{{$member_payroll_info->total_number_of_pay_day}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Per Day Salary (BDT)</td>
+                    <td>{{$member_payroll_info->per_day_salary}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Monthly Salary (BDT)</td>
+                    <td>{{$member_payroll_info->monthly_salary}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Monthly Holiday Bonus (BDT)</td>
+                    <td>{{$member_payroll_info->monthly_holiday_bonus}}</td>
+                  </tr>
+
+                  @if(($member_payroll_info->total_daily_allowance != 0))
+                  <tr>
+                    <td>Total Daily Allowance (BDT)</td>
+                    <td>{{$member_payroll_info->total_daily_allowance}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->total_travel_allowance != 0))
+                  <tr>
+                    <td>Total Travel Allowance (BDT)</td>
+                    <td>{{$member_payroll_info->total_travel_allowance}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->rental_cost_allowance != 0))
+                  <tr>
+                    <td>Rental Cost Allowance (BDT)</td>
+                    <td>{{$member_payroll_info->rental_cost_allowance}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->hospital_bill_allowance != 0))
+                  <tr>
+                    <td>Hospital Bill Allowance (BDT)</td>
+                    <td>{{$member_payroll_info->hospital_bill_allowance}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->insurance_allowance != 0))
+                  <tr>
+                    <td>Insurance Allowance (BDT)</td>
+                    <td>{{$member_payroll_info->insurance_allowance}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->sales_commission != 0))
+                  <tr>
+                    <td>Sales Commission (BDT)</td>
+                    <td>{{$member_payroll_info->sales_commission}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->retail_commission != 0))
+                  <tr>
+                    <td>Retail Commission (BDT)</td>
+                    <td>{{$member_payroll_info->retail_commission}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->total_others != 0))
+                  <tr>
+                    <td>Total Others (BDT)</td>
+                    <td>{{$member_payroll_info->total_others}}</td>
+                  </tr>
+                  @endif
+
+                  <tr>
+                    <td>Total Salary (BDT)</td>
+                    <td>{{$member_payroll_info->total_salary}}</td>
+                  </tr>
+
+                  @if(($member_payroll_info->yearly_bonus != 0))
+                  <tr>
+                    <td>Yearly Bonus (BDT)</td>
+                    <td>{{$member_payroll_info->yearly_bonus}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->total_payable_salary != 0))
+                  <tr>
+                    <td>Total Payable Salary (BDT)</td>
+                    <td>{{$member_payroll_info->total_payable_salary}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->advance_less != 0))
+                  <tr>
+                    <td>Advance Less (BDT)</td>
+                    <td>{{$member_payroll_info->advance_less}}</td>
+                  </tr>
+                  @endif
+
+                  @if(($member_payroll_info->any_deduction != 0))
+                  <tr>
+                    <td>Any Deduction (BDT)</td>
+                    <td>{{$member_payroll_info->any_deduction}}</td>
+                  </tr>
+                  @endif
+
+                  <tr>
+                    <td style="color: green"><strong>Final Amount (BDT)</strong></td>
+                    <td>{{$member_payroll_info->final_pay_amount}}</td>
+                  </tr>
+
+                  @if(($member_payroll_info->loan_advance != 0))
+                  <tr>
+                    <td>Loan Advance (BDT)</td>
+                    <td>{{$member_payroll_info->loan_advance}}</td>
+                  </tr>   
+                  @endif         
+                    
+                </tbody>
+            </table>
+             </div>
+             
+        
+          <div class="payroll_footer">
+              <p>This is a system-generated payroll slip and does not require a signature.</p>
+          </div>
+
+          <div class="row no-print">
+            <div class="col-12">
+              <a  id="invoice_print" target="_blank"  class="btn btn-danger float-right" style="margin-right: 5px;">
+                <span style="color: white"><i class="fas fa-print"></i> Print</span>
+              </a>
+              <form method="post" action="{{route('generate-csv')}}">
+                @csrf
+                <input type="hidden" name="payroll" value="{{$payroll_id}}" id="payroll_id">
+              <button type="submit" class="btn btn-success"><i class="fas fa-download"></i> Download CSV</button>
+            </form>
             </div>
         </div>
-        
-        <br>       
+
+      </div>
+
+      
+      </div><!-- payroll div end -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-       
-      </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
   </div>
 
 @endsection
@@ -174,15 +241,15 @@ $(document).ready(function() {
                 setTimeout(function() {
                     if (!window.matchMedia('print').matches) {
                         // Redirect to a different page if print was canceled
-                        window.location.href = '{{ route('payroll_show_data') }}';
+                        var payroll_id = $('#payroll_id').val();
+                        window.location.href = "{{ route('payroll_show_data', ':id') }}".replace(':id', payroll_id);
                     }
-                }, 500);
+                }, 100);
 
             }
    
         });
   
-           
-  
+
   </script>
   @endpush
