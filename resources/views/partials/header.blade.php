@@ -14,7 +14,7 @@
   </div> --}}
 
   <div class="row" style="margin-left:2%;">    
-    <span style="padding-top:5px"><img src="{{asset('img/osmslogo.png')}}"  height="40px" width="auto" alt="logo"></span>
+    <span style="padding-top:5px"><a href="{{route('home')}}"><img src="{{asset('img/osmslogo.png')}}"  height="40px" width="auto" alt="logo"></a></span>
       
   </div>
 
