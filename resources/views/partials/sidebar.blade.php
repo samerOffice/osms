@@ -177,12 +177,12 @@
           <br>
           <div style="">
             <p>
-              <font color="#e7fdfe" size="4"><b>About OSMS</b></font>
+              <font color="#e7fdfe" size="4"><b>About Otithee ShopNet</b></font>
             </p>
           </div>
           <div style="text-align: justify;color:#fff;">
             <p>
-              <font color="#fff">Otithee Shop Management <br>System is a comprehensive <br>retail solution designed to <br>streamline and optimize shop <br>operations.</font>
+              <font color="#fff">Otithee ShopNet System is a <br>comprehensive retail solution <br>designed to streamline and <br>optimize shop operations.</font>
             </p>
             <p>
               <font color="#ffdfdf">Efficient Retail <br>Management Solution.</font>
