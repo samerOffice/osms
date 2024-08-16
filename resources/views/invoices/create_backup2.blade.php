@@ -141,7 +141,7 @@ New Sale
                             <table class="table table-bordered nowrap"
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">               
                                 <tbody>
-                                    {{-- searching start  --}}
+                                    {{-- test start  --}}
                                     <div id="form-container">
                                         <div class="form-row">
                                             <div class="row" style="width: 100%">
@@ -193,13 +193,8 @@ New Sale
                                                 </div>
                                                 
                                                 <div class="form-group col-2">
-                                                <label for="product_unit_price" class="col-form-label text-start">Unit Price (Purchase)</label>
+                                                <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                                                 <input type="text" readonly  style="background-color: #e7ffd9" class="form-control product_unit_price" name="product_unit_price[]">
-                                                </div>
-
-                                                <div class="form-group col-2">
-                                                <label for="product_unit_price_sale" class="col-form-label text-start">Unit Price (Sale)</label>
-                                                <input type="text" class="form-control product_unit_price_sale" onkeyup="saleUnitPrice()" name="product_unit_price_sale[]">
                                                 </div>
                                     
                                                 <div class="form-group col-2">
@@ -215,7 +210,7 @@ New Sale
                                                 {{-- row ends  --}}                                             
                                         </div>
                                     </div>                               
-                                    {{-- searching ends  --}}
+                                    {{-- test ends  --}}
                                 </tbody>
                             </table>
                         </div>
@@ -404,13 +399,8 @@ document.getElementById('addButton').addEventListener('click', function() {
                             </div>
                                 
                             <div class="form-group col-2">
-                            <label for="product_unit_price" class="col-form-label text-start">Unit Price (Purchase)</label>
+                            <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                             <input type="number" readonly style="background-color: #e7ffd9"  class="form-control product_unit_price" name="product_unit_price[]">
-                            </div>
-
-                            <div class="form-group col-2">
-                            <label for="product_unit_price_sale" class="col-form-label text-start">Unit Price (Sale)</label>
-                            <input type="text" class="form-control product_unit_price_sale" name="product_unit_price_sale[]">
                             </div>
                 
                             <div class="form-group col-2">
@@ -433,18 +423,11 @@ document.getElementById('addButton').addEventListener('click', function() {
                 skuDetailsForDynamicRow(newRow);
             });
 
-        newRow.querySelectorAll('.product_quantity, .product_unit_price, .product_unit_price_sale').forEach(function(input) {
+        newRow.querySelectorAll('.product_quantity, .product_unit_price').forEach(function(input) {
             input.addEventListener('input', function() {
                 availableQuantityCheckForDynamicProduct(newRow);
                 calculateProductUnitPrice(newRow);
                 updateTotal();
-            });
-
-        });
-
-        newRow.querySelectorAll('.product_unit_price, .product_unit_price_sale').forEach(function(input) {    
-            input.addEventListener('keyup', function() {         
-                dynamicSaleUnitPrice(newRow);
             });
         });
 
@@ -482,7 +465,6 @@ document.getElementById('addButton').addEventListener('click', function() {
                             newRow.querySelector('.product_mfg_date').value = response.data.product_mfg_date;
                             newRow.querySelector('.product_expiry_date').value = response.data.product_expiry_date;
                             newRow.querySelector('.product_unit_price').value = response.data.product_unit_price;
-                            newRow.querySelector('.product_unit_price_sale').value = response.data.product_unit_price;
                             newRow.querySelector('.stock_product_id').value = response.data.stock_id;
 
                             availableDynamicStock = response.data.product_quantity;
@@ -494,13 +476,13 @@ document.getElementById('addButton').addEventListener('click', function() {
                 });
             }
 
-            // function availableQuantityCheckForDynamicProduct(row) {
-            //         const enteredDynamicQuantity = row.querySelector('.product_quantity').value;
-            //         if (enteredDynamicQuantity > availableDynamicStock) {
-            //             alert('Not enough stock available!');
-            //             row.querySelector('.product_quantity').value = '';
-            //         }
-            //     }
+            function availableQuantityCheckForDynamicProduct(row) {
+                    const enteredDynamicQuantity = row.querySelector('.product_quantity').value;
+                    if (enteredDynamicQuantity > availableDynamicStock) {
+                        alert('Not enough stock available!');
+                        row.querySelector('.product_quantity').value = '';
+                    }
+                }
 
             function clearDynamicProductFields(row){             
                 row.querySelector('.product_name').value = '';
@@ -510,13 +492,15 @@ document.getElementById('addButton').addEventListener('click', function() {
                 row.querySelector('.product_mfg_date').value = '';
                 row.querySelector('.product_expiry_date').value = '';
                 row.querySelector('.product_unit_price').value = '';
-                row.querySelector('.product_unit_price_sale').value = '';
                 row.querySelector('.product_subtotal').value = '';              
             }
 
-            function availableQuantityCheckForDynamicProduct(row) {           
-                const enteredDynamicQuantity = $(row).find(".product_quantity").val();     
+            function availableQuantityCheckForDynamicProduct(row) {
+               
+                const enteredDynamicQuantity = $(row).find(".product_quantity").val();
+               
                 if (enteredDynamicQuantity > availableDynamicStock) {
+                    // alert('Not enough stock available!');
                     Swal.fire({
                     icon: "warning",
                     title: 'Not enough stock available!',
@@ -526,7 +510,6 @@ document.getElementById('addButton').addEventListener('click', function() {
             }
 
 
-            
 //--------------dynamic sku product dependancy logic end--------------------
 
 });
@@ -535,32 +518,10 @@ document.getElementById('addButton').addEventListener('click', function() {
 function calculateProductUnitPrice(row) {
         var productQuantity = $(row).find(".product_quantity").val();
         var productUnitPrice = $(row).find(".product_unit_price").val();
-        var productUnitPriceSale = $(row).find(".product_unit_price_sale").val();
        
-        // var subtotal = (parseFloat(productQuantity) * parseFloat(productUnitPrice));
-        var subtotal = (parseFloat(productQuantity) * parseFloat(productUnitPriceSale));
+        var subtotal = (parseFloat(productQuantity) * parseFloat(productUnitPrice));
         $(row).find(".product_subtotal").val(subtotal ? subtotal.toFixed(2) : 0.00);
     }
-
-
-    function dynamicSaleUnitPrice(row) {  
-     
-            const dynamic_purchase_unit_price_value = $(row).find(".product_unit_price").val(); 
-            const dynamic_sale_unit_price_value = $(row).find(".product_unit_price_sale").val(); 
-
-            const dynamic_purchase_unit_price = parseInt(dynamic_purchase_unit_price_value);
-            const dynamic_sale_unit_price = parseInt(dynamic_sale_unit_price_value);
-
-
-            if (dynamic_sale_unit_price < dynamic_purchase_unit_price) {
-                Swal.fire({
-                icon: "warning",
-                title: 'Selling price must be higher than purchase price!',
-                });
-
-                $(row).find(".product_quantity").val('');
-            }
-            }
 
 
 function updateTotal() {       
@@ -577,23 +538,12 @@ function updateTotal() {
     }
 
     // Initialize event listeners for the initial row
-    document.querySelectorAll('.product_quantity, .product_unit_price, .product_unit_price_sale').forEach(function(input) {
+    document.querySelectorAll('.product_quantity, .product_unit_price').forEach(function(input) {
         input.addEventListener('input', function() {
             var row = input.closest('.form-row');
             calculateProductUnitPrice(row);
             // generateProductTrackID(row);
             updateTotal();
-        });
-
-       
-    });
-
-    document.querySelectorAll('.product_unit_price, .product_unit_price_sale').forEach(function(input) {
-
-        input.addEventListener('keyup', function() {
-            var row = input.closest('.form-row');
-            dynamicSaleUnitPrice(row);
-           
         });
     });
 
@@ -637,7 +587,6 @@ function skuDetails(){
                 $('.product_mfg_date').val(response.data.product_mfg_date);
                 $('.product_expiry_date').val(response.data.product_expiry_date);
                 $('.product_unit_price').val(response.data.product_unit_price);
-                $('.product_unit_price_sale').val(response.data.product_unit_price);
                 $('.stock_product_id').val(response.data.stock_id);
                 availableStock = response.data.product_quantity;
             }
@@ -659,23 +608,6 @@ function availableQuantityCheck() {
         parseInt($('.product_quantity').val(''));
     }
 }
-
-
-function saleUnitPrice() {
-    var purchase_unit_price = parseInt($('.product_unit_price').val());
-    var sale_unit_price = parseInt($('.product_unit_price_sale').val());
-    if (sale_unit_price < purchase_unit_price) {
-        // alert('Not enough stock available!');
-        Swal.fire({
-                    icon: "warning",
-                    title: 'Selling price must be higher than purchase price!',
-                    });
-        parseInt($('.product_quantity').val(''));
-        // parseInt($('.product_unit_price_sale').val(purchase_unit_price));
-    }
-}
-
-
 
 function clearProductFields(){
     $('.product_name').val('');
@@ -788,7 +720,7 @@ function dueAmountCalculation(){
 
 
 
-//..............sale submit start................
+//..............requisition purchase order submit start................
 document.getElementById('saleForm').addEventListener('submit',function(event){
 event.preventDefault();
 var saleFormData = new FormData(this);
@@ -822,7 +754,7 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  });
 
 });
-//................sale submit end.................
+//................requisition purchase order submit end.................
  
 </script>
  @endpush

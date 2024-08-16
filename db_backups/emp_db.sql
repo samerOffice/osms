@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2024 at 03:49 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Aug 16, 2024 at 11:45 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -708,7 +708,9 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
 (371, 'App\\Models\\User', 9, 'myToken', '2f91b650fdbd3ee608158cf00445b2e9a49ec541703efce9d53f5739399b30d4', '[\"*\"]', NULL, NULL, '2024-07-31 07:10:03', '2024-07-31 07:10:03'),
 (418, 'App\\Models\\User', 1, 'myToken', '33167f4c9a52fa34a28d23621a4f1f79f50434f39f3a2adf98eed4c3f7755f24', '[\"*\"]', NULL, NULL, '2024-08-15 07:13:38', '2024-08-15 07:13:38'),
-(419, 'App\\Models\\User', 1, 'myToken', '46723d642c3084ddfad5272cb6523a23ef66f29bba6c6071a57b358c9fc84c74', '[\"*\"]', NULL, NULL, '2024-08-15 12:09:05', '2024-08-15 12:09:05');
+(419, 'App\\Models\\User', 1, 'myToken', '46723d642c3084ddfad5272cb6523a23ef66f29bba6c6071a57b358c9fc84c74', '[\"*\"]', NULL, NULL, '2024-08-15 12:09:05', '2024-08-15 12:09:05'),
+(420, 'App\\Models\\User', 1, 'myToken', 'de18ee0a84bcb8c5106e3d3f77894c9ce4da830a6687adcad4b64c3ed5313ed8', '[\"*\"]', NULL, NULL, '2024-08-16 15:07:51', '2024-08-16 15:07:51'),
+(421, 'App\\Models\\User', 1, 'myToken', '06148864b23498239ab18aae155d5e87b901a75655e7487957dcd2c218ba3403', '[\"*\"]', NULL, NULL, '2024-08-16 17:42:51', '2024-08-16 17:42:51');
 
 -- --------------------------------------------------------
 
@@ -1186,7 +1188,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=420;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=422;
 
 --
 -- AUTO_INCREMENT for table `roles`

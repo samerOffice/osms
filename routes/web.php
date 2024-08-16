@@ -25,8 +25,8 @@ use App\Http\Controllers\API\Inventory\StockController;
 use App\Http\Controllers\API\POS\InvoiceController;
 use App\Http\Controllers\API\POS\CustomerController;
 use App\Http\Controllers\API\POS\DueController;
-
 use App\Http\Controllers\API\POS\TermAndConditionController;
+use App\Http\Controllers\API\POS\PosReportControlller;
 
 
 
@@ -171,7 +171,6 @@ Route::get('/customer_list', [CustomerController::class, 'customer_list'])->name
 Route::get('/add_customer', [CustomerController::class, 'add_customer'])->name('add_customer');
 Route::get('/edit_customer/{customer_id}', [CustomerController::class, 'edit_customer'])->name('edit_customer');
 
-
 //customer due
 Route::get('/customer_due_list', [DueController::class, 'customer_due_list'])->name('customer_due_list');
 Route::get('/due_details/{customer_mobile_number}', [DueController::class, 'due_details'])->name('due_details');
@@ -180,6 +179,10 @@ Route::post('/clear_due', [DueController::class, 'clear_due'])->name('clear_due'
 //terms and conditions
 Route::get('/terms_and_conditions', [TermAndConditionController::class, 'terms_and_conditions'])->name('terms_and_conditions');
 Route::get('/add_terms_and_conditions', [TermAndConditionController::class, 'add_terms_and_conditions'])->name('add_terms_and_conditions');
+
+//----- ** pos reports **------
+//profit and loss report
+Route::get('/profit_and_loss_report', [PosReportControlller::class, 'profit_and_loss_report'])->name('profit_and_loss_report');
 
 
 });

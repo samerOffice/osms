@@ -30,11 +30,7 @@ Dashboard
           </div>
           <br>
           <div style="position: relative">
-            {{-- <form action="{{route('empModuleActive')}}" method="post">
-              @csrf
-              <input type="hidden" value="2" name="current_module_status">
-              <button type="submit" class="btn employee_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-            </form> --}}           
+                   
               <a href="{{route('empModuleActive')}}"><button type="submit" class="btn employee_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>  
           </div>
           <br>
@@ -49,11 +45,7 @@ Dashboard
           </div>
           <br>
           <div style="position: relative;">
-            {{-- <form action="{{route('inventoryModuleActive')}}" method="post">
-              @csrf
-              <input type="hidden" value="3" name="current_module_status">
-              <button type="submit" class="btn inventory_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-            </form> --}}           
+                    
               <a href="{{route('inventoryModuleActive')}}"><button type="submit" class="btn inventory_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>   
           </div>
           <br>
@@ -67,11 +59,7 @@ Dashboard
           </div>
           <br>
           <div style="position: relative">
-            {{-- <form action="{{route('posModuleActive')}}" method="post">
-              @csrf
-              <input type="hidden" value="4" name="current_module_status">
-              <button type="submit" class="btn pos_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-            </form> --}}         
+                 
               <a href="{{route('posModuleActive')}}"><button type="submit" class="btn pos_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
           </div>
         </div>
