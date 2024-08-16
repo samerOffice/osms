@@ -79,7 +79,7 @@ Invoice
                         <tr class="item">
                             <td>{{$item->sold_product_name}}</td>
                             <td>{{$item->quantity}}</td>
-                            <td>{{$item->unit_price}} BDT</td>
+                            <td>{{$item->sale_unit_price}} BDT</td>
                             <td>{{$item->sub_total}} BDT</td>
                         </tr>
                         @endforeach

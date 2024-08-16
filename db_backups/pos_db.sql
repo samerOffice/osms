@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2024 at 03:49 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Aug 16, 2024 at 11:46 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -117,7 +117,8 @@ INSERT INTO `invoices` (`id`, `invoice_date`, `due_clear_date`, `invoice_track_i
 (1, '2024-08-15', NULL, 'INVOICE-20240813-170242-026', 11, NULL, 2, 2, 1, 1, NULL, '840.00', NULL, '10', '20', '830.00', '4', '826', NULL, 1, NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
 (2, '2024-08-14', NULL, 'INVOICE-20240814-115321-284', 11, NULL, 2, 2, 1, 1, NULL, '25400.00', NULL, NULL, '100', '25300.00', NULL, '25300.00', NULL, 1, NULL, '2024-08-14 05:54:08', '2024-08-14 05:54:08'),
 (3, '2024-08-14', NULL, 'INVOICE-20240814-115440-721', 11, NULL, 2, 1, 1, 1, NULL, '13540.00', NULL, NULL, '100', '13440.00', '40', '13400.00', NULL, 1, NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
-(4, '2024-08-14', NULL, 'INVOICE-20240814-120530-946', 11, NULL, 2, 2, 1, 1, NULL, '12700.00', NULL, NULL, NULL, '12700.00', NULL, '12700.00', NULL, 1, NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53');
+(4, '2024-08-14', NULL, 'INVOICE-20240814-120530-946', 11, NULL, 2, 2, 1, 1, NULL, '12700.00', NULL, NULL, NULL, '12700.00', NULL, '12700.00', NULL, 1, NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53'),
+(5, '2024-08-17', NULL, 'INVOICE-20240817-015018-069', 11, NULL, 2, 2, 1, 1, NULL, '92260.00', NULL, NULL, NULL, '92260.00', NULL, '92260.00', NULL, 1, NULL, '2024-08-16 19:52:18', '2024-08-16 19:52:18');
 
 -- --------------------------------------------------------
 
@@ -132,6 +133,7 @@ CREATE TABLE `invoice_items` (
   `stock_id` int(255) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `unit_price` varchar(100) DEFAULT NULL,
+  `sale_unit_price` varchar(255) DEFAULT NULL,
   `sub_total` varchar(100) DEFAULT NULL,
   `remaining_product_in_batch` int(100) DEFAULT NULL COMMENT 'If product is batch',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -142,12 +144,14 @@ CREATE TABLE `invoice_items` (
 -- Dumping data for table `invoice_items`
 --
 
-INSERT INTO `invoice_items` (`id`, `invoice_date`, `invoice_id`, `stock_id`, `quantity`, `unit_price`, `sub_total`, `remaining_product_in_batch`, `created_at`, `updated_at`) VALUES
-(1, '2024-08-13', 1, 3, 2, '420', '840.00', NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
-(2, '2024-08-14', 2, 4, 2, '12700', '25400.00', NULL, '2024-08-14 05:54:08', '2024-08-14 05:54:08'),
-(3, '2024-08-14', 3, 4, 1, '12700', '12700.00', NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
-(4, '2024-08-14', 3, 3, 2, '420', '840.00', NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
-(5, '2024-08-14', 4, 4, 1, '12700', '12700.00', NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53');
+INSERT INTO `invoice_items` (`id`, `invoice_date`, `invoice_id`, `stock_id`, `quantity`, `unit_price`, `sale_unit_price`, `sub_total`, `remaining_product_in_batch`, `created_at`, `updated_at`) VALUES
+(1, '2024-08-13', 1, 3, 2, '420', NULL, '840.00', NULL, '2024-08-13 11:03:13', '2024-08-13 11:03:13'),
+(2, '2024-08-14', 2, 4, 2, '12700', NULL, '25400.00', NULL, '2024-08-14 05:54:08', '2024-08-14 05:54:08'),
+(3, '2024-08-14', 3, 4, 1, '12700', NULL, '12700.00', NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
+(4, '2024-08-14', 3, 3, 2, '420', NULL, '840.00', NULL, '2024-08-14 05:56:44', '2024-08-14 05:56:44'),
+(5, '2024-08-14', 4, 4, 1, '12700', NULL, '12700.00', NULL, '2024-08-14 06:06:53', '2024-08-14 06:06:53'),
+(6, '2024-08-17', 5, 1, 2, '45700', '45705', '91410.00', NULL, '2024-08-16 19:52:18', '2024-08-16 19:52:18'),
+(7, '2024-08-17', 5, 3, 2, '420', '425', '850.00', NULL, '2024-08-16 19:52:18', '2024-08-16 19:52:18');
 
 -- --------------------------------------------------------
 
@@ -392,13 +396,13 @@ ALTER TABLE `customer_dues`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `offers`

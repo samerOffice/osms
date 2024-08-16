@@ -178,6 +178,7 @@ class InvoiceController extends Controller
         $stock_ids = $request->stock_product_id;   
         $product_quantities = $request->product_quantity;
         $product_unit_prices = $request->product_unit_price;
+        $sale_unit_prices = $request->product_unit_price_sale;
         $product_subtotals = $request->product_subtotal;
 
 
@@ -185,6 +186,7 @@ class InvoiceController extends Controller
            
             $product_quantity = $product_quantities[$key] ?? null;
             $product_unit_price = $product_unit_prices[$key] ?? null;
+            $sale_unit_price = $sale_unit_prices[$key] ?? null;
             $product_subtotal = $product_subtotals[$key] ?? null;
 
             DB::connection('pos')
@@ -194,7 +196,8 @@ class InvoiceController extends Controller
                 'invoice_id' => $invoice,
                 'stock_id' => $stock_id,
                 'quantity' => $product_quantity,
-                'unit_price' => $product_unit_price,          
+                'unit_price' => $product_unit_price,         
+                'sale_unit_price' => $sale_unit_price,         
                 'sub_total' => $product_subtotal          
             ]); 
                   
