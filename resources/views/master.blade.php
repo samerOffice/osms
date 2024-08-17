@@ -44,6 +44,9 @@
    <!-- invoice custom css (samer)  -->
   <link href="{{ asset('dist/css/custom-invoice.css') }}" rel="stylesheet">
 
+   <!-- profit and loss report css (samer)  -->
+   <link href="{{ asset('dist/css/profit-and-loss-report.css') }}" rel="stylesheet">
+
   <!-- payroll custom css (samer)  -->
   <link href="{{ asset('dist/css/custom-payroll.css') }}" rel="stylesheet">
 

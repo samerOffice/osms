@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2024 at 02:50 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Aug 16, 2024 at 11:46 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,8 @@ CREATE TABLE `barcodes_and_skus` (
 
 INSERT INTO `barcodes_and_skus` (`id`, `stock_id`, `company_id`, `barcode`, `sku`, `created_at`, `updated_at`) VALUES
 (1, 3, 11, NULL, 'SKU-160525-753', '2024-08-13 10:05:29', '2024-08-13 10:05:29'),
-(2, 4, 11, NULL, 'SKU-160624-073', '2024-08-13 10:06:26', '2024-08-13 10:06:26');
+(2, 4, 11, NULL, 'SKU-160624-073', '2024-08-13 10:06:26', '2024-08-13 10:06:26'),
+(3, 1, 11, NULL, 'SKU-014714-770', '2024-08-16 19:47:18', '2024-08-16 19:47:18');
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,8 @@ CREATE TABLE `damage_and_burned_products` (
 --
 
 INSERT INTO `damage_and_burned_products` (`id`, `entry_date`, `company_id`, `stock_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, '2024-08-13', 11, 2, 3, 7, '2024-08-13 10:07:03', '2024-08-13 10:07:03');
+(1, '2024-08-13', 11, 2, 3, 7, '2024-08-13 10:07:03', '2024-08-13 10:07:03'),
+(2, '2024-08-17', 11, 1, 1, 1, '2024-08-16 19:49:02', '2024-08-16 19:49:02');
 
 -- --------------------------------------------------------
 
@@ -332,10 +334,10 @@ CREATE TABLE `stocks` (
 --
 
 INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `product_mfg_date`, `product_expiry_date`, `quantity`, `product_unit_price`, `product_subtotal`, `purchase_date`, `product_stored_by`, `label_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 11, 2, NULL, NULL, 5, '45700', '228500.00', '2024-08-13', 1, NULL, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
+(1, 1, 11, 2, NULL, NULL, 2, '45700', '182800', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
 (2, 3, 11, 2, NULL, NULL, 0, '13580', '0', '2024-08-13', 1, NULL, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
-(3, 6, 11, 2, NULL, NULL, 10, '420', '5040.00', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
-(4, 3, 11, 1, NULL, NULL, 4, '12700', '50800.00', '2024-08-13', 1, 1, '2024-08-13 10:04:55', '2024-08-13 10:04:55');
+(3, 6, 11, 2, NULL, NULL, 6, '420', '5040.00', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
+(4, 3, 11, 1, NULL, NULL, 0, '12700', '50800.00', '2024-08-13', 1, 1, '2024-08-13 10:04:55', '2024-08-13 10:04:55');
 
 -- --------------------------------------------------------
 
@@ -452,13 +454,13 @@ ALTER TABLE `warehouses`
 -- AUTO_INCREMENT for table `barcodes_and_skus`
 --
 ALTER TABLE `barcodes_and_skus`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `damage_and_burned_products`
 --
 ALTER TABLE `damage_and_burned_products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `inventory_log`

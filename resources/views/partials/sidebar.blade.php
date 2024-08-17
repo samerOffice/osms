@@ -103,14 +103,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <li class="nav-item" style="padding-left : 15px">
               <a href="{{route('add_personal_info')}}" class="nav-link {{ Request::is('add_personal_info') ? 'nav-link active' : ''}}" style="{{ Request::is('add_personal_info') ? 'background-color: #908ec4; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('add_personal_info') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('add_personal_info') ? 'color: white; !important' : ''}}">Profile</p>
               </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" style="padding-left : 15px">
               <a href="{{route('password_reset')}}" class="nav-link {{ Request::is('password_reset') ? 'nav-link active' : ''}}" style="{{ Request::is('password_reset') ? 'background-color: #908ec4; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('password_reset') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('password_reset') ? 'color: white; !important' : ''}}">Password Reset</p>
@@ -288,14 +288,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <li class="nav-item" style="padding-left : 15px">
               <a href="{{route('add_payroll')}}" class="nav-link {{ Request::is('add_payroll') ? 'nav-link active' : ''}}" style="{{ Request::is('add_payroll') ? 'background-color: #ff5d6c; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('add_payroll') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('add_payroll') ? 'color: white; !important' : ''}}">Add Payroll</p>
               </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" style="padding-left : 15px">
               <a href="{{route('payroll_list')}}" class="nav-link {{ Request::is('payroll_list') ? 'nav-link active' : ''}}" style="{{ Request::is('payroll_list') ? 'background-color: #ff5d6c; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('payroll_list') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('payroll_list') ? 'color: white; !important' : ''}}">Payroll List</p>
@@ -317,15 +317,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <li class="nav-item" style="padding-left : 15px">
               <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Add new Employee</p>
               </a>
             </li>
 
-
-           <li class="nav-item">
+           <li class="nav-item" style="padding-left : 15px">
               <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
                 <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
                 <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Employee List</p>
@@ -336,7 +335,7 @@
         @endif
 
 
-        {{-- <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
+        <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
       @elseif(Request::is('employee_list')) menu-open 
       @endif">
       <a href="#" class="nav-link">
@@ -347,60 +346,25 @@
         </p>
       </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
         <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
         <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Leave Application</p>
         </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" style="padding-left : 15px">
           <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
             <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Leave Application List</p>
           </a>
         </li>
-
-        <li class="nav-item">
-          <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
-            <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
-            <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Report</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
-            <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
-            <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Settings</p>
-          </a>
-        </li>
       </ul>
-      </li> --}}
-
-
-      {{-- @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))  
-      <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
-      @elseif(Request::is('employee_list')) menu-open 
-      @endif">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fa-solid fa-chart-simple"></i>
-        <p>
-          Employee Performance
-          <i class="fas fa-angle-left right"></i>
-        </p>
-      </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
-      <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
-      <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Performance Summary Report</p>
-      </a>
       </li>
 
-      @endif --}}
 
-
-      {{-- @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
+  
+      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fa-solid fa-file-pen"></i>
@@ -410,21 +374,21 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Attendance Reports</p>
+              <p>Leave Report</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="#" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
-              <p>Performance Reports</p>
+              <p>Performance Report</p>
             </a>
           </li>      
         </ul>
       </li>
-      @endif --}}
+      @endif
 
       @elseif($current_module->module_status == 3) <!--inventory module-->
 
@@ -459,7 +423,7 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('add_item_category')}}" class="nav-link {{ Request::is('add_item_category') ? 'nav-link active' : ''}}" style="{{ Request::is('add_item_category') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('add_item_category') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('add_item_category') ? 'color: white; !important' : ''}}">Add Item Category</p>
@@ -467,7 +431,7 @@
           </li>
 
 
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('item_category_list')}}" class="nav-link {{ Request::is('item_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('item_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('item_category_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('item_category_list') ? 'color: white; !important' : ''}}">Item Category List</p>
@@ -488,14 +452,14 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('add_product_category')}}" class="nav-link {{ Request::is('add_product_category') ? 'nav-link active' : ''}}" style="{{ Request::is('add_product_category') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('add_product_category') ? 'color: white; !important' : ''}}">Add Product Category</p>
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('product_category_list')}}" class="nav-link {{ Request::is('product_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}">Product Category List</p>
@@ -517,13 +481,13 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('add_product')}}" class="nav-link {{ Request::is('add_product') ? 'nav-link active' : ''}}" style="{{ Request::is('add_product') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('add_product') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('add_product') ? 'color: white; !important' : ''}}">Add Product</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('product_list')}}" class="nav-link {{ Request::is('product_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_list') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('product_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('product_list') ? 'color: white; !important' : ''}}">Product List</p>
@@ -545,7 +509,7 @@
         <ul class="nav nav-treeview">
 
 
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('requisition_list')}}" class="nav-link {{ Request::is('requisition_list') ? 'nav-link active' : ''}}" style="{{ Request::is('requisition_list') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('requisition_list') ? 'color: white; !important' : ''}}">Purchased Products</p>
@@ -554,15 +518,6 @@
         </ul>
       </li>
       @endif
-
-
-
-      {{-- <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Product Requisition</p>
-        </a>
-      </li> --}}
 
 
       <li class="nav-item nav-link 
@@ -593,22 +548,28 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Inventory Reports</p>
+              <p>Stock Report</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="padding-left : 15px">
             <a href="" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
-              <p>Inventory Forecast</p>
+              <p>Damaged Product Report</p>
+            </a>
+          </li>
+
+          <li class="nav-item" style="padding-left : 15px">
+            <a href="" class="nav-link active">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Near-Expired Product Report</p>
             </a>
           </li>
 
         </ul>
       </li>
-
 
 
       @else <!--pos module-->
@@ -740,26 +701,52 @@
         </a>
       </li>
 
-      <li class="nav-item ">
-        <a href="#" class="nav-link ">
-          <i class="nav-icon fa-solid fa-file-pen"></i>
+
+
+
+
+
+      <li class="nav-item @if(Request::is('profit_and_loss_report')) menu-open 
+             
+            @endif">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-layer-group"></i>
           <p>
             Reports
-            <i class="right fas fa-angle-left"></i>
+            <i class="fas fa-angle-left right"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Sale Reports</p>
+          <li class="nav-item" style="padding-left : 15px">
+            <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Profit & Loss Report</p>
             </a>
           </li>
+
+          <li class="nav-item" style="padding-left : 15px">
+            <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Customer Due Report</p>
+            </a>
+          </li>
+
+          <li class="nav-item" style="padding-left : 15px">
+            <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Expense Report</p>
+            </a>
+          </li>
+
+          <li class="nav-item" style="padding-left : 15px">
+            <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Sales Report</p>
+            </a>
+          </li>
+
         </ul>
       </li>
-
-
-
 
       @endif
       </ul>
