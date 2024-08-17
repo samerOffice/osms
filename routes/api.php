@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\DepartmentController;
 use App\Http\Controllers\API\Admin\SupplierController;
+use App\Http\Controllers\API\Admin\BillController;
 
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\API\POS\InvoiceController;
 use App\Http\Controllers\API\POS\CustomerController;
 
 use App\Http\Controllers\API\POS\TermAndConditionController;
+use App\Http\Controllers\API\POS\PosReportControlller;
 
 
 
@@ -82,6 +84,18 @@ Route::middleware('auth:sanctum')->get('/edit_supplier/{suppiler_id}',[App\Http\
 Route::middleware('auth:sanctum')->post('/update_supplier/{suppiler_id}',[App\Http\Controllers\API\Admin\SupplierController::class,'update_supplier']);
 Route::middleware('auth:sanctum')->post('/delete_supplier/{suppiler_id}',[App\Http\Controllers\API\Admin\SupplierController::class,'delete_supplier']);
 
+//--- *** bills ***-------
+
+//rents
+Route::middleware('auth:sanctum')->post('/submit_rent',[App\Http\Controllers\API\Admin\BillController::class,'submit_rent']);
+Route::middleware('auth:sanctum')->get('/edit_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_rent_via_api']);
+Route::middleware('auth:sanctum')->post('/update_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_rent']);
+
+
+//utilities
+Route::middleware('auth:sanctum')->post('/submit_utility',[App\Http\Controllers\API\Admin\BillController::class,'submit_utility']);
+Route::middleware('auth:sanctum')->get('/edit_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_utility_via_api']);
+Route::middleware('auth:sanctum')->post('/update_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_utility']);
 
 
 //business type
@@ -122,6 +136,9 @@ Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controll
 
 //dependencies (payroll)
 Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollController::class, 'member_details_dependancy']);
+
+//payroll
+Route::middleware('auth:sanctum')->post('/store_payroll', [PayrollController::class, 'store_payroll'])->name('store_payroll');
 
 
 
@@ -188,3 +205,6 @@ Route::middleware('auth:sanctum')->post('/delete_customer/{customer_id}',[App\Ht
 Route::middleware('auth:sanctum')->post('/store_terms_and_conditions',[App\Http\Controllers\API\POS\TermAndConditionController::class,'store_terms_and_conditions']);
 Route::middleware('auth:sanctum')->post('/update_terms_and_conditions/{terms_and_conditions_id}',[App\Http\Controllers\API\POS\TermAndConditionController::class,'update_terms_and_conditions']);
 
+//----- ** pos reports **------
+//profit and loss report
+Route::middleware('auth:sanctum')->post('/profit_and_loss_report_result',[App\Http\Controllers\API\POS\PosReportControlller::class,'profit_and_loss_report_result']);

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Profiit & Loss Report
+Sales Report
 @endsection
 
 @push('css')
@@ -67,103 +67,66 @@ Profiit & Loss Report
        <br>
         <div id="print-section">
 
-        <h1>Profit and Loss Report</h1>
+            <h1>Sales Report</h1>
+            <div class="report-info">
+                <p><strong>Report Date:</strong> August 17, 2024</p>
+                <p><strong>Period:</strong> August 2024</p>
+            </div>
         
-        <h2>Revenue</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th class="text-right">Amount (BDT)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Sales</td>
-                    <td class="text-right" id="total_sale">0.00</td>
-                </tr>
-               
-                <tr>
-                    <td>Total Due (from Customers)</td>
-                    <td class="text-right" id="total_due">0.00</td>
-                </tr>
-                <tr class="total-row">
-                    <td>Total Revenue</td>
-                    <td class="text-right" id="total_revenue">0.00</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>Cost of Goods Sold (COGS)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th class="text-right">Amount (BDT)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Purchases</td>
-                    <td class="text-right" id="total_purchase">0.00</td>
-                </tr>
-                <!-- <tr>
-                    <td>Direct Labor</td>
-                    <td class="text-right">$2,000</td>
-                </tr> -->
-                <tr class="total-row">
-                    <td>Total COGS</td>
-                    <td class="text-right" id="total_cogs">0.00</td>
-                </tr>
-                <tr class="total-row">
-                    <td>Gross Profit</td>
-                    <td class="text-right" id="gross_profit">0.00</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>Expenses</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th class="text-right">Amount (BDT)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Rent</td>
-                    <td class="text-right" id="total_rent">0.00</td>
-                </tr>
-                <tr>
-                    <td>Utilities</td>
-                    <td class="text-right" id="total_utility">0.00</td>
-                </tr>
-                <tr>
-                    <td>Salaries</td>
-                    <td class="text-right" id="total_salary">0.00</td>
-                </tr>
-
-                <tr>
-                    <td>Total Burned/Damaged product value</td>
-                    <td class="text-right" id="total_damaged_product_value">0.00</td>
-                </tr>
-
-
-                <tr class="total-row">
-                    <td>Total Expenses</td>
-                    <td class="text-right" id="total_expense">0.00</td>
-                </tr>
-                <tr class="total-row">
-                    <td>Net Profit</td>
-                    <td class="text-right" id="net_profit">0.00</td>
-                </tr>
-                <tr class="total-row">
-                    <td>Net Loss</td>
-                    <td class="text-right" id="net_loss">0.00</td>
-                </tr>
-            </tbody>
-        </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Quantity Sold</th>
+                        <th>Purchase Price (BDT)</th>
+                        <th>Selling Price (BDT)</th>
+                        <th>Total Purchase (BDT)</th>
+                        <th>Total Sales (BDT)</th>            
+                        <th>Profit (BDT)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Lenovo 203 tablet</td>
+                        <td>3</td>
+                        <td>45,000</td>
+                        <td>47,000</td>
+                        <td>1,35,000</td>
+                        <td>1,41,000</td>
+                        <td>6,000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Otobi Wooden Table</td>
+                        <td>4</td>
+                        <td>12,500</td>
+                        <td>13,000</td>
+                        <td>50,000</td>
+                        <td>52,000</td>
+                        <td>2,000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Hatil Table</td>
+                        <td>2</td>
+                        <td>11,000</td>
+                        <td>11,500</td>
+                        <td>22,000</td>
+                        <td>23,000</td>
+                        <td>1,000</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">Total</td>
+                        <td>2,07,000</td>
+                        <td>2,16,000</td>
+                        <td>9,000</td>
+                    </tr>
+                </tfoot>
+            </table>
     </div>
 
 

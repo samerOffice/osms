@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Admin\DepartmentController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\SupplierController;
+use App\Http\Controllers\API\Admin\BillController;
 
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
@@ -88,6 +89,19 @@ Route::get('/add_supplier', [SupplierController::class, 'add_supplier'])->name('
 Route::get('/edit_supplier/{supplier_id}', [SupplierController::class, 'edit_supplier'])->name('edit_supplier');
 
 
+//--- *** bills ***-------
+
+//rents
+Route::get('/rent_list', [BillController::class, 'rent_list'])->name('rent_list');
+Route::get('/add_rent', [BillController::class, 'add_rent'])->name('add_rent');
+Route::get('/edit_rent/{rent_id}', [BillController::class, 'edit_rent'])->name('edit_rent');
+
+//utilities
+Route::get('/utility_list', [BillController::class, 'utility_list'])->name('utility_list');
+Route::get('/add_utility', [BillController::class, 'add_utility'])->name('add_utility');
+Route::get('/edit_utility/{utility_id}', [BillController::class, 'edit_utility'])->name('edit_utility');
+
+
 //business types
 Route::get('/business_type_list', [BusinessTypeController::class, 'business_type_list'])->name('business_type_list');
 Route::get('/add_business_type', [BusinessTypeController::class, 'add_business_type'])->name('add_business_type');
@@ -112,7 +126,7 @@ Route::get('/password_reset', [EmpController::class, 'password_reset'])->name('p
 //payrolls
 // Route::resource('payroll', PayrollController::class);
 Route::get('/add_payroll', [PayrollController::class, 'create'])->name('add_payroll');
-Route::post('/store_payroll', [PayrollController::class, 'store_payroll'])->name('store_payroll');
+// Route::post('/store_payroll', [PayrollController::class, 'store_payroll'])->name('store_payroll');
 Route::get('/payroll_list', [PayrollController::class, 'index'])->name('payroll_list');
 
 //dependencies
@@ -183,6 +197,7 @@ Route::get('/add_terms_and_conditions', [TermAndConditionController::class, 'add
 //----- ** pos reports **------
 //profit and loss report
 Route::get('/profit_and_loss_report', [PosReportControlller::class, 'profit_and_loss_report'])->name('profit_and_loss_report');
+Route::get('/sale_report', [PosReportControlller::class, 'sale_report'])->name('sale_report');
 
 
 });
