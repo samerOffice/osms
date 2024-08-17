@@ -226,6 +226,9 @@ class StockController extends Controller
                             'product_subtotal' => $updated_subtotal
                         ]);
 
+
+        $damage_amount = $damage_product_quantity * $current_product_unit_price_in_stock;
+
             $user_company_id = Auth::user()->company_id;
             $store_damage_product = DB::connection('inventory')
                                     ->table('damage_and_burned_products')
@@ -234,7 +237,9 @@ class StockController extends Controller
                                             'company_id'=>$user_company_id,                                          
                                             'stock_id'=>$id,                                          
                                             'product_id'=>$current_product_id_in_stock,                                           
-                                            'quantity'=>$damage_product_quantity    
+                                            'quantity'=>$damage_product_quantity,  
+                                            'unit_price'=>$current_product_unit_price_in_stock,  
+                                            'damage_amount'=>$damage_amount
                                             ]);
     
             $response = [

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2024 at 11:45 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Aug 17, 2024 at 03:34 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -643,17 +643,9 @@ CREATE TABLE `payrolls` (
 --
 
 INSERT INTO `payrolls` (`id`, `employee`, `company`, `salary_date`, `joining_date`, `per_day_salary`, `emp_total_bonus_day`, `emp_total_bonus_amount`, `bonus_eligible_month`, `bonus_pay_month`, `bonus_pay_amount`, `total_working_day`, `total_leave`, `total_number_of_pay_day`, `monthly_salary`, `monthly_holiday_bonus`, `total_daily_allowance`, `total_travel_allowance`, `rental_cost_allowance`, `hospital_bill_allowance`, `insurance_allowance`, `sales_commission`, `retail_commission`, `total_others`, `total_salary`, `yearly_bonus`, `total_payable_salary`, `advance_less`, `any_deduction`, `final_pay_amount`, `loan_advance`, `created_at`, `updated_at`) VALUES
-(1, 3, '11', '2024-05-30', '2024-05-30', '1500', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '37500', '1500', '0', '0', '0', '0', '0', '0', '0', '1500', '39000', '0', '39000', '0', '0', '39000', NULL, '2024-05-30 10:27:08', '2024-05-30 10:27:08'),
-(2, 1, '11', '2024-06-27', '2024-05-06', '200', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '5000', '200', '0', '0', '0', '0', '0', '0', '0', '200', '5200', '0', '5200', '0', '0', '5200', NULL, '2024-06-27 11:17:28', '2024-06-27 11:17:28'),
-(3, NULL, '11', '2024-06-27', NULL, '510', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '12750', '510', '0', '0', '0', '0', '0', '0', '0', '510', '13260', '0', '13260', '0', '0', '13260', NULL, '2024-06-27 12:14:59', '2024-06-27 12:14:59'),
-(4, NULL, '11', '2024-06-27', NULL, '510', NULL, NULL, NULL, NULL, NULL, '26', '1', '25', '12750', '510', '0', '0', '0', '0', '0', '0', '0', '510', '13260', '0', '13260', '0', '0', '13260', NULL, '2024-06-27 12:15:06', '2024-06-27 12:15:06'),
-(5, 3, '11', '2024-06-27', '2024-05-30', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 12:15:25', '2024-06-27 12:15:25'),
-(6, 10, '11', '2024-06-27', '2024-06-18', '520', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13520', '520', '0', '0', '0', '0', '0', '0', '0', '520', '14040', '0', '14040', '0', '0', '14040', NULL, '2024-06-27 12:19:22', '2024-06-27 12:19:22'),
-(7, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:35:38', '2024-06-27 12:35:38'),
-(8, 10, '11', '2024-06-27', '2024-06-18', '400', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '10400', '400', '0', '0', '0', '0', '0', '0', '0', '400', '10800', '0', '10800', '0', '0', '10800', NULL, '2024-06-27 12:57:29', '2024-06-27 12:57:29'),
-(9, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:07:31', '2024-06-27 13:07:31'),
-(10, 10, '11', '2024-06-27', '2024-06-18', '500', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '13000', '500', '0', '0', '0', '0', '0', '0', '0', '500', '13500', '0', '13500', '0', '0', '13500', NULL, '2024-06-27 13:15:42', '2024-06-27 13:15:42'),
-(11, 8, '11', '2024-07-25', '2024-06-04', '700', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '18200', '700', '0', '0', '0', '0', '0', '0', '100', '800', '19000', '0', '19000', '0', '0', '19000', NULL, '2024-07-25 09:27:52', '2024-07-25 09:27:52');
+(1, 1, '11', '2024-08-17', '2024-05-06', '550', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '14300', '550', '0', '0', '0', '0', '0', '0', '0', '550', '14850', '0', '14850', '0', '0', '14850', NULL, '2024-08-17 11:24:57', '2024-08-17 11:24:57'),
+(2, 3, '11', '2024-08-17', '2024-05-30', '200', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '5200', '200', '0', '0', '0', '0', '0', '0', '0', '200', '5400', '0', '5400', '0', '0', '5400', NULL, '2024-08-17 11:25:25', '2024-08-17 11:25:25'),
+(3, 1, '11', '2024-08-16', '2024-05-06', '800', NULL, NULL, NULL, NULL, NULL, '26', '0', '26', '20800', '800', '0', '0', '0', '0', '0', '0', '0', '800', '21600', '0', '21600', '0', '0', '21600', NULL, '2024-08-17 11:25:52', '2024-08-17 11:25:52');
 
 -- --------------------------------------------------------
 
@@ -710,7 +702,31 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (418, 'App\\Models\\User', 1, 'myToken', '33167f4c9a52fa34a28d23621a4f1f79f50434f39f3a2adf98eed4c3f7755f24', '[\"*\"]', NULL, NULL, '2024-08-15 07:13:38', '2024-08-15 07:13:38'),
 (419, 'App\\Models\\User', 1, 'myToken', '46723d642c3084ddfad5272cb6523a23ef66f29bba6c6071a57b358c9fc84c74', '[\"*\"]', NULL, NULL, '2024-08-15 12:09:05', '2024-08-15 12:09:05'),
 (420, 'App\\Models\\User', 1, 'myToken', 'de18ee0a84bcb8c5106e3d3f77894c9ce4da830a6687adcad4b64c3ed5313ed8', '[\"*\"]', NULL, NULL, '2024-08-16 15:07:51', '2024-08-16 15:07:51'),
-(421, 'App\\Models\\User', 1, 'myToken', '06148864b23498239ab18aae155d5e87b901a75655e7487957dcd2c218ba3403', '[\"*\"]', NULL, NULL, '2024-08-16 17:42:51', '2024-08-16 17:42:51');
+(421, 'App\\Models\\User', 1, 'myToken', '06148864b23498239ab18aae155d5e87b901a75655e7487957dcd2c218ba3403', '[\"*\"]', NULL, NULL, '2024-08-16 17:42:51', '2024-08-16 17:42:51'),
+(422, 'App\\Models\\User', 1, 'myToken', '962a4cc4529253753186420006f3494849f59cf701ba16c808204ad55c700f31', '[\"*\"]', NULL, NULL, '2024-08-17 04:34:05', '2024-08-17 04:34:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rents`
+--
+
+CREATE TABLE `rents` (
+  `id` int(255) NOT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `rent_eligible_date` date DEFAULT NULL,
+  `rent_pay_date` date DEFAULT NULL,
+  `rent_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rents`
+--
+
+INSERT INTO `rents` (`id`, `company_id`, `rent_eligible_date`, `rent_pay_date`, `rent_amount`, `created_at`, `updated_at`) VALUES
+(1, 11, '2024-07-01', '2024-08-18', '15500', '2024-08-17 09:24:59', '2024-08-17 09:24:59');
 
 -- --------------------------------------------------------
 
@@ -879,6 +895,29 @@ CREATE TABLE `user_logs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `utilities`
+--
+
+CREATE TABLE `utilities` (
+  `id` int(255) NOT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `utility_pay_date` date DEFAULT NULL,
+  `utility_type` varchar(100) DEFAULT NULL,
+  `utility_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `utilities`
+--
+
+INSERT INTO `utilities` (`id`, `company_id`, `utility_pay_date`, `utility_type`, `utility_amount`, `created_at`, `updated_at`) VALUES
+(1, 11, '2024-08-23', 'waste disposals', '150', '2024-08-17 10:34:33', '2024-08-17 10:34:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vendors`
 --
 
@@ -1036,6 +1075,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `rents`
+--
+ALTER TABLE `rents`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -1064,6 +1109,12 @@ ALTER TABLE `users`
 -- Indexes for table `user_logs`
 --
 ALTER TABLE `user_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `utilities`
+--
+ALTER TABLE `utilities`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1176,7 +1227,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payroll_reports`
@@ -1188,7 +1239,13 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=422;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=423;
+
+--
+-- AUTO_INCREMENT for table `rents`
+--
+ALTER TABLE `rents`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1219,6 +1276,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_logs`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `utilities`
+--
+ALTER TABLE `utilities`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vendors`
