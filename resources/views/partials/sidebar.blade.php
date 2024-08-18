@@ -307,8 +307,8 @@
 
         @if((Auth::user()->role_id == 1) || (Auth::user()->role_id == 2))
         <li class="nav-item @if(Request::is('add_payroll')) menu-open 
-      @elseif(Request::is('payroll_list')) menu-open 
-      @endif">
+        @elseif(Request::is('payroll_list')) menu-open 
+        @endif">
           <a href="#" class="nav-link">
             <i class="nav-icon fa-solid fa-wallet"></i>
             <p>
@@ -398,29 +398,24 @@
 
   
       @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
-      <li class="nav-item ">
-        <a href="#" class="nav-link ">
-          <i class="nav-icon fa-solid fa-file-pen"></i>
-          <p>
-            Reports
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item" style="padding-left : 15px">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Leave Report</p>
-            </a>
-          </li>
-          <li class="nav-item" style="padding-left : 15px">
-            <a href="#" class="nav-link active">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Performance Report</p>
-            </a>
-          </li>      
-        </ul>
-      </li>
+      <li class="nav-item @if(Request::is('add_payroll')) menu-open 
+        @endif">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa-solid fa-file-pen"></i>
+            <p>
+              Reports
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" style="padding-left : 15px">
+              <a href="{{route('top_seller_report')}}" class="nav-link {{ Request::is('top_seller_report') ? 'nav-link active' : ''}}" style="{{ Request::is('top_seller_report') ? 'background-color: #ff5d6c; !important' : ''}}">
+                <i class="far fa-circle nav-icon" style="{{ Request::is('top_seller_report') ? 'color: white; !important' : ''}}"></i>
+                <p style="{{ Request::is('top_seller_report') ? 'color: white; !important' : ''}}">Top Seller Report</p>
+              </a>
+            </li>   
+          </ul>
+        </li>
       @endif
 
       @elseif($current_module->module_status == 3) <!--inventory module-->
