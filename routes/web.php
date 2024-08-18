@@ -18,6 +18,7 @@ use App\Http\Controllers\API\Admin\BillController;
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
+use App\Http\Controllers\API\Emp\LeaveController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
@@ -140,6 +141,15 @@ Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('g
 Route::get('/give_attendance', [AttendanceController::class, 'give_attendance'])->name('give_attendance');
 Route::get('/attendance_list',[AttendanceController::class,'attendance_list'])->name('attendance_list');
 
+//Leave 
+Route::get('/leave_applications', [LeaveController::class, 'leave_applications'])->name('leave_applications');
+Route::get('/leave-applications/{id}/edit', [LeaveController::class, 'edit'])->name('edit_leave_application');
+Route::post('/api/update_leave_application/{id}', [LeaveController::class, 'update']);
+// Route to display the form
+Route::get('/leave-application/create', [LeaveController::class, 'create'])->name('leave-application.create');
+// Route to handle form submission
+Route::post('/leave-application', [LeaveController::class, 'store'])->name('leave-application.store');
+
 
 
 //...............********* inventory management module ********................
@@ -205,5 +215,6 @@ Route::get('/add_terms_and_conditions', [TermAndConditionController::class, 'add
 Route::get('/profit_and_loss_report', [PosReportControlller::class, 'profit_and_loss_report'])->name('profit_and_loss_report');
 Route::get('/sale_report', [PosReportControlller::class, 'sale_report'])->name('sale_report');
 Route::post('/sale_report_submit', [PosReportControlller::class, 'sale_report_submit'])->name('sale_report_submit');
+
 
 });

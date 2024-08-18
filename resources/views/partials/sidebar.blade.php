@@ -364,8 +364,8 @@
         @endif
 
 
-        <li class="nav-item @if(Request::is('add_new_employee')) menu-open 
-      @elseif(Request::is('employee_list')) menu-open 
+        <li class="nav-item @if(Request::is('leave_applications')) menu-open 
+        @elseif(Request::is('leave-application/create')) menu-open
       @endif">
       <a href="#" class="nav-link">
         <i class="nav-icon fa-solid fa-person-walking-arrow-right"></i>
@@ -376,16 +376,20 @@
       </a>
         <ul class="nav nav-treeview">
           <li class="nav-item" style="padding-left : 15px">
-            <a href="{{route('add_new_employee')}}" class="nav-link {{ Request::is('add_new_employee') ? 'nav-link active' : ''}}" style="{{ Request::is('add_new_employee') ? 'background-color: #ff5d6c; !important' : ''}}">
-        <i class="far fa-circle nav-icon" style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}"></i>
-        <p style="{{ Request::is('add_new_employee') ? 'color: white; !important' : ''}}">Leave Application</p>
+
+            <a href="{{route('leave-application.create')}}" class="nav-link {{ Request::is('leave-application/create') ? 'nav-link active' : ''}}" style="{{ Request::is('leave-application/create') ? 'background-color: #ff5d6c; !important' : ''}}">
+        <i class="far fa-circle nav-icon" style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}"></i>
+        <p style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}">Leave Application</p>
+
         </a>
         </li>
 
         <li class="nav-item" style="padding-left : 15px">
-          <a href="{{route('employee_list')}}" class="nav-link {{ Request::is('employee_list') ? 'nav-link active' : ''}}" style="{{ Request::is('employee_list') ? 'background-color: #ff5d6c; !important' : ''}}">
-            <i class="far fa-circle nav-icon" style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}"></i>
-            <p style="{{ Request::is('employee_list') ? 'color: white; !important' : ''}}">Leave Application List</p>
+
+          <a href="{{route('leave_applications')}}" class="nav-link {{ Request::is('leave_applications') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_applications') ? 'background-color: #ff5d6c; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}">Leave Application List</p>
+
           </a>
         </li>
       </ul>
@@ -580,6 +584,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item" style="padding-left : 15px">
+
             <a href="{{route('damage_report')}}" class="nav-link {{ Request::is('damage_report') ? 'nav-link active' : ''}}" style="{{ Request::is('damage_report') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('damage_report') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('damage_report') ? 'color: white; !important' : ''}}">Damaged Product Report</p>
@@ -730,7 +735,7 @@
 
 
 
-      <li class="nav-item @if(Request::is('profit_and_loss_report')) menu-open 
+        <li class="nav-item @if(Request::is('profit_and_loss_report')) menu-open 
              @elseif(Request::is('sale_report')) menu-open
             @endif">
         <a href="#" class="nav-link">
