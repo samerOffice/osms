@@ -26,6 +26,7 @@ class InvoiceController extends Controller
         $sales = DB::connection('pos')
                         ->table('invoices')
                         ->where('company_id',$user_company_id)
+                        ->orderBy('id', 'DESC')
                         ->get();
 
         return view('invoices.index',compact('current_module','sales'));

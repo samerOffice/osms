@@ -91,6 +91,42 @@
           </a>
         </li>
 
+        
+        <li class="nav-item @if(Request::is('rent_list')) menu-open 
+         @elseif(Request::is('utility_list')) menu-open 
+        @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-receipt"></i>
+        <p>
+          Bills
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('rent_list')}}" class="nav-link {{ Request::is('rent_list') ? 'nav-link active' : ''}}" style="{{ Request::is('rent_list') ? 'background-color: #908ec4; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('rent_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('rent_list') ? 'color: white; !important' : ''}}">Rents</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('utility_list')}}" class="nav-link {{ Request::is('utility_list') ? 'nav-link active' : ''}}" style="{{ Request::is('utility_list') ? 'background-color: #908ec4; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('utility_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('utility_list') ? 'color: white; !important' : ''}}">Utilities</p>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a href="{{route('designation_list')}}" class="nav-link {{ Request::is('designation_list') ? 'nav-link active' : ''}}" style="{{ Request::is('designation_list') ? 'background-color: #908ec4; !important' : ''}}">
+        <i class="fa-solid fa-address-card nav-icon" style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}"></i>
+        <p style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}">Designation</p>
+      </a>
+    </li>
+
 
         <li class="nav-item @if(Request::is('add_item_category')) menu-open 
             @elseif(Request::is('item_category_list')) menu-open 
@@ -135,13 +171,6 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-
-            <li class="nav-item">
-              <a href="{{route('designation_list')}}" class="nav-link {{ Request::is('designation_list') ? 'nav-link active' : ''}}" style="{{ Request::is('designation_list') ? 'background-color: #908ec4; !important' : ''}}">
-                <i class="far fa-circle nav-icon" style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}"></i>
-                <p style="{{ Request::is('designation_list') ? 'color: white; !important' : ''}}">Designation</p>
-              </a>
-            </li>
 
             <li class="nav-item">
               <a href="{{route('business_type_list')}}" class="nav-link {{ Request::is('business_type_list') ? 'nav-link active' : ''}}" style="{{ Request::is('business_type_list') ? 'background-color: #908ec4; !important' : ''}}">
@@ -347,16 +376,20 @@
       </a>
         <ul class="nav nav-treeview">
           <li class="nav-item" style="padding-left : 15px">
+
             <a href="{{route('leave-application.create')}}" class="nav-link {{ Request::is('leave-application/create') ? 'nav-link active' : ''}}" style="{{ Request::is('leave-application/create') ? 'background-color: #ff5d6c; !important' : ''}}">
         <i class="far fa-circle nav-icon" style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}"></i>
         <p style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}">Leave Application</p>
+
         </a>
         </li>
 
         <li class="nav-item" style="padding-left : 15px">
+
           <a href="{{route('leave_applications')}}" class="nav-link {{ Request::is('leave_applications') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_applications') ? 'background-color: #ff5d6c; !important' : ''}}">
             <i class="far fa-circle nav-icon" style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}">Leave Application List</p>
+
           </a>
         </li>
       </ul>
@@ -539,35 +572,31 @@
         </a>
       </li>
 
-      <li class="nav-item ">
-        <a href="#" class="nav-link ">
+  
+      <li class="nav-item @if(Request::is('damage_report')) menu-open 
+            @endif">
+        <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-file-pen"></i>
           <p>
-            Reports
-            <i class="right fas fa-angle-left"></i>
+             Reports
+            <i class="fas fa-angle-left right"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item" style="padding-left : 15px">
-            <a href="" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Stock Report</p>
-            </a>
-          </li>
-          <li class="nav-item" style="padding-left : 15px">
-            <a href="" class="nav-link active">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Damaged Product Report</p>
+
+            <a href="{{route('damage_report')}}" class="nav-link {{ Request::is('damage_report') ? 'nav-link active' : ''}}" style="{{ Request::is('damage_report') ? 'background-color: #1cdf1c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('damage_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('damage_report') ? 'color: white; !important' : ''}}">Damaged Product Report</p>
             </a>
           </li>
 
-          <li class="nav-item" style="padding-left : 15px">
-            <a href="" class="nav-link active">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Near-Expired Product Report</p>
+          {{-- <li class="nav-item" style="padding-left : 15px">
+            <a href="{{route('product_category_list')}}" class="nav-link {{ Request::is('product_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}">Product Category List</p>
             </a>
-          </li>
-
+          </li> --}}
         </ul>
       </li>
 
@@ -706,8 +735,8 @@
 
 
 
-      <li class="nav-item @if(Request::is('profit_and_loss_report')) menu-open 
-             
+        <li class="nav-item @if(Request::is('profit_and_loss_report')) menu-open 
+             @elseif(Request::is('sale_report')) menu-open
             @endif">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-layer-group"></i>
@@ -724,24 +753,24 @@
             </a>
           </li>
 
-          <li class="nav-item" style="padding-left : 15px">
+          {{-- <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Customer Due Report</p>
             </a>
-          </li>
+          </li> --}}
 
-          <li class="nav-item" style="padding-left : 15px">
+          {{-- <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Expense Report</p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item" style="padding-left : 15px">
-            <a href="{{route('profit_and_loss_report')}}" class="nav-link {{ Request::is('profit_and_loss_report') ? 'nav-link active' : ''}}" style="{{ Request::is('profit_and_loss_report') ? 'background-color: #20ceea; !important' : ''}}">
-              <i class="far fa-circle nav-icon" style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('profit_and_loss_report') ? 'color: white; !important' : ''}}">Sales Report</p>
+            <a href="{{route('sale_report')}}" class="nav-link {{ Request::is('sale_report') ? 'nav-link active' : ''}}" style="{{ Request::is('sale_report') ? 'background-color: #20ceea; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('sale_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('sale_report') ? 'color: white; !important' : ''}}">Sales Report</p>
             </a>
           </li>
 

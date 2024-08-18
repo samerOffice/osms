@@ -100,6 +100,7 @@ class AttendanceController extends Controller
                        ->leftJoin('users','attendances.user_id','=','users.id')
                        ->select('attendances.*','users.name as member_name')
                        ->where('users.company_id',$user_company_id)
+                       ->orderBy('attendances.id', 'DESC')
                        ->get();
 
         return view('attendances.index',compact('current_module','attendances'));
@@ -109,6 +110,7 @@ class AttendanceController extends Controller
             ->leftJoin('users','attendances.user_id','=','users.id')
             ->select('attendances.*','users.name as member_name')
             ->where('users.id',$user_id)
+            ->orderBy('attendances.id', 'DESC')
             ->get();
 
         return view('attendances.index',compact('current_module','attendances'));
