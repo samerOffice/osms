@@ -22,9 +22,9 @@ Sales Report
       <div class="container-fluid">
         <div class="custom-container">
             <br>
-            <h3 align="center">Sales Report</h3>
+            <h3 align="center">Damaged Product Report</h3>
 
-            <form action="{{route('sale_report_submit')}}" method="POST">
+            <form action="{{route('damage_report_submit')}}" method="POST">
                 @csrf
                 <div class="row">     
                     <div class="col-md-12 col-sm-12">
@@ -58,13 +58,12 @@ Sales Report
 @endsection
 
 @push('masterScripts')
-
 <script type="text/javascript">
 //Initialize Select2 Elements
 $('.select2bs4').select2({
       theme: 'bootstrap4'
     })
 
-</script>
 
+</script>
 @endpush

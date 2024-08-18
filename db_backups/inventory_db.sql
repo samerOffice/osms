@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2024 at 03:34 PM
+-- Generation Time: Aug 18, 2024 at 02:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -72,7 +72,7 @@ CREATE TABLE `damage_and_burned_products` (
 INSERT INTO `damage_and_burned_products` (`id`, `entry_date`, `company_id`, `stock_id`, `product_id`, `quantity`, `unit_price`, `damage_amount`, `created_at`, `updated_at`) VALUES
 (1, '2024-08-13', 11, 2, 3, 7, NULL, NULL, '2024-08-13 10:07:03', '2024-08-13 10:07:03'),
 (2, '2024-08-17', 11, 1, 1, 1, NULL, NULL, '2024-08-16 19:49:02', '2024-08-16 19:49:02'),
-(3, '2024-08-17', 11, 3, 6, 2, NULL, NULL, '2024-08-17 11:40:33', '2024-08-17 11:40:33'),
+(3, '2024-08-17', 11, 3, 6, 2, NULL, '10', '2024-08-17 11:40:33', '2024-08-17 11:40:33'),
 (4, '2024-08-17', 11, 3, 6, 1, '420', '420', '2024-08-17 11:48:16', '2024-08-17 11:48:16');
 
 -- --------------------------------------------------------

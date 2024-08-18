@@ -118,7 +118,9 @@ class EmpController extends Controller
                     ->where('company_id',$user_company_id)
                     ->where('br_status',1)
                     ->get();
-        $designations = DB::table('designations')->get();
+        $designations = DB::table('designations')
+                        ->where('company_id',$user_company_id)
+                        ->get();
         // $business_types = DB::table('business_types')->get();
 
         
@@ -129,9 +131,11 @@ class EmpController extends Controller
 
     public function level_designation_dependancy(Request $request){
         $selectedLevel = $request->input('data');
+        $user_company_id = Auth::user()->company_id;
 
         $designations = DB::table('designations')
                         ->where('level',$selectedLevel)
+                        ->where('company_id',$user_company_id)
                         ->get();
   
         $str="<option value=''>-- Select --</option>";
@@ -188,7 +192,8 @@ class EmpController extends Controller
 
         $user = DB::table('employees')
         ->insertGetId([
-        'user_id'=>$user->id
+        'user_id'=>$user->id,
+        'monthly_salary' => $request->monthly_salary
         ]); 
 
         // $success['token'] = $user->createToken('myToken')->plainTextToken;
@@ -233,13 +238,14 @@ class EmpController extends Controller
 
         $user_id = $get_user_id->user_id;
         $employee = DB::table('users')
-            ->leftJoin('branches','users.branch_id','branches.id')
-            ->leftJoin('designations','users.designation','designations.id')
-            ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'users.warehouse_id', '=', 'warehouses.id')
-            ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'users.outlet_id', '=', 'outlets.id')
-            ->select('users.*','warehouses.warehouse_name as warehouse_name','outlets.outlet_name as outlet_name','designations.designation_name as designation_name', 'branches.br_name as branch_name')
-            ->where('users.id',$user_id)
-            ->first();
+                ->leftJoin('employees','users.id','employees.user_id')
+                ->leftJoin('branches','users.branch_id','branches.id')
+                ->leftJoin('designations','users.designation','designations.id')
+                ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'users.warehouse_id', '=', 'warehouses.id')
+                ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'users.outlet_id', '=', 'outlets.id')
+                ->select('users.*','employees.monthly_salary as monthly_salary','warehouses.warehouse_name as warehouse_name','outlets.outlet_name as outlet_name','designations.designation_name as designation_name', 'branches.br_name as branch_name')
+                ->where('users.id',$user_id)
+                ->first();
 
         return view('employees.edit_employee_official_details',compact('current_module','employee','branches'));
 
@@ -280,12 +286,19 @@ class EmpController extends Controller
             $data['warehouse_id'] = $request->input('warehouse_id');
             $data['outlet_id'] = $request->input('outlet_id');
             $data['designation'] = $request->input('designation_name');
+
+            $emp_monthly_salary = $request->input('monthly_salary');
     
             try {
                 // Update the outlet record in the database
                 $updated = DB::table('users')
                             ->where('id', $id)
                             ->update($data);
+
+
+              $update_emp_salary = DB::table('employees')
+                                    ->where('user_id', $id)
+                                    ->update(['monthly_salary' => $emp_monthly_salary]);
             
                 // Check if the update was successful
                 if ($updated) {

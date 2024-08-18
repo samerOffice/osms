@@ -53,6 +53,7 @@ Employee List
                           <th>Designation</th>
                           <th>Branch</th>
                           <th>Joining Date</th>
+                          <th>Monthly Salary (BDT)</th>
                           <th>Action</th>                          
                         </tr>
                         </thead>
@@ -66,6 +67,7 @@ Employee List
                           <td>{{$employee->emp_designation_name}}</td>
                           <td>{{$employee->emp_br_name}}</td>
                           <td>{{$employee->emp_joining_date}}</td>
+                          <td>{{$employee->monthly_salary}}</td>
                          <td>
                           <a href="{{route('edit_employee_official_info',$employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                         </td>

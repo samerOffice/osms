@@ -22,6 +22,7 @@ use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
 use App\Http\Controllers\API\Inventory\StockController;
+use App\Http\Controllers\API\Inventory\InventoryReportController;
 
 use App\Http\Controllers\API\POS\InvoiceController;
 use App\Http\Controllers\API\POS\CustomerController;
@@ -171,6 +172,11 @@ Route::get('/add_label/{product_id}', [StockController::class, 'add_label'])->na
 Route::get('/damage_product/{product_id}', [StockController::class, 'damage_product'])->name('damage_product');
 
 
+//----- ** inventory reports **------
+//damage report
+Route::get('/damage_report', [InventoryReportController::class, 'damage_report'])->name('damage_report');
+Route::post('/damage_report_submit', [InventoryReportController::class, 'damage_report_submit'])->name('damage_report_submit');
+
 
 //...............********* pos module ********................
 
@@ -198,6 +204,6 @@ Route::get('/add_terms_and_conditions', [TermAndConditionController::class, 'add
 //profit and loss report
 Route::get('/profit_and_loss_report', [PosReportControlller::class, 'profit_and_loss_report'])->name('profit_and_loss_report');
 Route::get('/sale_report', [PosReportControlller::class, 'sale_report'])->name('sale_report');
-
+Route::post('/sale_report_submit', [PosReportControlller::class, 'sale_report_submit'])->name('sale_report_submit');
 
 });

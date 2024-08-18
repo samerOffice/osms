@@ -20,7 +20,7 @@ Profiit & Loss Report
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
+      <div class="container-fluid" style="max-width: 800px">
         <div class="custom-container">
             <br>
         <div class="row">
@@ -69,8 +69,8 @@ Profiit & Loss Report
 
         <h1>Profit and Loss Report</h1>
         
-        <h2>Revenue</h2>
-        <table>
+        <h4>Revenue</h4>
+        <table style="font-family: 'Courier New', Courier, monospace; font-size: 20px;">
             <thead>
                 <tr>
                     <th>Description</th>
@@ -94,8 +94,8 @@ Profiit & Loss Report
             </tbody>
         </table>
 
-        <h2>Cost of Goods Sold (COGS)</h2>
-        <table>
+        <h4>Cost of Goods Sold (COGS)</h4>
+        <table style="font-family: 'Courier New', Courier, monospace; font-size: 20px; ">
             <thead>
                 <tr>
                     <th>Description</th>
@@ -122,8 +122,8 @@ Profiit & Loss Report
             </tbody>
         </table>
 
-        <h2>Expenses</h2>
-        <table>
+        <h4>Expenses</h4>
+        <table style="font-family: 'Courier New', Courier, monospace; font-size: 20px;">
             <thead>
                 <tr>
                     <th>Description</th>
@@ -168,8 +168,8 @@ Profiit & Loss Report
 
 
         <!-- Print Button -->
-    <button id="print-button">Print Report</button>
-
+    <button id="print-button" class="btn btn-danger float-right">Print Report</button>
+<br>
        </div>                  
         <br>     
         </div>
