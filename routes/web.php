@@ -19,6 +19,7 @@ use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Emp\LeaveController;
+use App\Http\Controllers\API\Emp\EmployeeReportController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
@@ -150,6 +151,11 @@ Route::get('/leave-application/create', [LeaveController::class, 'create'])->nam
 // Route to handle form submission
 Route::post('/leave-application', [LeaveController::class, 'store'])->name('leave-application.store');
 
+
+//----- ** employee reports **------
+//damage report
+Route::get('/top_seller_report', [EmployeeReportController::class, 'top_seller_report'])->name('top_seller_report');
+Route::post('/top_seller_report_submit', [EmployeeReportController::class, 'top_seller_report_submit'])->name('top_seller_report_submit');
 
 
 //...............********* inventory management module ********................
