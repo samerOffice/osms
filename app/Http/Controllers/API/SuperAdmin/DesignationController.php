@@ -11,20 +11,32 @@ class DesignationController extends Controller
 {
     public function designation_list(){
         
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+         
         $current_modules = array();
         $current_modules['module_status'] = '1';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
-        
-        $designations = DB::table('designations')->get();
 
-        return view('designations.index',compact('designations','current_module'));
+        if($user_role_id == 1){
+            
+            $designations = DB::table('designations')->get();
+          return view('designations.index',compact('designations','current_module'));
+
+        }else{
+            $designations = DB::table('designations')
+                            ->where('company_id',$user_company_id)                    
+                            ->get();
+          return view('designations.index',compact('designations','current_module'));
+        }
+        
+        
     }
 
     public function add_designation(){
-
 
         $current_modules = array();
         $current_modules['module_status'] = '1';
@@ -39,8 +51,11 @@ class DesignationController extends Controller
 
     public function designation_store(Request $request){
        
+        $user_company_id = Auth::user()->company_id;
+
         $designation = DB::table('designations')
                 ->insertGetId([
+                'company_id'=>$user_company_id,
                 'level'=>$request->level,
                 'designation_name'=>$request->designation_name
                 ]);

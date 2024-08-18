@@ -79,10 +79,10 @@ Payroll
                     <td>{{$member_payroll_info->monthly_salary}}</td>
                   </tr>
 
-                  <tr>
+                  {{-- <tr>
                     <td>Monthly Holiday Bonus (BDT)</td>
                     <td>{{$member_payroll_info->monthly_holiday_bonus}}</td>
-                  </tr>
+                  </tr> --}}
 
                   @if(($member_payroll_info->total_daily_allowance != 0))
                   <tr>

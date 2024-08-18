@@ -71,15 +71,23 @@ class PayrollController extends Controller
         $selectedMemberId = $request->input('data');
 
         $employeeInfo = DB::table('users')
-                            ->where('id',$selectedMemberId)
+                            ->leftJoin('employees','users.id','employees.user_id')
+                            ->select('users.*','employees.monthly_salary as emp_monthly_salary')
+                            ->where('users.id',$selectedMemberId)
                             ->first();
 
             $joining_date = $employeeInfo->joining_date;
+            $employee_monthly_salary = $employeeInfo->emp_monthly_salary;
             $joining_month = Carbon::parse($joining_date)->format('m');
+
+            $per_day_salary = ceil($employee_monthly_salary / 26);
+
     
             $data = [
                 'joining_date' => $employeeInfo->joining_date,
                 'joining_month' => $joining_month,
+                'employee_monthly_salary' => $employeeInfo->emp_monthly_salary,
+                'per_day_salary' => $per_day_salary
             ];
 
             return $data;

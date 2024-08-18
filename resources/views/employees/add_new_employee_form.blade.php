@@ -75,10 +75,16 @@ Welcome
                                  <input type="date"  id="joining_date" name="joining_date" class="form-control form-control-lg" />
                                </div>
                               </div>
+
+                              <div class="col-md-12 col-sm-12">
+                                <!-- Monthly Salary -->
+                                <div  class="form-group mb-4">
+                                 <label >Monthly Salary <small style="color: red">*</small></label>
+                               <input type="number" step="0.01"  id="monthly_salary" name="monthly_salary" class="form-control form-control-lg" />
+                             </div>
+                            </div>
                                 
                                 <div class="row">
-
-
                                   <div class="col-md-3 col-sm-12">
                                     <!-- Level select -->
                                       <div  class="form-group mb-4">
@@ -397,6 +403,16 @@ var full_name = document.getElementById('name').value;
         Swal.fire({
                 icon: "warning",
                 title: "Please Enter Joining Date",
+              });
+          return false;
+      }
+
+
+      var monthly_salary = document.getElementById('monthly_salary').value;
+      if(monthly_salary == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Monthly Salary",
               });
           return false;
       }

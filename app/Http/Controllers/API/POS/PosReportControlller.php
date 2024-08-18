@@ -119,4 +119,124 @@ class PosReportControlller extends Controller
         return view('reports.pos_reports.sale_report',compact('current_module'));
 
     }
+
+
+    public function sale_report_submit(Request $request){
+
+        $report_type = $request->sale_type;
+        $user_company_id = Auth::user()->company_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '4';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+        
+        if($report_type == 1){
+
+            $current_date = Carbon::now()->toDateString();
+
+            $sales_data = DB::connection('pos')
+                        ->table('invoices')
+                        ->leftJoin('invoice_items','invoices.id','invoice_items.invoice_id')
+                        // ->leftJoin('stocks','sold_stock_id','stocks.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.stocks', 'invoice_items.stock_id', '=', 'stocks.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.products', 'stocks.product_id', '=', 'products.id')
+                        // ->leftJoin('products','stocks.products_id','products.id')
+                        ->select(
+                        'invoice_items.stock_id as sold_stock_id',
+                        'invoice_items.invoice_date as selling_date',
+                        'products.product_name as product_name',
+                        'invoice_items.quantity as sold_stock_quantity',
+                        'invoice_items.unit_price as purchase_price',
+                        'invoice_items.sale_unit_price as selling_price',
+                        'invoice_items.sub_total as product_sub_total'
+                        )
+                        ->where('invoices.company_id',$user_company_id)
+                        ->where('invoices.invoice_date', $current_date)
+                        ->get();
+
+
+            $total_due = DB::connection('pos')
+                        ->table('invoices')
+                        ->where('company_id', $user_company_id)
+                        ->where('invoice_date', $current_date)
+                        ->sum('due_amount');
+
+        //   dd($sales_data);
+        return view('reports.pos_reports.sale_report_data',compact('current_module','sales_data', 'total_due', 'report_type'));
+
+        }elseif($report_type == 2){
+
+            $current_month = Carbon::now()->format('m');
+            
+            $sales_data = DB::connection('pos')
+            ->table('invoices')
+            ->leftJoin('invoice_items','invoices.id','invoice_items.invoice_id')
+            // ->leftJoin('stocks','sold_stock_id','stocks.id')
+            ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.stocks', 'invoice_items.stock_id', '=', 'stocks.id')
+            ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.products', 'stocks.product_id', '=', 'products.id')
+            // ->leftJoin('products','stocks.products_id','products.id')
+            ->select(
+            'invoice_items.stock_id as sold_stock_id',
+            'invoice_items.invoice_date as selling_date',
+            'products.product_name as product_name',
+            'invoice_items.quantity as sold_stock_quantity',
+            'invoice_items.unit_price as purchase_price',
+            'invoice_items.sale_unit_price as selling_price',
+            'invoice_items.sub_total as product_sub_total'
+            )
+            ->where('invoices.company_id',$user_company_id)
+            ->whereMonth('invoices.invoice_date', $current_month)
+            ->get();
+
+
+            $total_due = DB::connection('pos')
+                        ->table('invoices')
+                        ->where('company_id', $user_company_id)
+                        ->whereMonth('invoice_date', $current_month)
+                        ->sum('due_amount');
+
+        //  dd($sales_data);
+        return view('reports.pos_reports.sale_report_data',compact('current_module','sales_data', 'total_due', 'report_type'));
+
+        }else{
+
+            $current_year = Carbon::now()->format('Y');
+
+            $sales_data = DB::connection('pos')
+                        ->table('invoices')
+                        ->leftJoin('invoice_items','invoices.id','invoice_items.invoice_id')
+                        // ->leftJoin('stocks','sold_stock_id','stocks.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.stocks', 'invoice_items.stock_id', '=', 'stocks.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.products', 'stocks.product_id', '=', 'products.id')
+                        // ->leftJoin('products','stocks.products_id','products.id')
+                        ->select(
+                        'invoice_items.stock_id as sold_stock_id',
+                        'invoice_items.invoice_date as selling_date',
+                        'products.product_name as product_name',
+                        'invoice_items.quantity as sold_stock_quantity',
+                        'invoice_items.unit_price as purchase_price',
+                        'invoice_items.sale_unit_price as selling_price',
+                        'invoice_items.sub_total as product_sub_total'
+                        )
+                        ->where('invoices.company_id',$user_company_id)
+                        ->whereYear('invoices.invoice_date', $current_year)
+                        ->get();
+
+
+            $total_due = DB::connection('pos')
+                        ->table('invoices')
+                        ->where('company_id', $user_company_id)
+                        ->whereYear('invoice_date', $current_year)
+                        ->sum('due_amount');
+
+            // dd($sales_data);
+            return view('reports.pos_reports.sale_report_data',compact('current_module','sales_data', 'total_due', 'report_type'));
+        }
+        
+
+
+    }
 }

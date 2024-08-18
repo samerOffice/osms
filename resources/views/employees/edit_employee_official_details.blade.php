@@ -56,6 +56,11 @@ Welcome
                               <label>Joining Date: </label>
                               <span style="color: green">{{$employee->joining_date}}</span>         
                             </div>
+
+                            <div class="col-md-4 col-sm-12">                          
+                              <label>Monthly Salary: </label>
+                              <span style="color: green">{{$employee->monthly_salary}} BDT</span>         
+                            </div>
                             
                             <div class="col-md-4 col-sm-12">                          
                               <label>Designation: </label>
@@ -109,6 +114,15 @@ Welcome
                               <select required class="form-control select2bs4" id="designation_name" name="designation_name" style="width: 100%;">                                  
                                 <option value="" >Select Designation</option>                                                            
                               </select>
+                            </div>
+                            </div>
+
+
+                            <div class="col-md-3 col-sm-12">
+                              <!-- Monthly Salary -->
+                            <div  class="form-group mb-4">
+                              <label for="password">Monthly Salary (BDT) <small style="color: red">*</small></label>
+                              <input type="number" step="0.01" class="form-control" id="monthly_salary" name="monthly_salary" value="{{$employee->monthly_salary}}" required>
                             </div>
                             </div>
                            
@@ -345,6 +359,17 @@ function showDiv() {
               });
           return false;
       }
+
+
+      var monthly_salary = document.getElementById('monthly_salary').value;
+      if(monthly_salary == ''){
+        Swal.fire({
+                icon: "warning",
+                title: "Please Enter Monthly Salary",
+              });
+          return false;
+      }
+
 
       
       var branch = document.getElementById('branch_id').value;
