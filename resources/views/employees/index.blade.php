@@ -69,7 +69,8 @@ Employee List
                           <td>{{$employee->emp_joining_date}}</td>
                           <td>{{$employee->monthly_salary}}</td>
                          <td>
-                          <a href="{{route('edit_employee_official_info',$employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                          <a href="{{route('view_employee_details',$employee->id)}}" style="color: white"><button class="btn btn-outline-info"><i class="fa-solid fa-eye"></i> View</button></a>
+                          <a href="{{route('edit_employee_official_info',$employee->id)}}" style="color: white"><button class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                         </td>
                         </tr> 
                         @endforeach              
