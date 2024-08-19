@@ -81,23 +81,72 @@ class EmpController extends Controller
         $user_company_id = Auth::user()->company_id;
         
         $employees = DB::table('users')
-        ->leftJoin('employees','users.id','employees.user_id')
-        ->leftJoin('companies','users.company_id','companies.id')
-        ->leftJoin('designations','users.designation','designations.id')
-        ->leftJoin('branches','users.branch_id','branches.id')
-        ->select('employees.*',
-        'users.name as emp_name', 
-        'users.joining_date as emp_joining_date', 
-        'users.email as emp_email', 
-        'companies.company_name as emp_company_name',
-        'branches.br_name as emp_br_name',
-        'designations.designation_name as emp_designation_name')
-        ->where('users.company_id', $user_company_id)
-        ->where('users.role_id', '3')
-        ->get();
+                    ->leftJoin('employees','users.id','employees.user_id')
+                    ->leftJoin('companies','users.company_id','companies.id')
+                    ->leftJoin('designations','users.designation','designations.id')
+                    ->leftJoin('branches','users.branch_id','branches.id')
+                    ->select('employees.*',
+                    'users.name as emp_name', 
+                    'users.joining_date as emp_joining_date', 
+                    'users.email as emp_email', 
+                    'companies.company_name as emp_company_name',
+                    'branches.br_name as emp_br_name',
+                    'designations.designation_name as emp_designation_name')
+                    ->where('users.company_id', $user_company_id)
+                    ->where('users.role_id', '3')
+                    ->get();
 
         // dd($employees);
         return view('employees.index',compact('employees','current_module'));
+    }
+
+
+
+    public function view_employee_details($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '2';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $employee = DB::table('employees')
+                        ->leftJoin('designations','employees.designation_id','designations.id')
+                        ->leftJoin('users','employees.user_id','users.id')
+                        ->leftJoin('branches','users.branch_id','branches.id')
+                        // ->leftJoin('warehouses','users.warehouse_id','warehouses.id')
+                        // ->leftJoin('outlets','users.outlet_id','outlets.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'users.warehouse_id', '=', 'warehouses.id')
+                        ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'users.outlet_id', '=', 'outlets.id')                        
+                       ->select(
+                            'users.name as emp_name',
+                            'users.email as emp_email',
+                            'users.joining_date as emp_joining_date',
+                            'employees.mobile_number as emp_mobile_number',
+                            'designations.designation_name as emp_designation_name',
+                            // 'employees.joining_date as emp_joining_date',
+                            'employees.monthly_salary as emp_monthly_salary', 
+
+                            'employees.nid_number as emp_nid_number',
+                            'employees.birth_date as emp_birth_date',
+                            'employees.blood_group as emp_blood_group',
+                            'employees.present_address as emp_present_address',
+                            'employees.permanent_address as emp_permanent_address',
+                            
+
+                            'branches.br_name as emp_branch_name',
+                            'branches.br_address as emp_branch_address',
+                            'warehouses.warehouse_name as emp_warehouse_name',
+                            'warehouses.warehouse_address as emp_warehouse_address',
+                            'outlets.outlet_name as emp_outlet_name',
+                            'outlets.outlet_address as emp_outlet_address'
+                            )
+                        ->where('employees.id',$id)
+                        ->first();
+
+        // dd($employee);
+        return view('employees.view',compact('employee','current_module'));            
     }
     
     
@@ -298,7 +347,10 @@ class EmpController extends Controller
 
               $update_emp_salary = DB::table('employees')
                                     ->where('user_id', $id)
-                                    ->update(['monthly_salary' => $emp_monthly_salary]);
+                                    ->update([
+                                        'monthly_salary' => $emp_monthly_salary,
+                                        'designation_id' => $request->input('designation_name')
+                                    ]);
             
                 // Check if the update was successful
                 if ($updated) {

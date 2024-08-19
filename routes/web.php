@@ -117,6 +117,7 @@ Route::get('/edit_user/{user_id}', [AuthController::class, 'edit_user'])->name('
 //...............********* employee management module ********................
 //new employee add
 Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->name('add_new_employee');
+Route::get('/view_employee_details/{employee_id}', [EmpController::class, 'view_employee_details'])->name('view_employee_details');
 
 //employee official information update
 Route::get('/edit_employee_official_info/{employee_id}', [EmpController::class, 'edit_employee_official_info'])->name('edit_employee_official_info');

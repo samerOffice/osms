@@ -68,12 +68,24 @@
                           {{-- <i class="ion ion-ios-people-outline"></i> --}}
                           <i class="ion ion-ios-person-outline" style="font-size: 50px"></i>
                         </p>
-                        <p class="d-flex flex-column text-right">
-                          <span class="font-weight-bold" style="font-size: 20px">{{$top_seller_name}}</span>
-                          <span class="text-muted">{{$top_seller_designation}}</span>
-                        
-                          <span class="text-muted" style="margin-top: 10px; margin-bottom: -15px; font-size: 15px"><span style="color: blue">Maximum Selling Amount :</span> <span style="color: green">{{ number_format($max_selling_amount, 0) }} BDT</span></span>
-                        </p>
+
+                       <p class="d-flex flex-column text-right">
+                        <span class="font-weight-bold" style="font-size: 20px">{{ $top_seller_name }}</span>
+                        <span class="text-muted">{{ $top_seller_designation }}</span>
+
+                        @if(isset($max_selling_amount) && $max_selling_amount > 0)
+                            <span class="text-muted" style="margin-top: 10px; margin-bottom: -15px; font-size: 15px">
+                                <span style="color: blue">Maximum Selling Amount :</span> 
+                                <span style="color: green">{{ number_format($max_selling_amount, 0) }} BDT</span>
+                            </span>
+                        @else
+                            <span class="text-muted" style="margin-top: 10px; margin-bottom: -15px; font-size: 15px">
+                                <span style="color: blue">Maximum Selling Amount :</span> 
+                                <span style="color: red">N/A</span>
+                            </span>
+                        @endif
+                    </p>
+                      
                        
                       </div>
                       <!-- /.d-flex -->
@@ -92,10 +104,14 @@
                         <p class="text-warning text-xl">
                           <i class="ion ion-ios-cart-outline" style="font-size: 50px"></i>
                         </p>
+                        
                         <p class="d-flex flex-column text-right">
-                          <span class="font-weight-bold" style="font-size: 20px"> {{$top_selling_product_name}} </span>
-                          <span class="text-muted"> <span style="color: blue">Description :</span> {{$top_selling_product_desc}}</span>
-                        </p>
+                          <span class="font-weight-bold" style="font-size: 20px">{{ $top_selling_product_name }}</span>
+                          <span class="text-muted">
+                              <span style="color: blue">Description :</span> {{ $top_selling_product_desc }}
+                          </span>
+                      </p>
+                      
                       </div>
                       <!-- /.d-flex -->
                      
