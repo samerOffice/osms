@@ -11,7 +11,7 @@ New Sale
                     
                     <div class="row">
                         <div class="col-12">
-                            <a class="btn btn-outline-info float-right" href="">
+                            <a class="btn btn-outline-info float-right" href="{{route('sale_list')}}">
                                 <i class="fas fa-arrow-left"></i> Back
                             </a>
                         </div>                       
@@ -148,7 +148,7 @@ New Sale
                                                 <div class="form-group col-3">
                                                     <label for="sku" class="col-form-label text-start">SKU</label>
                                                     <input type="text" placeholder="Type SKU Number" onkeyup="skuDetails()" class="form-control sku" name="sku[]">
-                                                    <input type="hidden" placeholder="Type SKU Number" class="form-control stock_product_id" name="stock_product_id[]">
+                                                    <input type="hidden" placeholder="Type SKU Number" class="form-control stock_product_id" id="rr" name="stock_product_id[]">
                                                 </div>
 
                                                 <div class="form-group col-3">
@@ -793,33 +793,83 @@ document.getElementById('saleForm').addEventListener('submit',function(event){
 event.preventDefault();
 var saleFormData = new FormData(this);
 
-// Function to get CSRF token from meta tag
-function getCsrfToken() {
-  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  }
 
-// Set up Axios defaults
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+var existing_customer  = $('#customer_id').val();
+var new_customer  = $('#customer_phone_number').val();
+// var due_entry  = $('#due_amount').val();
 
-axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/api/sale_store',saleFormData).then(response=>{
-  console.log(response);
-  setTimeout(function() {
-        window.location.href = "{{ route('invoice_show_data', ':id') }}".replace(':id', response.data.invoice_id);
-        // window.location.reload();
-      }, 2000);
-  Swal.fire({
-              icon: "success",
-              title: ''+ response.data.message,
-            });
+var due_entry = parseInt($('#dueAmount').val());
+
+
+// alert(due_entry);
+// return false;
+
+if (!isNaN(due_entry)) {
+    // alert(existing_customer);
+    // return false;
+    if ((existing_customer === '') && (new_customer === '')) {
+        alert('Please select a customer');
         return false;
-        
-  }).catch(error => Swal.fire({
-              icon: "error",
-              title: error.response.data,
-              }))
- });
+    }else{
+         // Function to get CSRF token from meta tag
+         function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        }
+
+        // Set up Axios defaults
+        axios.defaults.withCredentials = true;
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+        axios.get('sanctum/csrf-cookie').then(response=>{
+        axios.post('/api/sale_store',saleFormData).then(response=>{
+        console.log(response);
+        setTimeout(function() {
+                window.location.href = "{{ route('invoice_show_data', ':id') }}".replace(':id', response.data.invoice_id);
+                // window.location.reload();
+            }, 2000);
+        Swal.fire({
+                    icon: "success",
+                    title: ''+ response.data.message,
+                    });
+                return false;
+                
+        }).catch(error => Swal.fire({
+                    icon: "error",
+                    title: error.response.data,
+                    }))
+        });
+    }
+}else{
+    // Function to get CSRF token from meta tag
+    function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        }
+
+        // Set up Axios defaults
+        axios.defaults.withCredentials = true;
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+        axios.get('sanctum/csrf-cookie').then(response=>{
+        axios.post('/api/sale_store',saleFormData).then(response=>{
+        console.log(response);
+        setTimeout(function() {
+                window.location.href = "{{ route('invoice_show_data', ':id') }}".replace(':id', response.data.invoice_id);
+                // window.location.reload();
+            }, 2000);
+        Swal.fire({
+                    icon: "success",
+                    title: ''+ response.data.message,
+                    });
+                return false;
+                
+        }).catch(error => Swal.fire({
+                    icon: "error",
+                    title: error.response.data,
+                    }))
+        });
+}
+
+
 
 });
 //................sale submit end.................

@@ -375,21 +375,32 @@
         </p>
       </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item" style="padding-left : 15px">
 
-            <a href="{{route('leave-application.create')}}" class="nav-link {{ Request::is('leave-application/create') ? 'nav-link active' : ''}}" style="{{ Request::is('leave-application/create') ? 'background-color: #ff5d6c; !important' : ''}}">
-        <i class="far fa-circle nav-icon" style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}"></i>
-        <p style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}">Leave Application</p>
-
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('leave_types')}}" class="nav-link {{ Request::is('leave_types') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_types') ? 'background-color: #ff5d6c; !important' : ''}}">
+        <i class="far fa-circle nav-icon" style="{{ Request::is('leave_types') ? 'color: white; !important' : ''}}"></i>
+        <p style="{{ Request::is('leave_types') ? 'color: white; !important' : ''}}">Leave Type</p>
         </a>
         </li>
 
         <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('leave-application.create')}}" class="nav-link {{ Request::is('leave-application/create') ? 'nav-link active' : ''}}" style="{{ Request::is('leave-application/create') ? 'background-color: #ff5d6c; !important' : ''}}">
+        <i class="far fa-circle nav-icon" style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}"></i>
+        <p style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}">Apply For Leave</p>
+        </a>
+        </li>
 
+        <li class="nav-item" style="padding-left : 15px">
           <a href="{{route('leave_applications')}}" class="nav-link {{ Request::is('leave_applications') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_applications') ? 'background-color: #ff5d6c; !important' : ''}}">
             <i class="far fa-circle nav-icon" style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}">Leave Application List</p>
+          </a>
+        </li>
 
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('leave_applications')}}" class="nav-link {{ Request::is('leave_applications') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_applications') ? 'background-color: #ff5d6c; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}">Leave Approval</p>
           </a>
         </li>
       </ul>

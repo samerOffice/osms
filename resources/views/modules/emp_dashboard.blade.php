@@ -39,10 +39,10 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-md-4 col-xl-4 col-sm-12">
-            <img src="{{asset('/dist/img/notice_board.png')}}" height="auto" width="400px" alt="notice board">
+          <div class="col-md-4 col-xl-4 col-sm-12 ">
+            <img src="{{asset('/dist/img/notice_board.png')}}" height="auto" width="350px" alt="notice board" style=" padding-left: 50px">
           </div>
-          <div class="col-md-8 col-xl-8 col-sm-12">
+          <div class="col-md-8 col-xl-8 col-sm-12" style="margin-top: 10px">
             <div class="row">      
               <div class="col-md-6 col-xl-6 col-sm-12">
                 <div class="card mb-3 widget-content bg-midnight-bloom">
@@ -103,7 +103,7 @@
         <!-- /.row -->
 
         <!-- Main row -->
-        <div class="row">
+
           <div class="col-12">
             <br>
             <div class="card">
@@ -147,7 +147,7 @@
                 <!-- /.card-body -->
               </div>
         </div>
-        </div>
+      
         <!-- /.row (main row) -->
        
       </div><!-- /.container-fluid -->
