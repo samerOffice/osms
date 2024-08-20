@@ -18,6 +18,7 @@ use App\Http\Controllers\API\Admin\BillController;
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
+use App\Http\Controllers\API\Emp\LeaveController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
@@ -133,6 +134,12 @@ Route::middleware('auth:sanctum')->post('/new_password_set',[App\Http\Controller
 //attendance
 Route::middleware('auth:sanctum')->post('/submit_attendance',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_attendance']);
 Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controllers\API\Emp\AttendanceController::class,'all_attendance_list']);
+
+//leave
+Route::middleware('auth:sanctum')->post('/submit_leave_tpye',[App\Http\Controllers\API\Emp\LeaveController::class,'submit_leave_tpye']);
+Route::middleware('auth:sanctum')->get('/edit_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'edit_leave_type_via_api']);
+Route::middleware('auth:sanctum')->post('/update_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'update_leave_type']);
+
 
 //dependencies (payroll)
 Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollController::class, 'member_details_dependancy']);

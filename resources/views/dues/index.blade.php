@@ -65,9 +65,17 @@ Customer List
                           <td>{{$due->customer_mobile_number}}</td>
                           <td>{{$due->customer_registration_date}}</td>
                           <td>{{$due->total_due}}</td>                                     
-                          <td>
+                          {{-- <td>
                             <a href="{{route('due_details',$due->customer_mobile_number)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Details</button></a>
-                          </td>
+                          </td> --}}
+                          <td>
+                            @if(!empty($due->customer_mobile_number))
+                            <a href="{{route('due_details',$due->customer_mobile_number)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Details</button></a>
+                            @else
+                                <span>No Details Available</span>
+                            @endif
+                        </td>
+                        
                         
                         </tr> 
                         @endforeach              
