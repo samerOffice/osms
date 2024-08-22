@@ -13,8 +13,9 @@ Dashboard
   <div class="content-header">
     <div class="container-fluid">
       <br>
-      {{-- <h4 align=center>Welcome, <b>{{Auth::user()->name}}</b>!</h4>
-      <h4 align=center>To</h4>
+      <h4 align=center>Welcome To, <b style="color: #16aaff">{{$shop_name}}</b></h4>
+      <br>
+      {{-- <h4 align=center>To</h4>
       <div class="row" style="margin-left: 35%">
         <span style="margin-top:20px !important;"><img src="{{asset('img/otithee_logo.png')}}" height="25px" width="auto" alt="logo"></span>
         <em>

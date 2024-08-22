@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2024 at 02:49 PM
+-- Generation Time: Aug 22, 2024 at 03:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,7 +56,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `flag`, `created_at`, `updated_at`) VALUES
-(1, 1, 'abu basar badal', 'halima', '2852574', '2258727452', 'laalbagh', 'laalbagh', '1995-09-10', 'o+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Abul', '01513470120', 'Father', 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
+(1, 1, 'abu basar badal', 'halima', '2852574', '2258727452', 'laalbagh', 'laalbagh', '1995-09-10', 'o+', 'Bangladeshi', 'Single', 'Islam', 'Male', 'admin_images/202408221724322715.jpg', 'Abul', '01513470120', 'Father', 1, '2024-05-20 12:54:49', '2024-05-20 12:54:49'),
 (2, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
 (3, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
 (4, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53');
@@ -268,7 +268,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 2, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -504,10 +504,10 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `monthly_salary`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `flag`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, '2024-05-02', '12500', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
+(1, 2, 2, '2024-05-02', '12500', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', 'employee_images/202408221724322609.jpg', 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
 (2, 3, 4, '2024-05-30', NULL, 'Hamid Ahmed', 'Shamima Basar', '01513470127', '35435135413', '<p>mirpur 12<br></p>', '<p>mirpur 12<br></p>', '1994-06-15', 'B+', 'Bangladeshi', 'Married', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-30 04:33:28', '2024-05-30 04:33:28'),
 (3, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
-(4, 9, 23, NULL, '22700', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(4, 9, 23, '2024-06-12', '22700', 'Sohel Hossain', 'Mobina Khatun', '01814750120', '126563463', '<p>Mohammadpur, Dhaka<br></p>', '<p>Mohammadpur, Dhaka</p>', '1994-06-09', 'O+', 'Bangladeshi', 'Single', 'Islam', 'Male', 'employee_images/202408221724321326.jpg', 'Sohel Hossain', '01513470139', 'Father', 1, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
 (5, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
 (6, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38'),
 (7, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-14 09:40:38', '2024-08-14 09:40:38');
@@ -555,15 +555,27 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `leave_applications` (
   `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
-  `application_type` text DEFAULT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `application_way` int(10) DEFAULT NULL COMMENT '1 = file attachment, 2= form submission',
+  `application_file` varchar(100) DEFAULT NULL,
+  `application_type` int(100) DEFAULT NULL,
   `application_msg` text DEFAULT NULL,
   `application_date` date DEFAULT NULL,
-  `application_status` int(11) DEFAULT NULL,
+  `application_status` int(11) DEFAULT NULL COMMENT '1 = pending, 2 = approved, 3 = declined',
   `application_approved_user_id` int(100) DEFAULT NULL,
   `application_approved_date` date DEFAULT NULL,
+  `application_decline_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leave_applications`
+--
+
+INSERT INTO `leave_applications` (`id`, `user_id`, `company_id`, `application_way`, `application_file`, `application_type`, `application_msg`, `application_date`, `application_status`, `application_approved_user_id`, `application_approved_date`, `application_decline_date`, `created_at`, `updated_at`) VALUES
+(1, 9, 11, 1, 'leave_applications/202408221724328567.pdf', 1, NULL, '2024-08-22', 1, NULL, NULL, NULL, '2024-08-22 12:09:27', '2024-08-22 12:09:27'),
+(2, 9, 11, 2, NULL, 1, 'Dear Chairman Sir,\r\n\r\nsubject : please grant sick leave\r\n\r\nyour sincerely,', '2024-08-22', 1, NULL, NULL, NULL, '2024-08-22 12:52:44', '2024-08-22 13:46:41');
 
 -- --------------------------------------------------------
 
@@ -723,8 +735,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(371, 'App\\Models\\User', 9, 'myToken', '2f91b650fdbd3ee608158cf00445b2e9a49ec541703efce9d53f5739399b30d4', '[\"*\"]', NULL, NULL, '2024-07-31 07:10:03', '2024-07-31 07:10:03'),
-(426, 'App\\Models\\User', 1, 'myToken', '95b6b0ac50ffaa0f6a3556be949946536a6e5a433a7c08eb058ced8078869ec8', '[\"*\"]', NULL, NULL, '2024-08-20 12:06:25', '2024-08-20 12:06:25');
+(437, 'App\\Models\\User', 9, 'myToken', 'fd8545b832ffee78eecec0b3ee4b0bb34d951bc3632115bd91482aba7d084bd7', '[\"*\"]', NULL, NULL, '2024-08-22 12:25:58', '2024-08-22 12:25:58');
 
 -- --------------------------------------------------------
 
@@ -1242,7 +1253,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `leave_types`
@@ -1272,7 +1283,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=427;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
 
 --
 -- AUTO_INCREMENT for table `rents`

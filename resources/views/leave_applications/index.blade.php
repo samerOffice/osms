@@ -13,29 +13,12 @@ Leave Applications List
             <br>
             <div class="row">
                 <div class="col-12">
-                    <a class="btn btn-outline-info float-right" href="{{route('leave-application.create')}}">
+                    <a class="btn btn-outline-info float-right" href="{{route('apply_leave')}}">
                         <i class="fas fa-plus"></i> Add Leave Application
                     </a>
                 </div>
 
-                <div class="col-12">
-                    <br>
-                    @if ($message = Session::get('success'))
-                    <div class="alert alert-info" role="alert">
-                        <div class="row">
-                            <div class="col-11">
-                                {{ $message }}
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                </div>
-
+             
                 <div class="col-12">
                     <br>
                     <div class="card">
@@ -48,13 +31,12 @@ Leave Applications List
                                 <thead>
                                     <tr>
                                         <th>Serial No.</th>
-                                        <th>User ID</th>
-                                        <th>Application Type</th>
-                                        <th>Message</th>
+                                        <th>Applicant Name</th>
+                                        <th>Leave Type</th>
                                         <th>Application Date</th>
                                         <th>Status</th>
-                                        <th>Approved User ID</th>
                                         <th>Approved Date</th>
+                                        <th>Declined Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -63,19 +45,38 @@ Leave Applications List
                                     @foreach($leaveApplications as $application)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $application->user_id }}</td>
-                                        <td>{{ $application->application_type }}</td>
-                                        <td>{{ $application->application_msg }}</td>
+                                        <td>{{ $application->name }}</td>
+                                        <td>{{ $application->leave_type }}</td>
                                         <td>{{ $application->application_date }}</td>
-                                        <td>{{ $application->application_status }}</td>
-                                        <td>{{ $application->application_approved_user_id }}</td>
-                                        <td>{{ $application->application_approved_date }}</td>
                                         <td>
+                                            @if($application->application_status == 1)
+                                            <span class="badge badge-warning">Pending</span>
+                                            @elseif($application->application_status == 2)
+                                            <span class="badge badge-success">Approved</span>
+                                            @else
+                                            <span class="badge badge-success">Declined</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $application->application_approved_date }}</td>
+                                        <td>{{ $application->application_decline_date }}</td>
+                                        <td>
+                                            @if($application->application_way == 1)           
+                                            <a href="#" style="color: white">
+                                                <button disabled class="btn btn-outline-secondary">Nope</button>
+                                            </a>
+                                            @else
+                                            @if($application->application_status == 1)
                                             <a href="{{ route('edit_leave_application', $application->id) }}" style="color: white">
                                                 <button class="btn btn-outline-primary">
                                                     <i class="fa-solid fa-pen-to-square"></i> Edit
                                                 </button>
                                             </a>
+                                            @else
+                                            <a href="#" style="color: white">
+                                                <button disabled class="btn btn-outline-secondary">Submitted</button>
+                                            </a>
+                                            @endif
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

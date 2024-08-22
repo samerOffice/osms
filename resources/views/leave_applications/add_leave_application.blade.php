@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Add Leave Application
+Leave Application | Form Submission
 @endsection
 
 @push('css')
@@ -28,7 +28,7 @@ Add Leave Application
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <a class="btn btn-outline-info float-right" href="{{ route('home') }}">
+                    <a class="btn btn-outline-info float-right" href="{{ route('apply_leave') }}">
                         <i class="fas fa-arrow-left"></i> Back
                     </a>
                 </div>
@@ -39,48 +39,27 @@ Add Leave Application
                             <h3 class="card-title">Add Leave Application</h3>
                         </div>
                         <div class="card-body">
-                            <form id="addNewLeaveApplicationForm" method="POST" action="{{ route('leave-application.store') }}" enctype="multipart/form-data">
-                                @csrf
-
-                                <!-- User ID input -->
-                                <div class="form-group mb-4">
-                                    <label for="user_id">User ID <small style="color: red">*</small></label>
-                                    <input type="text" placeholder="User ID" id="user_id" name="user_id" class="form-control form-control-lg" />
-                                </div>
-
+                            <form id="addNewLeaveApplicationForm">             
                                 <!-- Application Type input -->
                                 <div class="form-group mb-4">
-                                    <label for="application_type">Application Type <small style="color: red">*</small></label>
-                                    <input type="text" placeholder="Application Type" id="application_type" name="application_type" class="form-control form-control-lg" />
-                                </div>
+                                    <label>Leave Type <small style="color: red">*</small></label>
+                                    <select required class="form-control select2bs4" id="application_type" name="application_type" style="width: 100%;">                                  
+                                        <option value="">--Select--</option>
+                                        @foreach ($leave_types as $leave_type)
+                                        <option value="{{$leave_type->id}}">{{$leave_type->type_name}}</option>
+                                        @endforeach                                                             
+                                    </select>
+                                </div> 
 
                                 <!-- Application Date input -->
                                 <div class="form-group mb-4">
                                     <label for="application_date">Application Date <small style="color: red">*</small></label>
-                                    <input type="date" id="application_date" name="application_date" class="form-control form-control-lg" />
+                                    <input type="date" readonly id="application_date" name="application_date" value="{{ date('Y-m-d') }}" class="form-control form-control-lg" />
                                 </div>
-
-                                <!-- Status -->
-                                <div class="form-group mb-4">
-                                    <label for="application_status">Status <small style="color: red">*</small></label>
-                                    <select required class="form-control select2bs4" id="application_status" name="application_status" style="width: 100%;">
-                                        <option value="">Select Status</option>
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-                                </div>
-
-                                <!-- Approved User ID -->
-                                <div class="form-group mb-4">
-                                    <label for="application_approved_user_id">Approved User ID</label>
-                                    <input type="text" placeholder="Approved User ID" id="application_approved_user_id" name="application_approved_user_id" class="form-control form-control-lg" />
-                                </div>
-
-                                <!-- Approved Date -->
-                                <div class="form-group mb-4">
-                                    <label for="application_approved_date">Approved Date</label>
-                                    <input type="date" id="application_approved_date" name="application_approved_date" class="form-control form-control-lg" />
+                                
+                                <div class="form-group">
+                                    <label>Application Body</label>
+                                    <textarea class="form-control" name="application_msg" id="application_msg"></textarea>
                                 </div>
 
                                 <!-- Submit button -->
@@ -115,24 +94,24 @@ Add Leave Application
 
 @push('masterScripts')
 <script type="text/javascript">
-// Initialize Select2 Elements
+
+$(document).ready(function() {
+
+//Initialize Select2 Elements
 $('.select2bs4').select2({
-    theme: 'bootstrap4'
+      theme: 'bootstrap4'
+    })
+
+//initialize summernote
+$('.summernote').summernote();
+
 });
+
 
 document.getElementById('addNewLeaveApplicationForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var leaveFormData = new FormData(this);
-
-    var user_id = document.getElementById('user_id').value;
-    if (user_id == '') {
-        Swal.fire({
-            icon: "warning",
-            title: "Please Enter User ID",
-        });
-        return false;
-    }
 
     var application_type = document.getElementById('application_type').value;
     if (application_type == '') {
@@ -143,39 +122,40 @@ document.getElementById('addNewLeaveApplicationForm').addEventListener('submit',
         return false;
     }
 
-    var application_date = document.getElementById('application_date').value;
-    if (application_date == '') {
+    var application_msg = document.getElementById('application_msg').value;
+    if (application_msg == '') {
         Swal.fire({
             icon: "warning",
-            title: "Please Enter Application Date",
+            title: "Please Enter Application Body",
         });
         return false;
     }
 
-    var application_status = document.getElementById('application_status').value;
-    if (application_status == '') {
-        Swal.fire({
-            icon: "warning",
-            title: "Please Select Status",
-        });
-        return false;
-    }
+        // Function to get CSRF token from meta tag
+        function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        }
+        // Set up Axios defaults
+        axios.defaults.withCredentials = true;
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    axios.post('{{ route('leave-application.store') }}', leaveFormData)
-        .then(response => {
-            console.log(response);
-            window.location.reload();
-            Swal.fire({
-                icon: "success",
-                title: response.data.message,
-            });
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: "error",
-                title: error.response.data.message,
-            });
-        });
+
+        // axios.get('sanctum/csrf-cookie').then(response=>{
+        axios.post('{{ route('leave-application.store') }}', leaveFormData).then(response=>{
+        console.log(response);
+        //   window.location.reload();
+        window.location.href = "{{ route('leave_applications') }}";
+        Swal.fire({
+                    icon: "success",
+                    title: ''+ response.data.message,
+                    });
+                return false;
+                
+        }).catch(error => Swal.fire({
+                    icon: "error",
+                    title: error.response.data.message.email,
+                    }))
+        // });
 });
 </script>
 @endpush

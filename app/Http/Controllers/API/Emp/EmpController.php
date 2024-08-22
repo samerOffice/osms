@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use DB;
 use Auth;
 
@@ -446,6 +448,26 @@ class EmpController extends Controller
                                     ->where('id', $user_id)
                                     ->update(['name' => $member_name]);
 
+
+                $getPicFromDb = $member->profile_pic;
+                $admin_new_image = $request->file('profile_pic');
+            
+            
+                if(!empty($admin_new_image)){
+
+                    if(!empty($getPicFromDb)){
+                    $filePath = public_path('uploads/' . $getPicFromDb);
+                        unlink($filePath);
+                    }
+
+                $manager = new ImageManager(new Driver());
+                $profile_image = $manager->read($request->file('profile_pic'));
+                $profile_image_file_name = date('Ymd') . time() . '.' . $admin_new_image->getClientOriginalExtension();
+                $profile_image = $profile_image->resize(500,500);
+            $profile_image->toJpg(80)->save(base_path('public/uploads/admin_images/'.$profile_image_file_name));  
+                $admin_image = 'admin_images/' . $profile_image_file_name;
+
+                
                 $data = array();
                 $data['father_name'] = $request->father_name;
                 $data['mother_name'] = $request->mother_name;
@@ -459,6 +481,7 @@ class EmpController extends Controller
                 $data['marital_status'] = $request->marital_status;
                 $data['religion'] = $request->religion;
                 $data['gender'] = $request->gender;
+                $data['profile_pic'] = $admin_image;
                 $data['emergency_contact_name'] = $request->emergency_contact_name;
                 $data['emergency_contact_number'] = $request->emergency_contact_number;
                 $data['emergency_contact_relation'] = $request->emergency_contact_relation;
@@ -467,20 +490,58 @@ class EmpController extends Controller
                           ->where('user_id', $user_id)
                           ->update($data);
 
-                
                 if(($updated == true) || ($update_user_data == true)){
+                $response = [
+                    'success' => true,
+                    'message' => 'Member information are updated successfully'
+                ];
+                return response()->json($response,200);
+            }else{
+                $response = [
+                'success' => false,
+                'message' => 'Error occured'
+                ];       
+                return response()->json($response);
+            }
+
+                }else{
+
+                    $data = array();
+                    $data['father_name'] = $request->father_name;
+                    $data['mother_name'] = $request->mother_name;
+                    $data['mobile_number'] = $request->mobile_number;
+                    $data['nid_number'] = $request->nid_number;
+                    $data['present_address'] = $request->present_address;
+                    $data['permanent_address'] = $request->permanent_address;
+                    $data['birth_date'] = $request->birth_date;
+                    $data['blood_group'] = $request->blood_group;
+                    $data['nationality'] = $request->nationality;
+                    $data['marital_status'] = $request->marital_status;
+                    $data['religion'] = $request->religion;
+                    $data['gender'] = $request->gender;
+                    // $data['profile_pic'] = $admin_image;
+                    $data['emergency_contact_name'] = $request->emergency_contact_name;
+                    $data['emergency_contact_number'] = $request->emergency_contact_number;
+                    $data['emergency_contact_relation'] = $request->emergency_contact_relation;
+    
+                    $updated = DB::table('admins')
+                              ->where('user_id', $user_id)
+                              ->update($data);
+
+                    if(($updated == true) || ($update_user_data == true)){
                     $response = [
                         'success' => true,
                         'message' => 'Member information are updated successfully'
                     ];
                     return response()->json($response,200);
-                }else{
-                    $response = [
-                    'success' => false,
-                    'message' => 'Error occured'
-                    ];       
-                    return response()->json($response);
-                }
+                    }else{
+                        $response = [
+                        'success' => false,
+                        'message' => 'Error occured'
+                        ];       
+                        return response()->json($response);
+                    }
+                }     
 
             }else{
 
@@ -488,6 +549,16 @@ class EmpController extends Controller
                 $update_user_data = DB::table('users')
                                     ->where('id', $user_id)
                                     ->update(['name' => $member_name]);
+
+                $capture_img = $request->file('profile_pic');
+
+                $manager = new ImageManager(new Driver());
+                $profile_image = $manager->read($request->file('profile_pic'));
+                $profile_image_file_name = date('Ymd') . time() . '.' . $capture_img->getClientOriginalExtension();
+                $profile_image = $profile_image->resize(500,500);
+            $profile_image->toJpg(80)->save(base_path('public/uploads/admin_images/'.$profile_image_file_name));
+                
+                $admin_image = 'admin_images/' . $profile_image_file_name;
 
                 $data = array();
                 $data['father_name'] = $request->father_name;
@@ -502,6 +573,7 @@ class EmpController extends Controller
                 $data['marital_status'] = $request->marital_status;
                 $data['religion'] = $request->religion;
                 $data['gender'] = $request->gender;
+                $data['profile_pic'] = $admin_image;
                 $data['emergency_contact_name'] = $request->emergency_contact_name;
                 $data['emergency_contact_number'] = $request->emergency_contact_number;
                 $data['emergency_contact_relation'] = $request->emergency_contact_relation;
@@ -549,7 +621,27 @@ class EmpController extends Controller
                         $update_user_data = DB::table('users')
                                             ->where('id', $user_id)
                                             ->update(['name' => $member_name]);
-                        
+
+
+                 
+                        $getPicFromDb = $member->profile_pic;
+                        $emp_new_image = $request->file('profile_pic');
+
+
+                        if(!empty($emp_new_image)){
+
+                            if(!empty($getPicFromDb)){
+                            $filePath = public_path('uploads/' . $getPicFromDb);
+                             unlink($filePath);
+                            }
+        
+                        $manager = new ImageManager(new Driver());
+                        $profile_image = $manager->read($request->file('profile_pic'));
+                        $profile_image_file_name = date('Ymd') . time() . '.' . $emp_new_image->getClientOriginalExtension();
+                        $profile_image = $profile_image->resize(500,500);
+                    $profile_image->toJpg(80)->save(base_path('public/uploads/employee_images/'.$profile_image_file_name));  
+                        $employee_image = 'employee_images/' . $profile_image_file_name;
+
                         $data = array();
                         $data['designation_id'] = $member_designation;
                         $data['joining_date'] = $member_joining_date;
@@ -565,6 +657,7 @@ class EmpController extends Controller
                         $data['marital_status'] = $request->marital_status;
                         $data['religion'] = $request->religion;
                         $data['gender'] = $request->gender;
+                        $data['profile_pic'] = $employee_image;
                         $data['emergency_contact_name'] = $request->emergency_contact_name;
                         $data['emergency_contact_number'] = $request->emergency_contact_number;
                         $data['emergency_contact_relation'] = $request->emergency_contact_relation;
@@ -572,7 +665,7 @@ class EmpController extends Controller
                         $updated = DB::table('employees')
                                     ->where('user_id', $user_id)
                                     ->update($data);
-        
+
                         if(($updated == true) || ($update_user_data == true)){
                             $response = [
                                 'success' => true,
@@ -586,11 +679,9 @@ class EmpController extends Controller
                             ];              
                             return response()->json($response);
                         }
-                    }else{
-                        $member_name = $request->input('name');
-                        $update_user_data = DB::table('users')
-                                    ->where('id', $user_id)
-                                    ->update(['name' => $member_name]);
+        
+                     }else{
+        
                         $data = array();
                         $data['designation_id'] = $member_designation;
                         $data['joining_date'] = $member_joining_date;
@@ -606,6 +697,64 @@ class EmpController extends Controller
                         $data['marital_status'] = $request->marital_status;
                         $data['religion'] = $request->religion;
                         $data['gender'] = $request->gender;
+                        // $data['profile_pic'] = $employee_image;
+                        $data['emergency_contact_name'] = $request->emergency_contact_name;
+                        $data['emergency_contact_number'] = $request->emergency_contact_number;
+                        $data['emergency_contact_relation'] = $request->emergency_contact_relation;
+                                
+                        $updated = DB::table('employees')
+                                    ->where('user_id', $user_id)
+                                    ->update($data);
+
+                        if(($updated == true) || ($update_user_data == true)){
+                            $response = [
+                                'success' => true,
+                                'message' => 'Member information are updated successfully'
+                            ];
+                            return response()->json($response,200);
+                        }else{
+                            $response = [
+                            'success' => false,
+                            'message' => 'Error occured'
+                            ];              
+                            return response()->json($response);
+                        }
+                     }
+    
+                        
+                    }else{
+                        $member_name = $request->input('name');
+                        $update_user_data = DB::table('users')
+                                    ->where('id', $user_id)
+                                    ->update(['name' => $member_name]);
+
+
+                        $capture_img = $request->file('profile_pic');
+
+                        $manager = new ImageManager(new Driver());
+                        $profile_image = $manager->read($request->file('profile_pic'));
+                        $profile_image_file_name = date('Ymd') . time() . '.' . $capture_img->getClientOriginalExtension();
+                        $profile_image = $profile_image->resize(500,500);
+                    $profile_image->toJpg(80)->save(base_path('public/uploads/employee_images/'.$profile_image_file_name));
+                        
+                        $employee_image = 'employee_images/' . $profile_image_file_name;
+
+                        $data = array();
+                        $data['designation_id'] = $member_designation;
+                        $data['joining_date'] = $member_joining_date;
+                        $data['father_name'] = $request->father_name;
+                        $data['mother_name'] = $request->mother_name;
+                        $data['mobile_number'] = $request->mobile_number;
+                        $data['nid_number'] = $request->nid_number;
+                        $data['present_address'] = $request->present_address;
+                        $data['permanent_address'] = $request->permanent_address;
+                        $data['birth_date'] = $request->birth_date;
+                        $data['blood_group'] = $request->blood_group;
+                        $data['nationality'] = $request->nationality;
+                        $data['marital_status'] = $request->marital_status;
+                        $data['religion'] = $request->religion;
+                        $data['gender'] = $request->gender;
+                        $data['profile_pic'] = $employee_image;
                         $data['emergency_contact_name'] = $request->emergency_contact_name;
                         $data['emergency_contact_number'] = $request->emergency_contact_number;
                         $data['emergency_contact_relation'] = $request->emergency_contact_relation;

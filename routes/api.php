@@ -135,10 +135,16 @@ Route::middleware('auth:sanctum')->post('/new_password_set',[App\Http\Controller
 Route::middleware('auth:sanctum')->post('/submit_attendance',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_attendance']);
 Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controllers\API\Emp\AttendanceController::class,'all_attendance_list']);
 
-//leave
+//----- leave ------
+//leave type
 Route::middleware('auth:sanctum')->post('/submit_leave_tpye',[App\Http\Controllers\API\Emp\LeaveController::class,'submit_leave_tpye']);
 Route::middleware('auth:sanctum')->get('/edit_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'edit_leave_type_via_api']);
 Route::middleware('auth:sanctum')->post('/update_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'update_leave_type']);
+
+//ways of applying for leave
+Route::middleware('auth:sanctum')->post('/leave_application_attach_file_store',[App\Http\Controllers\API\Emp\LeaveController::class,'leave_application_attach_file_store']);
+//update leave application (form submission way)
+Route::middleware('auth:sanctum')->post('/update_leave_application/{id}', [App\Http\Controllers\API\Emp\LeaveController::class, 'update']);
 
 
 //dependencies (payroll)

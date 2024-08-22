@@ -40,6 +40,12 @@ class HomeController extends Controller
 
       $user_company_id = Auth::user()->company_id;
 
+      $shop_info = DB::table('companies')
+                     ->where('id',$user_company_id)
+                     ->first();
+
+      $shop_name = $shop_info->company_name;
+
       $total_branch = DB::table('branches')
       ->where('company_id',$user_company_id)
       ->count('id');
@@ -62,6 +68,7 @@ class HomeController extends Controller
 
 
       return view('dashboard',compact('current_module',
+                                      'shop_name',
                                       'total_branch',
                                       'total_department',
                                       'total_warehouse',

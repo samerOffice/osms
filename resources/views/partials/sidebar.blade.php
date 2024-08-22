@@ -364,8 +364,9 @@
         @endif
 
 
-        <li class="nav-item @if(Request::is('leave_applications')) menu-open 
-        @elseif(Request::is('leave-application/create')) menu-open
+        <li class="nav-item @if(Request::is('leave_types')) menu-open 
+        @elseif(Request::is('apply_leave')) menu-open
+        @elseif(Request::is('leave_applications')) menu-open
       @endif">
       <a href="#" class="nav-link">
         <i class="nav-icon fa-solid fa-person-walking-arrow-right"></i>
@@ -384,9 +385,9 @@
         </li>
 
         <li class="nav-item" style="padding-left : 15px">
-          <a href="{{route('leave-application.create')}}" class="nav-link {{ Request::is('leave-application/create') ? 'nav-link active' : ''}}" style="{{ Request::is('leave-application/create') ? 'background-color: #ff5d6c; !important' : ''}}">
-        <i class="far fa-circle nav-icon" style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}"></i>
-        <p style="{{ Request::is('leave-application/create') ? 'color: white; !important' : ''}}">Apply For Leave</p>
+          <a href="{{route('apply_leave')}}" class="nav-link {{ Request::is('apply_leave') ? 'nav-link active' : ''}}" style="{{ Request::is('apply_leave') ? 'background-color: #ff5d6c; !important' : ''}}">
+        <i class="far fa-circle nav-icon" style="{{ Request::is('apply_leave') ? 'color: white; !important' : ''}}"></i>
+        <p style="{{ Request::is('apply_leave') ? 'color: white; !important' : ''}}">Apply Leave</p>
         </a>
         </li>
 
@@ -397,12 +398,12 @@
           </a>
         </li>
 
-        <li class="nav-item" style="padding-left : 15px">
+        {{-- <li class="nav-item" style="padding-left : 15px">
           <a href="{{route('leave_applications')}}" class="nav-link {{ Request::is('leave_applications') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_applications') ? 'background-color: #ff5d6c; !important' : ''}}">
             <i class="far fa-circle nav-icon" style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}">Leave Approval</p>
           </a>
-        </li>
+        </li> --}}
       </ul>
       </li>
 
