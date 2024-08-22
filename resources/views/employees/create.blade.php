@@ -27,12 +27,16 @@ Welcome
                       </div>
                     <div class="card-body">
                         <form id="memberForm">  
-                                         
+                            
                             <div class="card-body">
-                              {{-- <div class="form-group">
-                                <label>Picture</label>
+                              <div class="form-group">         
+                                <img src="{{asset('/uploads/'. $member->profile_pic)}}" alt="&nbsp;no preview&nbsp;" height="auto" width="150px" style="border: 2px solid #000;">
+                              </div>
+
+                              <div class="form-group">
+                                <label>Image</label>
                                 <input type="file" class="form-control" id="profile_pic" name="profile_pic">
-                              </div> --}}
+                              </div>
 
                               <div class="row">
                               <div class="col-md-4 col-sm-12">
@@ -220,8 +224,35 @@ Welcome
 document.getElementById('memberForm').addEventListener('submit',function(event){
   event.preventDefault();
 
-var memberFormData = new FormData(this);
+      var fileInput = $('#profile_pic')[0];
+      var filePath = fileInput.value;
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+      var maxSize = 2 * 1024 * 1024; // 2 MB
+      
+      //file format
+      if (!allowedExtensions.exec(filePath)) {
+        Swal.fire({
+            icon: "warning",
+            title: "Invalid file type. Only jpg, jpeg, and png files are allowed.",
+            });
+            $('#profile_pic').val(''); // Clear the input
+            e.preventDefault(); // Prevent the form from submitting
+            return false;
+    }
 
+    // Validate file size
+    if (fileInput.files.length > 0 && fileInput.files[0].size > maxSize) {
+        Swal.fire({
+            icon: "warning",
+            title: "File size must be less than 2 MB.",
+            });
+        $('#profile_pic').val(''); // Clear the input
+        e.preventDefault(); // Prevent the form from submitting
+        return false;
+      }
+        
+  
+var memberFormData = new FormData(this);
 // Function to get CSRF token from meta tag
 function getCsrfToken() {
   return document.querySelector('meta[name="csrf-token"]').getAttribute('content');

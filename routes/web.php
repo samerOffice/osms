@@ -143,17 +143,28 @@ Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('g
 Route::get('/give_attendance', [AttendanceController::class, 'give_attendance'])->name('give_attendance');
 Route::get('/attendance_list',[AttendanceController::class,'attendance_list'])->name('attendance_list');
 
-//Leave 
+
+//------ *** Leave Application *** -----
+
+//leave application list
+Route::get('/leave_applications', [LeaveController::class, 'leave_applications'])->name('leave_applications');
+
+//Leave type
 Route::get('/leave_types', [LeaveController::class, 'leave_types'])->name('leave_types');
 Route::get('/add_leave_type', [LeaveController::class, 'add_leave_type'])->name('add_leave_type');
 Route::get('/edit_leave_type/{leave_type_id}', [LeaveController::class, 'edit_leave_type'])->name('edit_leave_type');
 
-Route::get('/leave_applications', [LeaveController::class, 'leave_applications'])->name('leave_applications');
+//ways of applying for leave
+Route::get('/apply_leave', [LeaveController::class, 'apply_leave'])->name('apply_leave');
+
+// leave application (file attachment)
+Route::get('/leave_application_file_attachment', [LeaveController::class, 'leave_application_file_attachment'])->name('leave_application_file_attachment');
+
+// leave application (form submission)
 Route::get('/leave-application/create', [LeaveController::class, 'create'])->name('leave-application.create');
-// Route to handle form submission
 Route::post('/leave-application', [LeaveController::class, 'store'])->name('leave-application.store');
 Route::get('/leave-applications/{id}/edit', [LeaveController::class, 'edit'])->name('edit_leave_application');
-Route::post('/api/update_leave_application/{id}', [LeaveController::class, 'update']);
+
 
 
 
