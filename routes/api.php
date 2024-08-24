@@ -143,9 +143,10 @@ Route::middleware('auth:sanctum')->post('/update_leave_type/{leave_type_id}',[Ap
 
 //ways of applying for leave
 Route::middleware('auth:sanctum')->post('/leave_application_attach_file_store',[App\Http\Controllers\API\Emp\LeaveController::class,'leave_application_attach_file_store']);
-//update leave application (form submission way)
+//update leave application (Form Submission Way)
 Route::middleware('auth:sanctum')->post('/update_leave_application/{id}', [App\Http\Controllers\API\Emp\LeaveController::class, 'update']);
-
+//update leave application (File Attachment Way)
+Route::middleware('auth:sanctum')->post('/update_leave_application_with_attachment/{id}', [App\Http\Controllers\API\Emp\LeaveController::class, 'update_with_attachment']);
 
 //dependencies (payroll)
 Route::middleware('auth:sanctum')->post('/member_details_dependancy', [PayrollController::class, 'member_details_dependancy']);

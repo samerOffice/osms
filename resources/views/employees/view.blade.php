@@ -22,8 +22,9 @@ Employee List
             <div class="col-10">
                 <br>
                       <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
+            <div class="card">
+              <div class="card-body">
+                
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
                        src="{{asset('/dist/img/avatar5.png')}}"
@@ -77,7 +78,7 @@ Employee List
                 @endif
 
                 @if($employee->emp_birth_date != '')
-                <h5><i class="fa-solid fa-calendar-days"> Date of Birth</h5>
+                <h5><i class="fa-solid fa-calendar"></i> Date of Birth</h5>
                 <h6 class="text-muted ml-4">{{$employee->emp_birth_date}}</h6>
                 <hr>
                 @endif

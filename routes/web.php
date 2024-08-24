@@ -159,17 +159,23 @@ Route::get('/apply_leave', [LeaveController::class, 'apply_leave'])->name('apply
 
 // leave application (file attachment)
 Route::get('/leave_application_file_attachment', [LeaveController::class, 'leave_application_file_attachment'])->name('leave_application_file_attachment');
+Route::get('/edit_file_attachment/{leave_id}', [LeaveController::class, 'edit_file_attachment'])->name('edit_file_attachment');
 
 // leave application (form submission)
 Route::get('/leave-application/create', [LeaveController::class, 'create'])->name('leave-application.create');
 Route::post('/leave-application', [LeaveController::class, 'store'])->name('leave-application.store');
 Route::get('/leave-applications/{id}/edit', [LeaveController::class, 'edit'])->name('edit_leave_application');
 
+//leave application (approval)
+Route::get('/leave_application_approval_list', [LeaveController::class, 'leave_application_approval_list'])->name('leave_application_approval_list');
+Route::get('/review_leave/{leave_id}', [LeaveController::class, 'review_leave'])->name('review_leave');
+Route::post('/approve_leave', [LeaveController::class, 'approve_leave'])->name('approve_leave');
+Route::post('/decline_leave', [LeaveController::class, 'decline_leave'])->name('decline_leave');
 
 
 
 //----- ** employee reports **------
-//damage report
+//top seller report
 Route::get('/top_seller_report', [EmployeeReportController::class, 'top_seller_report'])->name('top_seller_report');
 Route::post('/top_seller_report_submit', [EmployeeReportController::class, 'top_seller_report_submit'])->name('top_seller_report_submit');
 
