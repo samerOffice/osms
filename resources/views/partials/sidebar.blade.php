@@ -367,6 +367,7 @@
         <li class="nav-item @if(Request::is('leave_types')) menu-open 
         @elseif(Request::is('apply_leave')) menu-open
         @elseif(Request::is('leave_applications')) menu-open
+        @elseif(Request::is('leave_application_approval_list')) menu-open
       @endif">
       <a href="#" class="nav-link">
         <i class="nav-icon fa-solid fa-person-walking-arrow-right"></i>
@@ -398,12 +399,14 @@
           </a>
         </li>
 
-        {{-- <li class="nav-item" style="padding-left : 15px">
-          <a href="{{route('leave_applications')}}" class="nav-link {{ Request::is('leave_applications') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_applications') ? 'background-color: #ff5d6c; !important' : ''}}">
-            <i class="far fa-circle nav-icon" style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}"></i>
-            <p style="{{ Request::is('leave_applications') ? 'color: white; !important' : ''}}">Leave Approval</p>
+        
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('leave_application_approval_list')}}" class="nav-link {{ Request::is('leave_application_approval_list') ? 'nav-link active' : ''}}" style="{{ Request::is('leave_application_approval_list') ? 'background-color: #ff5d6c; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('leave_application_approval_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('leave_application_approval_list') ? 'color: white; !important' : ''}}">Leave Approval List</p>
           </a>
-        </li> --}}
+        </li>
+
       </ul>
       </li>
 

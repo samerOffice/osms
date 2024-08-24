@@ -73,12 +73,15 @@ Edit Leave Application
                             </div>
 
                             <div class="col-md-12 col-sm-12">
-                              <!-- Application Body -->
-                            <div class="form-group mb-4">
-                              <label>Application Body</label>
-                              <textarea required class="form-control" name="application_msg" id="application_msg">{{$leaveApplication->application_msg}}</textarea>
+                              <label style="display: flex; margin-top: 20px"><strong>Application File @if(!empty($leaveApplication->application_file)) (<a href="{{ asset('/uploads/'.$leaveApplication->application_file) }}" download >Download Previous</a>) @endif</strong></label>
+                            <br>
+                              <div class="form-group">
+                              <label>Attach Your Application</label>
+                              <input type="file" class="form-control" id="attach_leave_application" name="attach_leave_application">
                             </div>
-                            </div>
+                            
+                          </div>
+
                           </div>
 
                             <input type="hidden" value="{{$leaveApplication->id}}" name="id" id="leave_application_id">
@@ -165,9 +168,41 @@ document.getElementById('application_to').addEventListener('change', validateAnd
 document.getElementById('updateLeaveApplicationForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
+    var fileInput = $('#attach_leave_application')[0];
+
+    if(fileInput && fileInput.files.length > 0){
+
+      var filePath = fileInput.value;
+      var allowedExtensions = /(\.pdf)$/i;
+      var maxSize = 500 * 1024; // 500 KB
+      
+      //file format
+      if (!allowedExtensions.exec(filePath)) {
+        Swal.fire({
+            icon: "warning",
+            title: "Invalid file type. Only pdf file is allowed.",
+            });
+            $('#attach_leave_application').val(''); // Clear the input
+            e.preventDefault(); // Prevent the form from submitting
+            return false;
+    }
+
+    // Validate file size
+    if (fileInput.files.length > 0 && fileInput.files[0].size > maxSize) {
+        Swal.fire({
+            icon: "warning",
+            title: "File size must be less than 500 KB.",
+            });
+        $('#attach_leave_application').val(''); // Clear the input
+        e.preventDefault(); // Prevent the form from submitting
+        return false;
+      }
+
+    }
+     
+
     var updateLeaveApplicationFormData = new FormData(this);
     var leave_application_id = document.getElementById('leave_application_id').value;
-
 
 
     var leave_type = document.getElementById('leave_type').value;
@@ -179,14 +214,6 @@ document.getElementById('updateLeaveApplicationForm').addEventListener('submit',
         return false;
     }
 
-    var application_msg = document.getElementById('application_msg').value;
-    if (application_msg == '') {
-        Swal.fire({
-            icon: "warning",
-            title: "Please Fillup Application Body",
-        });
-        return false;
-    }
 
     // Function to get CSRF token from meta tag
     function getCsrfToken() {
@@ -197,7 +224,7 @@ document.getElementById('updateLeaveApplicationForm').addEventListener('submit',
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
-    axios.post('/api/update_leave_application/' + leave_application_id, updateLeaveApplicationFormData).then(response => {
+    axios.post('/api/update_leave_application_with_attachment/' + leave_application_id, updateLeaveApplicationFormData).then(response => {
         console.log(response);
         setTimeout(function() {
             // window.location.reload();
@@ -208,10 +235,20 @@ document.getElementById('updateLeaveApplicationForm').addEventListener('submit',
             title: response.data.message,
         });
         return false;
-    }).catch(error => Swal.fire({
-        icon: "error",
-        title: error.response.data.message,
-    }));
+    }).catch(error => {
+    if (error.response && error.response.data.message) {
+        Swal.fire({
+            icon: "error",
+            title: error.response.data.message,
+        });
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "An unexpected error occurred",
+        });
+    }
+});
+
 });
     
 </script>

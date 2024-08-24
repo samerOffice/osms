@@ -18,6 +18,21 @@ Leave Applications List
                     </a>
                 </div>
 
+                <div class="col-12">
+                    <br>
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-info" role="alert">
+                      <div class="row">
+                        <div class="col-11">
+                          {{ $message }}
+                        </div>
+                        <div class="col-1">
+                          <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    @endif
+                </div>
              
                 <div class="col-12">
                     <br>
@@ -35,9 +50,9 @@ Leave Applications List
                                         <th>Application Type</th>
                                         <th>Leave Type</th>
                                         <th>Application Date</th>
-                                        <th>Status</th>
                                         <th>Approved Date</th>
                                         <th>Declined Date</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,51 +71,36 @@ Leave Applications List
                                         </td>
                                         <td>{{ $application->leave_type_name }}</td>
                                         <td>{{ $application->application_date }}</td>
+                                        <td>{{ $application->application_approved_date }}</td>
+                                        <td>{{ $application->application_decline_date }}</td>
                                         <td>
                                             @if($application->application_status == 1)
                                             <span class="badge badge-warning">Pending</span>
                                             @elseif($application->application_status == 2)
                                             <span class="badge badge-success">Approved</span>
                                             @else
-                                            <span class="badge badge-danger">Declined</span>
+                                            <span class="badge badge-success">Declined</span>
                                             @endif
                                         </td>
-                                        <td>{{ $application->application_approved_date }}</td>
-                                        <td>{{ $application->application_decline_date }}</td>
                                         <td>
-                                            
-                                            <!-- Application way is 'file attachment' -->
-                                            @if($application->application_type == 1)
-                                            <!-- File Attachment is pending/submitted start -->
-                                            @if($application->application_status == 1)
-                                            <a href="{{ route('edit_file_attachment', $application->id) }}" style="color: white">
-                                                <button class="btn btn-outline-primary">
-                                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                            @if($application->application_status == 1)           
+                                            <a href="{{ route('review_leave', $application->id) }}" style="color: white">
+                                                <button class="btn btn-info">
+                                                    <i class="fa-solid fa-magnifying-glass"></i> Review
+                                                </button>
+                                            </a>
+                                            @elseif($application->application_status == 2)
+                                            <a href="#" style="color: white">
+                                                <button disabled class="btn btn-success">
+                                                    Approved
                                                 </button>
                                             </a>
                                             @else
                                             <a href="#" style="color: white">
-                                                <button disabled class="btn btn-outline-secondary">Submitted</button>
-                                            </a>
-                                            @endif
-                                            <!-- File Attachment is pending/submitted end -->
-
-                                            <!-- Application way is 'Leave Application Form' -->
-                                            @else
-                                            <!-- Leave Application Form is pending/submitted start -->
-                                            @if($application->application_status == 1)
-                                            <a href="{{ route('edit_leave_application', $application->id) }}" style="color: white">
-                                                <button class="btn btn-outline-primary">
-                                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                                <button disabled class="btn btn-danger">
+                                                    Declined
                                                 </button>
                                             </a>
-                                            @else
-                                            <a href="#" style="color: white">
-                                                <button disabled class="btn btn-outline-secondary">Submitted</button>
-                                            </a>
-                                            @endif
-                                            <!-- Leave Application Form is pending/submitted end -->
-
                                             @endif
                                         </td>
                                     </tr>

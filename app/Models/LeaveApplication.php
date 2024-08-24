@@ -12,10 +12,13 @@ class LeaveApplication extends Model
     protected $fillable = [
         'user_id',
         'company_id',
-        'application_way',
         'application_type',
+        'leave_type',
         'application_msg', 
         'application_date',
+        'application_from',
+        'application_to',
+        'duration',
         'application_status'
         
     ];

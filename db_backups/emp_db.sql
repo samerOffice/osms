@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2024 at 03:58 PM
+-- Generation Time: Aug 24, 2024 at 02:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -268,7 +268,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 4, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -556,11 +556,15 @@ CREATE TABLE `leave_applications` (
   `id` int(100) NOT NULL,
   `user_id` int(100) DEFAULT NULL,
   `company_id` int(255) DEFAULT NULL,
-  `application_way` int(10) DEFAULT NULL COMMENT '1 = file attachment, 2= form submission',
+  `application_type` int(10) DEFAULT NULL COMMENT '1 = file attachment, 2= form submission',
   `application_file` varchar(100) DEFAULT NULL,
-  `application_type` int(100) DEFAULT NULL,
+  `leave_type` int(100) DEFAULT NULL,
   `application_msg` text DEFAULT NULL,
   `application_date` date DEFAULT NULL,
+  `application_from` date DEFAULT NULL,
+  `application_to` date DEFAULT NULL,
+  `duration` int(10) DEFAULT NULL,
+  `approved_duration` int(10) DEFAULT NULL,
   `application_status` int(11) DEFAULT NULL COMMENT '1 = pending, 2 = approved, 3 = declined',
   `application_approved_user_id` int(100) DEFAULT NULL,
   `application_approved_date` date DEFAULT NULL,
@@ -573,9 +577,12 @@ CREATE TABLE `leave_applications` (
 -- Dumping data for table `leave_applications`
 --
 
-INSERT INTO `leave_applications` (`id`, `user_id`, `company_id`, `application_way`, `application_file`, `application_type`, `application_msg`, `application_date`, `application_status`, `application_approved_user_id`, `application_approved_date`, `application_decline_date`, `created_at`, `updated_at`) VALUES
-(1, 9, 11, 1, 'leave_applications/202408221724328567.pdf', 1, NULL, '2024-08-22', 1, NULL, NULL, NULL, '2024-08-22 12:09:27', '2024-08-22 12:09:27'),
-(2, 9, 11, 2, NULL, 1, 'Dear Chairman Sir,\r\n\r\nsubject : please grant sick leave\r\n\r\nyour sincerely,', '2024-08-22', 1, NULL, NULL, NULL, '2024-08-22 12:52:44', '2024-08-22 13:46:41');
+INSERT INTO `leave_applications` (`id`, `user_id`, `company_id`, `application_type`, `application_file`, `leave_type`, `application_msg`, `application_date`, `application_from`, `application_to`, `duration`, `approved_duration`, `application_status`, `application_approved_user_id`, `application_approved_date`, `application_decline_date`, `created_at`, `updated_at`) VALUES
+(1, 9, 11, 1, 'leave_applications/202408221724328567.pdf', 1, NULL, '2024-08-22', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-08-22 12:09:27', '2024-08-22 12:09:27'),
+(2, 9, 11, 2, NULL, 1, 'Dear Chairman Sir,\r\n\r\nsubject : please grant sick leave\r\n\r\nyour sincerely,', '2024-08-22', '2024-08-24', '2024-08-26', NULL, NULL, 1, NULL, NULL, NULL, '2024-08-22 12:52:44', '2024-08-24 06:57:02'),
+(3, 1, 11, 2, NULL, 1, 'sfsdfsdf', '2024-08-24', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-08-24 05:24:24', '2024-08-24 05:24:24'),
+(4, 9, 11, 2, NULL, 1, 'Dear Sir,\r\n\r\nSubject: Sick Leave Application\r\n\r\nSir, I have been experiencing severe headaches. and have been advised by my doctor to rest and recover. I apologize for any inconvenience my absence may cause and will ensure that all pending tasks are handed over appropriately. If needed, I am available via [phone/email] for any urgent queries. Thank you for your understanding.\r\n\r\nBest regards,\r\n\r\nYamin Hosssain\r\nSenior Software Engineer\r\nOtithee Software Solution Limited', '2024-08-24', '2024-08-24', '2024-08-26', 3, 2, 2, 1, '2024-08-24', NULL, '2024-08-24 06:58:55', '2024-08-24 09:55:30'),
+(8, 9, 11, 1, 'leave_applications/202408241724490407.pdf', 1, NULL, '2024-08-24', '2024-08-27', '2024-08-29', 3, NULL, 3, 1, NULL, '2024-08-24', '2024-08-24 07:08:24', '2024-08-24 07:08:24');
 
 -- --------------------------------------------------------
 
@@ -597,6 +604,55 @@ CREATE TABLE `leave_types` (
 
 INSERT INTO `leave_types` (`id`, `company_id`, `type_name`, `created_at`, `updated_at`) VALUES
 (1, 11, 'Sick Leave', '2024-08-20 12:47:16', '2024-08-20 12:47:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menus`
+--
+
+CREATE TABLE `menus` (
+  `id` int(100) NOT NULL,
+  `menu_name` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `menus`
+--
+
+INSERT INTO `menus` (`id`, `menu_name`, `created_at`, `updated_at`) VALUES
+(1, 'Employee Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(2, 'Inventory Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(3, 'POS Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(4, 'Employee & Inventory Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(5, 'Employee & POS Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(6, 'Inventory & POS Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(7, 'All Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(8, 'Payroll', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(9, 'Add Leave Type', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(10, 'Leave Approval List', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(11, 'Product Purchase', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(12, 'Stock', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(13, 'Sale List', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(14, 'Customer Due List', '2024-08-24 12:01:34', '2024-08-24 12:01:34'),
+(15, 'Terms & Conditions', '2024-08-24 12:01:34', '2024-08-24 12:01:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_permissions`
+--
+
+CREATE TABLE `menu_permissions` (
+  `id` int(100) NOT NULL,
+  `role_id` int(10) DEFAULT NULL,
+  `user_id` int(255) DEFAULT NULL,
+  `menus` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -735,7 +791,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(437, 'App\\Models\\User', 9, 'myToken', 'fd8545b832ffee78eecec0b3ee4b0bb34d951bc3632115bd91482aba7d084bd7', '[\"*\"]', NULL, NULL, '2024-08-22 12:25:58', '2024-08-22 12:25:58');
+(441, 'App\\Models\\User', 1, 'myToken', 'f11f4bf37ef44fed58a69e5d8e456d1cc86872a805af1b280d8f9e894e6342ff', '[\"*\"]', NULL, NULL, '2024-08-24 09:11:41', '2024-08-24 09:11:41');
 
 -- --------------------------------------------------------
 
@@ -903,7 +959,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`
 (6, 'Rupa Rahman', 'rupa@gmail.com', 2, 15, 9, 1, NULL, NULL, NULL, '2023-04-04', NULL, '$2y$10$Uedv4qY.IF2k2bO2fCMeP.u4osouZfHBWMbKexg8Oz753dtsSIOSi', 1, '1', 3, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
 (7, 'Fahad Ahmed', 'fahad@gmail.com', 2, 16, 10, 1, NULL, NULL, NULL, '2022-05-11', NULL, '$2y$10$B4HjW5ISg0phrHEJwbfQZ.Lro5KetTpOmtQVFfH7OcQrx5QzeE.Dy', 1, '1', 4, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
 (8, 'Tuhin Ahmed', 'tuhin@gmail.com', 3, 11, 3, NULL, NULL, 1, NULL, '2024-06-04', NULL, '$2y$10$kOIA46nYPFVr5tH0XDOtBuYIYeEwhvvtxuXwBJrLanb8Lj45AK5yK', 1, '4', 1, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
-(9, 'Yamin Hossain', 'yamin@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-12', NULL, '$2y$10$DnyFOhk.0I/CrYIfjbQnD.B.POU49FcWniJqtk.B3Gsns43oMT9MO', 1, '23', 1, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(9, 'Yamin Hossain', 'yamin@gmail.com', 3, 11, 3, 1, 1, 1, NULL, '2024-06-12', NULL, '$2y$10$DnyFOhk.0I/CrYIfjbQnD.B.POU49FcWniJqtk.B3Gsns43oMT9MO', 1, '23', 1, NULL, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
 (10, 'fahim ahmed', 'fahim@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$6n1z1jwm/8Cjp0/WZroug.grCo7aWCakpJC7AyxX314WlrKWFbh.O', 1, '3', 1, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
 (11, 'Sahed Rahman', 'sahed@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-06-18', NULL, '$2y$10$RmNw5eA99If5dxCZwzEbxuewe16hGbW/gL/kPyo.UvSLs8ooNEzcW', 1, '3', 1, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38'),
 (12, 'Masud Mia', 'masudmia@gmail.com', 3, 11, 3, 1, 1, NULL, NULL, '2024-08-01', NULL, '$2y$10$K1/x8ctvAxFdt5sNPxrSTeqVvX.HTaQvNnrEtTaUUr.2Lhjdc8u3C', 1, '3', 1, NULL, '2024-08-14 09:40:38', '2024-08-14 09:40:38');
@@ -1081,6 +1137,18 @@ ALTER TABLE `leave_types`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `menus`
+--
+ALTER TABLE `menus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menu_permissions`
+--
+ALTER TABLE `menu_permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -1253,13 +1321,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `leave_types`
 --
 ALTER TABLE `leave_types`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `menus`
+--
+ALTER TABLE `menus`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `menu_permissions`
+--
+ALTER TABLE `menu_permissions`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -1283,7 +1363,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
 
 --
 -- AUTO_INCREMENT for table `rents`
