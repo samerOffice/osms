@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2024 at 02:11 PM
+-- Generation Time: Aug 27, 2024 at 02:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -268,7 +268,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 4, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 2, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -507,7 +507,7 @@ INSERT INTO `employees` (`id`, `user_id`, `designation_id`, `joining_date`, `mon
 (1, 2, 2, '2024-05-02', '12500', 'Hamid Ahmed papa', 'Hasina Begum', '01513470121', '7647643756', '<p>Meherpur<br></p>', '<p>Puran Dhaka<br></p>', '1994-06-15', 'AB+', 'Bangladeshi', 'Single', 'Islam', 'Male', 'employee_images/202408221724322609.jpg', 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-21 07:24:50', '2024-05-21 07:24:50'),
 (2, 3, 4, '2024-05-30', NULL, 'Hamid Ahmed', 'Shamima Basar', '01513470127', '35435135413', '<p>mirpur 12<br></p>', '<p>mirpur 12<br></p>', '1994-06-15', 'B+', 'Bangladeshi', 'Married', 'Islam', 'Male', NULL, 'Hamid Ahmed', '01513470138', 'Father', 1, '2024-05-30 04:33:28', '2024-05-30 04:33:28'),
 (3, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-12 11:47:06', '2024-06-12 11:47:06'),
-(4, 9, 23, '2024-06-12', '22700', 'Sohel Hossain', 'Mobina Khatun', '01814750120', '126563463', '<p>Mohammadpur, Dhaka<br></p>', '<p>Mohammadpur, Dhaka</p>', '1994-06-09', 'O+', 'Bangladeshi', 'Single', 'Islam', 'Male', 'employee_images/202408221724321326.jpg', 'Sohel Hossain', '01513470139', 'Father', 1, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
+(4, 9, 23, '2024-06-12', '52500', 'Sohel Hossain', 'Mobina Khatun', '01814750120', '126563463', '<p>Mohammadpur, Dhaka<br></p>', '<p>Mohammadpur, Dhaka</p>', '1994-06-09', 'O+', 'Bangladeshi', 'Single', 'Islam', 'Male', 'employee_images/202408221724321326.jpg', 'Sohel Hossain', '01513470139', 'Father', 1, '2024-06-12 12:48:50', '2024-06-12 12:48:50'),
 (5, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 11:18:54', '2024-06-27 11:18:54'),
 (6, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-27 13:17:38', '2024-06-27 13:17:38'),
 (7, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-14 09:40:38', '2024-08-14 09:40:38');
@@ -630,14 +630,20 @@ INSERT INTO `menus` (`id`, `menu_name`, `created_at`, `updated_at`) VALUES
 (5, 'Employee & POS Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
 (6, 'Inventory & POS Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
 (7, 'All Dashboard', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(8, 'Payroll', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(9, 'Add Leave Type', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(10, 'Leave Approval List', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(11, 'Product Purchase', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(12, 'Stock', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(13, 'Sale List', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
-(14, 'Customer Due List', '2024-08-24 12:01:34', '2024-08-24 12:01:34'),
-(15, 'Terms & Conditions', '2024-08-24 12:01:34', '2024-08-24 12:01:34');
+(8, 'Payrolls', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(9, 'Employees', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(10, 'Add Leave Type', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(11, 'Leave Approval List', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(12, 'Item Category', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(13, 'Product Category', '2024-08-24 12:01:08', '2024-08-24 12:01:08'),
+(14, 'Product', '2024-08-24 12:01:34', '2024-08-24 12:01:34'),
+(15, 'Product Purchase', '2024-08-24 12:01:34', '2024-08-24 12:01:34'),
+(16, 'Stock', '2024-08-27 06:47:08', '2024-08-27 06:47:08'),
+(17, 'Sale & Invoice', '2024-08-27 07:48:15', '2024-08-27 07:48:15'),
+(18, 'Sale List', '2024-08-27 07:48:15', '2024-08-27 07:48:15'),
+(19, 'Customer', '2024-08-27 07:48:15', '2024-08-27 07:48:15'),
+(20, 'Customer Due List', '2024-08-27 07:48:15', '2024-08-27 07:48:15'),
+(21, 'Terms & Conditions', '2024-08-27 07:48:15', '2024-08-27 07:48:15');
 
 -- --------------------------------------------------------
 
@@ -791,7 +797,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(441, 'App\\Models\\User', 1, 'myToken', 'f11f4bf37ef44fed58a69e5d8e456d1cc86872a805af1b280d8f9e894e6342ff', '[\"*\"]', NULL, NULL, '2024-08-24 09:11:41', '2024-08-24 09:11:41');
+(442, 'App\\Models\\User', 1, 'myToken', 'f76e4653665bee00b47de3a701e4f575a49e7531011f89189675ece2083545fd', '[\"*\"]', NULL, NULL, '2024-08-27 06:14:26', '2024-08-27 06:14:26');
 
 -- --------------------------------------------------------
 
@@ -1333,7 +1339,7 @@ ALTER TABLE `leave_types`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `menu_permissions`
@@ -1363,7 +1369,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=443;
 
 --
 -- AUTO_INCREMENT for table `rents`
