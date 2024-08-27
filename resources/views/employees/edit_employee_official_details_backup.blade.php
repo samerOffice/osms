@@ -85,13 +85,6 @@ Welcome
                               <span style="color: green">{{$employee->outlet_name}}</span>         
                             </div>
                             @endif
-
-                            @foreach($menus as $menu)
-                            <div class="col-6">
-                                <input type="checkbox" id="item{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}" {{ in_array($menu->id, $permitted_menus_array) ? 'checked' : '' }}>
-                                <label for="item{{ $menu->id }}">{{ $menu->menu_name }}</label>
-                            </div>
-                        @endforeach   
                           </div>                            
                     </div>
 
@@ -148,54 +141,18 @@ Welcome
                                 </div>
 
 
-                              {{-- <div class="col-md-4 col-sm-12" id="employee-module-options" >
-                                  <label>Select Employee Module Options:</label><br>
-                                  <input type="checkbox" name="menus[]" value="8"> Payrolls<br>
-                                  <input type="checkbox" name="menus[]" value="9"> Employees<br>
-                                  <input type="checkbox" name="menus[]" value="10"> Add Leave Type<br>
-                                  <input type="checkbox" name="menus[]" value="11"> Leave Approval List<br>
-                              </div>
-
-                              <div class="col-md-4 col-sm-12" id="inventory-module-options" >
-                                <label >Select Inventory Module Options:</label><br>
-                                <input type="checkbox" name="menus[]" value="12"> Item Category<br>
-                                <input type="checkbox" name="menus[]" value="13"> Product Category<br>
-                                <input type="checkbox" name="menus[]" value="14"> Product<br>
-                                <input type="checkbox" name="menus[]" value="15"> Product Purchase<br>
-                                <input type="checkbox" name="menus[]" value="16"> Stock<br>
-                            </div>
-
-                            <div class="col-md-4 col-sm-12" id="pos-module-options" >
-                              <label >Select POS Module Options:</label><br>
-                              <input type="checkbox" name="menus[]" value="17"> Sale & Invoice<br>
-                              <input type="checkbox" name="menus[]" value="18"> Sale List<br>
-                              <input type="checkbox" name="menus[]" value="19"> Customer<br>
-                              <input type="checkbox" name="menus[]" value="20"> Customer Due List<br>
-                              <input type="checkbox" name="menus[]" value="21"> Terms & Conditions<br>
-                          </div>
- --}}
-
                                   <div class="col-md-3 col-sm-12">
                                   <!-- Assign To -->
                                     <div  class="form-group mb-4">
                                         <label for="password">Assign To <small style="color: red">*</small></label>
                                         <select class="form-control select2bs4" onchange="showDiv()" id="assign_to" name="assign_to" style="width: 100%;">
-                                            <option selected="selected" value="">Select</option>
-                                            <option value="1">Inventory</option>
-                                            <option value="2">POS</option>
-                                            <option value="3">Both</option>
-                                            {{-- <option value="1">Employee Module</option>
-                                            <option value="2">Inventory Module</option>
-                                            <option value="3">POS Module</option>
-                                            <option value="4">Employee & Inventory Module</option>
-                                            <option value="5">Employee & POS Module</option>
-                                            <option value="6">Inventory & POS Module</option>
-                                            <option value="7">All Module</option> --}}
-                                        </select>
+                                            <option selected="selected" value="">Select</option>                                                 
+                                            <option value="1">Inventory</option>                                        
+                                            <option value="2">POS</option>                                       
+                                            <option value="3">Both</option>                           
+                                          </select>
                                     </div> 
                                   </div>
-
-                               
 
                                   <div class="col-md-12 col-sm-12" id="for_permission_review">
                                     <div  class="form-group mb-4">
@@ -263,7 +220,7 @@ function showDiv() {
     var warehouseDiv = document.getElementById("for_warehouse");
     var permissionDiv = document.getElementById("for_permission_review");
     var outletDiv = document.getElementById("for_outlet");
-
+   
     //Inventory Selected
     if((dropdown.value) == 1) {
         permissionDiv.style.display = "block";
@@ -272,7 +229,6 @@ function showDiv() {
         document.getElementById("warehouse_id").disabled = false;
         document.getElementById("for_permission_review").disabled = false;
         document.getElementById("outlet_id").disabled = true;
-
     //POS selected
     }else if((dropdown.value) == 2){
         outletDiv.style.display = "block";
@@ -281,7 +237,6 @@ function showDiv() {
         document.getElementById("warehouse_id").disabled = true;
         document.getElementById("for_permission_review").disabled = true;
         document.getElementById("outlet_id").disabled = false;
-
     //Both Selected
     }else{
         permissionDiv.style.display = "block";
@@ -290,7 +245,6 @@ function showDiv() {
         document.getElementById("for_permission_review").disabled = false;
         document.getElementById("warehouse_id").disabled = false;
         document.getElementById("outlet_id").disabled = false;
-
     }
   }
 
@@ -445,25 +399,20 @@ function showDiv() {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
    
-    axios.post('/api/update_employee_official_info/' + emp_id, updateEmpOfficialInfoFormData, {
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    }
-}).then(response=>{
+    axios.post('/api/update_employee_official_info/' + emp_id, updateEmpOfficialInfoFormData).then(response=>{
     console.log(response);
-    // setTimeout(function() {
-    //         window.location.reload();
-    //     }, 2000);
-    // Swal.fire({
-    //             icon: "success",
-    //             title: ''+ response.data.message,
-    //             });
-    //         return false;
+    setTimeout(function() {
+            window.location.reload();
+        }, 2000);
+    Swal.fire({
+                icon: "success",
+                title: ''+ response.data.message,
+                });
+            return false;
             
     }).catch(error => Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: error.response.data.selectedItems,
+                icon: "error",
+                title: error.response.data.message,
                 }))
 
     });

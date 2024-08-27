@@ -281,13 +281,20 @@ class EmpController extends Controller
                     ->where('company_id',$user_company_id)
                     ->where('br_status',1)
                     ->get();
-        
-        
+
+
         $get_user_id = DB::table('employees')
                        ->where('id',$id)
                        ->first();
 
         $user_id = $get_user_id->user_id;
+
+
+        $data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+
+
         $employee = DB::table('users')
                 ->leftJoin('employees','users.id','employees.user_id')
                 ->leftJoin('branches','users.branch_id','branches.id')
@@ -298,7 +305,22 @@ class EmpController extends Controller
                 ->where('users.id',$user_id)
                 ->first();
 
-        return view('employees.edit_employee_official_details',compact('current_module','employee','branches'));
+        $menus = DB::table('menus')->get();
+
+        
+        // Initialize $permitted_menus_array as an empty array
+        $permitted_menus_array = [];
+
+        if ($data && $data->menus != null) {
+            // Use explode to convert the string into an array
+            $permitted_menus_array = explode(',', $data->menus);
+        }
+
+        return view('employees.edit_employee_official_details', compact('current_module', 'employee', 'branches', 'permitted_menus_array', 'menus'));
+
+        
+
+        
 
         // dd($employee);
     }
@@ -328,47 +350,73 @@ class EmpController extends Controller
         }
 
 
-        public function update_employee_official_info(Request $request, $id){
-
-            
-            $data = array();
-            $data['branch_id'] = $request->input('branch_id');
-            $data['review_requisition'] = $request->input('review_requisition');
-            $data['warehouse_id'] = $request->input('warehouse_id');
-            $data['outlet_id'] = $request->input('outlet_id');
-            $data['designation'] = $request->input('designation_name');
+       public function update_employee_official_info(Request $request, $id)
+        {
+            $data = [
+                'branch_id' => $request->input('branch_id'),
+                'review_requisition' => $request->input('review_requisition'),
+                'warehouse_id' => $request->input('warehouse_id'),
+                'outlet_id' => $request->input('outlet_id'),
+                'designation' => $request->input('designation_name')
+            ];
 
             $emp_monthly_salary = $request->input('monthly_salary');
-    
-            try {
-                // Update the outlet record in the database
-                $updated = DB::table('users')
-                            ->where('id', $id)
-                            ->update($data);
+
+            $selectedItems = $request->input('menu', []); // Defaults to an empty array if 'menu' is not present
+
+            return response()->json(['selectedItems' => $selectedItems], 400); // 400 Bad Request
+
+            // try {
+            //     // Menu permission handling
+            //     $menu_permission_data = DB::table('menu_permissions')
+            //                             ->where('user_id', $id)
+            //                             ->first();
 
 
-              $update_emp_salary = DB::table('employees')
-                                    ->where('user_id', $id)
-                                    ->update([
-                                        'monthly_salary' => $emp_monthly_salary,
-                                        'designation_id' => $request->input('designation_name')
-                                    ]);
-            
-                // Check if the update was successful
-                if ($updated) {
-                    // Return a success response
-                    return response()->json(['message' => 'Employee official information is updated successfully'], 200);
-                } else {
-                    // Return a failure response
-                    return response()->json([
-                        'message' => 'Employee official information update failed or no changes were made'
-                    ], 400);
-                }
-            } catch (\Exception $e) {
-                // Catch any exceptions and return an error response
-                return response()->json(['error' => 'An error occurred while updating the employee official information', 'details' => $e->getMessage()], 500);
-            }    
+            //     $selectedItems = implode(',',$request->input('menu'));
+
+            //     if ($menu_permission_data === null) {
+
+            //         $add_menu_permission = DB::table('menu_permissions')
+            //                                 ->insertGetId([
+            //                                     'role_id' => 3,
+            //                                     'user_id' => $id,
+            //                                     'menus' => $selectedItems,
+            //                                 ]);
+            //     } else {
+
+            //         // Update existing menu permission
+            //         $menu_updated = DB::table('menu_permissions')
+            //                         ->where('user_id', $id)
+            //                         ->update(['menus' => $selectedItems]);
+            //     }
+
+            //     // Update user and employee data
+            //     $user_updated = DB::table('users')
+            //         ->where('id', $id)
+            //         ->update($data);
+
+            //     $emp_updated = DB::table('employees')
+            //         ->where('user_id', $id)
+            //         ->update([
+            //             'monthly_salary' => $emp_monthly_salary,
+            //             'designation_id' => $request->input('designation_name')
+            //         ]);
+
+            //     // Check if updates were successful
+            //     if ($user_updated !== false && $emp_updated !== false) {
+            //         return response()->json(['message' => 'Employee official information is updated successfully'], 200);
+            //     } else {
+            //         return response()->json(['message' => 'No changes were made to employee official information'], 200);
+            //     }
+            // } catch (\Exception $e) {
+            //     // Catch any exceptions and return an error response
+            //     return response()->json(['error' => 'An error occurred while updating the employee official information',
+            //     'gg' => $selectedItems, 
+            //     'details' => $e->getMessage()], 500);
+            // }
         }
+
 
 
     
