@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Add Employee
 @endsection
 
 @push('css')
@@ -17,6 +17,35 @@ Welcome
 #for_outlet{
     display: none;
 }
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 1px;
+      outline: none;
+  }
+  
+  /* Define the custom checkbox */
+  input[type="checkbox"]::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: 1px;
+      /* margin-right: 1px; */
+      border: 1px solid #ccc;
+  }
+  
+  /* Change the color of the custom checkbox when checked */
+  input[type="checkbox"]:checked::before {
+      background-color: #0098ef; /* Change the color here */
+  }
 </style>
 @endpush
 
@@ -68,21 +97,23 @@ Welcome
                                 </div>
 
 
-                                <div class="col-md-12 col-sm-12">
+                                
                                   <!-- Joining Date -->
                                   <div  class="form-group mb-4">
                                    <label >Joining Date <small style="color: red">*</small></label>
                                  <input type="date"  id="joining_date" name="joining_date" class="form-control form-control-lg" />
                                </div>
-                              </div>
+                              
 
-                              <div class="col-md-12 col-sm-12">
+                              
                                 <!-- Monthly Salary -->
                                 <div  class="form-group mb-4">
                                  <label >Monthly Salary <small style="color: red">*</small></label>
                                <input type="number" step="0.01"  id="monthly_salary" name="monthly_salary" class="form-control form-control-lg" />
                              </div>
-                            </div>
+                           
+
+                            
                                 
                                 <div class="row">
                                   <div class="col-md-3 col-sm-12">
@@ -130,9 +161,10 @@ Welcome
                                               <label for="password">Assign To <small style="color: red">*</small></label>
                                               <select class="form-control select2bs4" onchange="showDiv()" id="assign_to" name="assign_to" style="width: 100%;">
                                                   <option selected="selected" value="">Select</option>                                                 
-                                                  <option value="1">Inventory</option>                                        
+                                                  <option value="0">Employee</option>                                       
+                                                  <option value="1">Inventory</option>                                       
                                                   <option value="2">POS</option>                                       
-                                                  <option value="3">Both</option>                           
+                                                  <option value="3">Inventory & POS</option>                           
                                                 </select>
                                           </div> 
                                         </div>
@@ -168,6 +200,34 @@ Welcome
    
                                 </div>
                     
+                              <br>
+                              <h3 align='center' style="color: #0098ef">Menu Permission</h3>
+                            <hr>
+                            <br>
+                            <div class="row">
+                              @foreach($groupedMenus as $moduleType => $menus)
+                                  <div class="col-md-3 col-sm-12">
+                                      <h5>
+                                        @if($moduleType == 1)
+                                        <span style="color: #0fd71c">Dashboards</span>
+                                        @elseif($moduleType == 2)
+                                        <span style="color: #0fd71c">Employee Module</span>
+                                        @elseif($moduleType == 3)
+                                        <span style="color: #0fd71c">Inventory Module</span>
+                                        @else
+                                        <span style="color: #0fd71c">POS Module</span>
+                                        @endif
+                                      </h5>
+                                      <br>
+                                      @foreach($menus as $menu)
+                                          <div class="form-group mb-4">
+                                              <input type="checkbox" id="item{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}" checked>
+                                              <label for="item{{ $menu->id }}">{{ $menu->menu_name }}</label>
+                                          </div>
+                                      @endforeach
+                                  </div>
+                              @endforeach
+                          </div>
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-success btn-lg float-right">Register</button>
                             <br>
@@ -236,8 +296,16 @@ function machPassword() {
     var permissionDiv = document.getElementById("for_permission_review");
     var outletDiv = document.getElementById("for_outlet");
    
-    //Inventory Selected
-    if((dropdown.value) == 1) {
+    //Employee Selected
+    if((dropdown.value) == 0) {
+        permissionDiv.style.display = "none";
+        warehouseDiv.style.display = "none";
+        outletDiv.style.display = "none";
+        document.getElementById("warehouse_id").disabled = true;
+        document.getElementById("for_permission_review").disabled = true;
+        document.getElementById("outlet_id").disabled = true;
+    //Inventory selected
+    }else if((dropdown.value) == 1){
         permissionDiv.style.display = "block";
         warehouseDiv.style.display = "block";
         outletDiv.style.display = "none";
@@ -263,8 +331,6 @@ function machPassword() {
     }
   }
 
-
-
     //level and designation dependancy dropdown logic start
     $('#level').on('change',function(event){
       event.preventDefault();
@@ -281,7 +347,6 @@ function machPassword() {
     // Set up Axios defaults
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
-
 
     axios.get('sanctum/csrf-cookie').then(response=>{
     axios.post('/api/level_designation_dependancy',{
@@ -468,7 +533,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/api/store_employee',empFormData).then(response=>{
   console.log(response);
-  window.location.reload();
+  // window.location.reload();
+  window.location.href = "{{ route('employee_list') }}";
   Swal.fire({
               icon: "success",
               title: ''+ response.data.message,

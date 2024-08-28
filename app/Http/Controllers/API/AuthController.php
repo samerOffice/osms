@@ -98,6 +98,15 @@ class AuthController extends Controller
         $success['name'] = $user->name;
         $role = $user->role_id;
 
+
+        $selectedItems = implode(',',$request->input('menu'));
+        $add_menu_permission = DB::table('menu_permissions')
+                                    ->insertGetId([
+                                        'role_id' => 2,
+                                        'user_id' => $user->id,
+                                        'menus' => $selectedItems,
+                                    ]);
+
         if($role == '1'){
         $user = DB::table('super_admins')
         ->insertGetId([

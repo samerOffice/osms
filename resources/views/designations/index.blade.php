@@ -14,12 +14,13 @@ Welcome
         <br>
         <div class="row">
 
+          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
           <div class="col-12">
             <a class="btn btn-outline-info float-right" href="{{route('add_designation')}}">
                 <i class="fas fa-plus"></i> Add Designation
             </a>
           </div>
-        
+        @endif
            
           <div class="col-12">
             <br>
@@ -72,11 +73,12 @@ Welcome
                           </td>
                           <td>{{$designation->designation_name}}</td>
                         
+                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <td>
                             <a href="{{route('edit_designation',$designation->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a> | 
                             <button class="btn btn-outline-danger" onclick="deleteOperation({{$designation->id}})"><i class="fa-solid fa-trash"></i> Delete</button>
                           </td>
-                          
+                          @endif
                         </tr> 
                         @endforeach              
                  

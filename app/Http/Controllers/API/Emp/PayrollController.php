@@ -32,7 +32,19 @@ class PayrollController extends Controller
         ->get();
 
 
-        return view('payrolls.create',compact('members','current_module'));
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('payrolls.create',compact('members','current_module'));
+        }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('payrolls.create',compact('members','current_module','permitted_menus_array'));
+      }
+
     }
     
     
@@ -62,8 +74,19 @@ class PayrollController extends Controller
                     ->where('company',$memeber_company_id)
                     ->get();
 
-        return view('payrolls.index',compact('payrolls','current_module'));
-        
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('payrolls.index',compact('payrolls','current_module'));
+        }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('payrolls.index',compact('payrolls','current_module','permitted_menus_array'));
+        }   
         
     }
 
@@ -201,11 +224,14 @@ class PayrollController extends Controller
                     ->table('outlets')
                     ->where('id',$outlet_id)
                     ->first();
-       
 
-        // dd($member_payroll_info);
-         
-        return view('payrolls.show_data',compact('current_module',
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('payrolls.show_data',compact('current_module',
                                                 'member_payroll_info',
                                                 'employee_name',
                                                 'designation_name',
@@ -214,6 +240,25 @@ class PayrollController extends Controller
                                                 'warehouse',
                                                 'outlet',
                                                 'payroll_id'));
+        }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('payrolls.show_data',compact('current_module',
+                                                'member_payroll_info',
+                                                'employee_name',
+                                                'designation_name',
+                                                'shop_name',
+                                                'branch',
+                                                'warehouse',
+                                                'outlet',
+                                                'payroll_id',
+                                                'permitted_menus_array'
+                                            ));
+        }
+       
+         
+
     }
 
 

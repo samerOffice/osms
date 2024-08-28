@@ -29,7 +29,19 @@ class InvoiceController extends Controller
                         ->orderBy('id', 'DESC')
                         ->get();
 
-        return view('invoices.index',compact('current_module','sales'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('invoices.index',compact('current_module','sales'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('invoices.index',compact('current_module','sales','permitted_menus_array'));
+                }
+  
     }
 
 
@@ -65,7 +77,19 @@ class InvoiceController extends Controller
                     ->where('product_status',1)
                     ->get();
 
-        return view('invoices.create',compact('current_module','user_id','user_name','customers','outlets','products'));
+                    
+        $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+                            
+        if($menu_data == null){
+            return view('invoices.create',compact('current_module','user_id','user_name','customers','outlets','products'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('invoices.create',compact('current_module','user_id','user_name','customers','outlets','products','permitted_menus_array'));
+                }
+
     }
 
 

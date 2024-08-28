@@ -24,6 +24,8 @@ Dashboard
       </div> --}}
 
       <div class="row mt-4">
+
+        @if((Auth::user()->role_id == 1) || in_array(1, $permitted_menus_array))
         <div class="col-lg-4 col-md-4 col-sm-4">
           <h4 align="center">Employee Management</h4>
           <!-- small box -->
@@ -37,8 +39,10 @@ Dashboard
           <br>
           <br>
         </div>
+       @endif
 
-        <!-- ./col -->
+        
+       @if((Auth::user()->role_id == 1) || in_array(2, $permitted_menus_array))
         <div class="col-lg-4 col-md-4 col-sm-4">
           <h4 align="center">Inventory Management</h4>
           <!-- small box -->
@@ -52,7 +56,9 @@ Dashboard
           <br>
           <br>
         </div>
-        <!-- ./col -->
+        @endif
+
+        @if((Auth::user()->role_id == 1) || in_array(3, $permitted_menus_array))
         <div class="col-lg-4 col-md-4 col-sm-4">
           <h4 align="center">Point of Sale</h4>
           <!-- small box -->
@@ -64,6 +70,7 @@ Dashboard
               <a href="{{route('posModuleActive')}}"><button type="submit" class="btn pos_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
           </div>
         </div>
+        @endif
 
         {{-- <div class="col-lg-3 col-md-3 col-sm-3">
             <h4 align="center">Delivery Tracking System</h4>
