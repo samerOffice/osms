@@ -24,7 +24,13 @@ class HomeController extends Controller
 
       $designations = DB::table('designations')->get();
       $business_types = DB::table('business_types')->get();
-      return view('auth_register',compact('divisions','roles','designations','business_types'));
+
+      $menus = DB::table('menus')
+                  ->where('module_type',1)           
+                  ->get();
+      $groupedMenus = $menus->groupBy('module_type');
+
+      return view('auth_register',compact('divisions','roles','designations','business_types','menus','groupedMenus'));
     }
 
     //user dashboard ui/ux
@@ -35,7 +41,7 @@ class HomeController extends Controller
       $update_module = DB::table('current_modules')
                   // ->where('id', $request->id)
                   ->update($current_modules);
-      
+  
       $current_module = DB::table('current_modules')->first();
 
       $user_company_id = Auth::user()->company_id;
@@ -67,13 +73,37 @@ class HomeController extends Controller
               ->count('id');
 
 
-      return view('dashboard',compact('current_module',
+
+      $user_id = Auth::user()->id;
+
+      $menu_data = DB::table('menu_permissions')
+              ->where('user_id',$user_id)
+              ->first();
+      if($menu_data == null){
+        return view('dashboard',compact('current_module',
                                       'shop_name',
                                       'total_branch',
                                       'total_department',
                                       'total_warehouse',
                                       'total_outlet'
                                     ));
+        }else{
+          $permitted_menus = $menu_data->menus;
+          $permitted_menus_array = explode(',', $permitted_menus);
+
+                return view('dashboard',compact('current_module',
+                'shop_name',
+                'total_branch',
+                'total_department',
+                'total_warehouse',
+                'total_outlet',
+                'permitted_menus_array'
+              ));
+            }
+      
+
+
+      
     }
 
 
@@ -383,7 +413,24 @@ class HomeController extends Controller
         ->where('users.role_id', '3')
         ->get();
 
-      return view('dashboard',compact('current_module','total_employees','total_attendances','employees'));
+
+
+        $user_id = Auth::user()->id;
+
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+
+
+      if($menu_data == null){
+        return view('dashboard',compact('current_module','total_employees','total_attendances','employees'));
+        }else{
+          $permitted_menus = $menu_data->menus;
+          $permitted_menus_array = explode(',', $permitted_menus);
+
+      return view('dashboard',compact('current_module','total_employees','total_attendances','employees','permitted_menus_array'));
+           }
+        
 
       
     }

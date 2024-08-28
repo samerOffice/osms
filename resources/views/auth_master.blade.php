@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/fav.webp')}}" />
   <title>
-    OSMS | @yield('title')
+  Otithee ShopNet | @yield('title')
  </title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -20,6 +22,7 @@
   <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+  @stack('css')
 </head>
 <body class="hold-transition login-page" style="background-image: url('{{ asset('img/login_bg.jpg') }}');">
 

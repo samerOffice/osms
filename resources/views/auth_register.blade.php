@@ -4,6 +4,40 @@
 Registration
 @endsection
 
+
+@push('css')
+<style>
+  /* Hide the default checkbox */
+input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 1px;
+      outline: none;
+  }
+  
+  /* Define the custom checkbox */
+  input[type="checkbox"]::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: 1px;
+      /* margin-right: 1px; */
+      border: 1px solid #ccc;
+  }
+  
+  /* Change the color of the custom checkbox when checked */
+  input[type="checkbox"]:checked::before {
+      background-color: #0098ef; /* Change the color here */
+  }
+</style>
+@endpush
+
 @section('content')
 
 @if(Auth::check())
@@ -76,12 +110,18 @@ header("Location: $redirectRoute");
               </div>
               </div>
             </div>
-             
-
-           
-
+            
             <div class="row">
-                <!-- Company -->
+              <!-- Menu Permission -->
+              <div class="col-md-12 col-sm-12">
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <button type="button" class="btn btn-lg btn-outline-danger btn-block" data-toggle="modal" data-target="#modal-menu-permission">
+                        Menu Permission
+                    </button>
+                </div> 
+              </div>
+
+                <!-- Shop -->
                 <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
                     <button type="button" class="btn btn-lg btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-company">
@@ -93,12 +133,11 @@ header("Location: $redirectRoute");
                 <!-- Branch -->
                 <div class="col-md-12 col-sm-12">
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <button type="button" class="btn btn-lg btn-outline-info btn-block" data-toggle="modal" data-target="#modal-branch">
+                    <button type="button" class="btn btn-lg btn-outline-dark btn-block" data-toggle="modal" data-target="#modal-branch">
                         Branch Details
                     </button>
                 </div>
-                </div>
-                
+                </div>             
             </div>
 
             <div class="row">
@@ -132,6 +171,48 @@ header("Location: $redirectRoute");
               </div> 
               </div>
           </div>
+
+
+          <!-- modal menu permission -->
+          <div class="modal fade" id="modal-menu-permission">
+            <div class="modal-dialog modal-lg">        
+             <div class="modal-content">
+               <div class="modal-header">
+                 <h4 class="modal-title" style="color:blueviolet">Menu Permission</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               <div class="modal-body">
+                <div class="row">
+                  @foreach($groupedMenus as $moduleType => $menus)
+                   
+                  <div class="col-md-12 col-sm-12">
+                    @if($moduleType == 1)
+                    {{-- <span style="color: #0fd71c">Dashboards</span> --}}
+                    <h3 align='center' style="color: #0098ef">Dashboards</h3>
+                    <hr>
+                  @endif
+                  </div>
+                   
+                      <div class="col-md-6 col-sm-12">
+                          @foreach($menus as $menu)
+                              <div class="form-group mb-4">
+                                  <input type="checkbox" id="item{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}" checked>
+                                  <label for="item{{ $menu->id }}">{{ $menu->menu_name }}</label>
+                              </div>
+                          @endforeach
+                      </div>
+                  @endforeach
+              </div>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-outline-danger btn-lg float-right" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+            </div> 
+         </div>
+          <!-- modal menu permission ends -->
 
             
                 

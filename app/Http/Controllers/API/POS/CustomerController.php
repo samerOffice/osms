@@ -27,8 +27,18 @@ class CustomerController extends Controller
             $customers = DB::connection('pos')
                             ->table('customers')
                             ->get();
-                                          
-        return view('customers.index',compact('current_module','customers'));
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('customers.index',compact('current_module','customers'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('customers.index',compact('current_module','customers','permitted_menus_array'));
+                    }
 
         }else{
             $customers = DB::connection('pos')
@@ -36,7 +46,17 @@ class CustomerController extends Controller
                         ->where('company_id',$user_company_id)
                         ->get();
 
-        return view('customers.index',compact('current_module','customers'));
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('customers.index',compact('current_module','customers'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('customers.index',compact('current_module','customers','permitted_menus_array'));
+                    }
         }       
 
     }

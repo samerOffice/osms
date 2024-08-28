@@ -25,8 +25,20 @@ class EmpController extends Controller
                     // ->where('id', $request->id)
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
-        
-        return view('employees.password_reset',compact('current_module'));
+
+
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('employees.password_reset',compact('current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('employees.password_reset',compact('current_module','permitted_menus_array'));
+                }
     }
 
 
@@ -98,8 +110,22 @@ class EmpController extends Controller
                     ->where('users.role_id', '3')
                     ->get();
 
-        // dd($employees);
-        return view('employees.index',compact('employees','current_module'));
+
+
+    $user_id = Auth::user()->id;
+    $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('employees.index',compact('employees','current_module'));
+        }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('employees.index',compact('employees','current_module','permitted_menus_array'));
+        }
+
+        // dd($employees);      
     }
 
 
@@ -148,7 +174,21 @@ class EmpController extends Controller
                         ->first();
 
         // dd($employee);
-        return view('employees.view',compact('employee','current_module'));            
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+            ->where('user_id',$user_id)
+            ->first();
+            if($menu_data == null){
+                return view('employees.view',compact('employee','current_module')); 
+            }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+    
+                return view('employees.view',compact('employee','current_module','permitted_menus_array')); 
+            }
+
+               
     }
     
     
@@ -174,8 +214,24 @@ class EmpController extends Controller
                         ->get();
         // $business_types = DB::table('business_types')->get();
 
-        
-        return view('employees.add_new_employee_form',compact('current_module','branches','designations'));
+        $menus = DB::table('menus')->get();
+        $groupedMenus = $menus->groupBy('module_type');
+
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+            ->where('user_id',$user_id)
+            ->first();
+            if($menu_data == null){
+                return view('employees.add_new_employee_form',compact('current_module','branches','designations','menus','groupedMenus'));
+            }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+
+                return view('employees.add_new_employee_form',compact('current_module','branches','designations','menus','groupedMenus','permitted_menus_array'));
+          }
+
+            
     }
 
 
@@ -241,11 +297,21 @@ class EmpController extends Controller
         $success['name'] = $user->name;
         $role = $user->role_id;
 
-        $user = DB::table('employees')
-        ->insertGetId([
-        'user_id'=>$user->id,
-        'monthly_salary' => $request->monthly_salary
-        ]); 
+        $employee = DB::table('employees')
+                    ->insertGetId([
+                    'user_id'=>$user->id,
+                    'monthly_salary' => $request->monthly_salary
+                    ]); 
+
+
+        $selectedItems = implode(',',$request->input('menu'));
+        $add_menu_permission = DB::table('menu_permissions')
+                                    ->insertGetId([
+                                        'role_id' => 3,
+                                        'user_id' => $user->id,
+                                        'menus' => $selectedItems,
+                                    ]);
+
 
         // $success['token'] = $user->createToken('myToken')->plainTextToken;
        
@@ -253,7 +319,7 @@ class EmpController extends Controller
             'success' => true,
             'data' => $success,
             'flag' => 1,
-            'message' => 'User is created successfully'
+            'message' => 'Employee is added successfully'
         ];
 
         $current_modules = array();
@@ -289,12 +355,6 @@ class EmpController extends Controller
 
         $user_id = $get_user_id->user_id;
 
-
-        $data = DB::table('menu_permissions')
-                    ->where('user_id',$user_id)
-                    ->first();
-
-
         $employee = DB::table('users')
                 ->leftJoin('employees','users.id','employees.user_id')
                 ->leftJoin('branches','users.branch_id','branches.id')
@@ -306,23 +366,26 @@ class EmpController extends Controller
                 ->first();
 
         $menus = DB::table('menus')->get();
+        $groupedMenus = $menus->groupBy('module_type');
 
         
-        // Initialize $permitted_menus_array as an empty array
-        $permitted_menus_array = [];
-
-        if ($data && $data->menus != null) {
-            // Use explode to convert the string into an array
-            $permitted_menus_array = explode(',', $data->menus);
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+        
+       
+        if($menu_data == null){
+            $permitted_menus_array = [];
+        return view('employees.edit_emp_details', compact('current_module', 'employee', 'branches', 'menus','groupedMenus','permitted_menus_array'));    
+       
+        }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('employees.edit_employee_official_details', compact('current_module', 'employee', 'branches', 'permitted_menus_array', 'menus','groupedMenus'));
+                
         }
+    
 
-        return view('employees.edit_employee_official_details', compact('current_module', 'employee', 'branches', 'permitted_menus_array', 'menus'));
-
-        
-
-        
-
-        // dd($employee);
     }
 
     //edit official information ui/ux (api)
@@ -362,59 +425,53 @@ class EmpController extends Controller
 
             $emp_monthly_salary = $request->input('monthly_salary');
 
-            $selectedItems = $request->input('menu', []); // Defaults to an empty array if 'menu' is not present
+            try {
+                // Menu permission handling
+                $menu_permission_data = DB::table('menu_permissions')
+                                        ->where('user_id', $id)
+                                        ->first();
 
-            return response()->json(['selectedItems' => $selectedItems], 400); // 400 Bad Request
+                if ($menu_permission_data === null) {
+                 
+                $selectedItems = implode(',',$request->input('menu'));
+                    $add_menu_permission = DB::table('menu_permissions')
+                                            ->insertGetId([
+                                                'role_id' => 3,
+                                                'user_id' => $id,
+                                                'menus' => $selectedItems,
+                                            ]);
+                } else {
 
-            // try {
-            //     // Menu permission handling
-            //     $menu_permission_data = DB::table('menu_permissions')
-            //                             ->where('user_id', $id)
-            //                             ->first();
+                    $selectedItems = implode(',',$request->input('menu'));
+                    // Update existing menu permission
+                    $menu_updated = DB::table('menu_permissions')
+                                    ->where('user_id', $id)
+                                    ->update(['menus' => $selectedItems]);
+                }
 
+                // Update user and employee data
+                $user_updated = DB::table('users')
+                    ->where('id', $id)
+                    ->update($data);
 
-            //     $selectedItems = implode(',',$request->input('menu'));
+                $emp_updated = DB::table('employees')
+                    ->where('user_id', $id)
+                    ->update([
+                        'monthly_salary' => $emp_monthly_salary,
+                        'designation_id' => $request->input('designation_name')
+                    ]);
 
-            //     if ($menu_permission_data === null) {
-
-            //         $add_menu_permission = DB::table('menu_permissions')
-            //                                 ->insertGetId([
-            //                                     'role_id' => 3,
-            //                                     'user_id' => $id,
-            //                                     'menus' => $selectedItems,
-            //                                 ]);
-            //     } else {
-
-            //         // Update existing menu permission
-            //         $menu_updated = DB::table('menu_permissions')
-            //                         ->where('user_id', $id)
-            //                         ->update(['menus' => $selectedItems]);
-            //     }
-
-            //     // Update user and employee data
-            //     $user_updated = DB::table('users')
-            //         ->where('id', $id)
-            //         ->update($data);
-
-            //     $emp_updated = DB::table('employees')
-            //         ->where('user_id', $id)
-            //         ->update([
-            //             'monthly_salary' => $emp_monthly_salary,
-            //             'designation_id' => $request->input('designation_name')
-            //         ]);
-
-            //     // Check if updates were successful
-            //     if ($user_updated !== false && $emp_updated !== false) {
-            //         return response()->json(['message' => 'Employee official information is updated successfully'], 200);
-            //     } else {
-            //         return response()->json(['message' => 'No changes were made to employee official information'], 200);
-            //     }
-            // } catch (\Exception $e) {
-            //     // Catch any exceptions and return an error response
-            //     return response()->json(['error' => 'An error occurred while updating the employee official information',
-            //     'gg' => $selectedItems, 
-            //     'details' => $e->getMessage()], 500);
-            // }
+                // Check if updates were successful
+                if ($user_updated !== false && $emp_updated !== false) {
+                    return response()->json(['message' => 'Employee official information is updated successfully'], 200);
+                } else {
+                    return response()->json(['message' => 'No changes were made to employee official information'], 200);
+                }
+            } catch (\Exception $e) {
+                // Catch any exceptions and return an error response
+                return response()->json(['error' => 'An error occurred while updating the employee official information',
+                'details' => $e->getMessage()], 500);
+            }
         }
 
 
@@ -447,33 +504,82 @@ class EmpController extends Controller
             $member = DB::table('admins')
                     ->where('user_id',$user_id)
                     ->first();
-         return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));      
+           
+
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+
+        if($menu_data == null){
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));    
+              }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member','permitted_menus_array'));
+             } 
            
         //employee
         }elseif($user_role == '3'){
             $member = DB::table('employees')
                     ->where('user_id',$user_id)
                     ->first();
-         return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));
+
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+
+        if($menu_data == null){
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));    
+          }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member','permitted_menus_array'));
+         }     
         
         //vendor
         }elseif($user_role == '4'){
             $member = DB::table('vendors')
                     ->where('user_id',$user_id)
                     ->first();
-         return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));
+
+
+          $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+
+        if($menu_data == null){
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));
+          }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member','permitted_menus_array'));
+         }     
        
         //super admin (OSSL)
         }else{
             $member = DB::table('super_admins')
                     ->where('user_id',$user_id)
                     ->first();
-         return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));          
+
+           $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+
+        if($menu_data == null){
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member'));
+          }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+
+            return view('employees.create',compact('current_module','user_name','designation_name','user_joining_date','member','permitted_menus_array'));
         }  
         
       }
 
-
+    }
 
 
       //personal information store

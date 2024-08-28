@@ -43,8 +43,21 @@ class AttendanceController extends Controller
                 $canAttend = false;
             }
         }
-    
+
+
+        $menu_data = DB::table('menu_permissions')
+              ->where('user_id',$user_id)
+              ->first();
+      if($menu_data == null){
         return view('attendances.create', compact('current_module', 'designation', 'attendances', 'canAttend'));
+        }else{
+          $permitted_menus = $menu_data->menus;
+          $permitted_menus_array = explode(',', $permitted_menus);
+
+          return view('attendances.create', compact('current_module', 'designation', 'attendances', 'canAttend','permitted_menus_array'));
+            }
+    
+        
     }
     
 
@@ -106,6 +119,7 @@ class AttendanceController extends Controller
         return view('attendances.index',compact('current_module','attendances'));
 
         }else{
+            
             $attendances = DB::table('attendances')
             ->leftJoin('users','attendances.user_id','=','users.id')
             ->select('attendances.*','users.name as member_name')
@@ -113,7 +127,20 @@ class AttendanceController extends Controller
             ->orderBy('attendances.id', 'DESC')
             ->get();
 
-        return view('attendances.index',compact('current_module','attendances'));
+        
+            $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+
+            if($menu_data == null){
+                return view('attendances.index',compact('current_module','attendances'));
+            }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+
+                return view('attendances.index',compact('current_module','attendances','permitted_menus_array'));
+          }
+     
         }
 
         

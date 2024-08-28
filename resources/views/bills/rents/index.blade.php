@@ -14,13 +14,13 @@ Rent List
         <br>
         <div class="row">
 
-         
+          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
           <div class="col-12">
             <a class="btn btn-outline-info float-right" href="{{route('add_rent')}}">
                 <i class="fas fa-plus"></i> Add Rent
             </a>
           </div>
-          
+          @endif
            
           <div class="col-12">
             <br>

@@ -46,6 +46,7 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked::before {
       background-color: #0098ef; /* Change the color here */
   }
+
 </style>
 @endpush
 
@@ -70,52 +71,55 @@ input[type="checkbox"] {
                   </div>  
 
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12 mb-4">                                
-                                <label>Full Name: </label>
-                                <h5 style="color: #0098ef">{{$employee->name}}</h5>                    
-                            </div>
+                      <div class="row">
+                        <div class="col-md-4 col-sm-12 mb-4">                                
+                            <label>Full Name: </label>
+                            <h5 style="color: #0098ef">{{$employee->name}}</h5>                    
+                        </div>
 
-                            <div class="col-md-4 col-sm-12 mb-4">                          
-                                <label>Email: </label>
-                                <h5 style="color: #0098ef">{{$employee->email}}</h5>             
-                            </div>
+                        <div class="col-md-4 col-sm-12 mb-4">                          
+                            <label>Email: </label>
+                            <h5 style="color: #0098ef">{{$employee->email}}</h5>             
+                        </div>
 
-                            <div class="col-md-4 col-sm-12 mb-4">                          
-                              <label>Joining Date: </label>
-                              <h5 style="color: #0098ef">{{$employee->joining_date}}</h5>         
-                            </div>
+                        <div class="col-md-4 col-sm-12 mb-4">                          
+                          <label>Joining Date: </label>
+                          <h5 style="color: #0098ef">{{$employee->joining_date}}</h5>         
+                        </div>
 
-                            <div class="col-md-4 col-sm-12 mb-4">                          
-                              <label>Monthly Salary: </label>
-                              <h5 style="color: #0098ef">{{$employee->monthly_salary}} BDT</h5>         
-                            </div>
-                            
-                            <div class="col-md-4 col-sm-12 mb-4">                          
-                              <label>Designation: </label>
-                              <h5 style="color: #0098ef">{{$employee->designation_name}}</h5>         
-                            </div>
+                        <div class="col-md-4 col-sm-12 mb-4">                          
+                          <label>Monthly Salary: </label>
+                          <h5 style="color: #0098ef">{{$employee->monthly_salary}} BDT</h5>         
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-12 mb-4">                          
+                          <label>Designation: </label>
+                          <h5 style="color: #0098ef">{{$employee->designation_name}}</h5>         
+                        </div>
 
-                            <div class="col-md-4 col-sm-12 mb-4">                          
-                              <label>Branch: </label>
-                              <h5 style="color: #0098ef">{{$employee->branch_name}}</h5>         
-                            </div>
 
-                            @if($employee->warehouse_name != '')
-                              <div class="col-md-4 col-sm-12 mb-4">                          
-                                <label>Warehouse: </label>
-                                <h5 style="color: #0098ef">{{$employee->warehouse_name}}</h5>         
-                              </div>
-                            @endif
-                            
-                            @if($employee->outlet_name != '')
-                            <div class="col-md-4 col-sm-12 mb-4">                          
-                              <label>Outlet: </label>
-                              <h5 style="color: #0098ef">{{$employee->outlet_name}}</h5>         
-                            </div>
-                            @endif
-  
-                          </div>                            
+                        @if($employee->branch_name != '')
+                        <div class="col-md-4 col-sm-12 mb-4">                          
+                          <label>Branch: </label>
+                          <h5 style="color: #0098ef">{{$employee->branch_name}}</h5>         
+                        </div>
+                        @endif
+
+                        @if($employee->warehouse_name != '')
+                          <div class="col-md-4 col-sm-12 mb-4">                          
+                            <label>Warehouse: </label>
+                            <h5 style="color: #0098ef">{{$employee->warehouse_name}}</h5>         
+                          </div>
+                        @endif
+                        
+                        @if($employee->outlet_name != '')
+                        <div class="col-md-4 col-sm-12 mb-4">                          
+                          <label>Outlet: </label>
+                          <h5 style="color: #0098ef">{{$employee->outlet_name}}</h5>         
+                        </div>
+                        @endif
+
+                      </div>                           
                     </div>
 
                     <div class="card-body">
@@ -140,14 +144,14 @@ input[type="checkbox"] {
                                     <br>
                                     @foreach($menus as $menu)
                                         <div class="form-group mb-4">
-                                          <input type="checkbox" id="item{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}" {{ in_array($menu->id, $permitted_menus_array) ? 'checked' : '' }}>
-                                          <label for="item{{ $menu->id }}">{{ $menu->menu_name }}</label>
+                                            <input type="checkbox" id="item{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}" checked>
+                                            <label for="item{{ $menu->id }}">{{ $menu->menu_name }}</label>
                                         </div>
                                     @endforeach
                                 </div>
                             @endforeach
                         </div>
-
+                        
                         <h3 align='center' style="color: #0098ef">Edit Details</h3>
                          <hr>
                          <br>
@@ -197,7 +201,7 @@ input[type="checkbox"] {
                                           @endforeach
                                         </select>
                                   </div> 
-                                </div>
+                                </div>                            
 
                                   <div class="col-md-3 col-sm-12">
                                   <!-- Assign To -->
@@ -211,7 +215,9 @@ input[type="checkbox"] {
                                             <option value="3">Inventory & POS</option> 
                                         </select>
                                     </div> 
-                                  </div>                     
+                                  </div>
+
+                               
 
                                   <div class="col-md-12 col-sm-12" id="for_permission_review">
                                     <div  class="form-group mb-4">
@@ -280,8 +286,8 @@ function showDiv() {
     var permissionDiv = document.getElementById("for_permission_review");
     var outletDiv = document.getElementById("for_outlet");
 
-    //Employee Selected
-    if((dropdown.value) == 0) {
+   //Employee Selected
+   if((dropdown.value) == 0) {
         permissionDiv.style.display = "none";
         warehouseDiv.style.display = "none";
         outletDiv.style.display = "none";
@@ -472,6 +478,7 @@ function showDiv() {
     // }
 }).then(response=>{
     console.log(response);
+
     setTimeout(function() {
             // window.location.reload();
             window.location.href = "{{ route('employee_list') }}";

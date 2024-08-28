@@ -21,7 +21,19 @@ class LeaveController extends Controller
         DB::table('current_modules')->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        return view('leave_applications.leave_submission_ways', compact('current_module'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('leave_applications.leave_submission_ways', compact('current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.leave_submission_ways', compact('current_module','permitted_menus_array'));
+                }
+
     }
 
 
@@ -49,7 +61,20 @@ class LeaveController extends Controller
                                     )
                                     ->orderBy('leave_applications.id','DESC')
                                     ->get();
+
+                                    
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
             return view('leave_applications.index', compact('leaveApplications', 'current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.index', compact('leaveApplications', 'current_module','permitted_menus_array'));
+                }
+
+            
          }elseif($user_role_id == 2){
             $leaveApplications = DB::table('leave_applications')
                                     ->leftJoin('users','leave_applications.user_id','users.id')
@@ -63,7 +88,18 @@ class LeaveController extends Controller
                                     ->where('leave_applications.company_id',$user_company_id)
                                     ->orderBy('leave_applications.id','DESC')
                                     ->get();
-            return view('leave_applications.index', compact('leaveApplications', 'current_module'));
+
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('leave_applications.index', compact('leaveApplications', 'current_module'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('leave_applications.index', compact('leaveApplications', 'current_module','permitted_menus_array'));
+                    }
+            
          }else{
 
             $leaveApplications = DB::table('leave_applications')
@@ -78,7 +114,18 @@ class LeaveController extends Controller
                                     ->where('leave_applications.user_id',$user_id)
                                     ->orderBy('leave_applications.id','DESC')
                                     ->get();
-            return view('leave_applications.index', compact('leaveApplications', 'current_module'));
+
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('leave_applications.index', compact('leaveApplications', 'current_module'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('leave_applications.index', compact('leaveApplications', 'current_module','permitted_menus_array'));
+                    }
+
          }
 
      }
@@ -97,8 +144,17 @@ class LeaveController extends Controller
 
         $leave_types = DB::table('leave_types')->where('company_id',$user_company_id)->get();
 
-        return view('leave_types.index', compact('current_module', 'leave_types'));
-
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('leave_types.index', compact('current_module', 'leave_types'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_types.index', compact('current_module', 'leave_types','permitted_menus_array'));
+                }
     }
 
     public function add_leave_type(){
@@ -107,8 +163,18 @@ class LeaveController extends Controller
         DB::table('current_modules')->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        return view('leave_types.create', compact('current_module'));
 
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('leave_types.create', compact('current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_types.create', compact('current_module','permitted_menus_array'));
+                }
     }
 
     public function submit_leave_tpye(Request $request){
@@ -135,8 +201,17 @@ class LeaveController extends Controller
 
         $leave_type = DB::table('leave_types')->where('id',$id)->first();
 
-        return view('leave_types.edit', compact('current_module','leave_type'));
-
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+        ->where('user_id',$user_id)
+        ->first();
+        if($menu_data == null){
+            return view('leave_types.edit', compact('current_module','leave_type'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_types.edit', compact('current_module','leave_type','permitted_menus_array'));
+                }
     }
 
     //for api
@@ -201,7 +276,18 @@ class LeaveController extends Controller
                        ->where('company_id',$user_company_id)
                        ->get();
 
-        return view('leave_applications.file_attachment_form', compact('current_module','leave_types'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('leave_applications.file_attachment_form', compact('current_module','leave_types'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.file_attachment_form', compact('current_module','leave_types','permitted_menus_array'));
+                }    
 
     }
 
@@ -266,9 +352,21 @@ class LeaveController extends Controller
                                ->where('leave_applications.id',$id)
                                ->first();
 
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('leave_applications.edit_file_attachment', compact('leaveApplication', 'current_module','leave_types'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.edit_file_attachment', compact('leaveApplication', 'current_module','leave_types','permitted_menus_array'));
+                }
+
         // dd($leaveApplication);
 
-        return view('leave_applications.edit_file_attachment', compact('leaveApplication', 'current_module','leave_types'));
     }
 
 
@@ -379,7 +477,18 @@ class LeaveController extends Controller
                            ->get();
 
 
-        return view('leave_applications.add_leave_application', compact('current_module','leave_types'));
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('leave_applications.add_leave_application', compact('current_module','leave_types'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.add_leave_application', compact('current_module','leave_types','permitted_menus_array'));
+                }
+        
     }
 
     public function store(Request $request)
@@ -428,7 +537,19 @@ class LeaveController extends Controller
                                ->where('leave_applications.id',$id)
                                ->first();
 
-        return view('leave_applications.edit_leave_application', compact('leaveApplication', 'current_module','leave_types'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('leave_applications.edit_leave_application', compact('leaveApplication', 'current_module','leave_types'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.edit_leave_application', compact('leaveApplication', 'current_module','leave_types','permitted_menus_array'));
+                }
+   
     }
 
     public function update(Request $request, $id)
@@ -466,7 +587,17 @@ class LeaveController extends Controller
          ->orderBy('leave_applications.id','DESC')
          ->get();
 
-        return view('leave_applications.approval_list', compact('leaveApplications', 'current_module'));
+
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('leave_applications.approval_list', compact('leaveApplications', 'current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.approval_list', compact('leaveApplications', 'current_module','permitted_menus_array'));
+                }
 
     }
 
@@ -486,9 +617,18 @@ class LeaveController extends Controller
                                 )
                                 ->where('leave_applications.id',$id)
                                 ->first();
-
-        return view('leave_applications.review_leave', compact('leaveApplication', 'current_module'));
-
+        
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('leave_applications.review_leave', compact('leaveApplication', 'current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('leave_applications.review_leave', compact('leaveApplication', 'current_module','permitted_menus_array'));
+                }
 
     }
 

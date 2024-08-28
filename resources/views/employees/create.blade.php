@@ -225,7 +225,9 @@ document.getElementById('memberForm').addEventListener('submit',function(event){
   event.preventDefault();
 
       var fileInput = $('#profile_pic')[0];
-      var filePath = fileInput.value;
+
+      if(fileInput.files.length > 0){
+        var filePath = fileInput.value;
       var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
       var maxSize = 2 * 1024 * 1024; // 2 MB
       
@@ -250,6 +252,8 @@ document.getElementById('memberForm').addEventListener('submit',function(event){
         e.preventDefault(); // Prevent the form from submitting
         return false;
       }
+      }
+     
         
   
 var memberFormData = new FormData(this);
