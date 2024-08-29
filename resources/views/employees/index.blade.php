@@ -14,7 +14,7 @@ Employee List
         <br>
         <div class="row">
             <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="">
+                <a class="btn btn-outline-info float-right" href="{{route('add_new_employee')}}">
                     <i class="fas fa-plus"></i> Add Employee
                 </a>            
             </div>
