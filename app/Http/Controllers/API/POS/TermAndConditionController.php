@@ -18,7 +18,20 @@ class TermAndConditionController extends Controller
                     ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        return view('terms_and_conditions.create',compact('current_module'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('terms_and_conditions.create',compact('current_module'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('terms_and_conditions.create',compact('current_module','permitted_menus_array'));
+                }
+
+        
 
     }
 
@@ -38,8 +51,18 @@ class TermAndConditionController extends Controller
                                  ->where('company_id',$user_company_id)
                                  ->first();
 
-        return view('terms_and_conditions.index',compact('current_module','terms_and_conditions'));
 
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('terms_and_conditions.index',compact('current_module','terms_and_conditions'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('terms_and_conditions.index',compact('current_module','terms_and_conditions','permitted_menus_array'));
+                }
     }
 
     public function store_terms_and_conditions(Request $request){

@@ -51,9 +51,9 @@ Item Category List
                           <th>Serial No.</th>
                           <th>Item Category Name</th>
                           <th>Status</th>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          {{-- @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
                           <th>Action</th>
-                          @endif
+                          {{-- @endif --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -69,11 +69,11 @@ Item Category List
                            <span class="badge badge-danger">Inactive</span>
                            @endif
                          </td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          {{-- @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
                           <td>
                             <a href="{{route('edit_item_category',$item_category->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                           </td>
-                          @endif
+                          {{-- @endif --}}
                         </tr> 
                         @endforeach              
                  

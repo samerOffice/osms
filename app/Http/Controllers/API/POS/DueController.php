@@ -42,9 +42,17 @@ class DueController extends Controller
                         )
                         ->get();
 
-    //  dd($due_list);
-
-    return view('dues.index',compact('current_module','due_list'));
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('dues.index',compact('current_module','due_list'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('dues.index',compact('current_module','due_list','permitted_menus_array'));
+                }
 
     }
 
@@ -85,8 +93,18 @@ class DueController extends Controller
         
         // dd($due_details);
 
-      
-        return view('dues.due_details',compact('current_module','customer_details','total_due_amount','due_details'));
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('dues.due_details',compact('current_module','customer_details','total_due_amount','due_details'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('dues.due_details',compact('current_module','customer_details','total_due_amount','due_details','permitted_menus_array'));
+                }
+
     }
 
     public function clear_due(Request $request){

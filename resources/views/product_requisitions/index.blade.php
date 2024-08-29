@@ -111,10 +111,8 @@ Purchased Product List
                               <th>Deliver Date</th>
                               <th>Supplier</th>
                               <th>Ordered By</th>
-                              <th>Status</th>
-                              @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-                              <th>Action</th>
-                              @endif
+                              <th>Status</th>                            
+                              <th>Action</th>                            
                             </tr>
                             </thead>
                             <tbody>
@@ -143,7 +141,7 @@ Purchased Product List
                                 <h5><span class="badge badge-success">Delivered</span></h5>
                                 @endif
                               </td>             
-                              @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                              {{-- @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
 
                               @if($requisition_order->requisition_status == 2)
                               <td>
@@ -160,7 +158,7 @@ Purchased Product List
                               </td>
                               @endif
 
-                              @endif
+                              {{-- @endif --}}
                             </tr> 
                             @endforeach              
                      
