@@ -328,15 +328,19 @@ class InvoiceController extends Controller
                                 ->where('company_id',$user_company_id)
                                 ->first();
             
-
-   
-        //   $result = (array) $result;
-        //   $filteredData = array_filter($result, function($value) {
-        //     return $value != 0;
-        // });
-
-         return view('invoices.show_invoice',compact('current_module','invoice_data','item_data','terms_and_conditions'));
-    }
+        
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('invoices.show_invoice',compact('current_module','invoice_data','item_data','terms_and_conditions'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('invoices.show_invoice',compact('current_module','invoice_data','item_data','terms_and_conditions','permitted_menus_array'));
+                }
+        }
 
 
 

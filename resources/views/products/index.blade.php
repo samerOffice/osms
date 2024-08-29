@@ -58,9 +58,9 @@ Product List
                               <th>Weight</th>
                               <th>Unit</th>
                               <th>Status</th>
-                              @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                              {{-- @if((auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
                               <th>Action</th>
-                              @endif
+                              {{-- @endif --}}
                             </tr>
                             </thead>
                             <tbody>
@@ -84,14 +84,14 @@ Product List
                               @endif
                               </td>                             
           
-                              @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                              {{-- @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
                               
                                 <td>
                                   <a href="{{route('edit_product',$product->id)}}" style="color: white"><button class="btn btn-primary"> <i class="fa-solid fa-pen-to-square"></i>Edit</button></a>
                                   <button class="btn btn-outline-danger" onclick="deleteOperation({{$product->id}})"><i class="fa-solid fa-trash"></i> Delete</button>
                                 </td>
                                                          
-                              @endif
+                              {{-- @endif --}}
 
                             </tr> 
                             @endforeach              

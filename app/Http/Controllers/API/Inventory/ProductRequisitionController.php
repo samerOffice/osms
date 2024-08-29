@@ -33,7 +33,19 @@ class ProductRequisitionController extends Controller
                             ->where('requisition_orders.company_id',$user_company_id)
                             ->get();
 
-        return view('product_requisitions.index',compact('current_module','requisition_orders'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('product_requisitions.index',compact('current_module','requisition_orders'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('product_requisitions.index',compact('current_module','requisition_orders','permitted_menus_array'));
+                }
+ 
     }
 
     public function new_stock(){
@@ -72,7 +84,19 @@ class ProductRequisitionController extends Controller
         ->where('product_status',1)
         ->get();
 
-        return view('product_requisitions.new_stock',compact('current_module','user_id','user_name','item_categories','suppliers','warehouses','products'));
+
+        // $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('product_requisitions.new_stock',compact('current_module','user_id','user_name','item_categories','suppliers','warehouses','products'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('product_requisitions.new_stock',compact('current_module','user_id','user_name','item_categories','suppliers','warehouses','products','permitted_menus_array'));
+                    }
+
     }
 
 
@@ -208,8 +232,19 @@ class ProductRequisitionController extends Controller
                     // ->where('id', $request->id)
                     ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
-        
-        return view('product_requisitions.edit',compact('current_module','id'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('product_requisitions.edit',compact('current_module','id'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('product_requisitions.edit',compact('current_module','id','permitted_menus_array'));
+                    } 
+
     }
 
     
@@ -393,8 +428,18 @@ class ProductRequisitionController extends Controller
                                 ->get();
 
         //  dd($product_requisitions);
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('product_requisitions.view',compact('current_module','user_name','user_email','requisition_order','product_requisitions','id'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('product_requisitions.view',compact('current_module','user_name','user_email','requisition_order','product_requisitions','id','permitted_menus_array'));
+                    }
 
-        return view('product_requisitions.view',compact('current_module','user_name','user_email','requisition_order','product_requisitions','id'));
     }
 
 

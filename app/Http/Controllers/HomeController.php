@@ -310,14 +310,39 @@ class HomeController extends Controller
                       ->get();
 
 
-      return view('dashboard',compact('current_module',
+
+
+
+
+    $user_id = Auth::user()->id;
+    $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+    if($menu_data == null){
+                      return view('dashboard',compact('current_module',
+                      'sales',
+                      'top_seller_name',
+                      'top_seller_designation',
+                      'max_selling_amount',
+                      'top_selling_product_name',
+                      'top_selling_product_desc'
+                    ));
+        }else{
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+        return view('dashboard',compact('current_module',
                                       'sales',
                                       'top_seller_name',
                                       'top_seller_designation',
                                       'max_selling_amount',
                                       'top_selling_product_name',
-                                      'top_selling_product_desc'
+                                      'top_selling_product_desc',
+                                      'permitted_menus_array'
                                     ));
+            }
+
+
+      
       
     }
 
@@ -359,13 +384,26 @@ class HomeController extends Controller
                             ->count('total_amount');
 
 
-   
-
-      return view('dashboard',compact('current_module',
+      $user_id = Auth::user()->id;
+      $menu_data = DB::table('menu_permissions')
+                      ->where('user_id',$user_id)
+                      ->first();
+      if($menu_data == null){
+          return view('dashboard',compact('current_module',
                                       'total_item_categories',
                                       'total_product_categories',
                                       'total_products'
                                     ));
+          }else{
+          $permitted_menus = $menu_data->menus;
+          $permitted_menus_array = explode(',', $permitted_menus);
+          return view('dashboard',compact('current_module',
+                                      'total_item_categories',
+                                      'total_product_categories',
+                                      'total_products',
+                                      'permitted_menus_array'
+                                    ));
+              }
       
     }
 

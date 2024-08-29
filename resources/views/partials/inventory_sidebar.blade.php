@@ -17,7 +17,7 @@
         </a>
       </li>
 
-
+      @if((Auth::user()->role_id == 1) || (Auth::user()->role_id == 2) || (in_array(12, $permitted_menus_array)))
       <li class="nav-item @if(Request::is('add_item_category')) menu-open 
             @elseif(Request::is('item_category_list')) menu-open 
             @endif">
@@ -45,8 +45,10 @@
           </li>
         </ul>
       </li>
+      @endif
 
 
+      @if((Auth::user()->role_id == 1) || (Auth::user()->role_id == 2) || (in_array(13, $permitted_menus_array)))
       <li class="nav-item @if(Request::is('add_product_category')) menu-open 
             @elseif(Request::is('product_category_list')) menu-open 
             @endif">
@@ -73,9 +75,9 @@
           </li>
         </ul>
       </li>
+      @endif
 
-
-
+      @if((Auth::user()->role_id == 1) || (Auth::user()->role_id == 2) || (in_array(14, $permitted_menus_array)))
       <li class="nav-item @if(Request::is('add_product')) menu-open 
             @elseif(Request::is('product_list')) menu-open
             @endif">
@@ -101,8 +103,10 @@
           </li>
         </ul>
       </li>
+      @endif
 
 
+      @if((Auth::user()->role_id == 1) || (Auth::user()->role_id == 2) || (in_array(15, $permitted_menus_array)))
       @if(Auth::user()->review_requisition == 1)
       <li class="nav-item @if(Request::is('requisition_list')) menu-open @endif">
         <a href="#" class="nav-link">
@@ -124,8 +128,10 @@
         </ul>
       </li>
       @endif
+      @endif
 
 
+      @if((Auth::user()->role_id == 1) || (Auth::user()->role_id == 2) || (in_array(16, $permitted_menus_array)))
       <li class="nav-item nav-link 
             @if(Request::is('stock_list')) nav-link active
             @endif
@@ -144,8 +150,10 @@
           </p>
         </a>
       </li>
+      @endif
 
   
+      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
       <li class="nav-item @if(Request::is('damage_report')) menu-open 
             @endif">
         <a href="#" class="nav-link">
@@ -172,3 +180,4 @@
           </li> --}}
         </ul>
       </li>
+      @endif

@@ -132,7 +132,7 @@
       </li>
       @endif
 
-
+      @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
         <li class="nav-item @if(Request::is('profit_and_loss_report')) menu-open 
              @elseif(Request::is('sale_report')) menu-open
             @endif">
@@ -174,3 +174,4 @@
 
         </ul>
       </li>
+      @endif

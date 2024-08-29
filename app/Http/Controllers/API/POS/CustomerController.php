@@ -116,8 +116,19 @@ class CustomerController extends Controller
                         ->table('customers')
                         ->where('id',$id)
                         ->first();
-    
-        return view('customers.edit',compact('current_module','customer'));
+
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('customers.edit',compact('current_module','customer'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('customers.edit',compact('current_module','customer','permitted_menus_array'));
+                }
 
     }
 

@@ -25,14 +25,44 @@ class ProductController extends Controller
             $item_categories =  DB::connection('inventory')
                                 ->table('item_categories')
                                 ->get();
-            return view('item_categories.index',compact('current_module','item_categories'));
+
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+            if($menu_data == null){
+                return view('item_categories.index',compact('current_module','item_categories'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('item_categories.index',compact('current_module','item_categories','permitted_menus_array'));
+                    }
+
         }else{
             $item_categories = DB::connection('inventory')
                                 ->table('item_categories')                 
                                 ->where('company_id',$user_company_id)
                                 ->get();
-         return view('item_categories.index',compact('current_module','item_categories'));
+
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+
+            if($menu_data == null){
+                return view('item_categories.index',compact('current_module','item_categories'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('item_categories.index',compact('current_module','item_categories','permitted_menus_array'));
+                    }
+
         }
+
+
+
     }
 
 
@@ -44,7 +74,18 @@ class ProductController extends Controller
                     ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        return view('item_categories.create',compact('current_module'));
+        
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+            if($menu_data == null){
+                return view('item_categories.create',compact('current_module'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('item_categories.create',compact('current_module','permitted_menus_array'));
+                    }
     }
 
 
@@ -81,7 +122,18 @@ class ProductController extends Controller
                         ->where('id',$id)
                         ->first();
 
-    return view('item_categories.edit',compact('current_module','item_category'));
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+            if($menu_data == null){
+                return view('item_categories.edit',compact('current_module','item_category'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('item_categories.edit',compact('current_module','item_category','permitted_menus_array'));
+                    }
+
     }
  
     //for api
@@ -149,7 +201,20 @@ class ProductController extends Controller
                                 ->leftJoin('item_categories','product_categories.item_category_id','item_categories.id')
                                 ->select('product_categories.*','item_categories.name as item_category_name')
                                 ->get();
-            return view('product_categories.index',compact('current_module','product_categories'));
+
+            
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                                ->where('user_id',$user_id)
+                                ->first();
+                if($menu_data == null){
+                    return view('product_categories.index',compact('current_module','product_categories'));
+                    }else{
+                    $permitted_menus = $menu_data->menus;
+                    $permitted_menus_array = explode(',', $permitted_menus);
+                    return view('product_categories.index',compact('current_module','product_categories','permitted_menus_array'));
+                        }
+
         }else{
             $product_categories = DB::connection('inventory')
                                 ->table('product_categories')  
@@ -157,7 +222,18 @@ class ProductController extends Controller
                                 ->select('product_categories.*','item_categories.name as item_category_name')            
                                 ->where('product_categories.company_id',$user_company_id)
                                 ->get();
-         return view('product_categories.index',compact('current_module','product_categories'));
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                                ->where('user_id',$user_id)
+                                ->first();
+                if($menu_data == null){
+                    return view('product_categories.index',compact('current_module','product_categories'));
+                    }else{
+                    $permitted_menus = $menu_data->menus;
+                    $permitted_menus_array = explode(',', $permitted_menus);
+                    return view('product_categories.index',compact('current_module','product_categories','permitted_menus_array'));
+                        }
         }
     }
     
@@ -178,7 +254,18 @@ class ProductController extends Controller
                            ->where('active_status',1)
                            ->get();
 
-        return view('product_categories.create',compact('current_module','item_categories'));
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+            if($menu_data == null){
+                return view('product_categories.create',compact('current_module','item_categories'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('product_categories.create',compact('current_module','item_categories','permitted_menus_array'));
+                    }
+        
     }
 
     public function submit_product_category(Request $request){
@@ -225,7 +312,21 @@ class ProductController extends Controller
                            ->where('company_id',$user_company_id)
                            ->where('active_status',1)
                            ->get();
-    return view('product_categories.edit',compact('current_module','product_category','item_categories'));
+
+
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                            ->where('user_id',$user_id)
+                            ->first();
+            if($menu_data == null){
+                return view('product_categories.edit',compact('current_module','product_category','item_categories'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('product_categories.edit',compact('current_module','product_category','item_categories','permitted_menus_array'));
+                    }
+
     }
  
     //for api
@@ -307,17 +408,57 @@ class ProductController extends Controller
         $current_module = DB::table('current_modules')->first();
 
         $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
 
+        if($user_role_id == 1){
 
-        $products = DB::connection('inventory')
+            $products = DB::connection('inventory')
                     ->table('products')
                     ->leftJoin('item_categories','products.item_category_id','item_categories.id')
                     ->leftJoin('product_categories','products.product_category_id','product_categories.id')
                     ->select('products.*','item_categories.name as item_category_name', 'product_categories.name as product_category_name')
-                    ->where('shop_company_id',$user_company_id)
+                    // ->where('shop_company_id',$user_company_id)
                     ->get();
 
-       return view('products.index',compact('current_module','products'));
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('products.index',compact('current_module','products'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('products.index',compact('current_module','products','permitted_menus_array'));
+                    }        
+
+        }else{
+
+            $products = DB::connection('inventory')
+                    ->table('products')
+                    ->leftJoin('item_categories','products.item_category_id','item_categories.id')
+                    ->leftJoin('product_categories','products.product_category_id','product_categories.id')
+                    ->select('products.*','item_categories.name as item_category_name', 'product_categories.name as product_category_name')
+                    ->where('products.shop_company_id',$user_company_id)
+                    ->get();
+
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('products.index',compact('current_module','products'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('products.index',compact('current_module','products','permitted_menus_array'));
+                    }
+
+        }
+
+        
       }
 
 
@@ -336,9 +477,20 @@ class ProductController extends Controller
         $item_categories = DB::connection('inventory')
                            ->table('item_categories')
                            ->where('company_id',$user_company_id)
-                           ->get();       
-
-        return view('products.create',compact('current_module','item_categories'));
+                           ->get(); 
+                           
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('products.create',compact('current_module','item_categories'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('products.create',compact('current_module','item_categories','permitted_menus_array'));
+                }
+   
 
     }
 
@@ -416,8 +568,19 @@ class ProductController extends Controller
                            ->where('active_status',1)
                            ->get();
 
-        
-    return view('products.edit',compact('current_module','product','item_categories'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('products.edit',compact('current_module','product','item_categories'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('products.edit',compact('current_module','product','item_categories','permitted_menus_array'));
+                }
+
     }
  
     //for api

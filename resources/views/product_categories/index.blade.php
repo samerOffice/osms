@@ -52,9 +52,9 @@ Product Category List
                           <th>Product Category Name</th>
                           <th>Item Category Name</th>
                           <th>Status</th>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          {{-- @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
                           <th>Action</th>
-                          @endif
+                          {{-- @endif --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -71,11 +71,11 @@ Product Category List
                            <span class="badge badge-danger">Inactive</span>
                            @endif
                          </td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          {{-- @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2)) --}}
                           <td>
                             <a href="{{route('edit_product_category',$product_category->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                           </td>
-                          @endif
+                          {{-- @endif --}}
                         </tr> 
                         @endforeach              
                  

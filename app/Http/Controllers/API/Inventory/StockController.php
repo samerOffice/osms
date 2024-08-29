@@ -38,7 +38,20 @@ class StockController extends Controller
                 'products.product_name'
                     )
             ->get();
-            return view('stocks.index',compact('current_module','stocks'));
+
+
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('stocks.index',compact('current_module','stocks'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('stocks.index',compact('current_module','stocks','permitted_menus_array'));
+                    }
 
         }else{
             $stocks = DB::connection('inventory')
@@ -56,7 +69,19 @@ class StockController extends Controller
                 'products.product_name'
                     )
             ->get();
-            return view('stocks.index',compact('current_module','stocks'));
+
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('stocks.index',compact('current_module','stocks'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('stocks.index',compact('current_module','stocks','permitted_menus_array'));
+                    }
         }
      
     }
@@ -109,7 +134,19 @@ class StockController extends Controller
                         ->where('stocks.product_id',$id)
                         ->get();
 
-            return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id'));
+
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id','permitted_menus_array'));
+                    }
+       
         }else{
             $stocks = DB::connection('inventory')
             ->table('stocks') 
@@ -131,7 +168,18 @@ class StockController extends Controller
             ->where('stocks.product_id',$id)
             ->get();
 
-            return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id'));
+            $user_id = Auth::user()->id;
+            $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('stocks.view',compact('current_module','stocks','company_name','branch_name','id','permitted_menus_array'));
+                    }
+   
         }
  
     }
@@ -164,8 +212,18 @@ class StockController extends Controller
 
         // dd($label);
 
-        return view('stocks.add_label',compact('current_module','label'));
-       
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('stocks.add_label',compact('current_module','label'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('stocks.add_label',compact('current_module','label','permitted_menus_array'));
+                    }     
 
     }
 
@@ -180,7 +238,6 @@ class StockController extends Controller
         $current_module = DB::table('current_modules')->first();
 
        
-    
           $damage_product = DB::connection('inventory')
                             ->table('stocks')
                             ->leftJoin('products','stocks.product_id','products.id')
@@ -193,8 +250,19 @@ class StockController extends Controller
                                 ) 
                             ->where('stocks.id', $id)
                             ->first();
-        
-         return view('stocks.damage_product',compact('current_module','damage_product'));
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                    ->where('user_id',$user_id)
+                    ->first();
+            if($menu_data == null){
+                return view('stocks.damage_product',compact('current_module','damage_product'));
+                }else{
+                $permitted_menus = $menu_data->menus;
+                $permitted_menus_array = explode(',', $permitted_menus);
+                return view('stocks.damage_product',compact('current_module','damage_product','permitted_menus_array'));
+                    }   
+         
     }
 
 
@@ -251,18 +319,6 @@ class StockController extends Controller
         
            
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
