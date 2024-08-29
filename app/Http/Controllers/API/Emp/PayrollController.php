@@ -105,12 +105,24 @@ class PayrollController extends Controller
 
             $per_day_salary = ceil($employee_monthly_salary / 26);
 
+
+            $current_date = Carbon::now()->format('Y-m-d');
+            $previous_month = Carbon::now()->subMonth()->format('Y-m-d');
+
+            $leave = DB::table('leave_applications')
+                         ->where('user_id',$selectedMemberId)
+                         ->whereMonth('application_date',Carbon::parse($previous_month)->month)
+                         ->whereYear('application_date',Carbon::parse($previous_month)->year)
+                         ->sum('approved_duration');
+
+
     
             $data = [
                 'joining_date' => $employeeInfo->joining_date,
                 'joining_month' => $joining_month,
                 'employee_monthly_salary' => $employeeInfo->emp_monthly_salary,
-                'per_day_salary' => $per_day_salary
+                'per_day_salary' => $per_day_salary,
+                'total_leave_day' => $leave
             ];
 
             return $data;

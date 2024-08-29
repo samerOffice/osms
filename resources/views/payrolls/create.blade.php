@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Payroll
 @endsection
 
 @section('content')
@@ -62,11 +62,11 @@ Welcome
                                               </tr>
                                               <tr>
                                                   <td>Total Leave</td>
-                                                  <td><input type="number" id="total_leave" name="total_leave" value="0" class="form-control"></td>
+                                                  <td><input type="number" id="total_leave" name="total_leave"  class="form-control"></td>
                                               </tr>
                                               <tr>
                                                   <td>Total Number of payable days</td>
-                                                  <td><input type="number" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_number_of_pay_day" name="total_number_of_pay_day" value="26" class="form-control"></td>
+                                                  <td><input type="number" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_number_of_pay_day" name="total_number_of_pay_day" class="form-control"></td>
                                               </tr>
                                               <tr>
                                                   <td>Per Day Salary</td>
@@ -195,10 +195,20 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
         console.log('my response');
         console.log(response.data.employee_monthly_salary);
         console.log(response.data.per_day_salary);
+        console.log(response.data.total_leave_day);
 
       $('#joining_date').val(response.data.joining_date);
       $('#per_day_salary').val(response.data.per_day_salary);
-   
+      $('#total_leave').val(response.data.total_leave_day);
+
+    //number of pay day set based on total approved leave (start)
+    // $('#total_working_day').val('26');
+    var total_working_day = $('#total_working_day').val(); // Retrieve the value
+    var total_leave = parseFloat($('#total_leave').val());
+    var total_number_of_pay_day = total_working_day-total_leave;
+    $('#total_number_of_pay_day').val(total_number_of_pay_day);
+    //number of pay day set based on total approved leave (end)
+
       var member_joining_date_from_response = response.data.joining_date;
       var dateParts = member_joining_date_from_response.split("-");
       var jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
@@ -211,7 +221,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
       $('#member_joining_date').html(formattedDate);
 
     if((response.data.per_day_salary) != ''){
-      $('#total_number_of_pay_day').val('26');
+      $('#total_number_of_pay_day').val();
         $('#total_daily_allowance').val(0);
         $('#total_travel_allowance').val(0);
         $('#rental_cost_allowance').val(0);

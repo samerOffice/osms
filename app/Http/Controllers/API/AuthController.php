@@ -154,10 +154,20 @@ class AuthController extends Controller
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password])){
             
             $user = Auth::user();
+
+            $user_company_id = Auth::user()->company_id;
+            $user_name = Auth::user()->name;
+
+            $company = DB::table('companies')
+                        ->where('id',$user_company_id)
+                        ->first();
+
+            $shop_name = $company->company_name;
             
             if($user->active_status == 1){  
                 $success['token'] = $user->createToken('myToken')->plainTextToken;
-                $success['name'] = $user->name;
+                $success['shop_owner_name'] = $user_name;
+                $success['shop_name'] = $shop_name;
     
                 $current_modules = array();
                 $current_modules['module_status'] = '1';
