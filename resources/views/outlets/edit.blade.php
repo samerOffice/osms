@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Edit Outlet
 @endsection
 
 @section('content')

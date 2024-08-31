@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Edit Branch
 @endsection
 
 @section('content')

@@ -9,8 +9,8 @@ Payroll
   <section class="content">
       <div class="container-fluid">
           <div class="row">
-              <div class="col-2"></div>
-              <div class="col-8">
+              <div class="col-md-2 col-sm-1"></div>
+              <div class="col-md-8 col-sm-10">
                   <!-- Main content -->
                   <div class="card p-4 mt-3">
                       <!-- title row -->
@@ -54,7 +54,7 @@ Payroll
                                           <tbody>
                                               <tr>
                                                   <td>Joining Date</td>
-                                                  <td><input type="date" readonly id="joining_date" name="joining_date" class="form-control"></td>
+                                                  <td><input type="date" readonly id="joining_date" style="background-color : #b7f3fd" name="joining_date" class="form-control"></td>
                                               </tr>
                                               <tr>
                                                   <td>Total Working days</td>
@@ -150,7 +150,7 @@ Payroll
                   </div>
                   <!-- /.card -->
               </div><!-- /.col -->
-              <div class="col-2"></div>
+              <div class="col-md-2 col-sm-1"></div>
           </div><!-- /.row -->
       </div><!-- /.container-fluid -->
   </section>

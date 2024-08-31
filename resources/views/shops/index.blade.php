@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Department List
+Shop List
 @endsection
 
 
@@ -14,35 +14,12 @@ Department List
         <br>
         <div class="row">
 
-          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
-          <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_department')}}">
-                <i class="fas fa-plus"></i> Add Department
-            </a>
-          </div>
-          @endif
-           
-          <div class="col-12">
-            <br>
-            @if ($message = Session::get('success'))
-            <div class="alert alert-info" role="alert">
-              <div class="row">
-                <div class="col-11">
-                  {{ $message }}
-                </div>
-                <div class="col-1">
-                  <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-              </div>
-            </div>
-            @endif
-        </div>
      
             <div class="col-12">
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Department List</h3>
+                      <h3 class="card-title">Shop List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -51,26 +28,24 @@ Department List
                         <tr>
                           <th>Serial No.</th>
                           <th>Shop Name</th>
-                          <th>Branch Name</th>
-                          <th>Department Name</th>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          <th>Contact Number</th>
+                          <th>Trade Licence Number</th>
+                          <th>BIN Number</th>
                           <th>Action</th>
-                          @endif
                         </tr>
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
-                            @foreach($departments as $department)
+                            @foreach($shops as $shop)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$department->company_name}}</td>
-                          <td>{{$department->branch_name}}</td>
-                          <td>{{$department->dept_name}}</td>
-                          @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
+                          <td>{{$shop->company_name}}</td>
+                          <td>{{$shop->contact_no}}</td>
+                          <td>{{$shop->license_no}}</td>
+                          <td>{{$shop->registration_no}}</td>
                           <td>
-                            <a href="{{route('edit_department',$department->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            <a href="{{route('view_shop', $shop->id)}}" style="color: white"><button class="btn btn-outline-info"><i class="fa-solid fa-eye"></i> View</button></a>
                           </td>
-                          @endif
                         </tr> 
                         @endforeach              
                  
@@ -91,10 +66,10 @@ Department List
 
 @push('masterScripts')
 <script>
-    $(document).ready(function() {
+      $(document).ready(function() {
     $('#example1').DataTable({
-      responsive: true, // Enable responsive behavior  
-      dom: 'Bfrtip',
+      responsive: true, // Enable responsive behavior
+        dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'print',
@@ -123,5 +98,6 @@ Department List
         ]
     });
 });
+    
   </script>
   @endpush
