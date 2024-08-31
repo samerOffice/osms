@@ -50,7 +50,7 @@ Branch List
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Company Name</th>
+                          <th>Shop Name</th>
                           <th>Branch Name</th>
                           <th>Branch Type</th>
                           <th>Branch Status</th>

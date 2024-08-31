@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\SuperAdmin\DesignationController;
 use App\Http\Controllers\API\SuperAdmin\BusinessTypeController;
 
+use App\Http\Controllers\API\Admin\ShopController;
 use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
@@ -49,6 +50,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //..............********** Super Admin/ Admin dashboard module **********...........
+
+//shop
+Route::middleware('auth:sanctum')->post('/update_shop/{shop_id}',[App\Http\Controllers\API\Admin\ShopController::class,'update_shop']);
+
 //branch
 Route::middleware('auth:sanctum')->post('/branch_store',[App\Http\Controllers\API\Admin\BranchController::class,'branch_store']);
 Route::middleware('auth:sanctum')->get('/edit_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'edit_branch_via_api']);

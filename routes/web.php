@@ -8,6 +8,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\SuperAdmin\DesignationController;
 use App\Http\Controllers\API\SuperAdmin\BusinessTypeController;
 
+use App\Http\Controllers\API\Admin\ShopController;
 use App\Http\Controllers\API\Admin\BranchController;
 use App\Http\Controllers\API\Admin\DepartmentController;
 use App\Http\Controllers\API\Admin\OutletController;
@@ -61,6 +62,13 @@ Route::get('/inventory_module_active', [HomeController::class, 'inventory_module
 Route::get('/emp_module_active', [HomeController::class, 'emp_module_active'])->name('empModuleActive');
 
 //............**************** Super Admin/Admin Dashboard module **************...................
+
+//shop
+Route::get('/shop_list', [ShopController::class, 'shop_list'])->name('shop_list');
+Route::get('/view_shop/{shop_id}', [ShopController::class, 'view_shop'])->name('view_shop');
+Route::get('/shop_details', [ShopController::class, 'shop_details'])->name('shop_details');
+
+
 //branch
 Route::get('/branch_list', [BranchController::class, 'branch_list'])->name('branch_list');
 Route::get('/add_branch', [BranchController::class, 'add_branch'])->name('add_branch');

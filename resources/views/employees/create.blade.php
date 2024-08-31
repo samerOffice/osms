@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Personal Info
 @endsection
 
 

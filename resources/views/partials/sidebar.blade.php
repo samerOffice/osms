@@ -43,6 +43,32 @@
           </a>
         </li>
 
+
+        @if((auth()->user()->role_id == 1))
+        <li class="nav-item nav-link @if(Request::is('shop_list')) nav-link active @endif" style="@if(Request::is('shop_list')) background-color: #908ec4; @endif">
+          <a href="{{route('shop_list')}}">
+            <i class="nav-icon fa-solid fa-list" style=" @if(Request::is('shop_list')) color: white; @endif"></i>
+            <p style="@if(Request::is('shop_list')) color:white; @endif"> Shop List</p>
+          </a>
+        </li>
+
+        <li class="nav-item nav-link @if(Request::is('shop_details')) nav-link active @endif" style="@if(Request::is('shop_details')) background-color: #908ec4; @endif">
+          <a href="{{route('shop_details')}}">
+            <i class="nav-icon fa-solid fa-shop" style=" @if(Request::is('shop_details')) color: white; @endif"></i>
+            <p style="@if(Request::is('shop_details')) color:white; @endif"> Shop Details</p>
+          </a>
+        </li>
+
+        @elseif((auth()->user()->role_id == 2))
+        <li class="nav-item nav-link @if(Request::is('shop_details')) nav-link active @endif" style="@if(Request::is('shop_details')) background-color: #908ec4; @endif">
+          <a href="{{route('shop_details')}}">
+            <i class="nav-icon fa-solid fa-shop" style=" @if(Request::is('shop_details')) color: white; @endif"></i>
+            <p style="@if(Request::is('shop_details')) color:white; @endif"> Shop</p>
+          </a>
+        </li>
+        @else
+        @endif
+
         <li class="nav-item nav-link @if(Request::is('branch_list')) nav-link active @endif" style="@if(Request::is('branch_list')) background-color: #908ec4; @endif">
           <a href="{{route('branch_list')}}">
             <i class="nav-icon fa-solid fa-building" style=" @if(Request::is('branch_list')) color: white; @endif"></i>

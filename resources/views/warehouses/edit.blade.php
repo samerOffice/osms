@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Welcome
+Edit Warehouse
 @endsection
 
 @section('content')
