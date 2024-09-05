@@ -43,6 +43,45 @@ class BranchController extends Controller
 
     }
 
+
+    public function branch_list_for_api(Request $request)
+    {
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+    
+        // Retrieve the search query from the request
+        $search = $request->input('search'); // Default to an empty string if no search parameter is provided
+
+    
+    
+        // Build the query based on user role and search query
+        $query = DB::table('branches')
+            ->leftJoin('companies', 'branches.company_id', '=', 'companies.id')
+            ->select('branches.*', 'companies.company_name as company_name');
+    
+        // Apply search filter
+        if (!empty($search)) {
+            $query->where(function($q) use ($search) {
+                $q->where('branches.br_name', 'like', "%$search%")
+                  ->orWhere('companies.company_name', 'like', "%$search%");
+            });
+        }
+    
+        // Apply company filter based on user role
+        if ($user_role_id != 1) {
+            $query->where('branches.company_id', $user_company_id);
+        }
+    
+        // Paginate the results
+        $branches = $query->paginate(10);
+    
+        // Return the response as JSON with pagination data
+        return response()->json([
+            'branches' => $branches,
+        ]);
+    }
+    
+
     public function add_branch(){
 
         $current_modules = array();

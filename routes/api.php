@@ -59,6 +59,7 @@ Route::middleware('auth:sanctum')->post('/branch_store',[App\Http\Controllers\AP
 Route::middleware('auth:sanctum')->get('/edit_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'edit_branch_via_api']);
 Route::middleware('auth:sanctum')->post('/update_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'update_branch']);
 // Route::middleware('auth:sanctum')->patch('/update_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'update_branch']);
+Route::middleware('auth:sanctum')->get('/branch_list',[App\Http\Controllers\API\Admin\BranchController::class,'branch_list_for_api']);
 
 //outlet
 Route::middleware('auth:sanctum')->post('/outlet_store',[App\Http\Controllers\API\Admin\OutletController::class,'outlet_store']);
