@@ -32,9 +32,6 @@ class AuthController extends Controller
             return response()->json($response,400);
         }
 
-        // $input = $request->all();
-        // $input['password'] = Hash::make($input['password']);
-        // $user = User::create($input);
 
         $company = DB::table('companies')
                    ->insertGetId([
@@ -58,28 +55,7 @@ class AuthController extends Controller
         'br_status' => '1',
         ]);
 
-        // $department = DB::table('departments')
-        // ->insertGetId([
-        // 'dept_name' => $request->dept_name
-        // ]);
-
-
-
-        // $user = DB::table('users')
-        // ->insertGetId([
-        // 'name'=>$request->name,
-        // 'email'=>$request->email,
-        // 'password'=>Hash::make($request->password),
-        // 'role_id'=>$request->role,
-        // 'company_id'=>$company,
-        // 'branch_id'=>$branch,
-        // 'department_id'=>$department,
-        // 'designation'=>$designation,
-        // 'active_status' => '1',
-        // 'company_business_type'=>$business_type
-        // ]);
-
-
+    
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -88,7 +64,6 @@ class AuthController extends Controller
         $user->company_id = $company;
         $user->branch_id = $branch;
         $user->review_requisition = '1';
-        // $user->department_id = $department;
         $user->designation = $request->designation_name;
         $user->joining_date = $request->joining_date;
         $user->active_status = '1';
@@ -96,6 +71,30 @@ class AuthController extends Controller
         $user->save();
 
         $success['name'] = $user->name;
+        $success['email'] = $user->email;
+        $success['role_id'] = $user->role_id;
+        $success['company_id'] = $user->company_id;
+        $success['branch_id'] = $user->branch_id;
+        $success['designation_id'] = $user->designation;
+        $success['joining_date'] = $user->joining_date;
+        $success['company_business_type_id'] = $user->company_business_type;
+
+
+        $user_company = DB::table('companies')
+                           ->where('id',$company)
+                           ->first();
+        $success['company_name'] = $user_company->company_name;
+
+        $user_branch = DB::table('branches')
+                           ->where('id',$branch)
+                           ->first();
+        $success['branch_name'] = $user_branch->br_name;
+
+        $user_designation = DB::table('designations')
+                           ->where('id',$user->designation)
+                           ->first();
+        $success['designation_name'] = $user_designation->designation_name;
+
         $role = $user->role_id;
 
 
@@ -129,21 +128,19 @@ class AuthController extends Controller
             ]); 
         }
 
-
         // $success['token'] = $user->createToken('myToken')->plainTextToken;
        
         $response = [
             'success' => true,
-            'data' => $success,
             'flag' => 1,
-            'message' => 'User is created successfully'
+            'message' => 'User is created successfully',
+            'data' => $success
         ];
 
         $current_modules = array();
-            $current_modules['module_status'] = '1';
-            $update_module = DB::table('current_modules')
-                //   ->where('id', $request->id)
-                  ->update($current_modules);
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                        ->update($current_modules);
 
         return response()->json($response,200); 
 
@@ -164,7 +161,10 @@ class AuthController extends Controller
 
             $shop_name = $company->company_name;
             
-            if($user->active_status == 1){  
+            if($user->active_status == 1){ 
+                
+                $user->tokens()->delete();
+                
                 $success['token'] = $user->createToken('myToken')->plainTextToken;
                 $success['shop_owner_name'] = $user_name;
                 $success['shop_name'] = $shop_name;

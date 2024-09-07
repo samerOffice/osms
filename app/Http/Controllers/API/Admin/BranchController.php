@@ -9,6 +9,8 @@ use DB;
 
 class BranchController extends Controller
 {
+    
+    
     public function branch_list(){
 
         $user_company_id = Auth::user()->company_id;
@@ -46,14 +48,13 @@ class BranchController extends Controller
 
     public function branch_list_for_api(Request $request)
     {
+          
         $user_company_id = Auth::user()->company_id;
         $user_role_id = Auth::user()->role_id;
     
         // Retrieve the search query from the request
         $search = $request->input('search'); // Default to an empty string if no search parameter is provided
 
-    
-    
         // Build the query based on user role and search query
         $query = DB::table('branches')
             ->leftJoin('companies', 'branches.company_id', '=', 'companies.id')

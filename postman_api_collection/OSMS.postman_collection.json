@@ -50,7 +50,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/branch_store",
+							"raw": "http://localhost/osms/api/branch_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -66,27 +66,36 @@
 				},
 				{
 					"name": "Specific Branch Details",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"value": "489|y66eO0e6S88STiu8BnXBZ1DxEIHyXfxgCWksa8Thc733eb03",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost/api/edit_branch/5",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/edit_branch/5",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"edit_branch",
 								"5"
@@ -136,7 +145,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_branch/5",
+							"raw": "http://localhost/osms/api/update_branch/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -146,6 +155,51 @@
 								"api",
 								"update_branch",
 								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "branch list",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "496|KP3vDf8C1Tqfcs6P54mA81mz8Uc6CeR0iU7kBsfb01198140",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/branch_list?search=",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"branch_list"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -166,12 +220,12 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "samer",
+									"value": "Jasim Molla",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "rahat@gmail.com",
+									"value": "ja@gmail.com",
 									"type": "text"
 								},
 								{
@@ -180,50 +234,116 @@
 									"type": "text"
 								},
 								{
-									"key": "role_id",
-									"value": "2",
+									"key": "company_name",
+									"value": "Example Company",
 									"type": "text"
 								},
 								{
-									"key": "company_id",
-									"value": "2",
+									"key": "company_email",
+									"value": "examplecompany@gmail.com",
 									"type": "text"
 								},
 								{
-									"key": "branch_id",
-									"value": "2",
+									"key": "company_contact_no",
+									"value": "01513470158",
 									"type": "text"
 								},
 								{
-									"key": "department_id",
-									"value": "2",
+									"key": "company_license_no",
+									"value": "LIC-123456",
 									"type": "text"
 								},
 								{
-									"key": "designation",
-									"value": "2",
+									"key": "company_address",
+									"value": "12 number road, Tejgaon, Dhaka",
 									"type": "text"
 								},
 								{
-									"key": "active_status",
-									"value": "2",
+									"key": "company_reg_no",
+									"value": "REG-7890",
 									"type": "text"
 								},
 								{
-									"key": "company_business_type",
+									"key": "division",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "district",
+									"value": "47",
+									"type": "text"
+								},
+								{
+									"key": "company_country",
+									"value": "Bangladesh",
+									"type": "text"
+								},
+								{
+									"key": "br_name",
+									"value": "Khilgaon",
+									"type": "text"
+								},
+								{
+									"key": "br_address",
+									"value": "10 no. road, Khilgaon, Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "br_type",
+									"value": "1",
+									"description": "1 = Head Office (Fixed)",
+									"type": "text"
+								},
+								{
+									"key": "role",
 									"value": "2",
+									"description": "2 = Admin (Fixed)",
+									"type": "text"
+								},
+								{
+									"key": "designation_name",
+									"value": "1",
+									"description": "variable (selection from designation list)",
+									"type": "text"
+								},
+								{
+									"key": "joining_date",
+									"value": "2024-09-01",
+									"description": "current date",
+									"type": "text"
+								},
+								{
+									"key": "business_type",
+									"value": "1",
+									"description": "variable (selection from designation list)",
+									"type": "text"
+								},
+								{
+									"key": "menu[]",
+									"value": "1",
+									"description": "menu permission array (1 = Employee Dashboard)",
+									"type": "text"
+								},
+								{
+									"key": "menu[]",
+									"value": "2",
+									"description": "menu permission array (2 = Inventory Dashboard)",
+									"type": "text"
+								},
+								{
+									"key": "menu[]",
+									"value": "3",
+									"description": "menu permission array (3 = POS dashboard)",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/register",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/register",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"register"
 							]
@@ -252,13 +372,11 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/login",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/login",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"login"
 							]
@@ -277,7 +395,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "312|Y8y4fovL8yD93AXfRVKYJyT6hun7qomwN2GMEuFS5933987a",
+									"value": "487|UkbzfItB8m8o7uzgY26NS5AhXQqfawjXtJFiOQY2c61f0c16",
 									"type": "string"
 								}
 							]
@@ -289,13 +407,11 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/api/user",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/user",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"user"
 							]
@@ -319,7 +435,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/logout",
+							"raw": "http://localhost/osms/api/logout",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -379,7 +495,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/new_password_set",
+							"raw": "http://localhost/osms/api/new_password_set",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -518,7 +634,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/submit_attendance",
+							"raw": "http://localhost/osms/api/submit_attendance",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -543,7 +659,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "237|QRjAI0VaOauqyEzEXVf1z9BbrNFIjVQqY4e1sBENd4600495",
+									"value": "487|UkbzfItB8m8o7uzgY26NS5AhXQqfawjXtJFiOQY2c61f0c16",
 									"type": "string"
 								}
 							]
@@ -555,13 +671,11 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/api/all_attendance_list",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/all_attendance_list",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"all_attendance_list"
 							]
@@ -572,17 +686,17 @@
 			]
 		},
 		{
-			"name": "member",
+			"name": "personal_info",
 			"item": [
 				{
-					"name": "member information add and update",
+					"name": "personal information add and update",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "161|v4qoXXnIAUhYZokFNaEvuUqXGUshKy0WOToNMtxQd656572b",
+									"value": "493|ShQriH15yiVS7R8IT3r4VIIZFRWEhUWXmx1wjqCR833617dc",
 									"type": "string"
 								}
 							]
@@ -592,6 +706,11 @@
 						"body": {
 							"mode": "formdata",
 							"formdata": [
+								{
+									"key": "profile_pic",
+									"type": "file",
+									"src": []
+								},
 								{
 									"key": "name",
 									"value": "samer gggggg",
@@ -675,18 +794,17 @@
 								{
 									"key": "user_id",
 									"value": "1",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/member_information_store",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/member_information_store",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"member_information_store"
 							]
@@ -740,7 +858,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/outlet_store",
+							"raw": "http://localhost/osms/api/outlet_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -770,13 +888,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_outlet/2",
-							"protocol": "http",
+							"raw": "{{baseURL}}/api/edit_outlet/2",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
 							"path": [
-								"osms",
 								"api",
 								"edit_outlet",
 								"2"
@@ -826,7 +942,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_outlet/2",
+							"raw": "http://localhost/osms/api/update_outlet/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -882,7 +998,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/submit_item_category",
+							"raw": "http://localhost/osms/api/submit_item_category",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -912,7 +1028,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_item_category/8",
+							"raw": "http://localhost/osms/api/edit_item_category/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -958,7 +1074,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_item_category/6",
+							"raw": "http://localhost/osms/api/update_item_category/6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1019,7 +1135,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/submit_product_category",
+							"raw": "http://localhost/osms/api/submit_product_category",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1049,7 +1165,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_product_category/5",
+							"raw": "http://localhost/osms/api/edit_product_category/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1100,7 +1216,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_product_category/5",
+							"raw": "http://localhost/osms/api/update_product_category/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1166,7 +1282,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/supplier_store",
+							"raw": "http://localhost/osms/api/supplier_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1196,7 +1312,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_supplier/2",
+							"raw": "http://localhost/osms/api/edit_supplier/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1252,7 +1368,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_supplier/1",
+							"raw": "http://localhost/osms/api/update_supplier/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1283,7 +1399,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/delete_supplier/1",
+							"raw": "http://localhost/osms/api/delete_supplier/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1344,7 +1460,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/warehouse_store",
+							"raw": "http://localhost/osms/api/warehouse_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1374,7 +1490,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_warehouse/1",
+							"raw": "http://localhost/osms/api/edit_warehouse/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1430,7 +1546,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_warehouse/2",
+							"raw": "http://localhost/osms/api/update_warehouse/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1491,7 +1607,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/department_store",
+							"raw": "http://localhost/osms/api/department_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1521,7 +1637,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_department/1",
+							"raw": "http://localhost/osms/api/edit_department/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1562,7 +1678,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_department/15",
+							"raw": "http://localhost/osms/api/update_department/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1613,7 +1729,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/designation_store",
+							"raw": "http://localhost/osms/api/designation_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1643,7 +1759,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_designation/21",
+							"raw": "http://localhost/osms/api/edit_designation/21",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1689,7 +1805,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_designation/20",
+							"raw": "http://localhost/osms/api/update_designation/20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1740,7 +1856,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/business_type_store",
+							"raw": "http://localhost/osms/api/business_type_store",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1762,7 +1878,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
+									"value": "374|8BvRxB3mOXg7PiOsPR37SIfDqDvW8KyZ5YmeDoYG71d3c75b",
 									"type": "string"
 								}
 							]
@@ -1770,7 +1886,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/edit_business_type/27",
+							"raw": "http://localhost/osms/api/edit_business_type/27",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1816,7 +1932,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/update_business_type/27",
+							"raw": "http://localhost/osms/api/update_business_type/27",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1832,179 +1948,35 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		},
 		{
-			"name": "employee official information",
-			"item": [
-				{
-					"name": "add new employee",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "business_type",
-									"value": "testing testing",
-									"type": "text"
-								},
-								{
-									"key": "business_status",
-									"value": "2",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost/api/store_employee?name&email&password&role_id&branch_id&review_requisition&warehouse_id&outlet_id&designation&joining_date&active_status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"osms",
-								"api",
-								"store_employee"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": null
-								},
-								{
-									"key": "email",
-									"value": null
-								},
-								{
-									"key": "password",
-									"value": null
-								},
-								{
-									"key": "role_id",
-									"value": null
-								},
-								{
-									"key": "branch_id",
-									"value": null
-								},
-								{
-									"key": "review_requisition",
-									"value": null
-								},
-								{
-									"key": "warehouse_id",
-									"value": null
-								},
-								{
-									"key": "outlet_id",
-									"value": null
-								},
-								{
-									"key": "designation",
-									"value": null
-								},
-								{
-									"key": "joining_date",
-									"value": null
-								},
-								{
-									"key": "active_status",
-									"value": null
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Specific business type Details",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost/api/edit_business_type/27",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"osms",
-								"api",
-								"edit_business_type",
-								"27"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "business type update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "259|SUXx9SdPxYcfj3bssngWIYwRwuPeao31lffjyUbZ47f1fdf5",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "business_type",
-									"value": "testy testing",
-									"type": "text"
-								},
-								{
-									"key": "business_status",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost/api/update_business_type/27",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"osms",
-								"api",
-								"update_business_type",
-								"27"
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
 		}
 	]
 }
