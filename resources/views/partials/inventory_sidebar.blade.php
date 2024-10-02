@@ -154,7 +154,9 @@
 
   
       @if((Auth::user()->role_id == 1) ||  (Auth::user()->role_id == 2))
-      <li class="nav-item @if(Request::is('damage_report')) menu-open 
+      <li class="nav-item 
+      @if(Request::is('damage_report')) menu-open 
+      @elseif(Request::is('purchase_report')) menu-open 
             @endif">
         <a href="#" class="nav-link">
           <i class="nav-icon fa-solid fa-file-pen"></i>
@@ -164,20 +166,21 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item" style="padding-left : 15px">
 
+          <li class="nav-item" style="padding-left : 15px">
             <a href="{{route('damage_report')}}" class="nav-link {{ Request::is('damage_report') ? 'nav-link active' : ''}}" style="{{ Request::is('damage_report') ? 'background-color: #1cdf1c; !important' : ''}}">
               <i class="far fa-circle nav-icon" style="{{ Request::is('damage_report') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('damage_report') ? 'color: white; !important' : ''}}">Damaged Product Report</p>
             </a>
           </li>
 
-          {{-- <li class="nav-item" style="padding-left : 15px">
-            <a href="{{route('product_category_list')}}" class="nav-link {{ Request::is('product_category_list') ? 'nav-link active' : ''}}" style="{{ Request::is('product_category_list') ? 'background-color: #1cdf1c; !important' : ''}}">
-              <i class="far fa-circle nav-icon" style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('product_category_list') ? 'color: white; !important' : ''}}">Product Category List</p>
+          <li class="nav-item" style="padding-left : 15px">
+            <a href="{{route('purchase_report')}}" class="nav-link {{ Request::is('purchase_report') ? 'nav-link active' : ''}}" style="{{ Request::is('purchase_report') ? 'background-color: #1cdf1c; !important' : ''}}">
+              <i class="far fa-circle nav-icon" style="{{ Request::is('purchase_report') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('purchase_report') ? 'color: white; !important' : ''}}">Purchase Report</p>
             </a>
-          </li> --}}
+          </li>
+
         </ul>
       </li>
       @endif

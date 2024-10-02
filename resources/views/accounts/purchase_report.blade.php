@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Sales Report
+Purchase Report
 @endsection
 
 @push('css')
@@ -22,15 +22,15 @@ Sales Report
       <div class="container-fluid" >
         <div class="custom-container">
             <br>
-            <h3 align="center">Sales Report</h3>
+            <h3 align="center">Purchase Report</h3>
 
-            <form action="{{route('sale_report_submit')}}" method="POST">
+            <form action="{{route('account_purchase_report_submit')}}" method="POST">
                 @csrf
                 <div class="row">     
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group">
                             <label for="yearPicker">Select Type:</label>
-                            <select class="form-control select2bs4" id="sale_type" name="sale_type" required>
+                            <select class="form-control select2bs4" id="purchase_type" name="purchase_type" required>
                                 <option value="">--Select--</option>
                                 <option value="1">Daily</option>
                                 <option value="02">Monthly</option>

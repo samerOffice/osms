@@ -15,6 +15,8 @@ use App\Http\Controllers\API\Admin\OutletController;
 use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\SupplierController;
 use App\Http\Controllers\API\Admin\BillController;
+use App\Http\Controllers\API\Admin\ShopAssetController;
+use App\Http\Controllers\API\Admin\AccountsController;
 
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
@@ -63,10 +65,30 @@ Route::get('/emp_module_active', [HomeController::class, 'emp_module_active'])->
 
 //............**************** Super Admin/Admin Dashboard module **************...................
 
+
+//account
+//purchase report
+Route::get('/account_purchase_report', [AccountsController::class, 'account_purchase_report'])->name('account_purchase_report');
+Route::post('/account_purchase_report_submit', [AccountsController::class, 'account_purchase_report_submit'])->name('account_purchase_report_submit');
+
+//sale report
+Route::get('/account_sale_report', [AccountsController::class, 'account_sale_report'])->name('account_sale_report');
+Route::post('/account_sale_report_submit', [AccountsController::class, 'account_sale_report_submit'])->name('account_sale_report_submit');
+
+//profit and loss report
+Route::get('/account_profit_and_loss_report', [AccountsController::class, 'account_profit_and_loss_report'])->name('account_profit_and_loss_report');
+
+
+
 //shop
 Route::get('/shop_list', [ShopController::class, 'shop_list'])->name('shop_list');
 Route::get('/view_shop/{shop_id}', [ShopController::class, 'view_shop'])->name('view_shop');
 Route::get('/shop_details', [ShopController::class, 'shop_details'])->name('shop_details');
+
+
+//Asset
+Route::get('/asset_list', [ShopAssetController::class, 'asset_list'])->name('asset_list');
+Route::get('/add_asset', [ShopAssetController::class, 'add_asset'])->name('add_asset');
 
 
 //branch
@@ -222,6 +244,11 @@ Route::get('/damage_product/{product_id}', [StockController::class, 'damage_prod
 //damage report
 Route::get('/damage_report', [InventoryReportController::class, 'damage_report'])->name('damage_report');
 Route::post('/damage_report_submit', [InventoryReportController::class, 'damage_report_submit'])->name('damage_report_submit');
+
+//purchase report
+Route::get('/purchase_report', [InventoryReportController::class, 'purchase_report'])->name('purchase_report');
+Route::post('/purchase_report_submit', [InventoryReportController::class, 'purchase_report_submit'])->name('purchase_report_submit');
+
 
 
 //...............********* pos module ********................

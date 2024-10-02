@@ -24,7 +24,7 @@ Sales Report
             <br>
             <h3 align="center">Sales Report</h3>
 
-            <form action="{{route('sale_report_submit')}}" method="POST">
+            <form action="{{route('account_sale_report_submit')}}" method="POST">
                 @csrf
                 <div class="row">     
                     <div class="col-md-12 col-sm-12">
