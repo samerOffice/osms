@@ -15,6 +15,8 @@ use App\Http\Controllers\API\Admin\WarehouseController;
 use App\Http\Controllers\API\Admin\DepartmentController;
 use App\Http\Controllers\API\Admin\SupplierController;
 use App\Http\Controllers\API\Admin\BillController;
+use App\Http\Controllers\API\Admin\ShopAssetController;
+use App\Http\Controllers\API\Admin\AccountsController;
 
 use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
@@ -51,8 +53,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //..............********** Super Admin/ Admin dashboard module **********...........
 
+//account
+
+//profit and loss report (account)
+Route::middleware('auth:sanctum')->post('/account_profit_and_loss_report_result',[App\Http\Controllers\API\Admin\AccountsController::class,'account_profit_and_loss_report_result']);
+
 //shop
 Route::middleware('auth:sanctum')->post('/update_shop/{shop_id}',[App\Http\Controllers\API\Admin\ShopController::class,'update_shop']);
+
+//asset
+Route::middleware('auth:sanctum')->post('/asset_store',[App\Http\Controllers\API\Admin\ShopAssetController::class,'asset_store']);
+
+
 
 //branch
 Route::middleware('auth:sanctum')->post('/branch_store',[App\Http\Controllers\API\Admin\BranchController::class,'branch_store']);
