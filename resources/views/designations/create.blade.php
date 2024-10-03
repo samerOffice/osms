@@ -120,7 +120,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 axios.get('sanctum/csrf-cookie').then(response=>{
 axios.post('/api/designation_store',addDesignationFormData).then(response=>{
   console.log(response);
-  window.location.reload();
+  // window.location.reload();
+  window.location.href = "{{ route('designation_list') }}";
   Swal.fire({
               icon: "success",
               title: ''+ response.data.message,

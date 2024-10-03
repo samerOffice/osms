@@ -286,6 +286,7 @@ class AccountsController extends Controller
             )
             ->where('invoices.company_id',$user_company_id)
             ->whereMonth('invoices.invoice_date', $current_month)
+            ->whereYear('invoices.invoice_date', $current_year)
             ->get();
 
 

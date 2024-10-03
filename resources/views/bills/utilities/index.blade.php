@@ -68,6 +68,7 @@ Utility List
                           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
                           <td>
                             <a href="{{route('edit_utility', $utility->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            <button class="btn btn-outline-danger" onclick="deleteOperation({{$utility->id}})"><i class="fa-solid fa-trash"></i> Delete</button>
                           </td>
                           @endif
                         </tr> 
@@ -122,5 +123,48 @@ Utility List
         ]
     });
 });
+
+function deleteOperation(row_id)
+    { 
+      
+      Swal.fire({
+      title: 'Are you sure?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+            // Function to get CSRF token from meta tag
+             function getCsrfToken() {
+              return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+              }
+            // Set up Axios defaults
+            axios.defaults.withCredentials = true;
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+            axios.get('sanctum/csrf-cookie').then(response=>{
+            axios.post('/api/delete_utility/'+ row_id).then(response=>{
+              console.log(response);
+              setTimeout(function() {
+                  window.location.reload();
+              }, 2000);
+              Swal.fire({
+                          icon: "success",
+                          title: ''+ response.data.message,
+                        });
+                    return false;                   
+              }).catch(error => Swal.fire({
+                          icon: "error",
+                          title: error.response.data.message,
+                          }))
+            });
+      } else if (result.isDismissed) {
+        Swal.fire('Cancelled', '', 'error');
+      }
+    });
+    }
   </script>
   @endpush

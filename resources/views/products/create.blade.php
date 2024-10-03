@@ -334,7 +334,8 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/api/submit_product',productFormData).then(response=>{
   console.log(response);
   setTimeout(function() {
-         window.location.reload();
+        //  window.location.reload();
+        window.location.href = "{{ route('product_list') }}";
       }, 2000);
   Swal.fire({
               icon: "success",

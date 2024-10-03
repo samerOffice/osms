@@ -180,4 +180,21 @@ class DepartmentController extends Controller
             return response()->json(['error' => 'An error occurred while updating the department', 'details' => $e->getMessage()], 500);
         }     
     }
+
+
+    public function delete_department(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('departments')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Department is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Department Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
 }

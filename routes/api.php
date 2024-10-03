@@ -63,8 +63,9 @@ Route::middleware('auth:sanctum')->post('/update_shop/{shop_id}',[App\Http\Contr
 
 //asset
 Route::middleware('auth:sanctum')->post('/asset_store',[App\Http\Controllers\API\Admin\ShopAssetController::class,'asset_store']);
-
-
+Route::middleware('auth:sanctum')->get('/edit_asset/{asset_id}',[App\Http\Controllers\API\Admin\ShopAssetController::class,'edit_asset_via_api']);
+Route::middleware('auth:sanctum')->post('/update_asset/{asset_id}',[App\Http\Controllers\API\Admin\ShopAssetController::class,'update_asset']);
+Route::middleware('auth:sanctum')->post('/delete_asset/{asset_id}',[App\Http\Controllers\API\Admin\ShopAssetController::class,'delete_asset']);
 
 //branch
 Route::middleware('auth:sanctum')->post('/branch_store',[App\Http\Controllers\API\Admin\BranchController::class,'branch_store']);
@@ -72,16 +73,19 @@ Route::middleware('auth:sanctum')->get('/edit_branch/{branch_id}',[App\Http\Cont
 Route::middleware('auth:sanctum')->post('/update_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'update_branch']);
 // Route::middleware('auth:sanctum')->patch('/update_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'update_branch']);
 Route::middleware('auth:sanctum')->get('/branch_list',[App\Http\Controllers\API\Admin\BranchController::class,'branch_list_for_api']);
+Route::middleware('auth:sanctum')->post('/delete_branch/{branch_id}',[App\Http\Controllers\API\Admin\BranchController::class,'delete_branch']);
 
 //outlet
 Route::middleware('auth:sanctum')->post('/outlet_store',[App\Http\Controllers\API\Admin\OutletController::class,'outlet_store']);
 Route::middleware('auth:sanctum')->get('/edit_outlet/{outlet_id}',[App\Http\Controllers\API\Admin\OutletController::class,'edit_outlet_via_api']);
 Route::middleware('auth:sanctum')->post('/update_outlet/{outlet_id}',[App\Http\Controllers\API\Admin\OutletController::class,'update_outlet']);
+Route::middleware('auth:sanctum')->post('/delete_outlet/{outlet_id}',[App\Http\Controllers\API\Admin\OutletController::class,'delete_outlet']);
 
 //warehouse
 Route::middleware('auth:sanctum')->post('/warehouse_store',[App\Http\Controllers\API\Admin\WarehouseController::class,'warehouse_store']);
 Route::middleware('auth:sanctum')->get('/edit_warehouse/{warehouse_id}',[App\Http\Controllers\API\Admin\WarehouseController::class,'edit_warehouse_via_api']);
 Route::middleware('auth:sanctum')->post('/update_warehouse/{warehouse_id}',[App\Http\Controllers\API\Admin\WarehouseController::class,'update_warehouse']);
+Route::middleware('auth:sanctum')->post('/delete_warehouse/{warehouse_id}',[App\Http\Controllers\API\Admin\WarehouseController::class,'delete_warehouse']);
 
 //department
 Route::middleware('auth:sanctum')->post('/branch_warehouse_dependancy',[App\Http\Controllers\API\Admin\DepartmentController::class,'branch_warehouse_dependancy']);
@@ -89,6 +93,7 @@ Route::middleware('auth:sanctum')->post('/branch_outlet_dependancy',[App\Http\Co
 Route::middleware('auth:sanctum')->post('/department_store',[App\Http\Controllers\API\Admin\DepartmentController::class,'department_store']);
 Route::middleware('auth:sanctum')->get('/edit_department/{department_id}',[App\Http\Controllers\API\Admin\DepartmentController::class,'edit_department_via_api']);
 Route::middleware('auth:sanctum')->post('/update_department/{department_id}',[App\Http\Controllers\API\Admin\DepartmentController::class,'update_department']);
+Route::middleware('auth:sanctum')->post('/delete_department/{department_id}',[App\Http\Controllers\API\Admin\DepartmentController::class,'delete_department']);
 
 //designation
 Route::middleware('auth:sanctum')->post('/designation_store',[App\Http\Controllers\API\SuperAdmin\DesignationController::class,'designation_store']);
@@ -109,13 +114,14 @@ Route::middleware('auth:sanctum')->post('/delete_supplier/{suppiler_id}',[App\Ht
 Route::middleware('auth:sanctum')->post('/submit_rent',[App\Http\Controllers\API\Admin\BillController::class,'submit_rent']);
 Route::middleware('auth:sanctum')->get('/edit_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_rent_via_api']);
 Route::middleware('auth:sanctum')->post('/update_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_rent']);
+Route::middleware('auth:sanctum')->post('/delete_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_rent']);
 
 
 //utilities
 Route::middleware('auth:sanctum')->post('/submit_utility',[App\Http\Controllers\API\Admin\BillController::class,'submit_utility']);
 Route::middleware('auth:sanctum')->get('/edit_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_utility_via_api']);
 Route::middleware('auth:sanctum')->post('/update_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_utility']);
-
+Route::middleware('auth:sanctum')->post('/delete_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_utility']);
 
 //business type
 Route::middleware('auth:sanctum')->post('/business_type_store',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'business_type_store']);
@@ -158,6 +164,8 @@ Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controll
 Route::middleware('auth:sanctum')->post('/submit_leave_tpye',[App\Http\Controllers\API\Emp\LeaveController::class,'submit_leave_tpye']);
 Route::middleware('auth:sanctum')->get('/edit_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'edit_leave_type_via_api']);
 Route::middleware('auth:sanctum')->post('/update_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'update_leave_type']);
+Route::middleware('auth:sanctum')->post('/delete_leave_type/{leave_type_id}',[App\Http\Controllers\API\Emp\LeaveController::class,'delete_leave_type']);
+
 
 //ways of applying for leave
 Route::middleware('auth:sanctum')->post('/leave_application_attach_file_store',[App\Http\Controllers\API\Emp\LeaveController::class,'leave_application_attach_file_store']);
@@ -198,11 +206,13 @@ Route::get('/total_damaged_products',[App\Http\Controllers\API\Inventory\Product
 Route::middleware('auth:sanctum')->post('/submit_item_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_item_category']);
 Route::middleware('auth:sanctum')->get('/edit_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_item_category_via_api']);
 Route::middleware('auth:sanctum')->post('/update_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_item_category']);
+Route::middleware('auth:sanctum')->post('/delete_item_category/{item_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'delete_item_category']);
 
 //product category
 Route::middleware('auth:sanctum')->post('/submit_product_category', [App\Http\Controllers\API\Inventory\ProductController::class, 'submit_product_category']);
 Route::middleware('auth:sanctum')->get('/edit_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_product_category_via_api']);
 Route::middleware('auth:sanctum')->post('/update_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_product_category']);
+Route::middleware('auth:sanctum')->post('/delete_product_category/{product_category_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'delete_product_category']);
 
 //product
 Route::post('/item_category_and_product_category_dependancy',[App\Http\Controllers\API\Inventory\ProductController::class,'itemCategoryAndProductCategoryDependancy']);
@@ -210,8 +220,6 @@ Route::middleware('auth:sanctum')->post('/submit_product',[App\Http\Controllers\
 Route::middleware('auth:sanctum')->get('/edit_product/{product_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'edit_product_via_api']);
 Route::middleware('auth:sanctum')->post('/update_product/{product_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'update_product']);
 Route::middleware('auth:sanctum')->post('/delete_product/{product_id}',[App\Http\Controllers\API\Inventory\ProductController::class,'delete_product']);
-
-
 
 
 //...............********* pos module ********................
