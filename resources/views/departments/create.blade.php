@@ -257,7 +257,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/api/department_store',addDepartmentFormData).then(response=>{
   console.log(response);
-  window.location.reload();
+  // window.location.reload();
+  window.location.href = "{{ route('department_list') }}";
   Swal.fire({
               icon: "success",
               title: ''+ response.data.message,

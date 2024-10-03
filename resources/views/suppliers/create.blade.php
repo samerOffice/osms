@@ -137,7 +137,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('/api/supplier_store',supplierFormData).then(response=>{
   console.log(response);
-  window.location.reload();
+  // window.location.reload();
+  window.location.href = "{{ route('supplier_list') }}";
   Swal.fire({
               icon: "success",
               title: ''+ response.data.message,

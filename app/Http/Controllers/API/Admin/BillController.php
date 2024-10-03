@@ -141,6 +141,22 @@ class BillController extends Controller
         }     
     }
 
+    public function delete_rent(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('rents')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Rent is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Rent Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
+
     //--------------- rent end--------------------
 
 
@@ -278,7 +294,21 @@ class BillController extends Controller
     }
 
 
+    public function delete_utility(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('utilities')
+                        ->where('id', $id)
+                        ->delete();
 
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Utility is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Utility Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
 
     //--------------- utility end--------------------
 }

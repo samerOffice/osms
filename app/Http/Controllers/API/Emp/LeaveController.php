@@ -665,5 +665,22 @@ class LeaveController extends Controller
         return redirect()->route('leave_application_approval_list')->withSuccess('Leave Application is approved'); 
     }
 
+
+    public function delete_leave_type(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('leave_types')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Leave Type is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Leave Type Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
+
     //------- leave approval end -----------
 }

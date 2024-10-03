@@ -98,12 +98,12 @@ Assets
                                   </div> 
                             </div>
 
-                            <div class="col-md-12 col-sm-12">
+                            {{-- <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">
                                     <label>Depreciation Rate (%)</label>
                                     <input type="number" step="0.01" id="depreciation_rate" name="depreciation_rate" class="form-control form-control-lg" />
                                 </div> 
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12 col-sm-12">
                                 <div  class="form-group mb-4">

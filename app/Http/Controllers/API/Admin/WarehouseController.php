@@ -133,8 +133,6 @@ class WarehouseController extends Controller
     }
 
 
-
-
     public function update_warehouse(Request $request, $id){
 
         $user_company_id = Auth::user()->company_id;
@@ -168,5 +166,23 @@ class WarehouseController extends Controller
             // Catch any exceptions and return an error response
             return response()->json(['error' => 'An error occurred while updating the warehouse', 'details' => $e->getMessage()], 500);
         }     
+    }
+
+
+    public function delete_warehouse(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('inventory')
+                        ->table('warehouses')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Warehouse is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Warehouse Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
     }
 }

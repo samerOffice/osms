@@ -179,7 +179,22 @@ class ProductController extends Controller
         }  
     }
 
+    public function delete_item_category(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('inventory')
+                        ->table('item_categories')
+                        ->where('id', $id)
+                        ->delete();
 
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Item Category is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Item Category Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
 
 
     //----------------product category-----------------------
@@ -375,6 +390,24 @@ class ProductController extends Controller
             // Catch any exceptions and return an error response
             return response()->json(['error' => 'An error occurred while updating the Product Category', 'details' => $e->getMessage()], 500);
         }  
+    }
+
+
+    public function delete_product_category(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('inventory')
+                        ->table('product_categories')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Product Category is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Product Category Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
     }
 
 

@@ -185,6 +185,19 @@ class BranchController extends Controller
     }
 
 
+    
+    public function delete_branch(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('branches')->where('id', $id)->delete();
 
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Branch is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Branch Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
     
 }

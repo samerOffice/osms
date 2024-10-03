@@ -169,4 +169,22 @@ class OutletController extends Controller
             return response()->json(['error' => 'An error occurred while updating the outlet', 'details' => $e->getMessage()], 500);
         }     
     }
+
+
+    public function delete_outlet(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::connection('pos')
+                        ->table('outlets')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Outlet is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Outlet Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
 }

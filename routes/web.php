@@ -89,7 +89,7 @@ Route::get('/shop_details', [ShopController::class, 'shop_details'])->name('shop
 //Asset
 Route::get('/asset_list', [ShopAssetController::class, 'asset_list'])->name('asset_list');
 Route::get('/add_asset', [ShopAssetController::class, 'add_asset'])->name('add_asset');
-
+Route::get('/edit_asset/{asset_id}', [ShopAssetController::class, 'edit_asset'])->name('edit_asset');
 
 //branch
 Route::get('/branch_list', [BranchController::class, 'branch_list'])->name('branch_list');
