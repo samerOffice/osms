@@ -11,6 +11,9 @@ class ShopAssetController extends Controller
 {
     public function asset_list(){
 
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
         $current_modules = array();
         $current_modules['module_status'] = '1';
         $update_module = DB::table('current_modules')
@@ -18,15 +21,50 @@ class ShopAssetController extends Controller
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        $assets = DB::table('assets')
-        ->leftJoin('companies','assets.company_id','companies.id')
-        ->leftJoin('branches','assets.branch_id','branches.id')
-        ->leftJoin('departments','assets.department_id','departments.id')
-        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'assets.warehouse_id', '=', 'warehouses.id')
-        ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'assets.outlet_id', '=', 'outlets.id')
-        ->get();
+        if($user_role_id == 1){
+
+            $assets = DB::table('assets')
+                        ->leftJoin('companies','assets.company_id','companies.id')
+                        ->leftJoin('branches','assets.branch_id','branches.id')
+                        ->leftJoin('departments','assets.department_id','departments.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'assets.warehouse_id', '=', 'warehouses.id')
+                        ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'assets.outlet_id', '=', 'outlets.id')
+                        ->select(
+                            'assets.*',
+                            'companies.company_name as company_name',
+                            'branches.br_name as branch_name',
+                            'departments.dept_name as department_name',
+                            'warehouses.warehouse_name as warehouse_name',
+                            'outlets.outlet_name as outlet_name'
+                            )
+                        ->get();
+
+        // dd($assets);
 
         return view('shop_assets.index',compact('current_module','assets'));
+        }else{
+            $assets = DB::table('assets')
+                        ->leftJoin('companies','assets.company_id','companies.id')
+                        ->leftJoin('branches','assets.branch_id','branches.id')
+                        ->leftJoin('departments','assets.department_id','departments.id')
+                        ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'assets.warehouse_id', '=', 'warehouses.id')
+                        ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'assets.outlet_id', '=', 'outlets.id')
+                        ->select(
+                            'assets.*',
+                            'companies.company_name as company_name',
+                            'branches.br_name as branch_name',
+                            'departments.dept_name as department_name',
+                            'warehouses.warehouse_name as warehouse_name',
+                            'outlets.outlet_name as outlet_name'
+                            )
+                        ->where('assets.company_id',$user_company_id)
+                        ->get();
+
+        // dd($assets);
+
+        return view('shop_assets.index',compact('current_module','assets'));
+        }
+  
     }
 
     public function add_asset(){

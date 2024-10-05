@@ -49,6 +49,8 @@ Asset List
                         <tr>
                           <th>Serial No.</th>
                           <th>Shop Name</th>
+                          <th>Branch Name</th>
+                          <th>Department Name</th>
                           <th>Asset Name</th>
                           <th>Asset Type</th>
                           <th>Purchase Date</th>
@@ -63,6 +65,8 @@ Asset List
                         <tr>
                           <td>{{$i++}}</td>
                           <td>{{$asset->company_name}}</td>
+                          <td>{{$asset->branch_name}}</td>
+                          <td>{{$asset->department_name}}</td>
                           <td>{{$asset->asset_name}}</td>
                           <td>{{$asset->asset_type}}</td>
                           <td>{{$asset->purchase_date}}</td>
@@ -79,7 +83,7 @@ Asset List
                            @endif
                          </td>
                           <td>
-                            <a href="{{route('edit_asset',$asset->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                            <a href="{{route('edit_asset', $asset->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                             <button class="btn btn-outline-danger" onclick="deleteOperation({{$asset->id}})"><i class="fa-solid fa-trash"></i> Delete</button>
                           </td>
                         </tr> 
