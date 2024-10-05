@@ -57,7 +57,8 @@ Assets
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group mb-4">
                                     <label>Branch</label>
-                                    <select class="form-control select2bs4" id="branch_id" name="branch_id" style="width: 100%;">                                  
+                                    <select class="form-control select2bs4" id="branch_id" name="branch_id" style="width: 100%;">
+                                    <option value="">Select</option>                              
                                       @foreach ($branches as $branch)
                                       <option value="{{$branch->id}}">{{$branch->br_name}}</option> 
                                       @endforeach                           
@@ -68,7 +69,8 @@ Assets
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group mb-4">
                                     <label>Department</label>
-                                    <select  class="form-control select2bs4" id="department_id" name="department_id" style="width: 100%;">                                  
+                                    <select  class="form-control select2bs4" id="department_id" name="department_id" style="width: 100%;"> 
+                                    <option value="">Select</option>                                 
                                       @foreach ($departments as $department)
                                       <option value="{{$department->id}}">{{$department->dept_name}}</option> 
                                       @endforeach                           
@@ -80,7 +82,8 @@ Assets
                                 <div class="form-group mb-4">
                                     <label>Warehouse</label>
                                     <select  class="form-control select2bs4" id="warehouse_id" name="warehouse_id" style="width: 100%;">                                  
-                                      @foreach ($warehouses as $warehouse)
+                                    <option value="">Select</option> 
+                                     @foreach ($warehouses as $warehouse)
                                       <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option> 
                                       @endforeach                           
                                   </select>
@@ -91,7 +94,8 @@ Assets
                                 <div class="form-group mb-4">
                                     <label>Outlet</label>
                                     <select  class="form-control select2bs4" id="outlet_id" name="outlet_id" style="width: 100%;">                                  
-                                      @foreach ($outlets as $outlet)
+                                    <option value="">Select</option> 
+                                    @foreach ($outlets as $outlet)
                                       <option value="{{$outlet->id}}">{{$outlet->outlet_name}}</option> 
                                       @endforeach                           
                                   </select>
