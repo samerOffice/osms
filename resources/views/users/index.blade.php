@@ -29,6 +29,12 @@ Welcome
             @endif
         </div>
      
+          <div class="col-12">
+            <a class="btn btn-outline-info float-right" href="{{route('add_new_user')}}">
+                <i class="fas fa-plus"></i> Add New User
+            </a>
+          </div>
+
             <div class="col-12">
                 <br>
                 <div class="card">

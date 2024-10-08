@@ -242,6 +242,31 @@ class AuthController extends Controller
     }
 
 
+    public function add_new_user(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $roles = DB::table('roles')
+               ->where('id',2)
+               ->first();
+
+        $designations = DB::table('designations')->get();
+        $business_types = DB::table('business_types')->get();
+
+        $menus = DB::table('menus')
+                    ->where('module_type',1)           
+                    ->get();
+        $groupedMenus = $menus->groupBy('module_type');
+
+        return view('users.create',compact('current_module','roles','designations','business_types','menus','groupedMenus'));
+    }
+
+
 
     public function user_list(){
         $current_modules = array();

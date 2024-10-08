@@ -141,6 +141,7 @@ Route::get('/add_business_type', [BusinessTypeController::class, 'add_business_t
 Route::get('/edit_business_type/{business_type_id}', [BusinessTypeController::class, 'edit_business_type'])->name('edit_business_type');
 
 //users
+Route::get('/add_new_user', [AuthController::class, 'add_new_user'])->name('add_new_user');
 Route::get('/user_list', [AuthController::class, 'user_list'])->name('user_list');
 Route::get('/edit_user/{user_id}', [AuthController::class, 'edit_user'])->name('edit_user');
 
