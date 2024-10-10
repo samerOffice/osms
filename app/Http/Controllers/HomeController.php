@@ -99,11 +99,7 @@ class HomeController extends Controller
                 'total_outlet',
                 'permitted_menus_array'
               ));
-            }
-      
-
-
-      
+            }   
     }
 
 
@@ -121,6 +117,9 @@ class HomeController extends Controller
     }
     echo $str;
     }
+
+
+
 
     public function pos_module_active(){
       // dd( $request->current_module_status);
@@ -339,10 +338,7 @@ class HomeController extends Controller
                                       'top_selling_product_desc',
                                       'permitted_menus_array'
                                     ));
-            }
-
-
-      
+            } 
       
     }
 
