@@ -65,32 +65,38 @@ Dashboard
           <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/pos_dashboard.jpg') }}');  background-size: cover;">
           </div>
           <br>
-          <div style="position: relative">
-                 
+          <div style="position: relative">               
               <a href="{{route('posModuleActive')}}"><button type="submit" class="btn pos_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
           </div>
         </div>
         @endif
 
-        {{-- <div class="col-lg-3 col-md-3 col-sm-3">
-            <h4 align="center">Delivery Tracking System</h4>
-            <!-- small box -->
-            <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/tracking_dashboard.jpg') }}'); background-size: cover;" >
-      </div>
-      <br>
-      <div style="position: relative">
-        <form action="{{route('posModuleActive')}}" method="post">
-          @csrf
-          <input type="hidden" value="4" name="current_module_status">
-          <button type="submit" class="btn tracking_button_position">Click Here <i class="fas fa-arrow-circle-right"></i></button>
-        </form>
-      </div>
-    </div> --}}
+        <div class="col-lg-4 col-md-4 col-sm-4 mt-4">
+          <h4 align="center">Asset Management</h4>
+          <!-- small box -->
+          <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/asset_dash.jpg') }}');  background-size: cover;">
+          </div>
+          <br>
+          <div style="position: relative">           
+              <a href="{{route('asset_list')}}"><button type="submit" class="btn pos_button_position" style="background-color: #ea2ccc">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4 mt-4">
+          <h4 align="center">Accounts</h4>
+          <!-- small box -->
+          <div class="small-box" style="padding:150px; height:auto; background-image: url('{{ asset('img/accounts_dash.jpg') }}');  background-size: cover;">
+          </div>
+          <br>
+          <div style="position: relative">           
+              <a href="{{route('asset_list')}}"><button type="submit" class="btn pos_button_position" style="background-color: orange">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
+          </div>
+        </div>
 
   </div>
 </div><!-- /.container-fluid -->
 </div>
-
+<br>
 <section class="content">
   <div class="container-fluid">
     <div class="row">
