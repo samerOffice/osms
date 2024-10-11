@@ -59,11 +59,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('home');
 
 //.............**************** for dynamic module **************....................
-Route::get('/pos_module_active', [HomeController::class, 'pos_module_active'])->name('posModuleActive');
-Route::get('/asset_management_module_active', [HomeController::class, 'asset_management_module_active'])->name('posModuleActive');
-Route::get('/inventory_module_active', [HomeController::class, 'inventory_module_active'])->name('inventoryModuleActive');
 Route::get('/emp_module_active', [HomeController::class, 'emp_module_active'])->name('empModuleActive');
-
+Route::get('/inventory_module_active', [HomeController::class, 'inventory_module_active'])->name('inventoryModuleActive');
+Route::get('/pos_module_active', [HomeController::class, 'pos_module_active'])->name('posModuleActive');
+Route::get('/asset_management_module_active', [HomeController::class, 'asset_management_module_active'])->name('assetModuleActive');
+Route::get('/accounts_module_active', [HomeController::class, 'accounts_module_active'])->name('accountsModuleActive');
 //............**************** Super Admin/Admin Dashboard module **************...................
 
 

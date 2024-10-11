@@ -15,7 +15,7 @@ class ShopAssetController extends Controller
         $user_role_id = Auth::user()->role_id;
 
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '5';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -70,7 +70,7 @@ class ShopAssetController extends Controller
     public function add_asset(){
 
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '5';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
