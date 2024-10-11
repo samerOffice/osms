@@ -83,12 +83,12 @@
           </a>
         </li>
 
-        <li class="nav-item nav-link @if(Request::is('asset_list')) nav-link active @endif" style="@if(Request::is('asset_list')) background-color: #908ec4; @endif">
+        {{-- <li class="nav-item nav-link @if(Request::is('asset_list')) nav-link active @endif" style="@if(Request::is('asset_list')) background-color: #908ec4; @endif">
           <a href="{{route('asset_list')}}">
             <i class="nav-icon fa-solid fa-laptop" style=" @if(Request::is('asset_list')) color: white; @endif"></i>
             <p style="@if(Request::is('asset_list')) color:white; @endif"> Asset</p>
           </a>
-        </li>
+        </li> --}}
 
 
         <li class="nav-item nav-link @if(Request::is('outlet_list')) nav-link active @endif" style="@if(Request::is('outlet_list')) background-color: #908ec4; @endif">
@@ -150,7 +150,7 @@
     </li>
 
 
-    <li class="nav-item @if(Request::is('account_purchase_report')) menu-open 
+    {{-- <li class="nav-item @if(Request::is('account_purchase_report')) menu-open 
          @elseif(Request::is('account_sale_report')) menu-open 
          @elseif(Request::is('account_profit_and_loss_report')) menu-open 
         @endif">
@@ -184,7 +184,7 @@
         </li>
 
       </ul>
-    </li>
+    </li> --}}
 
     
 
@@ -316,8 +316,15 @@
         @include('partials.inventory_sidebar')
 
         <!--pos module-->
-        @else
+        @elseif($current_module->module_status == 4) 
         @include('partials.pos_sidebar')
+
+        <!--asset module-->
+        @elseif($current_module->module_status == 5) 
+        @include('partials.asset_sidebar')
+
+        @else
+        @include('partials.accounts_sidebar')
 
        @endif
       </ul>

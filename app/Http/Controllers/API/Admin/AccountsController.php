@@ -14,7 +14,7 @@ class AccountsController extends Controller
 
      public function account_purchase_report(){
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '6';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                     ->update($current_modules);
@@ -29,7 +29,7 @@ class AccountsController extends Controller
         $user_company_id = Auth::user()->company_id;
 
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '6';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -107,7 +107,7 @@ class AccountsController extends Controller
     public function account_profit_and_loss_report(){
 
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '6';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -204,7 +204,7 @@ class AccountsController extends Controller
     public function account_sale_report(){
 
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '6';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);
@@ -221,7 +221,7 @@ class AccountsController extends Controller
         $user_company_id = Auth::user()->company_id;
 
         $current_modules = array();
-        $current_modules['module_status'] = '1';
+        $current_modules['module_status'] = '6';
         $update_module = DB::table('current_modules')
                     // ->where('id', $request->id)
                         ->update($current_modules);

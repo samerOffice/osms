@@ -78,7 +78,7 @@ Dashboard
           </div>
           <br>
           <div style="position: relative">           
-              <a href="{{route('asset_list')}}"><button type="submit" class="btn pos_button_position" style="background-color: #ea2ccc">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
+              <a href="{{route('assetModuleActive')}}"><button type="submit" class="btn pos_button_position" style="background-color: #ea2ccc">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
           </div>
         </div>
 
@@ -89,7 +89,7 @@ Dashboard
           </div>
           <br>
           <div style="position: relative">           
-              <a href="{{route('asset_list')}}"><button type="submit" class="btn pos_button_position" style="background-color: orange">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
+              <a href="{{route('accountsModuleActive')}}"><button type="submit" class="btn pos_button_position" style="background-color: #ff774d">Click Here <i class="fas fa-arrow-circle-right"></i></button></a>        
           </div>
         </div>
 
@@ -208,17 +208,20 @@ Dashboard
 
 
 @elseif($current_module->module_status == 2) <!--employee module-->
-
 @include('modules.emp_dashboard')
 
-
 @elseif($current_module->module_status == 3) <!--inventory module-->
-
 @include('modules.inventory_dashboard')
 
-@else <!--pos module-->
-
+@elseif($current_module->module_status == 4) <!--pos module-->
 @include('modules.pos_dashboard')
+
+@elseif($current_module->module_status == 5) <!--asset module-->
+@include('modules.asset_dashboard')
+
+@else <!--accounts module-->
+@include('modules.accounts_dashboard')
+
 
 @endif
 @else

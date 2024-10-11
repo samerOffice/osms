@@ -14,11 +14,11 @@ Asset List
         <br>
         <div class="row">
 
-          <div class="col-12">
+          {{-- <div class="col-12">
             <a class="btn btn-outline-info float-right" href="{{route('add_asset')}}">
                 <i class="fas fa-plus"></i> Add Asset
             </a>
-          </div>
+          </div> --}}
       
           <div class="col-12">
             <br>
