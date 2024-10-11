@@ -38,6 +38,7 @@ Payroll
                                   </select>
                                   <br>
                                   <b>Joining Date:</b> <span id="member_joining_date"></span><br>
+                                  <b>Designation:</b> <span id="member_designation"></span><br>
                               </div>
                               <div class="col-md-6 col-sm-12 invoice-col">
                                   
@@ -196,10 +197,12 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
         console.log(response.data.employee_monthly_salary);
         console.log(response.data.per_day_salary);
         console.log(response.data.total_leave_day);
+        console.log(response.data.member_designation);
 
       $('#joining_date').val(response.data.joining_date);
       $('#per_day_salary').val(response.data.per_day_salary);
       $('#total_leave').val(response.data.total_leave_day);
+      $('#monthly_salary').val(response.data.employee_monthly_salary);
 
     //number of pay day set based on total approved leave (start)
     // $('#total_working_day').val('26');
@@ -219,6 +222,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
       // Display the formatted date in the HTML element
       $('#member_joining_date').html(formattedDate);
+      $('#member_designation').html(response.data.member_designation);
 
     if((response.data.per_day_salary) != ''){
       $('#total_number_of_pay_day').val();
@@ -245,7 +249,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
         var total_number_of_pay_day = parseFloat($('#total_number_of_pay_day').val());
         // var per_day_salary = parseFloat(response.data.per_day_salary);
         var per_day_salary = parseFloat($('#per_day_salary').val());
-        var monthly_salary = total_number_of_pay_day*per_day_salary;
+        // var monthly_salary = total_number_of_pay_day*per_day_salary;
+        var monthly_salary = parseFloat($('#monthly_salary').val());
 
         $('#monthly_salary').val(monthly_salary);
        
@@ -295,7 +300,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
         var total_number_of_pay_day = parseFloat($('#total_number_of_pay_day').val());
         // var per_day_salary = parseFloat($('#per_day_salary').val(response.data.per_day_salary));
         var per_day_salary = parseFloat($('#per_day_salary').val());
-        var monthly_salary = total_number_of_pay_day*per_day_salary; 
+        // var monthly_salary = total_number_of_pay_day*per_day_salary;
+        var monthly_salary = parseFloat($('#monthly_salary').val());
         
         $('#monthly_salary').val(monthly_salary);
        

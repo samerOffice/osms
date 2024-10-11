@@ -37,65 +37,94 @@
       <div class="content" style="margin-top: -2%">
         <div class="container-fluid">
           <div class="row">
-            
+            <div class="col-4">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>{{ number_format($total_product_purchase_amt, 0) }} BDT</h3>
+  
+                  <p>Total Purchase in current month</p>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                </div>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-4">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>{{ number_format($total_asset_purchase_amt, 0) }} BDT</h3>
+  
+                  <p>Total Asset Purchase in current month</p>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                </div>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-4">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>{{ number_format($total_expense_amt, 0) }} BDT</h3>
+  
+                  <p>Total Expense in current month</p>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                </div>
+              </div>
+            </div>
+            <!-- ./col -->       
+          </div>
+
+          <div class="row">
+          
+            <!-- sale list (start)-->
+
             <div class="col-12">
-                <br>
-                <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">Asset List</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                      <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                          <th>Serial No.</th>
-                          <th>Shop Name</th>
-                          <th>Branch Name</th>
-                          <th>Department Name</th>
-                          <th>Asset Name</th>
-                          <th>Asset Type</th>
-                          <th>Purchase Date</th>
-                          <th>Purchase Cost</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @php $i = 1 @endphp
-                            @foreach($assets as $asset)
-                        <tr>
-                          <td>{{$i++}}</td>
-                          <td>{{$asset->company_name}}</td>
-                          <td>{{$asset->branch_name}}</td>
-                          <td>{{$asset->department_name}}</td>
-                          <td>{{$asset->asset_name}}</td>
-                          <td>{{$asset->asset_type}}</td>
-                          <td>{{$asset->purchase_date}}</td>
-                          <td>{{$asset->cost}}</td>
-                          <td> 
-                            @if(($asset->status) == 1)
-                            <span class="badge badge-success">Active</span>
-                            @elseif(($asset->status) == 2)
-                            <span class="badge badge-warning">Inactive</span>
-                            @elseif(($asset->status) == 3)
-                            <span class="badge badge-primary">Maintainance</span>
-                           @else
-                           <span class="badge badge-danger">Damaged</span>
-                           @endif
-                         </td>
-                          <td>
-                            <a href="{{route('edit_asset', $asset->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
-                          </td>
-                        </tr> 
-                        @endforeach              
-                 
-                        </tfoot>
-                      </table>
-                    </div>
-                    <!-- /.card-body -->
+              <br>
+              <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Sale List</h3>
                   </div>
-            </div> 
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th>Serial No.</th>
+                        <th>Date of Sale</th>
+                        <th>Invoice Number</th>               
+                        <th>Action</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                          @php $i = 1 @endphp
+                          @foreach($sales as $sale)
+                      <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$sale->invoice_date}}</td>
+                        <td>{{$sale->invoice_track_id}}</td>
+                       
+                        <td>
+                          <a href="{{route('invoice_show_data', $sale->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i> Details</button></a>
+                          {{-- <button class="btn btn-outline-danger" onclick="deleteOperation({{$sale->id}})"><i class="fa-solid fa-trash"></i> Delete</button> --}}
+                        </td>
+                      
+                      </tr> 
+                      @endforeach              
+               
+                      </tfoot>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+          </div>
+          <!-- sale list (end)-->
           </div>
           <!-- /.row -->
         </div>
