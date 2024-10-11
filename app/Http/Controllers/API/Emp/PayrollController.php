@@ -95,11 +95,13 @@ class PayrollController extends Controller
 
         $employeeInfo = DB::table('users')
                             ->leftJoin('employees','users.id','employees.user_id')
-                            ->select('users.*','employees.monthly_salary as emp_monthly_salary')
+                            ->leftJoin('designations','users.designation','designations.id')
+                            ->select('users.*','employees.monthly_salary as emp_monthly_salary','designations.designation_name as member_designation')
                             ->where('users.id',$selectedMemberId)
                             ->first();
 
             $joining_date = $employeeInfo->joining_date;
+            $member_designation = $employeeInfo->member_designation;
             $employee_monthly_salary = $employeeInfo->emp_monthly_salary;
             $joining_month = Carbon::parse($joining_date)->format('m');
 
@@ -119,6 +121,7 @@ class PayrollController extends Controller
     
             $data = [
                 'joining_date' => $employeeInfo->joining_date,
+                'member_designation' => $member_designation,
                 'joining_month' => $joining_month,
                 'employee_monthly_salary' => $employeeInfo->emp_monthly_salary,
                 'per_day_salary' => $per_day_salary,

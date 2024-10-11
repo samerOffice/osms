@@ -188,7 +188,6 @@
 
     
 
-
         <li class="nav-item @if(Request::is('add_item_category')) menu-open 
             @elseif(Request::is('item_category_list')) menu-open 
             @endif">

@@ -557,6 +557,9 @@ class HomeController extends Controller
       $user_role_id = Auth::user()->role_id;
       $user_id = Auth::user()->id;
 
+      $current_month = Carbon::now()->format('m');
+      $current_year = Carbon::now()->format('Y');
+
       $current_modules = array();
       $current_modules['module_status'] = 6;
       $update_module = DB::table('current_modules')
@@ -567,37 +570,34 @@ class HomeController extends Controller
       $menu_data = DB::table('menu_permissions')
                       ->where('user_id',$user_id)
                       ->first();
-     
-      if($user_role_id == 1){
-        $assets = DB::table('assets')
-                    ->leftJoin('companies','assets.company_id','companies.id')
-                    ->leftJoin('branches','assets.branch_id','branches.id')
-                    ->leftJoin('departments','assets.department_id','departments.id')
-                    ->leftJoin(DB::connection('inventory')->getDatabaseName() . '.warehouses', 'assets.warehouse_id', '=', 'warehouses.id')
-                    ->leftJoin(DB::connection('pos')->getDatabaseName() . '.outlets', 'assets.outlet_id', '=', 'outlets.id')
-                    ->select(
-                        'assets.*',
-                        'companies.company_name as company_name',
-                        'branches.br_name as branch_name',
-                        'departments.dept_name as department_name',
-                        'warehouses.warehouse_name as warehouse_name',
-                        'outlets.outlet_name as outlet_name'
-                        )
-                    ->get();
 
-      if($menu_data == null){
+      $total_product_purchase_amt = DB::connection('inventory')
+                                      ->table('requisition_orders')
+                                      ->where('company_id',$user_company_id)
+                                      ->whereMonth('requisition_deliver_date', $current_month)
+                                      ->whereYear('requisition_deliver_date', $current_year)
+                                      ->sum('total_amount');
 
-          return view('dashboard',compact('current_module','assets'));
 
-          }else{
+      $total_asset_purchase_amt = DB::table('assets')
+                                      ->where('company_id',$user_company_id)
+                                      ->whereMonth('purchase_date', $current_month)
+                                      ->whereYear('purchase_date', $current_year)
+                                      ->sum('cost');
 
-            $permitted_menus = $menu_data->menus;
-            $permitted_menus_array = explode(',', $permitted_menus);
+      $total_rents_amt = DB::table('rents')
+                        ->where('company_id',$user_company_id)
+                        ->whereMonth('rent_pay_date', $current_month)
+                        ->whereYear('rent_pay_date', $current_year)
+                        ->sum('rent_amount');
 
-          return view('dashboard',compact('current_module','assets', 'permitted_menus_array'));
-              }
+      $total_utilities_amt = DB::table('utilities')
+                        ->where('company_id',$user_company_id)
+                        ->whereMonth('utility_pay_date', $current_month)
+                        ->whereYear('utility_pay_date', $current_year)
+                        ->sum('utility_amount');
 
-    }else{
+      $total_expense_amt = $total_rents_amt + $total_utilities_amt;
 
         $assets = DB::table('assets')
                     ->leftJoin('companies','assets.company_id','companies.id')
@@ -616,18 +616,34 @@ class HomeController extends Controller
                     ->where('assets.company_id',$user_company_id)
                     ->get();
 
+        $sales = DB::connection('pos')
+                      ->table('invoices')
+                      ->where('company_id',$user_company_id)
+                      ->get();
+
       if($menu_data == null){
 
-        return view('dashboard',compact('current_module','assets'));
+        return view('dashboard',compact('current_module',
+                                        'sales',
+                                        'total_product_purchase_amt',
+                                        'total_asset_purchase_amt',
+                                        'total_expense_amt',
+                                      ));
 
         }else{
 
           $permitted_menus = $menu_data->menus;
           $permitted_menus_array = explode(',', $permitted_menus);
 
-        return view('dashboard',compact('current_module','assets', 'permitted_menus_array'));
+        return view('dashboard',compact('current_module',
+                                        'sales',
+                                        'total_product_purchase_amt',
+                                        'total_asset_purchase_amt',
+                                        'total_expense_amt',
+                                        'permitted_menus_array'
+                                      ));
             }
-    }
+    
 
     }
 }
