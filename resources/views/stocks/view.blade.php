@@ -102,13 +102,13 @@ View Stock
                             <!-- label or not label check end -->
 
                             @else
-                            <h5><span class="badge badge-danger">Damaged</span></h5>
+                            {{-- <h5><span class="badge badge-danger">Damaged</span></h5> --}}
                             @endif
                         </td>
                           
                         <td>
                             @if($stock->quantity == 0)
-                            <a href="" style="color: white"><button class="btn btn-danger" disabled> All Damaged</button></a>
+                            <a href="" style="color: white"><button class="btn btn-secondary" disabled> Damaged/Sold Out</button></a>
                             @else
                             <a href="{{route('damage_product',$stock->id)}}" style="color: white"><button class="btn btn-warning"> <i class="fa-solid fa-pen-to-square"></i> Detail</button></a>
                             @endif

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Customer Due List
+Supplier Due List
 @endsection
 
 
@@ -16,8 +16,8 @@ Customer Due List
 
           @if( (auth()->user()->role_id == 1) || (auth()->user()->role_id == 2))
           <div class="col-12">
-            <a class="btn btn-outline-info float-right" href="{{route('add_customer')}}">
-                <i class="fas fa-plus"></i> Add Customer
+            <a class="btn btn-outline-info float-right" href="{{route('add_supplier')}}">
+                <i class="fas fa-plus"></i> Add Supplier
             </a>
           </div>
           @endif
@@ -41,7 +41,7 @@ Customer Due List
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Customer Due List</h3>
+                      <h3 class="card-title">Supplier Due List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -49,9 +49,8 @@ Customer Due List
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Customer Name</th>
-                          <th>Mobile Number</th>
-                          <th>Registration Date</th>               
+                          <th>Supplier Name</th>
+                          <th>Mobile Number</th> 
                           <th>Total Due (BDT)</th>                
                           <th>Action</th>
                         </tr>
@@ -61,16 +60,13 @@ Customer Due List
                             @foreach($due_list as $due)
                         <tr>
                           <td>{{$i++}}</td>
-                          <td>{{$due->customer_name}}</td>
-                          <td>{{$due->customer_mobile_number}}</td>
-                          <td>{{$due->customer_registration_date}}</td>
+                          <td>{{$due->supplier_name}}</td>
+                          <td>{{$due->supplier_mobile_number}}</td>
                           <td>{{$due->total_due}}</td>                                     
-                          {{-- <td>
-                            <a href="{{route('due_details',$due->customer_mobile_number)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Details</button></a>
-                          </td> --}}
+                        
                           <td>
-                            @if(!empty($due->customer_mobile_number))
-                            <a href="{{route('due_details',$due->customer_mobile_number)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Details</button></a>
+                            @if(!empty($due->supplier_mobile_number))
+                            <a href="{{route('supplier_due_details',$due->supplier_mobile_number)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Details</button></a>
                             @else
                                 <span>No Details Available</span>
                             @endif
@@ -129,7 +125,6 @@ Customer Due List
         ]
     });
 });
-
 
   </script>
   @endpush

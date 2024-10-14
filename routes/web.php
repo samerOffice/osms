@@ -123,6 +123,11 @@ Route::get('/add_supplier', [SupplierController::class, 'add_supplier'])->name('
 Route::get('/edit_supplier/{supplier_id}', [SupplierController::class, 'edit_supplier'])->name('edit_supplier');
 
 
+//supplier due
+Route::get('/supplier_due_list', [SupplierController::class, 'supplier_due_list'])->name('supplier_due_list');
+Route::get('/supplier_due_details/{supplier_mobile_number}', [SupplierController::class, 'supplier_due_details'])->name('supplier_due_details');
+Route::post('/supplier_due_clear', [SupplierController::class, 'supplier_due_clear'])->name('supplier_due_clear');
+
 //--- *** bills ***-------
 
 //rents

@@ -160,7 +160,9 @@ class ProductRequisitionController extends Controller
                                 'requisition_order_by' => $request->requisition_order_by,
                                 'supplier_id' => $supplier_id,
                                 'requisition_status' => 1,
-                                'total_amount' => $request->total_amount
+                                'total_amount' => $request->total_amount,
+                                'due_amount' => $request->due_amount,
+                                'paid_amount' => $request->paid_amount
                                 ]);
 
         $requisition =  DB::connection('inventory')
@@ -237,13 +239,24 @@ class ProductRequisitionController extends Controller
         $menu_data = DB::table('menu_permissions')
                     ->where('user_id',$user_id)
                     ->first();
-            if($menu_data == null){
-                return view('product_requisitions.edit',compact('current_module','id'));
-                }else{
-                $permitted_menus = $menu_data->menus;
-                $permitted_menus_array = explode(',', $permitted_menus);
-                return view('product_requisitions.edit',compact('current_module','id','permitted_menus_array'));
-                    } 
+
+
+        $paid_and_due =  DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->select('paid_amount','due_amount')
+                            ->where('id',$id)
+                            ->first();
+
+        $paid = $paid_and_due->paid_amount;
+        $due = $paid_and_due->due_amount;
+
+        if($menu_data == null){
+            return view('product_requisitions.edit',compact('current_module','id','paid','due'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('product_requisitions.edit',compact('current_module','id','permitted_menus_array','paid','due'));
+                } 
 
     }
 
@@ -372,13 +385,15 @@ class ProductRequisitionController extends Controller
                                 ->table('requisition_orders')
                                 ->where('requisition_order_id', $requisition_order_id)
                                 ->update([
-                                    'total_amount' => $request->total_amount
+                                    'total_amount' => $request->total_amount,
+                                    'due_amount' => $request->due_amount,
+                                    'paid_amount' => $request->paid_amount
                                 ]);
 
             return response()->json(['message' => 'Product Order is updated successfully'], 200);
         } catch (\Exception $e) {
             // Catch any exceptions and return an error response
-            return response()->json(['error' => 'An error occurred while updating the Product Category', 'details' => $e->getMessage()], 500);
+            return response()->json(['error' => 'An error occurred while updating the Data', 'details' => $e->getMessage()], 500);
         }  
 
     }

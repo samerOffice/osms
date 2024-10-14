@@ -32,17 +32,17 @@ New Sale
                 <div class="row" style=" margin: 0 10px; padding: 10px;"> 
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <label  class="col-form-label text-start">Invoice Number</label>         
                                 <input type="text" readonly style="background-color: #e7ffd9" id="sale_order_id" name="sale_order_id" class="form-control" />
                             </div>
     
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <label  class="col-form-label text-start">Purchase Date</label>         
                                 <input type="date" readonly style="background-color: #e7ffd9" id="requisition_order_date" name="requisition_order_date" value="{{ date('Y-m-d') }}" class="form-control" />
                             </div> 
 
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <label  class="col-form-label text-start">Sale By</label>         
                                 <input type="text" readonly style="background-color: #e7ffd9" id="sale_by_name" name="sale_by_name" value="{{$user_name}}" class="form-control" />
                                 <input type="hidden" id="sale_by" name="sale_by" value="{{$user_id}}" class="form-control" />
@@ -50,10 +50,10 @@ New Sale
                             </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-md-12">
                         <div class="mb-3 row">
 
-                        <div class="col-3">
+                        <div class="col-md-3">
                                 <label for="client" class="col-form-label text-start">Payment Method</label>         
                                 <select class="form-control select2bs4" id="payment_id" name="payment_id" style="width: 100%;">
                                     <option value="">--Select--</option>
@@ -61,7 +61,7 @@ New Sale
                                 </select>
                         </div>
                         
-                        <div class="col-4">
+                        <div class="col-md-4">
                                 <label for="client" class="col-form-label text-start">Outlet</label>         
                                 <select class="form-control select2bs4" id="outlet_id" name="outlet_id" style="width: 100%;">
                                     <option value="">--Select--</option>
@@ -71,19 +71,19 @@ New Sale
                                 </select>
                         </div>
 
-                            <div class="col-3">
-                                <label for="client" class="col-form-label text-start">Customer</label>         
-                                <select class="form-control select2bs4" id="customer_id" name="customer_id" style="width: 100%;">
-                                    <option value="">--Select--</option>
-                                    <option value="new">New Customer</option>
-                                    @foreach($customers as $customer)                                 
+                        <div class="col-md-3">
+                            <label for="client" class="col-form-label text-start">Customer</label>         
+                            <select class="form-control select2bs4" id="customer_id" name="customer_id" style="width: 100%;">
+                                <option value="">--Select--</option>
+                                <option value="new">New Customer</option>
+                                @foreach($customers as $customer)                                 
 
-                                    <option value="{{$customer->id}}">{{$customer->customer_name}} ({{$customer->customer_phone_number}})</option>
+                                <option value="{{$customer->id}}">{{$customer->customer_name}} ({{$customer->customer_phone_number}})</option>
 
-                                    @endforeach
-                                </select>
-                            </div>                          
-                            <div class="col-2" style="display: none" id="new_customer">
+                                @endforeach
+                            </select>
+                        </div>                          
+                            <div class="col-md-2" style="display: none" id="new_customer">
                                 <button type="button" style="margin-top: 35px" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-customer">
                                     Add New Customer
                                 </button>
@@ -145,13 +145,13 @@ New Sale
                                     <div id="form-container">
                                         <div class="form-row">
                                             <div class="row" style="width: 100%">
-                                                <div class="form-group col-3">
+                                                <div class="form-group col-md-3">
                                                     <label for="sku" class="col-form-label text-start">SKU</label>
                                                     <input type="text" placeholder="Type SKU Number" onkeyup="skuDetails()" class="form-control sku" name="sku[]">
                                                     <input type="hidden" placeholder="Type SKU Number" class="form-control stock_product_id" id="rr" name="stock_product_id[]">
                                                 </div>
 
-                                                <div class="form-group col-3">
+                                                <div class="form-group col-md-3">
                                                     <label for="product_name" class="col-form-label text-start">Product</label>
                                                     <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_name" name="product_name[]" >
                                                     {{-- <select name="product_id[]" class="form-control select2bs4 product_name">
@@ -162,47 +162,47 @@ New Sale
                                                     </select>  --}}
                                                 </div>
 
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-md-1">
                                                     <label for="product_weight"  class="col-form-label text-start">Weight</label>
                                                     <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_weight" name="product_weight[]"> 
                                                 </div>
                                     
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-md-1">
                                                 <label for="product_unit_type" class="col-form-label text-start">Unit</label>
                                                 <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_unit_type" name="product_unit_type[]">
                                                 </div>
                                     
-                                                <div class="form-group col-4">
+                                                <div class="form-group col-md-4">
                                                 <label for="product_details" class="col-form-label text-start">Details</label>
                                                 <textarea readonly style="background-color: #e7ffd9" name="product_details[]" class="form-control product_details"></textarea>
                                                 </div>
 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                     <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
                                                     <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_mfg_date" name="product_mfg_date[]"> 
                                                 </div>
                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                     <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
                                                     <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_expiry_date" name="product_expiry_date[]"> 
                                                 </div>
                                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                                                 <input type="number" required  class="form-control product_quantity" onkeyup="availableQuantityCheck()"  name="product_quantity[]">
                                                 </div>
                                                 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_unit_price" class="col-form-label text-start">Unit Price (Purchase)</label>
                                                 <input type="text" readonly  style="background-color: #e7ffd9" class="form-control product_unit_price" name="product_unit_price[]">
                                                 </div>
 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_unit_price_sale" class="col-form-label text-start">Unit Price (Sale)</label>
                                                 <input type="text" class="form-control product_unit_price_sale" onkeyup="saleUnitPrice()" name="product_unit_price_sale[]">
                                                 </div>
                                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                                                 <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_subtotal" name="product_subtotal[]">
                                                 </div>
@@ -223,77 +223,69 @@ New Sale
                 </div>
 
                     <!-- total amount start -->
-                    <div class="form-group col-4"></div>
-                    <div class="form-group col-4" style="padding-left: 160px">
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
                     <label class="col-form-label">Total Amount (BDT)</label>
                     </div>
-                    <div class="form-group col-4">                   
+                    <div class="form-group col-md-4">                   
                     <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
                     </div>
                     <!-- total amount end -->
 
                      <!-- TAX amount start -->
-                     <div class="form-group col-4"></div>
-                    <div class="form-group col-4" style="padding-left: 160px">
+                     <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
                     <label class="col-form-label">Tax (BDT)</label>
                     </div>
-                    <div class="form-group col-4">                   
+                    <div class="form-group col-md-4">                   
                     <input type="text"  class="form-control" id="taxAmount" onkeyup="taxAmountCalculation()" name="tax_amount">
                     </div>
                     <!-- TAX amount end -->
 
                     <!-- Discount amount start -->
-                    <div class="form-group col-4"></div>
-                    <div class="form-group col-4" style="padding-left: 160px">
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
                     <label class="col-form-label">Discount (BDT)</label>
                     </div>
-                    <div class="form-group col-4">                   
+                    <div class="form-group col-md-4">                   
                     <input type="text"  class="form-control" id="discountAmount" onkeyup="discountAmountCalculation()" name="discount_amount">
                     </div>
                     <!-- Discount amount end -->
 
                      <!-- Grand Total start -->
-                     <div class="form-group col-4"></div>
-                    <div class="form-group col-4" style="padding-left: 160px">
+                     <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
                     <label class="col-form-label" >Grand Total (BDT)</label>
                     </div>
-                    <div class="form-group col-4">                   
+                    <div class="form-group col-md-4">                   
                     <input type="text" readonly style="background-color: powderblue"  class="form-control" id="grandTotal" name="grand_total">
                     </div>
                     <!-- Grand Total end -->
 
 
-                     <!-- Due amount start -->
-                     <div class="form-group col-4"></div>
-                     <div class="form-group col-4" style="padding-left: 160px">
-                     <label class="col-form-label" style="color: red">Due (BDT)</label>
+                     <!-- Paid amount start -->
+                     <div class="form-group col-md-4"></div>
+                     <div class="form-group col-md-4" style="padding-left: 160px">
+                     <label class="col-form-label" style="color: green">Paid (BDT)</label>
                      </div>
-                     <div class="form-group col-4">                   
-                     <input type="text"  class="form-control" id="dueAmount" onkeyup="dueAmountCalculation()" name="due_amount">
+                     <div class="form-group col-md-4">                   
+                     <input type="text"  class="form-control" id="paidAmount" onkeyup="dueAmountCalculation()" name="paid_amount">
                      </div>
-                     <!-- Due amount end -->
+                     <!-- Paid amount end -->
 
 
-                    <!-- Paid amount start -->
-                    <div class="form-group col-4"></div>
-                    <div class="form-group col-4" style="padding-left: 160px">
-                    <label class="col-form-label" style="color:green">Paid (BDT)</label>
+                    <!-- Due amount start -->
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
+                    <label class="col-form-label" style="color:red">Due (BDT)</label>
                     </div>
-                    <div class="form-group col-4">                   
-                    <input type="text" readonly  class="form-control" id="paidAmount" name="paid_amount">
+                    <div class="form-group col-md-4">                   
+                    <input type="text" readonly value="0.00" class="form-control" id="dueAmount" name="due_amount">
                     </div>
-                    <!-- Paid amount end -->
-
-
-                   
-
-
-                    
-
-                   
-                    
+                    <!-- Due amount end -->
+        
             
-                    <div class="col-12"> 
+                    <div class="col-md-12"> 
                         <br>     
                         <button type="submit" class="btn btn-primary btn-lg float-right">Submit</button>          
                     </div>
@@ -356,64 +348,65 @@ function generateOrderID() {
 
 
 document.getElementById('addButton').addEventListener('click', function() { 
+        $('#dueAmount').val('0.00');
         const container = document.getElementById('form-container');
         const newRow = document.createElement('div');
         newRow.className = 'form-row';
         newRow.innerHTML = `<div class="row" style="width: 100%; margin-top: 70px !important;">
 
-                            <div class="form-group col-3">
+                            <div class="form-group col-md-3">
                                 <label for="sku" class="col-form-label text-start">SKU</label>
                                  <input type="text" placeholder="Type SKU Number" onkeyup="skuDetailsForDynamicRow()" class="form-control sku" name="sku[]">
                                 <input type="hidden" placeholder="Type SKU Number" class="form-control stock_product_id" name="stock_product_id[]">
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-md-3">
                                 <label for="product_name" class="col-form-label text-start">Product</label>
                                  <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_name" name="product_name[]" >
                             </div>
 
-                            <div class="form-group col-1">
+                            <div class="form-group col-md-1">
                                 <label for="product_weight" class="col-form-label text-start">Weight</label>
                                 <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_weight" name="product_weight[]"> 
                             </div>
                 
-                            <div class="form-group col-1">
+                            <div class="form-group col-md-1">
                             <label for="product_unit_type" class="col-form-label text-start">Unit</label>
                             <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_unit_type" name="product_unit_type[]">
                              
                             </div>
                 
-                            <div class="form-group col-4">
+                            <div class="form-group col-md-4">
                             <label for="product_details" class="col-form-label text-start">Details</label>
                             <textarea readonly style="background-color: #e7ffd9" name="product_details[]" class="form-control product_details"></textarea>
                             </div>
 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
                             <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_mfg_date" name="product_mfg_date[]"> 
                             </div>
                     
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
                             <input type="date" readonly style="background-color: #e7ffd9" class="form-control product_expiry_date" name="product_expiry_date[]"> 
                             </div>
 
                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                             <input type="number" class="form-control product_quantity" name="product_quantity[]">
                             </div>
                                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_unit_price" class="col-form-label text-start">Unit Price (Purchase)</label>
                             <input type="number" readonly style="background-color: #e7ffd9"  class="form-control product_unit_price" name="product_unit_price[]">
                             </div>
 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_unit_price_sale" class="col-form-label text-start">Unit Price (Sale)</label>
                             <input type="text" class="form-control product_unit_price_sale" name="product_unit_price_sale[]">
                             </div>
                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                             <input type="text" readonly style="background-color: #e7ffd9" class="form-control product_subtotal" name="product_subtotal[]">
                             </div>
@@ -426,6 +419,7 @@ document.getElementById('addButton').addEventListener('click', function() {
         container.appendChild(newRow);
         newRow.querySelector('.remove-button').addEventListener('click', function() {
             newRow.remove();
+            $('#dueAmount').val('0.00');
             updateTotal();
         });
 
@@ -563,7 +557,7 @@ function calculateProductUnitPrice(row) {
             }
 
 
-function updateTotal() {       
+    function updateTotal(){    
         var total = 0;
         $('.product_subtotal').each(function() {
             var subtotal = parseFloat($(this).val());
@@ -657,6 +651,11 @@ function availableQuantityCheck() {
                     title: 'Not enough stock available!',
                     });
         parseInt($('.product_quantity').val(''));
+        parseInt($('.product_subtotal').val(''));
+        parseInt($('#totalAmount').val(''));
+        parseInt($('#grandTotal').val(''));
+        parseInt($('#paidAmount').val(''));
+      
     }
 }
 
@@ -765,23 +764,55 @@ function discountAmountCalculation(){
 function dueAmountCalculation(){
 
     var total_amount = parseInt($('#totalAmount').val());
-    var due_amount = $('#dueAmount').val(); // Get the value as a string first
+    var paid_amount = $('#paidAmount').val(); // Get the value as a string first
+    var grand_total = parseInt($('#grandTotal').val());
 
-    if(due_amount === ''){
-        var grand_total = parseInt($('#grandTotal').val());
-        $('#paidAmount').val(grand_total.toFixed(2));
+    if (paid_amount > grand_total) {
+        // alert('Not enough stock available!');
+        Swal.fire({
+                    icon: "warning",
+                    title: 'Paid amount must be less than Grand Total!',
+                    });
+       
+        parseInt($('#paidAmount').val(''));
+        parseInt($('#dueAmount').val(''));
+      
     }else{
-        
-        due_amount = parseInt(due_amount); // Parse tax_amount only if it's not empty
-
-        var grand_total = parseInt($('#grandTotal').val());
-
-        var paid_amount = grand_total - due_amount;
-        
-        $('#paidAmount').val(paid_amount.toFixed(2));
-        // $('#grandTotal').val(grand_total.toFixed(2));
-        
+        if(paid_amount === ''){
+        // var grand_total = parseInt($('#grandTotal').val());
+        $('#dueAmount').val(grand_total.toFixed(2));
+        }else{
+            
+            paid_amount = parseInt(paid_amount);
+            // var grand_total = parseInt($('#grandTotal').val());
+            var due_amount = grand_total - paid_amount;     
+            $('#dueAmount').val(due_amount.toFixed(2));
+            // $('#grandTotal').val(grand_total.toFixed(2));        
+        }
     }
+
+  
+
+
+    //------------- old backup code (start) ----------------
+
+    // var due_amount = $('#dueAmount').val(); // Get the value as a string first
+    // if(due_amount === ''){
+    //     var grand_total = parseInt($('#grandTotal').val());
+    //     $('#paidAmount').val(grand_total.toFixed(2));
+    // }else{
+        
+    //     due_amount = parseInt(due_amount); // Parse tax_amount only if it's not empty
+
+    //     var grand_total = parseInt($('#grandTotal').val());
+
+    //     var paid_amount = grand_total - due_amount;
+        
+    //     $('#paidAmount').val(paid_amount.toFixed(2));
+    //     // $('#grandTotal').val(grand_total.toFixed(2));        
+    // }
+
+    //----------- old backup code (end) ------------------
 }
 //----- Due amount Calculation end
 

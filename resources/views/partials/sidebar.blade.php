@@ -120,6 +120,13 @@
           </a>
         </li>
 
+        <li class="nav-item nav-link @if(Request::is('supplier_due_list')) nav-link active @endif" style="@if(Request::is('supplier_due_list')) background-color: #908ec4; @endif">
+          <a href="{{route('supplier_due_list')}}">
+            <i class="nav-icon fa-regular fa-clipboard" style=" @if(Request::is('supplier_due_list')) color: white; @endif"></i>
+            <p style="@if(Request::is('supplier_due_list')) color:white; @endif"> Supplier Due List</p>
+          </a>
+        </li>
+
         
         <li class="nav-item @if(Request::is('rent_list')) menu-open 
          @elseif(Request::is('utility_list')) menu-open 

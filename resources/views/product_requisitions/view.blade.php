@@ -115,14 +115,16 @@ View Order
                 </div>
                 <!-- /.row -->
         
-                <p align="right" class="lead" style="padding-right: 50px; color:green"><b>Total: {{$requisition_order->total_amount}} BDT</b></p>
-        <br>
+          <p align="right" class="lead" style="padding-right: 50px; color:green"><b>Total: {{$requisition_order->total_amount}} BDT</b></p><br>
+          <p align="right" class="lead" style="padding-right: 50px; color:blue"><b>Paid: {{$requisition_order->paid_amount}} BDT</b></p><br>
+          <p align="right" class="lead" style="padding-right: 50px; color:red"><b>Due: {{$requisition_order->due_amount}} BDT</b></p><br>
                 <!-- this row will not appear when printing -->
                 <div class="row">
                   <div class="col-12">                 
                         <a  id="invoice_print" target="_blank"  class="btn btn-default float-right" style="margin-right: 5px;">
                             <i class="fas fa-print"></i> Print
-                          </a>               
+                          </a>
+                    @if($requisition_order->requisition_status == 1)             
                     <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-default" style="margin-right: 5px;">
                     Decline
                     </button>
@@ -133,6 +135,8 @@ View Order
                      Receive
                     </button>
                     </form>
+                    @else
+                    @endif
                     
                   </div>
                 </div>

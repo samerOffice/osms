@@ -3,11 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-
--- Generation Time: Aug 18, 2024 at 02:25 PM
+-- Generation Time: Oct 14, 2024 at 03:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
-
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +44,11 @@ CREATE TABLE `barcodes_and_skus` (
 INSERT INTO `barcodes_and_skus` (`id`, `stock_id`, `company_id`, `barcode`, `sku`, `created_at`, `updated_at`) VALUES
 (1, 3, 11, NULL, 'SKU-160525-753', '2024-08-13 10:05:29', '2024-08-13 10:05:29'),
 (2, 4, 11, NULL, 'SKU-160624-073', '2024-08-13 10:06:26', '2024-08-13 10:06:26'),
-(3, 1, 11, NULL, 'SKU-014714-770', '2024-08-16 19:47:18', '2024-08-16 19:47:18');
+(3, 1, 11, NULL, 'SKU-014714-770', '2024-08-16 19:47:18', '2024-08-16 19:47:18'),
+(4, 5, 11, NULL, 'SKU-124540-322', '2024-08-20 06:45:42', '2024-08-20 06:45:42'),
+(5, 7, 11, NULL, 'SKU-134533-222', '2024-10-14 07:45:36', '2024-10-14 07:45:36'),
+(6, 9, 11, NULL, 'SKU-160313-000', '2024-10-14 10:03:15', '2024-10-14 10:03:15'),
+(7, 8, 11, NULL, 'SKU-160753-791', '2024-10-14 10:07:56', '2024-10-14 10:07:56');
 
 -- --------------------------------------------------------
 
@@ -71,13 +73,11 @@ CREATE TABLE `damage_and_burned_products` (
 -- Dumping data for table `damage_and_burned_products`
 --
 
-
 INSERT INTO `damage_and_burned_products` (`id`, `entry_date`, `company_id`, `stock_id`, `product_id`, `quantity`, `unit_price`, `damage_amount`, `created_at`, `updated_at`) VALUES
 (1, '2024-08-13', 11, 2, 3, 7, NULL, NULL, '2024-08-13 10:07:03', '2024-08-13 10:07:03'),
 (2, '2024-08-17', 11, 1, 1, 1, NULL, NULL, '2024-08-16 19:49:02', '2024-08-16 19:49:02'),
 (3, '2024-08-17', 11, 3, 6, 2, NULL, '10', '2024-08-17 11:40:33', '2024-08-17 11:40:33'),
 (4, '2024-08-17', 11, 3, 6, 1, '420', '420', '2024-08-17 11:48:16', '2024-08-17 11:48:16');
-
 
 -- --------------------------------------------------------
 
@@ -168,8 +168,10 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `item_category_id`, `product_category_id`, `product_type`, `product_name`, `product_track_name`, `product_unit_price`, `labeling_type`, `batch_number`, `product_tag_number`, `product_weight`, `product_unit_type`, `quantity`, `product_total_price`, `additional_product_details`, `product_entry_date`, `product_mfg_date`, `product_expiry_date`, `product_status`, `total_product_in_a_batch`, `product_batch_price`, `current_available_product_in_a_batch`, `shop_company_id`, `shop_branch_id`, `shop_depth_id`, `shop_outlet_id`, `shop_warehouse_id`, `vendor_id`, `vendor_company_id`, `vendor_branch_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 3, NULL, 'Lenovo 203 tablet', 'Lenovo 203 laptop', NULL, 1, NULL, 'SKU-Electronics- Laptop -Lenovo 203 tablet-20240729-165427-336', '3', 'Kg', NULL, NULL, 'Lenovo 15\" LED', '2024-07-29', '2022-06-15', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 05:51:59', '2024-07-29 05:51:59'),
 (2, 2, 1, NULL, 'Otobi Wooden Table', 'Otobi Wooden Table', NULL, 1, NULL, 'SKU-Furniture- Table -Otobi Wooden Table-20240729-115238-464', '7.5', 'Kg', NULL, NULL, 'Otobi Latest Folding Table', '2024-07-29', NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 05:53:10', '2024-07-29 05:53:10'),
-(3, 2, 1, NULL, 'Hatil Table', 'Hatil Table', NULL, 1, NULL, 'SKU-Furniture- Table -Hatil Table-20240729-122841-832', '6', 'Kg', NULL, NULL, 'new hatil folding table', '2024-07-29', '2022-07-13', NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 06:29:03', '2024-07-29 06:29:03'),
-(6, 4, 4, NULL, 'Rupchanda Soyabin Oil', NULL, NULL, NULL, NULL, NULL, '7', 'Liter', NULL, NULL, 'Rupchanda 5L Fresh soyabin oil', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-03 07:44:29', '2024-08-03 07:44:29');
+(3, 2, 1, NULL, 'Hatil Table', 'Hatil Table', NULL, NULL, NULL, 'SKU-Furniture- Table -Hatil Table-20240729-122841-832', '8', 'Kg', NULL, NULL, 'new hatil folding table', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-29 06:29:03', '2024-07-29 06:29:03'),
+(6, 4, 4, NULL, 'Rupchanda Soyabin Oil', NULL, NULL, NULL, NULL, NULL, '7', 'Liter', NULL, NULL, 'Rupchanda 5L Fresh soyabin oil', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-03 07:44:29', '2024-08-03 07:44:29'),
+(7, 1, 3, NULL, 'HP notebook pro', NULL, NULL, NULL, NULL, NULL, '1.5', 'Kg', NULL, NULL, 'HP notebook pro 15\" laptop', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-20 06:43:49', '2024-08-20 06:43:49'),
+(9, 1, 6, NULL, 'HP inkjet Printer', NULL, NULL, NULL, NULL, NULL, '2', 'Kg', NULL, NULL, 'HP latest model inkjet printer', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-14 06:51:26', '2024-10-14 06:51:26');
 
 -- --------------------------------------------------------
 
@@ -211,7 +213,8 @@ INSERT INTO `product_categories` (`id`, `company_id`, `name`, `item_category_id`
 (1, 11, 'Table', 2, 1, '2024-07-28 11:35:45', '2024-07-28 11:35:45'),
 (2, 11, 'Chair', 2, 2, '2024-07-28 11:36:04', '2024-07-28 11:36:04'),
 (3, 11, 'Laptop', 1, 1, '2024-07-29 05:50:21', '2024-07-29 05:50:21'),
-(4, 11, 'Soyabin Oil', 4, 1, '2024-08-03 07:41:34', '2024-08-03 07:41:34');
+(4, 11, 'Soyabin Oil', 4, 1, '2024-08-03 07:41:34', '2024-08-03 07:41:34'),
+(6, 11, 'Printer', 1, 1, '2024-10-14 06:50:15', '2024-10-14 06:50:15');
 
 -- --------------------------------------------------------
 
@@ -244,7 +247,15 @@ INSERT INTO `product_requisitions` (`id`, `requisition_order_id`, `product_track
 (1, 'ORD-20240813-160218-959', 'Pro-20240813-160236-802', 1, '3', 'Kg', 'Lenovo 15\" LED', NULL, NULL, 5, '45700', '228500.00', '2024-08-13 10:04:09', '2024-08-13 10:04:09'),
 (2, 'ORD-20240813-160218-959', 'Pro-20240813-160301-153', 3, '6', 'Kg', 'new hatil folding table', NULL, NULL, 7, '13580', '95060.00', '2024-08-13 10:04:09', '2024-08-13 10:04:09'),
 (3, 'ORD-20240813-160218-959', 'Pro-20240813-160405-602', 6, '7', 'Liter', 'Rupchanda 5L Fresh soyabin oil', NULL, NULL, 12, '420', '5040.00', '2024-08-13 10:04:09', '2024-08-13 10:04:09'),
-(4, 'ORD-20240813-160417-129', 'Pro-20240813-160439-282', 3, '6', 'Kg', 'new hatil folding table', NULL, NULL, 4, '12700', '50800.00', '2024-08-13 10:04:42', '2024-08-13 10:04:42');
+(4, 'ORD-20240813-160417-129', 'Pro-20240813-160439-282', 3, '6', 'Kg', 'new hatil folding table', NULL, NULL, 4, '12700', '50800.00', '2024-08-13 10:04:42', '2024-08-13 10:04:42'),
+(5, 'ORD-20240820-124358-339', 'Pro-20240820-124421-642', 7, '1.5', 'Kg', 'HP notebook pro 15\" laptop', NULL, NULL, 15, '40500', '607500.00', '2024-08-20 06:44:45', '2024-08-20 06:44:45'),
+(6, 'ORD-20240829-133937-684', 'Pro-20240829-133949-767', 7, '1.5', 'Kg', 'HP notebook pro 15\" laptop', NULL, NULL, 4, '42500', '170000.00', '2024-08-29 07:39:51', '2024-08-29 07:39:51'),
+(7, 'ORD-20241002-171224-322', 'Pro-20241002-171252-389', 3, '8', 'Kg', 'new hatil folding table', NULL, NULL, 14, '7800', '109200.00', '2024-10-02 11:12:53', '2024-10-02 11:12:53'),
+(10, 'ORD-20241014-155922-831', 'Pro-20241014-160019-000', 1, '3', 'Kg', 'Lenovo 15\" LED', NULL, NULL, 10, '55000', '550000.00', '2024-10-14 10:01:14', '2024-10-14 10:01:14'),
+(11, 'ORD-20241014-155922-831', 'Pro-20241014-160105-317', 9, '2', 'Kg', 'HP latest model inkjet printer', NULL, NULL, 35, '14500', '507500.00', '2024-10-14 10:01:14', '2024-10-14 10:01:14'),
+(13, 'ORD-20241014-125134-968', 'Pro-20241014-125156-447', 9, '2', 'Kg', 'HP latest model inkjet printer', NULL, NULL, 10, '25400', '254000.00', '2024-10-14 11:49:35', '2024-10-14 11:49:35'),
+(14, 'ORD-20241014-125134-968', 'Pro-20241014-174915-599', 2, '7.5', 'Kg', 'Otobi Latest Folding Table', NULL, NULL, 7, '7500', '52500.00', '2024-10-14 11:49:35', '2024-10-14 11:49:35'),
+(15, 'ORD-20241014-191959-259', 'Pro-20241014-192016-532', 6, '7', 'Liter', 'Rupchanda 5L Fresh soyabin oil', NULL, NULL, 8, '100', '800.00', '2024-10-14 13:20:23', '2024-10-14 13:20:23');
 
 -- --------------------------------------------------------
 
@@ -294,6 +305,7 @@ CREATE TABLE `requisition_orders` (
   `requisition_order_id` varchar(100) DEFAULT NULL,
   `requisition_order_date` date DEFAULT NULL,
   `requisition_deliver_date` date DEFAULT NULL,
+  `due_clear_date` date DEFAULT NULL,
   `shop_company_id` int(100) DEFAULT NULL,
   `warehouse_id` int(100) DEFAULT NULL,
   `requisition_order_by` int(100) DEFAULT NULL,
@@ -301,6 +313,8 @@ CREATE TABLE `requisition_orders` (
   `supplier_id` int(100) DEFAULT NULL,
   `requisition_status` int(11) DEFAULT NULL COMMENT '1 = pending, 2= declined, 3 = delivered',
   `total_amount` varchar(100) DEFAULT NULL,
+  `due_amount` varchar(100) DEFAULT NULL,
+  `paid_amount` varchar(100) DEFAULT NULL,
   `requisition_decline_reason` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -310,9 +324,15 @@ CREATE TABLE `requisition_orders` (
 -- Dumping data for table `requisition_orders`
 --
 
-INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_reviewed_by`, `supplier_id`, `requisition_status`, `total_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, 'ORD-20240813-160218-959', '2024-08-13', '2024-08-13', 11, 2, 1, 1, 2, 3, '328600.00', NULL, '2024-08-13 10:04:09', '2024-08-13 10:04:09'),
-(2, 11, 1, 'ORD-20240813-160417-129', '2024-08-13', '2024-08-13', 11, 1, 1, 1, 4, 3, '50800.00', NULL, '2024-08-13 10:04:42', '2024-08-13 10:04:42');
+INSERT INTO `requisition_orders` (`id`, `company_id`, `requisition_type`, `requisition_order_id`, `requisition_order_date`, `requisition_deliver_date`, `due_clear_date`, `shop_company_id`, `warehouse_id`, `requisition_order_by`, `requisition_reviewed_by`, `supplier_id`, `requisition_status`, `total_amount`, `due_amount`, `paid_amount`, `requisition_decline_reason`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'ORD-20240813-160218-959', '2024-08-13', '2024-08-13', NULL, 11, 2, 1, 1, 2, 3, '328600.00', NULL, NULL, NULL, '2024-08-13 10:04:09', '2024-08-13 10:04:09'),
+(2, 11, 1, 'ORD-20240813-160417-129', '2024-08-13', '2024-08-13', NULL, 11, 1, 1, 1, 4, 3, '50800.00', NULL, NULL, NULL, '2024-08-13 10:04:42', '2024-08-13 10:04:42'),
+(3, 11, 1, 'ORD-20240820-124358-339', '2024-08-20', '2024-08-20', NULL, 11, NULL, 1, 1, 3, 3, '607500.00', NULL, NULL, NULL, '2024-08-20 06:44:45', '2024-08-20 06:44:45'),
+(4, 11, 1, 'ORD-20240829-133937-684', '2024-08-29', '2024-08-29', NULL, 11, 1, 9, 9, 2, 3, '170000.00', NULL, NULL, NULL, '2024-08-29 07:39:51', '2024-08-29 07:39:51'),
+(5, 11, 1, 'ORD-20241002-171224-322', '2024-10-02', '2024-10-02', NULL, 11, 2, 1, 1, 2, 3, '109200.00', NULL, NULL, NULL, '2024-10-02 11:12:53', '2024-10-02 11:12:53'),
+(6, 11, 1, 'ORD-20241014-125134-968', '2024-10-14', NULL, NULL, 11, 1, 1, NULL, 2, 1, '306500.00', '500.00', '306000', NULL, '2024-10-14 07:00:08', '2024-10-14 07:00:08'),
+(7, 11, 1, 'ORD-20241014-155922-831', '2024-10-14', '2024-10-14', NULL, 11, 2, 1, 1, 4, 3, '1057500.00', '500.00', '1057000.00', NULL, '2024-10-14 10:01:14', '2024-10-14 10:01:14'),
+(8, 11, 1, 'ORD-20241014-191959-259', '2024-10-14', NULL, NULL, 11, 2, 1, NULL, 2, 1, '800.00', '60', '740', NULL, '2024-10-14 13:20:23', '2024-10-14 13:20:23');
 
 -- --------------------------------------------------------
 
@@ -342,10 +362,39 @@ CREATE TABLE `stocks` (
 --
 
 INSERT INTO `stocks` (`id`, `product_id`, `company_id`, `warehouse_id`, `product_mfg_date`, `product_expiry_date`, `quantity`, `product_unit_price`, `product_subtotal`, `purchase_date`, `product_stored_by`, `label_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 11, 2, NULL, NULL, 2, '45700', '182800', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
+(1, 1, 11, 2, NULL, NULL, 0, '45700', '182800', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
 (2, 3, 11, 2, NULL, NULL, 0, '13580', '0', '2024-08-13', 1, NULL, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
-(3, 6, 11, 2, NULL, NULL, 1, '420', '420', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
-(4, 3, 11, 1, NULL, NULL, 0, '12700', '50800.00', '2024-08-13', 1, 1, '2024-08-13 10:04:55', '2024-08-13 10:04:55');
+(3, 6, 11, 2, NULL, NULL, 0, '420', '420', '2024-08-13', 1, 1, '2024-08-13 10:04:51', '2024-08-13 10:04:51'),
+(4, 3, 11, 1, NULL, NULL, 0, '12700', '50800.00', '2024-08-13', 1, 1, '2024-08-13 10:04:55', '2024-08-13 10:04:55'),
+(5, 7, 11, NULL, NULL, NULL, 0, '40500', '607500.00', '2024-08-20', 1, 1, '2024-08-20 06:44:52', '2024-08-20 06:44:52'),
+(6, 7, 11, 1, NULL, NULL, 4, '42500', '170000.00', '2024-08-29', 9, NULL, '2024-08-29 07:46:56', '2024-08-29 07:46:56'),
+(7, 3, 11, 2, NULL, NULL, 6, '7800', '109200.00', '2024-10-02', 1, 1, '2024-10-02 11:13:01', '2024-10-02 11:13:01'),
+(8, 1, 11, 2, NULL, NULL, 10, '55000', '550000.00', '2024-10-14', 1, 1, '2024-10-14 10:01:51', '2024-10-14 10:01:51'),
+(9, 9, 11, 2, NULL, NULL, 35, '14500', '507500.00', '2024-10-14', 1, 1, '2024-10-14 10:01:51', '2024-10-14 10:01:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier_dues`
+--
+
+CREATE TABLE `supplier_dues` (
+  `id` int(255) NOT NULL,
+  `due_clear_date` date DEFAULT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `order_id` int(255) DEFAULT NULL,
+  `supplier_id` int(255) DEFAULT NULL,
+  `due_clear_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `supplier_dues`
+--
+
+INSERT INTO `supplier_dues` (`id`, `due_clear_date`, `company_id`, `order_id`, `supplier_id`, `due_clear_amount`, `created_at`, `updated_at`) VALUES
+(1, '2024-10-14', 11, 8, 2, '40', '2024-10-14 13:39:57', '2024-10-14 13:39:57');
 
 -- --------------------------------------------------------
 
@@ -449,6 +498,12 @@ ALTER TABLE `stocks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `supplier_dues`
+--
+ALTER TABLE `supplier_dues`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `warehouses`
 --
 ALTER TABLE `warehouses`
@@ -462,15 +517,13 @@ ALTER TABLE `warehouses`
 -- AUTO_INCREMENT for table `barcodes_and_skus`
 --
 ALTER TABLE `barcodes_and_skus`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `damage_and_burned_products`
 --
 ALTER TABLE `damage_and_burned_products`
-
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 
 --
 -- AUTO_INCREMENT for table `inventory_log`
@@ -482,13 +535,13 @@ ALTER TABLE `inventory_log`
 -- AUTO_INCREMENT for table `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product_batch`
@@ -500,13 +553,13 @@ ALTER TABLE `product_batch`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_requisitions`
 --
 ALTER TABLE `product_requisitions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `product_sales`
@@ -524,19 +577,25 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `requisition_orders`
 --
 ALTER TABLE `requisition_orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `supplier_dues`
+--
+ALTER TABLE `supplier_dues`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `warehouses`
 --
 ALTER TABLE `warehouses`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

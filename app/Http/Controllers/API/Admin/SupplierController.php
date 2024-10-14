@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class SupplierController extends Controller
 {
@@ -149,6 +150,173 @@ class SupplierController extends Controller
 
         // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
     }
+
+
+
+    //---------------- ******** Supplier Due part (start) -----------------
+    public function supplier_due_list(){
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+
+        // $due_list = DB::connection('pos')
+        //                 ->table('invoices')
+        //                 ->leftJoin('customers', 'invoices.customer_id', '=', 'customers.id')
+        //                 ->select(
+        //                     'customers.customer_name as customer_name',
+        //                     'customers.customer_phone_number as customer_mobile_number',
+        //                     'customers.registration_date as customer_registration_date',
+        //                     DB::raw('SUM(invoices.due_amount) as total_due')
+        //                 )
+        //                 ->where('invoices.company_id', $user_company_id)
+        //                 ->where('invoices.due_amount', '!=', '')
+        //                 ->where('invoices.due_amount', '!=', 0)
+        //                 ->groupBy(
+        //                     'customers.customer_name',
+        //                     'customers.customer_phone_number',
+        //                     'customers.registration_date'
+        //                 )
+        //                 ->get();
+
+
+         $due_list = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+                        ->select(
+                            'suppliers.full_name as supplier_name',
+                            'suppliers.mobile_number as supplier_mobile_number',
+                            DB::raw('SUM(requisition_orders.due_amount) as total_due')
+                        )
+                        ->where('requisition_orders.company_id', $user_company_id)
+                        ->where('requisition_orders.due_amount', '!=', '')
+                        ->where('requisition_orders.due_amount', '!=', 0)
+                        ->groupBy(
+                            'suppliers.full_name',
+                            'suppliers.mobile_number'
+                        )
+                        ->get();
+
+        // dd($due_list);
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('supplier_dues.index',compact('current_module','due_list'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('supplier_dues.index',compact('current_module','due_list','permitted_menus_array'));
+                }
+
+    }
+
+
+
+
+    public function supplier_due_details($mobile_number){
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        
+        $supplier_details = DB::table('suppliers')
+                                ->where('mobile_number', $mobile_number)
+                                ->first();
+                                
+        $supplier_id = $supplier_details->id;
+
+
+        $total_due_amount = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->select(DB::raw('SUM(requisition_orders.due_amount) as total_due'))
+                            ->where('supplier_id',$supplier_id)
+                            ->first();
+        
+        $due_details = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        // ->select('id','invoice_date','invoice_track_id', DB::raw('SUM(invoices.due_amount) as total_due'))
+                        ->where('supplier_id',$supplier_id)
+                        ->where('due_amount', '!=', '')
+                        ->where('due_amount', '!=', 0)
+                        ->get();
+        
+        // dd($due_details);
+
+        $user_id = Auth::user()->id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+        if($menu_data == null){
+            return view('supplier_dues.due_details',compact('current_module','supplier_details','total_due_amount','due_details'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('supplier_dues.due_details',compact('current_module','supplier_details','total_due_amount','due_details','permitted_menus_array'));
+                }
+
+    }
+
+
+
+    public function supplier_due_clear(Request $request){
+        
+        $order_id = $request->order_id;
+        $due_clear_amount = $request->clear_due_amount;
+        
+        $details_from_order = DB::connection('inventory')
+                                    ->table('requisition_orders')
+                                    ->select('company_id','supplier_id','due_amount','paid_amount')
+                                    ->where('id',$order_id)
+                                    ->first();
+
+       $company_id = $details_from_order->company_id;
+       $supplier_id = $details_from_order->supplier_id;
+       $due_amount = $details_from_order->due_amount;
+       $paid_amount = $details_from_order->paid_amount;
+
+       $remaining_due_amount = $due_amount - $due_clear_amount;
+       $updated_paid_amount = $paid_amount + $due_clear_amount;
+
+       $update =  DB::connection('inventory')
+                    ->table('requisition_orders')
+                    ->where('id', $order_id)
+                    ->update([
+                        'due_amount' => $remaining_due_amount,
+                        'paid_amount' => $updated_paid_amount
+                    ]);
+
+
+        $insert = DB::connection('inventory')
+        ->table('supplier_dues')
+        ->insertGetId([
+            'due_clear_date' => Carbon::now()->toDateString(),
+            'company_id' => $company_id,
+            'order_id' => $order_id,
+            'supplier_id' => $supplier_id,
+            'due_clear_amount' => $due_clear_amount
+            ]);
+
+    return redirect()->route('supplier_due_list')->withSuccess('Due is cleared and updated successfully'); 
+        
+    }
+    //---------------- ******** Supplier Due part (end) -----------------
 
 
 
