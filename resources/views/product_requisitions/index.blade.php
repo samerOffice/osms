@@ -146,10 +146,12 @@ Purchased Product List
                               @if($requisition_order->requisition_status == 2)
                               <td>
                                 <button type="button" disabled class="btn btn-secondary">Declined</button>
+                                <a href="{{route('requisition_view',$requisition_order->id)}}" style="color: white"><button class="btn btn-warning">View</button></a>
                               </td>
                               @elseif($requisition_order->requisition_status == 3)
                               <td>
                                 <button type="button" disabled class="btn btn-success">Delivered</button>
+                                <a href="{{route('requisition_view',$requisition_order->id)}}" style="color: white"><button class="btn btn-warning">View</button></a>
                               </td>
                               @else
                               <td>

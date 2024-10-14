@@ -33,14 +33,49 @@ New Product Request Form
                 </div>
                 <button type="button" class="add-button btn btn-success" id="addButton">Add</button>
                 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="form-group col-5"></div>
                     <div class="form-group col-4"></div>
                     <div class="form-group col-3">
-                        <label class="col-form-label" style="color: green">Total Amount (BDT)</label>
+                        <label class="col-form-label" style="color: purple">Total Amount (BDT)</label>
                         <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
                     </div>
-                </div>
+                </div> --}}
+
+                  <div class="row">
+                    <!-- Total amount start -->
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
+                    <label class="col-form-label" style="color: green">Total Amount (BDT)</label>
+                    </div>
+                    <div class="form-group col-md-4">                   
+                    <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
+                    </div>
+                    <!-- Total amount end -->
+
+                    <!-- Paid amount start -->
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
+                    <label class="col-form-label">Paid (BDT)</label>
+                    </div>
+                    <div class="form-group col-md-4">                   
+                    <input type="text"  class="form-control" id="paidAmount" onkeyup="dueAmountCalculation()" name="paid_amount" value="{{$paid}}">
+                    </div>
+                    <!-- Paid amount end -->
+
+
+                    <!-- Due amount start -->
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
+                    <label class="col-form-label" style="color:red">Due (BDT)</label>
+                    </div>
+                    <div class="form-group col-md-4">                   
+                    <input type="text" readonly class="form-control" id="dueAmount" name="due_amount" value="{{$due}}">
+                    </div>
+                    <!-- Due amount end -->
+                  </div>
+
+                    
 
                 <div class="col-12"> 
                     <br>     
@@ -93,7 +128,12 @@ New Product Request Form
         axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
         // axios.get('sanctum/csrf-cookie').then(response=>{
-        axios.get('/api/requisition_edit/'+requisition_order_id).then(response=>{           
+        axios.get('/api/requisition_edit/'+requisition_order_id).then(response=>{
+
+            console.log(response.data[0].paid_amount);
+            
+            // $('#paidAmount').val(response.data.paid_amount.toFixed(2));
+            // $('#dueAmount').val(response.data.due_amount.toFixed(2));
             if (Array.isArray(response.data)) {
                     response.data.forEach(function(product) {
                         console.log('Adding row for product:', product);
@@ -134,12 +174,12 @@ New Product Request Form
         const newRow = $(`
             <div class="form-row">
 
-                 <div class="form-group col-2">
+                 <div class="form-group col-md-2">
                     <label for="product_track_id" class="col-form-label text-start">Product Track ID</label>
                     <input type="text" readonly class="form-control product_track_id" id="product_track_id"  value="${data.trackId || ''}" name="product_track_id[]">
                  </div>
 
-                  <div class="form-group col-2">
+                  <div class="form-group col-md-2">
                     <label for="product_name" class="col-form-label text-start">Product Name</label>
                     <select name="product_id[]" class="form-control select2bs4 product_name">
                     <option value="${data.productId || ''}">${data.productName || ''}</option>
@@ -147,43 +187,43 @@ New Product Request Form
                  </select>
                   </div>
 
-                <div class="form-group col-1">
+                <div class="form-group col-md-1">
                     <label for="product_weight" class="col-form-label text-start">Weight</label>
                     <input type="text" readonly class="form-control product_weight" value="${data.productWeight || ''}" name="product_weight[]" > 
                 </div>
 
-                <div class="form-group col-1">
+                <div class="form-group col-md-1">
                     <label for="product_unit_type" class="col-form-label text-start">Unit</label>
                     <input type="text" readonly class="form-control product_unit_type" value="${data.unit || ''}" name="product_unit_type[]" > 
                 </div>
 
-                <div class="form-group col-6">
+                <div class="form-group col-md-6">
                     <label for="product_details" class="col-form-label text-start">Details</label>
                     <textarea readonly name="product_details[]" class="form-control product_details">${data.productDetails || ''}</textarea>
                 </div>
 
-                <div class="form-group col-2">
+                <div class="form-group col-md-2">
                     <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
                     <input type="date" class="form-control product_mfg_date" value="${data.productMFGDate || ''}" name="product_mfg_date[]">
                 </div>
 
-                <div class="form-group col-2">
+                <div class="form-group col-md-2">
                     <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
                     <input type="date" class="form-control product_expiry_date" value="${data.productExpiryDate || ''}" name="product_expiry_date[]">
                 </div>
 
-                <div class="form-group col-2">
+                <div class="form-group col-md-2">
                     <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                     <input type="number" class="form-control product_quantity" value="${data.quantity || ''}" name="product_quantity[]">
                 </div>
 
 
-               <div class="form-group col-2">
+               <div class="form-group col-md-2">
                     <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                     <input type="number"  class="form-control product_unit_price" value="${data.unitPrice || ''}" name="product_unit_price[]">
                </div>
 
-                <div class="form-group col-2">
+                <div class="form-group col-md-2">
                     <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                     <input type="text" readonly class="form-control product_subtotal" value="${data.quantity && data.unitPrice ? (data.quantity * data.unitPrice).toFixed(2) : '--'}" name="product_subtotal[]" >
                 </div>
@@ -199,6 +239,8 @@ New Product Request Form
         container.append(newRow);
         newRow.find('.remove-button').on('click', function() {
             newRow.remove();
+            parseInt($('#paidAmount').val(''));
+            parseInt($('#dueAmount').val(''));
             updateTotal();
         });
 
@@ -297,6 +339,42 @@ New Product Request Form
         });
         $('#totalAmount').val(total.toFixed(2));
     }
+
+
+
+    //----- Due amount Calculation start
+    function dueAmountCalculation(){
+
+    var total_amount = parseInt($('#totalAmount').val());
+    var paid_amount = $('#paidAmount').val(); // Get the value as a string first
+
+    if (paid_amount > total_amount) {
+        // alert('Not enough stock available!');
+        Swal.fire({
+                    icon: "warning",
+                    title: 'Paid amount must be less than Total Amount!',
+                    });
+       
+        parseInt($('#paidAmount').val(''));
+        parseInt($('#dueAmount').val(''));
+      
+    }else{
+        
+        if(paid_amount === ''){
+        $('#dueAmount').val(total_amount.toFixed(2));
+    }else{
+        
+        paid_amount = parseInt(paid_amount);
+        // var grand_total = parseInt($('#grandTotal').val());
+        var due_amount = total_amount - paid_amount;     
+        $('#dueAmount').val(due_amount.toFixed(2));
+        // $('#grandTotal').val(grand_total.toFixed(2));        
+    }
+    }
+
+    
+    }
+    //----- Due amount Calculation end
 
 //----------------------- functions end ---------------------------
 

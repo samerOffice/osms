@@ -33,24 +33,24 @@ New Product Request Form
                 <div class="row" style=" margin: 0 10px; padding: 20px;"> 
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label  class="col-form-label text-start">Order ID</label>         
                                 <input type="text" readonly id="requisition_order_id" name="requisition_order_id" class="form-control" />
                             </div> 
     
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label  class="col-form-label text-start">Order Date</label>         
                                 <input type="date" readonly id="requisition_order_date" name="requisition_order_date" value="{{ date('Y-m-d') }}" class="form-control" />
                             </div> 
 
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label  class="col-form-label text-start">Order By</label>         
                                 <input type="text" readonly id="requisition_order_by_name" name="requisition_order_by_name" value="{{$user_name}}" class="form-control" />
                                 <input type="hidden" id="requisition_order_by" name="requisition_order_by" value="{{$user_id}}" class="form-control" />
                             </div> 
 
                             
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="client" class="col-form-label text-start">Warehouse</label>         
                                 <select class="form-control select2bs4" id="warehouse_id" name="warehouse_id" style="width: 100%;">
                                     <option value="">--Select--</option>
@@ -65,7 +65,7 @@ New Product Request Form
 
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label for="client" class="col-form-label text-start">Supplier</label>         
                                 <select class="form-control select2bs4" id="supplier_id" required name="supplier_id" style="width: 100%;">
                                     <option value="">--Select--</option>
@@ -75,7 +75,7 @@ New Product Request Form
                                     @endforeach
                                 </select>
                             </div>                          
-                            <div class="col-6" style="display: none" id="new_supplier">
+                            <div class="col-md-6" style="display: none" id="new_supplier">
                                 <button type="button" style="margin-top: 35px" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-supplier">
                                     Add New Supplier
                                 </button>
@@ -136,12 +136,12 @@ New Product Request Form
                                     <div id="form-container">
                                         <div class="form-row">
                                             <div class="row" style="width: 100%">
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                     <label for="product_track_id" class="col-form-label text-start">Product Track ID</label>
                                                     <input type="text" readonly class="form-control product_track_id" name="product_track_id[]">
                                                 </div>
 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                     <label for="product_name" class="col-form-label text-start">Product Name</label>
                                                     {{-- <input type="text" class="form-control" name="product_name[]" placeholder="Product Name"> --}}
                                                     <select name="product_id[]" class="form-control select2bs4 product_name">
@@ -152,12 +152,12 @@ New Product Request Form
                                                     </select> 
                                                 </div>
 
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-md-1">
                                                     <label for="product_weight" class="col-form-label text-start">Weight</label>
                                                     <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                                                 </div>
                                     
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-md-1">
                                                 <label for="product_unit_type" class="col-form-label text-start">Unit</label>
                                                 <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
                                                 {{-- <select  name="product_unit_type[]" class="form-control select2bs4 product_unit_type">
@@ -176,32 +176,32 @@ New Product Request Form
                                                 </select>   --}}
                                                 </div>
                                     
-                                                <div class="form-group col-6">
+                                                <div class="form-group col-md-6">
                                                 <label for="product_details" class="col-form-label text-start">Details</label>
                                                 <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                                                 </div>
 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                     <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
                                                     <input type="date" class="form-control product_mfg_date" name="product_mfg_date[]"> 
                                                 </div>
                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                     <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
                                                     <input type="date" class="form-control product_expiry_date" name="product_expiry_date[]"> 
                                                 </div>
                                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                                                 <input type="number" required class="form-control product_quantity" name="product_quantity[]">
                                                 </div>
                                                 
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                                                 <input type="number" required class="form-control product_unit_price" name="product_unit_price[]">
                                                 </div>
                                     
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-md-2">
                                                 <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                                                 <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                                                 </div>
@@ -229,12 +229,43 @@ New Product Request Form
                        
                     </div>
 
-                    <div class="form-group col-3">
+                    {{-- <div class="form-group col-3">
                         <label class="col-form-label" style="color: green">Total Amount (BDT)</label>
                         <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
+                    </div> --}}
+
+                    <!-- Total amount start -->
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
+                    <label class="col-form-label" style="color: green">Total Amount (BDT)</label>
                     </div>
+                    <div class="form-group col-md-4">                   
+                    <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
+                    </div>
+                    <!-- Total amount end -->
+
+                    <!-- Paid amount start -->
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4" style="padding-left: 160px">
+                    <label class="col-form-label">Paid (BDT)</label>
+                    </div>
+                    <div class="form-group col-md-4">                   
+                    <input type="text"  class="form-control" id="paidAmount" onkeyup="dueAmountCalculation()" name="paid_amount">
+                    </div>
+                    <!-- Paid amount end -->
+
+
+                   <!-- Due amount start -->
+                   <div class="form-group col-md-4"></div>
+                   <div class="form-group col-md-4" style="padding-left: 160px">
+                   <label class="col-form-label" style="color:red">Due (BDT)</label>
+                   </div>
+                   <div class="form-group col-md-4">                   
+                   <input type="text" readonly value="0.00" class="form-control" id="dueAmount" name="due_amount">
+                   </div>
+                   <!-- Due amount end -->
             
-                    <div class="col-12"> 
+                    <div class="col-md-12"> 
                         <br>     
                         <button type="submit" class="btn btn-primary btn-lg float-right">Submit</button>          
                     </div>
@@ -296,17 +327,19 @@ function generateOrderID() {
         }
 
 
-document.getElementById('addButton').addEventListener('click', function() { 
+document.getElementById('addButton').addEventListener('click', function() {
+
+        $('#dueAmount').val('0.00');
         const container = document.getElementById('form-container');
         const newRow = document.createElement('div');
         newRow.className = 'form-row';
         newRow.innerHTML = `<div class="row" style="width: 100%; margin-top: 70px !important;">
 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                                 <label for="product_track_id" class="col-form-label text-start">Product Track ID</label>
                                 <input type="text" readonly class="form-control product_track_id" id="product_track_id" name="product_track_id[]">
                             </div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                                 <label for="product_name" class="col-form-label text-start">Product Name</label>
                                 <select name="product_id[]" class="form-control select2bs4 pro_name">
                                     <option>--Select--</option>
@@ -316,44 +349,44 @@ document.getElementById('addButton').addEventListener('click', function() {
                                 </select> 
                             </div>
 
-                            <div class="form-group col-1">
+                            <div class="form-group col-md-1">
                                 <label for="product_weight" class="col-form-label text-start">Weight</label>
                                 <input type="text" readonly class="form-control product_weight" name="product_weight[]"> 
                             </div>
                 
-                            <div class="form-group col-1">
+                            <div class="form-group col-md-1">
                             <label for="product_unit_type" class="col-form-label text-start">Unit</label>
                             <input type="text" readonly class="form-control product_unit_type" name="product_unit_type[]">
                              
                             </div>
                 
-                            <div class="form-group col-6">
+                            <div class="form-group col-md-6">
                             <label for="product_details" class="col-form-label text-start">Details</label>
                             <textarea readonly name="product_details[]" class="form-control product_details"></textarea>
                             </div>
 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_mfg_date" class="col-form-label text-start">MFG Date</label>
                             <input type="date" class="form-control product_mfg_date" name="product_mfg_date[]"> 
                             </div>
                     
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_expiry_date" class="col-form-label text-start">Expiry Date</label>
                             <input type="date" class="form-control product_expiry_date" name="product_expiry_date[]"> 
                             </div>
 
                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_quantity" class="col-form-label text-start">Quantity</label>
                             <input type="number" class="form-control product_quantity" name="product_quantity[]">
                             </div>
                                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_unit_price" class="col-form-label text-start">Unit Price</label>
                             <input type="number"  class="form-control product_unit_price" name="product_unit_price[]">
                             </div>
                 
-                            <div class="form-group col-2">
+                            <div class="form-group col-md-2">
                             <label for="product_subtotal" class="col-form-label text-start">Sub Total</label>
                             <input type="text" readonly class="form-control product_subtotal" name="product_subtotal[]">
                             </div>
@@ -366,6 +399,7 @@ document.getElementById('addButton').addEventListener('click', function() {
         container.appendChild(newRow);
         newRow.querySelector('.remove-button').addEventListener('click', function() {
             newRow.remove();
+            $('#dueAmount').val('0.00');
             updateTotal();
         });
 
@@ -443,6 +477,8 @@ document.getElementById('addButton').addEventListener('click', function() {
             }
         });
         $('#totalAmount').val(total.toFixed(2));
+        $('#paidAmount').val(total.toFixed(2));
+
     }
 
     // Initialize event listeners for the initial row
@@ -496,38 +532,81 @@ axios.get('sanctum/csrf-cookie').then(response=>{
 //product dependancy dropdown logic end
 
 
+//----- Due amount Calculation start
+function dueAmountCalculation(){
+
+var total_amount = parseInt($('#totalAmount').val());
+var paid_amount = $('#paidAmount').val(); // Get the value as a string first
+
+if (paid_amount > total_amount) {
+        // alert('Not enough stock available!');
+        Swal.fire({
+                    icon: "warning",
+                    title: 'Paid amount must be less than Total Amount!',
+                    });
+       
+        parseInt($('#paidAmount').val(''));
+        parseInt($('#dueAmount').val(''));
+      
+    }else{
+        if(paid_amount === ''){
+            $('#dueAmount').val(total_amount.toFixed(2));
+        }else{
+            
+            paid_amount = parseInt(paid_amount);
+            // var grand_total = parseInt($('#grandTotal').val());
+            var due_amount = total_amount - paid_amount;     
+            $('#dueAmount').val(due_amount.toFixed(2));
+            // $('#grandTotal').val(grand_total.toFixed(2));        
+        }
+    }
+
+
+}
+//----- Due amount Calculation end
+
+
+
 
 //..............requisition purchase order submit start................
 document.getElementById('requisitionOrderForm').addEventListener('submit',function(event){
 event.preventDefault();
 var requisitionOrderFormData = new FormData(this);
 
-// Function to get CSRF token from meta tag
-function getCsrfToken() {
-  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  }
+var existing_supplier  = $('#supplier_id').val();
+var new_supplier  = $('#mobile_number').val();
 
-// Set up Axios defaults
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
-
-axios.get('sanctum/csrf-cookie').then(response=>{
- axios.post('/api/requisition_store',requisitionOrderFormData).then(response=>{
-  console.log(response);
-  setTimeout(function() {
-        window.location.href = "{{ route('requisition_list') }}";
-      }, 2000);
-  Swal.fire({
-              icon: "success",
-              title: ''+ response.data.message,
-            });
+if ((existing_supplier === '') && (new_supplier === '')) {
+        alert('Please select a supplier');
         return false;
-        
-  }).catch(error => Swal.fire({
-              icon: "error",
-              title: error.response.data.message.email,
-              }))
- });
+    }else{      
+            // Function to get CSRF token from meta tag
+            function getCsrfToken() {
+            return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            }
+
+            // Set up Axios defaults
+            axios.defaults.withCredentials = true;
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+            axios.get('sanctum/csrf-cookie').then(response=>{
+            axios.post('/api/requisition_store',requisitionOrderFormData).then(response=>{
+            console.log(response);
+            setTimeout(function() {
+                    window.location.href = "{{ route('requisition_list') }}";
+                }, 2000);
+            Swal.fire({
+                        icon: "success",
+                        title: ''+ response.data.message,
+                        });
+                    return false;
+                    
+            }).catch(error => Swal.fire({
+                        icon: "error",
+                        title: error.response.data.message.email,
+                        }))
+            });
+    }
 
 });
 //................requisition purchase order submit end.................

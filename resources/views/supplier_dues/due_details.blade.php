@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Customer List
+Supplier Due List
 @endsection
 
 
@@ -14,7 +14,7 @@ Customer List
         <br>
         <div class="row">
             <div class="col-12">
-                <a class="btn btn-outline-info float-right" href="{{route('customer_due_list')}}">
+                <a class="btn btn-outline-info float-right" href="{{route('supplier_due_list')}}">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
             </div>
@@ -23,18 +23,15 @@ Customer List
             <br>
             <div class="card">
                 <div class="card-header">
-                    <h5>Customer Information</h5>
+                    <h5>Supplier Information</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <p><label for="">Cutomer Name :</label> {{$customer_details->customer_name}}</p>
+                            <p><label for="">Supplier Name :</label> {{$supplier_details->full_name}}</p>
                         </div>
                         <div class="col-md-6 col-sm-12">
-                           <p><label for="">Mobile Number :</label> {{$customer_details->customer_phone_number}}</p>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                           <p><label for="">Registration Date :</label> {{$customer_details->registration_date}}</p>
+                           <p><label for="">Mobile Number :</label> {{$supplier_details->mobile_number}}</p>
                         </div>
                         <div class="col-md-6 col-sm-12">
                            <p><label for="">Total Due Amount (BDT) :</label> <span style="color:red">{{$total_due_amount->total_due}} </span></p>
@@ -58,8 +55,8 @@ Customer List
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Invoice Date</th>
-                          <th>Invoice Number</th>         
+                          <th>Purchase Date</th>
+                          <th>Order Number</th>         
                           <th>Due (BDT)</th>                
                           <th>Action</th>
                         </tr>
@@ -69,8 +66,8 @@ Customer List
                             @foreach($due_details as $due)
                             <tr>
                                 <td>{{$i++}}</td>
-                                <td>{{$due->invoice_date}}</td>
-                                <td><a href="{{route('invoice_show_data', $due->id)}}" target="_blank">{{$due->invoice_track_id}}</a></td>
+                                <td>{{$due->requisition_order_date}}</td>
+                                <td><a href="{{route('requisition_view', $due->id)}}" target="_blank">{{$due->requisition_order_id}}</a></td>
                                 <td>{{$due->due_amount}}</td>                        
                                 <td>
                                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-default-{{$due->id}}" style="margin-right: 5px;">
@@ -89,14 +86,14 @@ Customer List
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form method="post" action="{{route('clear_due')}}" onsubmit="return validateClearAmount({{$due->due_amount}}, 'clear_due_amount_{{$due->id}}')">
+                                        <form method="post" action="{{route('supplier_due_clear')}}" onsubmit="return validateClearAmount({{$due->due_amount}}, 'clear_due_amount_{{$due->id}}')">
                                             @csrf
                                             <div class="modal-body">
                                                 <label for="">Due Amount: <span style="color: red">{{$due->due_amount}} BDT</span></label><br>
                                                 
                                                 <label class="">Clear Amount</label><br>
                                                 <input type="text" id="clear_due_amount_{{$due->id}}" name="clear_due_amount" class="form-control"><br>
-                                                <input type="hidden" name="invoice_id" value="{{$due->id}}">
+                                                <input type="hidden" name="order_id" value="{{$due->id}}">
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
