@@ -130,7 +130,8 @@ class DueController extends Controller
                     ->table('invoices')
                     ->where('id', $invoice_id)
                     ->update([
-                        'invoice_date' => Carbon::now()->toDateString(),
+                        // 'invoice_date' => Carbon::now()->toDateString(),
+                        'updated_at' => now(),
                         'due_amount' => $remaining_due_amount,
                         'paid_amount' => $updated_paid_amount
                     ]);

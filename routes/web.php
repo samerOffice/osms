@@ -67,7 +67,8 @@ Route::get('/accounts_module_active', [HomeController::class, 'accounts_module_a
 //............**************** Super Admin/Admin Dashboard module **************...................
 
 
-//account
+//---------- **** account module (start) *******----------------
+
 //purchase report
 Route::get('/account_purchase_report', [AccountsController::class, 'account_purchase_report'])->name('account_purchase_report');
 Route::post('/account_purchase_report_submit', [AccountsController::class, 'account_purchase_report_submit'])->name('account_purchase_report_submit');
@@ -78,6 +79,12 @@ Route::post('/account_sale_report_submit', [AccountsController::class, 'account_
 
 //profit and loss report
 Route::get('/account_profit_and_loss_report', [AccountsController::class, 'account_profit_and_loss_report'])->name('account_profit_and_loss_report');
+
+//balance sheet report
+Route::get('/balance_sheet_report', [AccountsController::class, 'balance_sheet_report'])->name('balance_sheet_report');
+
+//---------- **** account module (end) *******----------------
+
 
 
 

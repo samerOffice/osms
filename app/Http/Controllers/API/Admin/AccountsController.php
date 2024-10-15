@@ -20,12 +20,20 @@ class AccountsController extends Controller
                     ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
 
-        return view('accounts.purchase_report',compact('current_module'));
+
+        $user_company_id = Auth::user()->company_id;
+        $suppliers = DB::table('suppliers')
+                        ->where('company_id',$user_company_id)
+                        ->where('active_status',1)
+                        ->get();
+
+        return view('accounts.purchase_report',compact('current_module','suppliers'));
     } 
 
     public function account_purchase_report_submit(Request $request){
 
         $report_type = $request->purchase_type;
+        $supplier = $request->supplier_id;
         $user_company_id = Auth::user()->company_id;
 
         $current_modules = array();
@@ -35,74 +43,260 @@ class AccountsController extends Controller
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
         
+        // daily
         if($report_type == 1){
 
-            $current_date = Carbon::now()->toDateString();
 
-            $purchases_data = DB::connection('inventory')
-                        ->table('product_requisitions')
-                        ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
-                        ->leftJoin('products','product_requisitions.product_id','products.id')
-                        ->select(
-                        'product_requisitions.*',
-                        'requisition_orders.requisition_deliver_date as purchase_receive_date',
-                        'products.product_name as product_name'
-                        )
-                        ->where('requisition_orders.company_id',$user_company_id)
-                        ->where('requisition_orders.requisition_deliver_date', $current_date)
-                        ->get();
+            if($supplier == ''){
+                $current_date = Carbon::now()->toDateString();           
+                $purchases_data = DB::connection('inventory')
+                            ->table('product_requisitions')
+                            ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+                            ->leftJoin('products','product_requisitions.product_id','products.id')
+                            ->select(
+                            'product_requisitions.*',
+                            'suppliers.full_name as supplier_name',
+                            'requisition_orders.requisition_order_date as order_date',
+                            'requisition_orders.requisition_deliver_date as purchase_receive_date',
+                            'products.product_name as product_name'
+                            )
+                            ->where('requisition_orders.company_id',$user_company_id)
+                            ->where('requisition_orders.requisition_status',3)
+                            ->where('requisition_orders.requisition_order_date', $current_date)
+                            ->get();
+    
+                $total_paid = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->where('company_id', $user_company_id)
+                            ->where('requisition_order_date', $current_date)
+                            ->where('requisition_status',3)
+                            ->sum('paid_amount');
+    
+                $total_due = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->where('company_id', $user_company_id)
+                            ->where('requisition_order_date', $current_date)
+                            ->where('requisition_status',3)
+                            ->sum('due_amount');
+    
+            }else{
 
-        //    dd($purchases_data);
-        return view('accounts.purchase_report_data',compact('current_module','purchases_data', 'report_type'));
+                $current_date = Carbon::now()->toDateString();           
+                $purchases_data = DB::connection('inventory')
+                            ->table('product_requisitions')
+                            ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+                            ->leftJoin('products','product_requisitions.product_id','products.id')
+                            ->select(
+                            'product_requisitions.*',
+                            'suppliers.full_name as supplier_name',
+                            'requisition_orders.requisition_order_date as order_date',
+                            'requisition_orders.requisition_deliver_date as purchase_receive_date',
+                            'products.product_name as product_name'
+                            )
+                            ->where('requisition_orders.company_id',$user_company_id)
+                            ->where('requisition_orders.supplier_id',$supplier)
+                            ->where('requisition_orders.requisition_status',3)
+                            ->where('requisition_orders.requisition_order_date', $current_date)
+                            ->get();
+    
+                $total_paid = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->where('company_id', $user_company_id)
+                            ->where('supplier_id',$supplier)
+                            ->where('requisition_order_date', $current_date)
+                            ->where('requisition_status',3)
+                            ->sum('paid_amount');
+    
+                $total_due = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->where('company_id', $user_company_id)
+                            ->where('supplier_id',$supplier)
+                            ->where('requisition_order_date', $current_date)
+                            ->where('requisition_status',3)
+                            ->sum('due_amount');
+    
+            }
 
+           
+        // dd($purchases_data);
+        return view('accounts.purchase_report_data',compact('current_module','purchases_data','total_paid','total_due','report_type'));
+
+        // monthly
         }elseif($report_type == 2){
 
             $current_month = Carbon::now()->format('m');
-            $current_year = Carbon::now()->format('Y');
+            $current_year = Carbon::now()->format('Y'); 
+            $supplier = $request->supplier_id;
             
+            if($supplier == ''){
+                $purchases_data = DB::connection('inventory')
+                ->table('product_requisitions')
+                ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+                ->leftJoin('products','product_requisitions.product_id','products.id')
+                ->select(
+                'product_requisitions.*',
+                'suppliers.full_name as supplier_name',
+                'requisition_orders.requisition_order_date as order_date',
+                'requisition_orders.requisition_deliver_date as purchase_receive_date',
+                'products.product_name as product_name'
+                )
+                ->where('requisition_orders.company_id',$user_company_id)
+                ->where('requisition_orders.requisition_status',3)
+                ->whereMonth('requisition_orders.requisition_order_date', $current_month)
+                ->whereYear('requisition_orders.requisition_order_date', $current_year)
+                ->get();
+
+            $total_paid = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        ->where('company_id', $user_company_id)
+                        ->whereMonth('requisition_order_date', $current_month)
+                        ->whereYear('requisition_order_date', $current_year)
+                        ->where('requisition_status',3)
+                        ->sum('paid_amount');
+
+            $total_due = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        ->where('company_id', $user_company_id)
+                        ->whereMonth('requisition_order_date', $current_month)
+                        ->whereYear('requisition_order_date', $current_year)
+                        ->where('requisition_status',3)
+                        ->sum('due_amount');
+
+            }else{
+
+        $purchases_data = DB::connection('inventory')
+                            ->table('product_requisitions')
+                            ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                            ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+                            ->leftJoin('products','product_requisitions.product_id','products.id')
+                            ->select(
+                            'product_requisitions.*',
+                            'suppliers.full_name as supplier_name',
+                            'requisition_orders.requisition_order_date as order_date',
+                            'requisition_orders.requisition_deliver_date as purchase_receive_date',
+                            'products.product_name as product_name'
+                            )
+                            ->where('requisition_orders.company_id',$user_company_id)
+                            ->where('requisition_orders.supplier_id',$supplier)
+                            ->where('requisition_orders.requisition_status',3)
+                            ->whereMonth('requisition_orders.requisition_order_date', $current_month)
+                            ->whereYear('requisition_orders.requisition_order_date', $current_year)
+                            ->get();
+
+        $total_paid = DB::connection('inventory')
+                    ->table('requisition_orders')
+                    ->where('company_id', $user_company_id)
+                    ->where('supplier_id',$supplier)
+                    ->whereMonth('requisition_order_date', $current_month)
+                    ->whereYear('requisition_order_date', $current_year)
+                    ->where('requisition_status',3)
+                    ->sum('paid_amount');
+
+        $total_due = DB::connection('inventory')
+                    ->table('requisition_orders')
+                    ->where('company_id', $user_company_id)
+                    ->where('supplier_id',$supplier)
+                    ->whereMonth('requisition_order_date', $current_month)
+                    ->whereYear('requisition_order_date', $current_year)
+                    ->where('requisition_status',3)
+                    ->sum('due_amount');
+
+            }
            
-            $purchases_data = DB::connection('inventory')
-                        ->table('product_requisitions')
-                        ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
-                        ->leftJoin('products','product_requisitions.product_id','products.id')
-                        ->select(
-                        'product_requisitions.*',
-                        'requisition_orders.requisition_deliver_date as purchase_receive_date',
-                        'products.product_name as product_name'
-                        )
-                        ->where('requisition_orders.company_id',$user_company_id)
-                        ->whereMonth('requisition_orders.requisition_deliver_date', $current_month)
-                        ->whereYear('requisition_orders.requisition_deliver_date', $current_year)
-                        ->get();
-
+          
         //   dd($purchases_data);
-        return view('accounts.purchase_report_data',compact('current_module','purchases_data', 'report_type'));
+        return view('accounts.purchase_report_data',compact('current_module','purchases_data','total_paid','total_due','report_type'));
 
+        // yearly
         }else{
 
             $current_year = Carbon::now()->format('Y');
+            $supplier = $request->supplier_id;
 
-            $purchases_data = DB::connection('inventory')
+            if($supplier == ''){
+                $purchases_data = DB::connection('inventory')
                                 ->table('product_requisitions')
                                 ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                                ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
                                 ->leftJoin('products','product_requisitions.product_id','products.id')
                                 ->select(
                                 'product_requisitions.*',
+                                'suppliers.full_name as supplier_name',
+                                'requisition_orders.requisition_order_date as order_date',
                                 'requisition_orders.requisition_deliver_date as purchase_receive_date',
                                 'products.product_name as product_name'
                                 )
                                 ->where('requisition_orders.company_id',$user_company_id)
-                                ->whereYear('requisition_orders.requisition_deliver_date', $current_year)
+                                ->where('requisition_orders.requisition_status',3)
+                                ->whereYear('requisition_orders.requisition_order_date', $current_year)
                                 ->get();
 
+                $total_paid = DB::connection('inventory')
+                                ->table('requisition_orders')
+                                ->where('company_id', $user_company_id)
+                                ->whereYear('requisition_order_date', $current_year)
+                                ->where('requisition_status',3)
+                                ->sum('paid_amount');
 
+                $total_due = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->where('company_id', $user_company_id)
+                            ->whereYear('requisition_order_date', $current_year)
+                            ->where('requisition_status',3)
+                            ->sum('due_amount');
+
+            }else{
+                $purchases_data = DB::connection('inventory')
+                                ->table('product_requisitions')
+                                ->leftJoin('requisition_orders','product_requisitions.requisition_order_id','requisition_orders.requisition_order_id')
+                                ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.suppliers', 'requisition_orders.supplier_id', '=', 'suppliers.id')
+                                ->leftJoin('products','product_requisitions.product_id','products.id')
+                                ->select(
+                                'product_requisitions.*',
+                                'suppliers.full_name as supplier_name',
+                                'requisition_orders.requisition_order_date as order_date',
+                                'requisition_orders.requisition_deliver_date as purchase_receive_date',
+                                'products.product_name as product_name'
+                                )
+                                ->where('requisition_orders.company_id',$user_company_id)
+                                ->where('requisition_orders.supplier_id',$supplier)
+                                ->where('requisition_orders.requisition_status',3)
+                                ->whereYear('requisition_orders.requisition_order_date', $current_year)
+                                ->get();
+
+            $total_paid = DB::connection('inventory')
+                                ->table('requisition_orders')
+                                ->where('company_id', $user_company_id)
+                                ->where('supplier_id',$supplier)
+                                ->whereYear('requisition_order_date', $current_year)
+                                ->where('requisition_status',3)
+                                ->sum('paid_amount');
+
+            $total_due = DB::connection('inventory')
+                            ->table('requisition_orders')
+                            ->where('company_id', $user_company_id)
+                            ->where('supplier_id',$supplier)
+                            ->whereYear('requisition_order_date', $current_year)
+                            ->where('requisition_status',3)
+                            ->sum('due_amount');
+
+            }
+
+            
             // dd($purchases_data);
-            return view('accounts.purchase_report_data',compact('current_module','purchases_data', 'report_type'));
+            return view('accounts.purchase_report_data',compact('current_module','purchases_data', 'total_paid', 'total_due', 'report_type'));
         }
     }
 
     //------------- ******** purchase_report (end) *********--------------
 
+
+
+
+    //------------- ******** profit and loss report (start) *********--------------
 
     public function account_profit_and_loss_report(){
 
@@ -133,12 +327,12 @@ class AccountsController extends Controller
                         ->sum('paid_amount');
 
 
-        $total_customer_due = DB::connection('pos')
-                        ->table('invoices')
-                        ->where('company_id',$user_company_id)
-                        ->whereYear('invoice_date', $year)
-                        ->whereMonth('invoice_date', $month)
-                        ->sum('due_amount');
+        // $total_customer_due = DB::connection('pos')
+        //                 ->table('invoices')
+        //                 ->where('company_id',$user_company_id)
+        //                 ->whereYear('invoice_date', $year)
+        //                 ->whereMonth('invoice_date', $month)
+        //                 ->sum('due_amount');
 
 
         $total_purchase = DB::connection('inventory')
@@ -190,7 +384,7 @@ class AccountsController extends Controller
           // Return the data as a JSON response
             return response()->json([
                 'total_sale' => $total_sale,
-                'total_customer_due' => $total_customer_due,
+                // 'total_customer_due' => $total_customer_due,
                 'total_purchase' => $total_purchase,
                 'total_rent' => $total_rent,
                 'total_utility' => $total_utility,
@@ -200,7 +394,35 @@ class AccountsController extends Controller
 
 
     }
+    //------------- ******** profit and loss report (end) *********--------------
 
+
+    //------------- ******** balance sheet report (start) *********--------------
+    public function balance_sheet_report(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('accounts.balance_sheet_report',compact('current_module'));
+
+    }
+    //------------- ******** balance sheet report (end) *********--------------
+
+
+
+    //
+
+
+
+
+
+
+
+    //------------- ******** sale report (start) *********--------------
     public function account_sale_report(){
 
         $current_modules = array();
@@ -226,11 +448,10 @@ class AccountsController extends Controller
                     // ->where('id', $request->id)
                         ->update($current_modules);
         $current_module = DB::table('current_modules')->first();
-        
+
+        //daily
         if($report_type == 1){
-
             $current_date = Carbon::now()->toDateString();
-
             $sales_data = DB::connection('pos')
                         ->table('invoices')
                         ->leftJoin('invoice_items','invoices.id','invoice_items.invoice_id')
@@ -262,6 +483,7 @@ class AccountsController extends Controller
         //   dd($sales_data);
         return view('accounts.sale_report_data',compact('current_module','sales_data', 'total_due', 'report_type'));
 
+        //monthly
         }elseif($report_type == 2){
 
             $current_month = Carbon::now()->format('m');
@@ -300,6 +522,7 @@ class AccountsController extends Controller
         //  dd($sales_data);
         return view('accounts.sale_report_data',compact('current_module','sales_data', 'total_due', 'report_type'));
 
+        //yearly
         }else{
 
             $current_year = Carbon::now()->format('Y');
@@ -337,4 +560,9 @@ class AccountsController extends Controller
         }
         
     }
+    //------------- ******** sale report (end) *********--------------
+
+
+
+ 
 }

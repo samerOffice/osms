@@ -42,14 +42,14 @@ Purchase Report
                     <thead>
                         <tr>
                             <th>Serial No.</th>
+                            <th>Order Date</th>
                             <th>Receive Date</th>
+                            <th>Supplier</th>
                             <th>Product Name</th>
                             <th>Product Weight</th>
                             <th>Purchase Quantity</th>
                             <th>Unit Price (BDT)</th>
-                            <th colspan="2">Total (BDT)</th>
-                            {{-- <th>Total Purchase (BDT)</th>
-                            <th>Total Sales (BDT)</th> --}}
+                            <th>Total (BDT)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,19 +64,33 @@ Purchase Report
                         @endphp
                         <tr>
                             <td>{{$i++}}</td>
+                            <td>{{$purchase_data->order_date}}</td>
                             <td>{{$purchase_data->purchase_receive_date}}</td>
+                            <td>{{$purchase_data->supplier_name}}</td>
                             <td>{{$purchase_data->product_name}}</td>                      
                             <td>{{$purchase_data->product_weight}} {{$purchase_data->product_unit_type}}</td>                      
                             <td>{{$purchase_data->product_quantity}}</td>
                             <td>{{$purchase_data->product_unit_price}}</td>
-                            <td colspan="2">{{ number_format($purchaseAmount, 2) }}</td>
+                            <td >{{ number_format($purchaseAmount, 2) }}</td>
                         </tr>
                         @endforeach            
                     </tbody>
                     <tfoot>                       
                         <tr>
-                            <td colspan="6" style="text-align:right">Total Purchase (BDT)</td>
-                            <td colspan="">{{ number_format($totalPurchase, 2) }}</td>
+                            <td colspan="8" style="text-align:right">Total Purchase (BDT)</td>
+                            <td >{{ number_format($totalPurchase, 2) }}</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="8" style="text-align:right">Total Paid (BDT)</td>
+                            <td >{{ number_format($total_paid, 2) }}</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="8" style="text-align:right">Total Due (BDT)</td>
+                            <td >{{ number_format($total_due, 2) }}</td>
                             <td></td>
                         </tr>
                     </tfoot>

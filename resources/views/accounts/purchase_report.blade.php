@@ -27,16 +27,30 @@ Purchase Report
             <form action="{{route('account_purchase_report_submit')}}" method="POST">
                 @csrf
                 <div class="row">     
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="yearPicker">Select Type:</label>
                             <select class="form-control select2bs4" id="purchase_type" name="purchase_type" required>
                                 <option value="">--Select--</option>
                                 <option value="1">Daily</option>
-                                <option value="02">Monthly</option>
-                                <option value="03">Yearly</option>
+                                <option value="2">Monthly</option>
+                                <option value="3">Yearly</option>
                             </select>
                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                        <label for="client" class="col-form-label text-start">Supplier</label>         
+                        <select class="form-control select2bs4" id="supplier_id" required name="supplier_id" style="width: 100%;">
+                            <option value="">--Select--</option>
+                            <option value="">All</option>
+                            @foreach($suppliers as $supplier)
+                            <option value="{{$supplier->id}}">{{$supplier->full_name}}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                        
                     </div> 
                     </div>
                 

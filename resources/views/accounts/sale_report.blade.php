@@ -33,8 +33,8 @@ Sales Report
                             <select class="form-control select2bs4" id="sale_type" name="sale_type" required>
                                 <option value="">--Select--</option>
                                 <option value="1">Daily</option>
-                                <option value="02">Monthly</option>
-                                <option value="03">Yearly</option>
+                                <option value="2">Monthly</option>
+                                <option value="3">Yearly</option>
                             </select>
                         </div>
                     </div> 

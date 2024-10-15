@@ -37,7 +37,7 @@
       <div class="content" style="margin-top: -2%">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-4">
+            <div class="col-md-3">
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
@@ -51,7 +51,7 @@
               </div>
             </div>
             <!-- ./col -->
-            <div class="col-4">
+            <div class="col-md-3">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
@@ -65,7 +65,24 @@
               </div>
             </div>
             <!-- ./col -->
-            <div class="col-4">
+
+            <!-- ./col -->
+            <div class="col-md-3">
+              <!-- small box -->
+              <div class="small-box bg-primary">
+                <div class="inner">
+                  <h3>{{ number_format($total_sale_amt, 0) }} BDT</h3>
+  
+                  <p>Total Sale in current month</p>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                </div>
+              </div>
+            </div>
+            <!-- ./col -->
+
+            <div class="col-md-3">
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">

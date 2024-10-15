@@ -255,6 +255,7 @@ class SupplierController extends Controller
                         ->where('supplier_id',$supplier_id)
                         ->where('due_amount', '!=', '')
                         ->where('due_amount', '!=', 0)
+                        ->where('requisition_status',3)
                         ->get();
         
         // dd($due_details);
