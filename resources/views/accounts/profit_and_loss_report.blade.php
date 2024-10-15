@@ -83,10 +83,11 @@ Profiit & Loss Report
                     <td class="text-right" id="total_sale">0.00</td>
                 </tr>
                
-                <tr>
+                {{-- <tr>
                     <td>Total Due (from Customers)</td>
                     <td class="text-right" id="total_due">0.00</td>
-                </tr>
+                </tr> --}}
+                
                 <tr class="total-row">
                     <td>Total Revenue</td>
                     <td class="text-right" id="total_revenue">0.00</td>
@@ -233,17 +234,18 @@ $('#search').on('click',function(){
         }).then(response=>{
             console.log(response.data);
             $('#total_sale').html(response.data.total_sale.toFixed(2));
-            $('#total_due').html(response.data.total_customer_due.toFixed(2))
-            $('#total_purchase').html(response.data.total_purchase.toFixed(2))
-            $('#total_rent').html(response.data.total_rent.toFixed(2))
-            $('#total_utility').html(response.data.total_utility.toFixed(2))
-            $('#total_salary').html(response.data.total_salary.toFixed(2))
-            $('#total_damaged_product_value').html(response.data.total_damaged_product_value.toFixed(2))
+            // $('#total_due').html(response.data.total_customer_due.toFixed(2));
+            $('#total_purchase').html(response.data.total_purchase.toFixed(2));
+            $('#total_rent').html(response.data.total_rent.toFixed(2));
+            $('#total_utility').html(response.data.total_utility.toFixed(2));
+            $('#total_salary').html(response.data.total_salary.toFixed(2));
+            $('#total_damaged_product_value').html(response.data.total_damaged_product_value.toFixed(2));
 
             /// Total revenue calculation start
             var total_sale = parseFloat(response.data.total_sale); // Ensure it's a number
-            var total_due = parseFloat(response.data.total_customer_due); // Ensure it's a number
-            var total_revenue = total_sale + total_due;
+            // var total_due = parseFloat(response.data.total_customer_due); // Ensure it's a number
+            // var total_revenue = total_sale + total_due;
+            var total_revenue = total_sale;
             $('#total_revenue').html(total_revenue.toFixed(2));
             // Total revenue calculation end
 

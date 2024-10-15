@@ -74,6 +74,25 @@
       </a>
     </li>
 
+    <li class="nav-item nav-link 
+          @if(Request::is('balance_sheet_report')) nav-link active
+          @endif
+          " style="@if(Request::is('balance_sheet_report')) background-color: #ff774d;
+            @endif
+            ">
+      <a href="{{route('balance_sheet_report')}}">
+        <i class="nav-icon fa-solid fa-file-pen" style="@if(Request::is('balance_sheet_report')) color: white;
+            @endif
+            ">
+        </i>
+        <p style="@if(Request::is('balance_sheet_report')) color:white;
+            @endif
+            ">
+          Balance Sheet
+        </p>
+      </a>
+    </li>
+
      
    
   

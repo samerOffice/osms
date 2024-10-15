@@ -428,8 +428,7 @@ class HomeController extends Controller
                              ->whereMonth('attendances.attendance_date', $current_month)
                              ->where('users.company_id', $user_company_id)                            
                              ->count('attendances.id');
-        
-        
+         
         
         $employees = DB::table('users')
         ->leftJoin('employees','users.id','employees.user_id')
@@ -447,10 +446,7 @@ class HomeController extends Controller
         ->where('users.role_id', '3')
         ->get();
 
-
-
         $user_id = Auth::user()->id;
-
         $menu_data = DB::table('menu_permissions')
                 ->where('user_id',$user_id)
                 ->first();
@@ -464,9 +460,7 @@ class HomeController extends Controller
 
       return view('dashboard',compact('current_module','total_employees','total_attendances','employees','permitted_menus_array'));
            }
-        
-
-      
+            
     }
 
     
@@ -574,10 +568,17 @@ class HomeController extends Controller
       $total_product_purchase_amt = DB::connection('inventory')
                                       ->table('requisition_orders')
                                       ->where('company_id',$user_company_id)
-                                      ->whereMonth('requisition_deliver_date', $current_month)
-                                      ->whereYear('requisition_deliver_date', $current_year)
-                                      ->sum('total_amount');
+                                      ->whereMonth('requisition_order_date', $current_month)
+                                      ->whereYear('requisition_order_date', $current_year)
+                                      ->where('requisition_status', 3)
+                                      ->sum('paid_amount');
 
+      $total_sale_amt = DB::connection('pos')
+                            ->table('invoices')
+                            ->where('company_id',$user_company_id)
+                            ->whereMonth('invoice_date', $current_month)
+                            ->whereYear('invoice_date', $current_year)               
+                            ->sum('paid_amount');
 
       $total_asset_purchase_amt = DB::table('assets')
                                       ->where('company_id',$user_company_id)
@@ -597,7 +598,24 @@ class HomeController extends Controller
                         ->whereYear('utility_pay_date', $current_year)
                         ->sum('utility_amount');
 
-      $total_expense_amt = $total_rents_amt + $total_utilities_amt;
+
+      $total_salary_amt = DB::table('payrolls as p1')
+                        ->join(
+                            DB::raw('(SELECT employee, MAX(salary_date) as latest_salary_date 
+                                      FROM payrolls 
+                                      WHERE company = '.$user_company_id.' 
+                                      AND YEAR(salary_date) = '.$current_month.' 
+                                      AND MONTH(salary_date) = '.$current_year.' 
+                                      GROUP BY employee) as p2'),
+                            function($join) {
+                                $join->on('p1.employee', '=', 'p2.employee')
+                                     ->on('p1.salary_date', '=', 'p2.latest_salary_date');
+                            }
+                        )
+                        ->where('p1.company', $user_company_id)
+                        ->sum('p1.final_pay_amount');
+
+      $total_expense_amt = $total_rents_amt + $total_utilities_amt + $total_salary_amt;
 
         $assets = DB::table('assets')
                     ->leftJoin('companies','assets.company_id','companies.id')
@@ -627,6 +645,7 @@ class HomeController extends Controller
                                         'sales',
                                         'total_product_purchase_amt',
                                         'total_asset_purchase_amt',
+                                        'total_sale_amt',
                                         'total_expense_amt',
                                       ));
 
@@ -639,6 +658,7 @@ class HomeController extends Controller
                                         'sales',
                                         'total_product_purchase_amt',
                                         'total_asset_purchase_amt',
+                                        'total_sale_amt',
                                         'total_expense_amt',
                                         'permitted_menus_array'
                                       ));
