@@ -398,6 +398,162 @@ class AccountsController extends Controller
 
 
     //------------- ******** balance sheet report (start) *********--------------
+
+    public function add_balance_transaction(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('accounts.create',compact('current_module'));
+    }
+
+    public function submit_balance_transaction(Request $request){
+
+        $user_company_id = Auth::user()->company_id;
+        
+        $balance_transaction = DB::connection('pos')
+                                ->table('balance_transactions')
+                                ->insertGetId([
+                                'company_id'=>$user_company_id,
+                                'transaction_date'=>$request->transaction_date,
+                                'transaction_name'=>$request->transaction_name,
+                                'transaction_type'=>$request->transaction_type,
+                                'cost_type'=>$request->cost_type,
+                                'cost_less'=>$request->cost_less,
+                                'transaction_amount'=>$request->transaction_amount
+                                ]);
+
+        $response = [
+            'success' => true,
+            'message' => 'Transaction is added successfully'
+        ];
+
+        return response()->json($response,200);
+    }
+
+    public function balance_transaction_list(){
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        if($user_role_id == 1){
+
+            $balance_transactions = DB::connection('pos')
+                        ->table('balance_transactions')
+                        ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.companies', 'balance_transactions.company_id', '=', 'companies.id')
+                        ->select('balance_transactions.*','companies.company_name as company_name')
+                        ->get();
+                        
+            return view('accounts.index',compact('current_module','balance_transactions'));
+
+
+        }else{
+
+            $balance_transactions = DB::connection('pos')
+                        ->table('balance_transactions')
+                        ->leftJoin(DB::connection('mysql')->getDatabaseName() . '.companies', 'balance_transactions.company_id', '=', 'companies.id')
+                        ->select('balance_transactions.*','companies.company_name as company_name')
+                        ->where('balance_transactions.company_id',$user_company_id)
+                        ->get();
+          
+        return view('accounts.index',compact('current_module','balance_transactions'));
+        } 
+    }
+
+    public function edit_balance_transaction($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $balance_transaction = DB::connection('pos')
+                                ->table('balance_transactions')
+                                ->where('id',$id)
+                                ->first();
+    
+        return view('accounts.edit',compact('current_module','balance_transaction'));
+    }
+
+    //for api
+    public function edit_balance_transaction_api($id){
+
+        $balance_transaction = DB::connection('pos')
+                                ->table('balance_transactions')
+                                ->where('id',$id)
+                                ->first();
+
+        $response = [
+        'transaction_details' => $balance_transaction
+        ];
+       return response()->json($response,200);
+
+    }
+
+
+    public function update_balance_transaction(Request $request, $id){
+
+        $data = array();
+        $data['transaction_date'] = $request->input('transaction_date');
+        $data['transaction_name'] = $request->input('transaction_name');
+        $data['transaction_type'] = $request->input('transaction_type');
+        $data['cost_type'] = $request->input('cost_type');
+        $data['cost_less'] = $request->input('cost_less');
+        $data['transaction_amount'] = $request->input('transaction_amount');
+
+
+        try {
+            // Update the branch record in the database
+            $updated = DB::connection('pos')
+                        ->table('balance_transactions')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Transaction updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Transaction update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the transaction', 'details' => $e->getMessage()], 500);
+        }  
+    }
+
+    public function delete_balance_transaction(Request $request, $id){
+   
+        $deleted = DB::connection('pos')
+                    ->table('balance_transactions')
+                    ->where('id', $id)
+                    ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Transaction is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Transaction Failed To Deleted!']);
+                }
+    }
+
+   
+
     public function balance_sheet_report(){
 
         $current_modules = array();
@@ -410,14 +566,154 @@ class AccountsController extends Controller
         return view('accounts.balance_sheet_report',compact('current_module'));
 
     }
+
+
+    public function balance_transaction_report_submit(Request $request){
+
+        $user_company_id = Auth::user()->company_id;
+        $year = $request->input('year');
+
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+
+        //asset
+        $assets = DB::connection('pos')
+                           ->table('balance_transactions')
+                           ->whereYear('transaction_date',$year)
+                           ->where('company_id',$user_company_id)
+                           ->where('cost_type','A')
+                           ->where('cost_less',2)
+                           ->get();
+        // dd($year);
+
+        $total_asset_sum_amt = DB::connection('pos')
+                                ->table('balance_transactions')
+                                ->where('company_id',$user_company_id)
+                                ->whereYear('transaction_date',$year)
+                                ->where('cost_type','A')
+                                ->where('cost_less',2)
+                                ->sum('transaction_amount');
+
+        $asset_depriciations = DB::connection('pos')
+                                ->table('balance_transactions')
+                                ->where('company_id',$user_company_id)
+                                ->whereYear('transaction_date',$year)
+                                ->where('cost_type','A')
+                                ->where('cost_less',1)
+                                ->get();
+
+        $total_asset_depriciation_sum_amt = DB::connection('pos')
+                                ->table('balance_transactions')
+                                ->where('company_id',$user_company_id)
+                                ->whereYear('transaction_date',$year)
+                                ->where('cost_type','A')
+                                ->where('cost_less',1)
+                                ->sum('transaction_amount');
+        $net_total_asset_sum_amt = $total_asset_sum_amt - $total_asset_depriciation_sum_amt;
+
+
+        //liability
+        $liabilities = DB::connection('pos')
+                        ->table('balance_transactions')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('transaction_date',$year)
+                        ->where('cost_type','L')
+                        ->where('cost_less',2)
+                        ->get();
+
+        $total_liability_sum_amt = DB::connection('pos')
+                    ->table('balance_transactions')
+                    ->where('company_id',$user_company_id)
+                    ->whereYear('transaction_date',$year)
+                    ->where('cost_type','L')
+                    ->where('cost_less',2)
+                    ->sum('transaction_amount');
+
+        $liability_depriciations = DB::connection('pos')
+                    ->table('balance_transactions')
+                    ->where('company_id',$user_company_id)
+                    ->whereYear('transaction_date',$year)
+                    ->where('cost_type','L')
+                    ->where('cost_less',1)
+                    ->get();
+
+        $total_liability_depriciation_sum_amt = DB::connection('pos')
+                    ->table('balance_transactions')
+                    ->where('company_id',$user_company_id)
+                    ->whereYear('transaction_date',$year)
+                    ->where('cost_type','L')
+                    ->where('cost_less',1)
+                    ->sum('transaction_amount');
+
+        $net_total_liability_sum_amt = $total_liability_sum_amt - $total_liability_depriciation_sum_amt;
+
+
+        //equity
+        $equities = DB::connection('pos')
+                        ->table('balance_transactions')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('transaction_date',$year)
+                        ->where('cost_type','E')
+                        ->where('cost_less',2)
+                        ->get();
+
+        $total_equity_sum_amt = DB::connection('pos')
+                                    ->table('balance_transactions')
+                                    ->where('company_id',$user_company_id)
+                                    ->whereYear('transaction_date',$year)
+                                    ->where('cost_type','E')
+                                    ->where('cost_less',2)
+                                    ->sum('transaction_amount');
+
+        $equity_depriciations = DB::connection('pos')
+                                    ->table('balance_transactions')
+                                    ->where('company_id',$user_company_id)
+                                    ->whereYear('transaction_date',$year)
+                                    ->where('cost_type','E')
+                                    ->where('cost_less',1)
+                                    ->get();
+
+        $total_equity_depriciation_sum_amt = DB::connection('pos')
+                    ->table('balance_transactions')
+                    ->where('company_id',$user_company_id)
+                    ->whereYear('transaction_date',$year)
+                    ->where('cost_type','L')
+                    ->where('cost_less',1)
+                    ->sum('transaction_amount');
+
+        $net_total_equity_sum_amt = $total_equity_sum_amt - $total_equity_depriciation_sum_amt;
+
+
+        return view('accounts.balance_sheet_report_data',compact(
+            'current_module',
+
+            'assets',
+            'total_asset_sum_amt',
+            'asset_depriciations',
+            'total_asset_depriciation_sum_amt',
+            'net_total_asset_sum_amt',
+
+            'liabilities',
+            'total_liability_sum_amt',
+            'liability_depriciations',
+            'total_liability_depriciation_sum_amt',
+            'net_total_liability_sum_amt',
+
+            'equities',
+            'total_equity_sum_amt',
+            'equity_depriciations',
+            'total_equity_depriciation_sum_amt',
+            'net_total_equity_sum_amt'
+        ));
+
+    }
     //------------- ******** balance sheet report (end) *********--------------
-
-
-
-    //
-
-
-
 
 
 

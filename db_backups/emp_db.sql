@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2024 at 02:31 PM
+-- Generation Time: Oct 16, 2024 at 02:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,7 +63,8 @@ INSERT INTO `admins` (`id`, `user_id`, `father_name`, `mother_name`, `mobile_num
 (5, 17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-28 08:25:58', '2024-08-28 08:25:58'),
 (6, 19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
 (7, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
-(8, 21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-07 06:57:08', '2024-09-07 06:57:08');
+(8, 21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
+(9, 22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-08 09:32:57', '2024-10-08 09:32:57');
 
 -- --------------------------------------------------------
 
@@ -88,6 +89,13 @@ CREATE TABLE `assets` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `assets`
+--
+
+INSERT INTO `assets` (`id`, `asset_name`, `asset_type`, `purchase_date`, `cost`, `company_id`, `branch_id`, `department_id`, `warehouse_id`, `outlet_id`, `depreciation_rate`, `notes`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'Laptop', 'Electronics', '2024-10-10', '35700', 11, 4, 4, 2, 2, NULL, NULL, 1, '2024-10-11 05:43:10', '2024-10-11 05:43:10');
 
 -- --------------------------------------------------------
 
@@ -197,7 +205,6 @@ INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, 
 (2, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 2, '2024-06-10 07:52:34', '2024-06-10 07:52:34'),
 (3, 11, 'Mohammadpur Branch', 'Mohammadpur, Dhaka', 1, 1, '2024-06-10 07:52:46', '2024-06-10 07:52:46'),
 (4, 11, 'Gulshan Branch', 'Gulshan-1, Dhaka', 1, 1, '2024-06-10 07:52:58', '2024-06-10 07:52:58'),
-(5, 11, 'Nawabganj', 'Nawabganj, Dhaka', 2, 1, '2024-06-10 07:53:50', '2024-06-10 07:53:50'),
 (6, NULL, NULL, NULL, NULL, 1, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
 (7, NULL, NULL, NULL, NULL, 1, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
 (8, 14, 'Rampura Branch', '<p>rampura bridge, dhaka<br></p>', 1, 1, '2024-06-12 10:32:19', '2024-06-12 10:32:19'),
@@ -207,7 +214,8 @@ INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, 
 (12, 18, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 05:52:17', '2024-09-07 05:52:17'),
 (13, 19, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
 (14, 20, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
-(15, 21, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 06:57:08', '2024-09-07 06:57:08');
+(15, 21, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
+(16, 22, 'Head Branch', NULL, 1, 1, '2024-10-08 09:32:57', '2024-10-08 09:32:57');
 
 -- --------------------------------------------------------
 
@@ -302,7 +310,8 @@ INSERT INTO `companies` (`id`, `company_name`, `company_email`, `contact_no`, `l
 (18, 'Example Company', 'examplecompany@gmail.com', '01513470158', 'LIC-123456', '12 number road, Tejgaon, Dhaka', 'REG-7890', '6', '47', 'Bangladesh', '2024-09-07 05:52:17', '2024-09-07 05:52:17'),
 (19, 'Example Company', 'examplecompany@gmail.com', '01513470158', 'LIC-123456', '12 number road, Tejgaon, Dhaka', 'REG-7890', '6', '47', 'Bangladesh', '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
 (20, 'Example Company', 'examplecompany@gmail.com', '01513470158', 'LIC-123456', '12 number road, Tejgaon, Dhaka', 'REG-7890', '6', '47', 'Bangladesh', '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
-(21, 'Example Company', 'examplecompany@gmail.com', '01513470158', 'LIC-123456', '12 number road, Tejgaon, Dhaka', 'REG-7890', '6', '47', 'Bangladesh', '2024-09-07 06:57:08', '2024-09-07 06:57:08');
+(21, 'Example Company', 'examplecompany@gmail.com', '01513470158', 'LIC-123456', '12 number road, Tejgaon, Dhaka', 'REG-7890', '6', '47', 'Bangladesh', '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
+(22, 'Emran Shopping Mall', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-08 09:32:57', '2024-10-08 09:32:57');
 
 -- --------------------------------------------------------
 
@@ -312,7 +321,7 @@ INSERT INTO `companies` (`id`, `company_name`, `company_email`, `contact_no`, `l
 
 CREATE TABLE `current_modules` (
   `id` int(11) NOT NULL,
-  `module_status` int(10) NOT NULL DEFAULT 1 COMMENT '1 = general dashboard, 2= employee, 3= inventory, 4= pos\r\n',
+  `module_status` int(10) NOT NULL DEFAULT 1 COMMENT '1 = general dashboard, 2= employee, 3= inventory, 4= pos, 5 = asset, 6 = accounts\r\n',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -727,7 +736,8 @@ INSERT INTO `menu_permissions` (`id`, `role_id`, `user_id`, `menus`, `created_at
 (7, 3, 9, '1,2,12,13,14,15,16', '2024-08-28 10:53:00', '2024-08-28 10:53:00'),
 (8, 2, 19, '1,2,3', '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
 (9, 2, 20, '1,2,3', '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
-(10, 2, 21, '1,2,3', '2024-09-07 06:57:08', '2024-09-07 06:57:08');
+(10, 2, 21, '1,2,3', '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
+(11, 2, 22, '1,2,3', '2024-10-08 09:32:57', '2024-10-08 09:32:57');
 
 -- --------------------------------------------------------
 
@@ -867,7 +877,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(499, 'App\\Models\\User', 1, 'myToken', '4137f2d50c9dcc21bc7f4ddbc2beb190fcbfade567907f349231975174254f6d', '[\"*\"]', NULL, NULL, '2024-10-02 05:27:35', '2024-10-02 05:27:35');
+(521, 'App\\Models\\User', 1, 'myToken', '379e8b306ac997f0bfe069f177fbfa3c6721b838c252f3d19e90dba406178443', '[\"*\"]', NULL, NULL, '2024-10-16 04:36:48', '2024-10-16 04:36:48');
 
 -- --------------------------------------------------------
 
@@ -990,7 +1000,7 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `company_id`, `full_name`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `official_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `active_status`, `created_at`, `updated_at`) VALUES
-(2, 11, 'Sujon Mahmud Joy', NULL, NULL, '01513470157', NULL, NULL, 'Dhanmondi 27, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-15 06:41:10', '2024-07-15 06:41:10'),
+(2, 11, 'Sujon Mahmud Joy', NULL, NULL, '01513470158', NULL, NULL, 'Dhanmondi 27, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-15 06:41:10', '2024-07-15 06:41:10'),
 (3, 11, 'Hamim Rahman', NULL, NULL, '01513470121', NULL, NULL, '<p>Mirpur 1, Dhaka<br></p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-16 10:36:15', '2024-07-16 10:36:15'),
 (4, 11, 'Sumon Rana', NULL, NULL, '01513470157', NULL, NULL, 'Hazaribagh, Dhaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-07-17 09:36:43', '2024-07-17 09:36:43');
 
@@ -1045,7 +1055,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `company_id`, `branch_id`
 (18, 'Jasim Molla', 'jasim@gmail.com', 2, 18, 12, 1, NULL, NULL, NULL, '2024-09-01', NULL, '$2y$10$6fsi78w5GUO1Rc1K3QSfCOJs9v2zWphs.elXQ7AtK/8Xn9qRTx612', 1, '1', 1, NULL, '2024-09-07 05:52:18', '2024-09-07 05:52:18'),
 (19, 'Jasim Molla', 'jasi@gmail.com', 2, 19, 13, 1, NULL, NULL, NULL, '2024-09-01', NULL, '$2y$10$RWNqwgOb4fnzKD6hhik8qOC7yY/Cmm50qN.ZfNed04ZmAQVgti/cq', 1, '1', 1, NULL, '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
 (20, 'Jasim Molla', 'jas@gmail.com', 2, 20, 14, 1, NULL, NULL, NULL, '2024-09-01', NULL, '$2y$10$U2biKHqzEm./NtfdSZ1WzuuhI19tks4pmMKyiAJxxrwyfBIGPJgxW', 1, '1', 1, NULL, '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
-(21, 'Jasim Molla', 'ja@gmail.com', 2, 21, 15, 1, NULL, NULL, NULL, '2024-09-01', NULL, '$2y$10$qtauKP1Xc8cY7AZUJAKguu.gQ0xFj7UBDLzeW7ANJEKdqaAlIqeKm', 1, '1', 1, NULL, '2024-09-07 06:57:08', '2024-09-07 06:57:08');
+(21, 'Jasim Molla', 'ja@gmail.com', 2, 21, 15, 1, NULL, NULL, NULL, '2024-09-01', NULL, '$2y$10$qtauKP1Xc8cY7AZUJAKguu.gQ0xFj7UBDLzeW7ANJEKdqaAlIqeKm', 1, '1', 1, NULL, '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
+(22, 'Nakibul Islam Emran', 'emran@gmail.com', 2, 22, 16, 1, NULL, NULL, NULL, '2024-10-08', NULL, '$2y$10$dyQ/6sAX4mP6/OFiq.6VxeUwi1Out785HA9Sz20F5Vk3l.q.WEJBS', 1, '1', 3, NULL, '2024-10-08 09:32:57', '2024-10-08 09:32:57');
 
 -- --------------------------------------------------------
 
@@ -1332,13 +1343,13 @@ ALTER TABLE `vendors`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `asset_maintenance_logs`
@@ -1362,7 +1373,7 @@ ALTER TABLE `attendance_users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `business_types`
@@ -1374,7 +1385,7 @@ ALTER TABLE `business_types`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `current_modules`
@@ -1386,7 +1397,7 @@ ALTER TABLE `current_modules`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `designations`
@@ -1434,7 +1445,7 @@ ALTER TABLE `leave_applications`
 -- AUTO_INCREMENT for table `leave_types`
 --
 ALTER TABLE `leave_types`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -1446,7 +1457,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_permissions`
 --
 ALTER TABLE `menu_permissions`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -1470,13 +1481,13 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=522;
 
 --
 -- AUTO_INCREMENT for table `rents`
 --
 ALTER TABLE `rents`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1500,7 +1511,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_logs`
@@ -1512,7 +1523,7 @@ ALTER TABLE `user_logs`
 -- AUTO_INCREMENT for table `utilities`
 --
 ALTER TABLE `utilities`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vendors`

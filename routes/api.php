@@ -55,6 +55,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //account
 
+Route::middleware('auth:sanctum')->post('/submit_balance_transaction',[App\Http\Controllers\API\Admin\AccountsController::class,'submit_balance_transaction']);
+Route::middleware('auth:sanctum')->get('/edit_balance_transaction/{transaction_id}',[App\Http\Controllers\API\Admin\AccountsController::class,'edit_balance_transaction_api']);
+Route::middleware('auth:sanctum')->post('/update_balance_transaction/{transaction_id}',[App\Http\Controllers\API\Admin\AccountsController::class,'update_balance_transaction']);
+Route::middleware('auth:sanctum')->post('/delete_balance_transaction/{transaction_id}',[App\Http\Controllers\API\Admin\AccountsController::class,'delete_balance_transaction']);
+
 //profit and loss report (account)
 Route::middleware('auth:sanctum')->post('/account_profit_and_loss_report_result',[App\Http\Controllers\API\Admin\AccountsController::class,'account_profit_and_loss_report_result']);
 
