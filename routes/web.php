@@ -82,6 +82,11 @@ Route::get('/account_profit_and_loss_report', [AccountsController::class, 'accou
 
 //balance sheet report
 Route::get('/balance_sheet_report', [AccountsController::class, 'balance_sheet_report'])->name('balance_sheet_report');
+Route::post('/balance_transaction_report_submit', [AccountsController::class, 'balance_transaction_report_submit'])->name('balance_transaction_report_submit');
+
+Route::get('/add_balance_transaction', [AccountsController::class, 'add_balance_transaction'])->name('add_balance_transaction');
+Route::get('/balance_transaction_list', [AccountsController::class, 'balance_transaction_list'])->name('balance_transaction_list');
+Route::get('/edit_balance_transaction/{transaction_id}', [AccountsController::class, 'edit_balance_transaction'])->name('edit_balance_transaction');
 
 //---------- **** account module (end) *******----------------
 

@@ -74,7 +74,7 @@
       </a>
     </li>
 
-    <li class="nav-item nav-link 
+    {{-- <li class="nav-item nav-link 
           @if(Request::is('balance_sheet_report')) nav-link active
           @endif
           " style="@if(Request::is('balance_sheet_report')) background-color: #ff774d;
@@ -91,7 +91,44 @@
           Balance Sheet
         </p>
       </a>
-    </li>
+    </li> --}}
+
+    <li class="nav-item @if(Request::is('add_balance_transaction')) menu-open 
+         @elseif(Request::is('balance_transaction_list')) menu-open 
+         @elseif(Request::is('balance_sheet_report')) menu-open 
+        @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-receipt"></i>
+        <p>
+          Accounts
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('add_balance_transaction')}}" class="nav-link {{ Request::is('add_balance_transaction') ? 'nav-link active' : ''}}" style="{{ Request::is('add_balance_transaction') ? 'background-color: #ff774d; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('add_balance_transaction') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('add_balance_transaction') ? 'color: white; !important' : ''}}">Add Transaction</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('balance_transaction_list')}}" class="nav-link {{ Request::is('balance_transaction_list') ? 'nav-link active' : ''}}" style="{{ Request::is('balance_transaction_list') ? 'background-color: #ff774d; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('balance_transaction_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('balance_transaction_list') ? 'color: white; !important' : ''}}">Transactions</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('balance_sheet_report')}}" class="nav-link {{ Request::is('balance_sheet_report') ? 'nav-link active' : ''}}" style="{{ Request::is('balance_sheet_report') ? 'background-color: #908ec4; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('balance_sheet_report') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('balance_sheet_report') ? 'color: white; !important' : ''}}">Balance Sheet Report</p>
+          </a>
+        </li>
+
+      </ul>
+      </li>
+
 
      
    
