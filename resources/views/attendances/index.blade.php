@@ -40,12 +40,11 @@ Attendance List
                           <td>{{$i++}}</td>
                           <td>{{$attendance->member_name}}</td>
                           <td>{{$attendance->attendance_date}}</td>
-                          <td>{{$attendance->entry_time}}</td>
-                          <td>{{$attendance->exit_time}}</td>
+                          <td>{{ \Carbon\Carbon::parse($attendance->entry_time)->format('h:i A') }}</td>
+                          <td>{{ $attendance->exit_time ? \Carbon\Carbon::parse($attendance->exit_time)->format('h:i A') : 'N/A' }}</td>
                         </tr> 
-                        @endforeach              
-                 
-                        </tfoot>
+                        @endforeach                
+                        </tbody>
                       </table>
                     </div>
                     <!-- /.card-body -->

@@ -48,9 +48,7 @@ Add Branch
                                     <option value="2">Single Branch</option>
                                 </select>
                             </div>  
-                            </div>
-
-                          
+                            </div>                      
 
                             <div class="col-md-12 col-sm-12">
                               <div class="form-group mb-4">
@@ -60,8 +58,31 @@ Add Branch
                                     <option value="2">Inactive</option>                                                          
                                 </select>
                                 </div>
+                            </div>                                                    
+                          </div>
+
+                          <br>
+                          <h4>Set Office Geolocation</h4>
+                          <div class="row" id="locationDisplay">
+                              <div class="col-md-5 col-sm-12">
+                                <div class="form-group ">
+                                  <label>Latitude <small style="color: red">*</small></label>
+                                  <input readonly required type="text" id="currentLat" name="latitude" class="form-control">
+                                </div> 
                               </div>
-                                                      
+
+                              <div class="col-md-5 col-sm-12">
+                                <div class="form-group ">
+                                  <label>Longitude <small style="color: red">*</small></label>
+                                  <input readonly required type="text" id="currentLon" name="longitude" class="form-control">
+                                </div> 
+                              </div>
+                              
+                              <div class="col-md-2 col-sm-12">
+                                <div class="form-group mb-4">
+                              <button type="button" id="getLocationBtn" class="btn btn-primary mt-4">Get Current Location</button>
+                                </div>                          
+                              </div>                          
                           </div>
                           <button type="submit" class="btn btn-success float-right">Submit</button>
                         </form>  
@@ -96,6 +117,44 @@ $('.select2bs4').select2({
 $('.summernote').summernote();
 
 
+document.getElementById('getLocationBtn').addEventListener('click', function() {
+
+if (navigator.geolocation) {
+  // alert('hi');
+  navigator.geolocation.getCurrentPosition(function(position) {
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+
+    // Update the span content with latitude and longitude
+    // document.getElementById('currentLat').textContent = "Latitude: " + latitude;
+    // document.getElementById('currentLon').textContent = "Longitude: " + longitude;
+
+    document.getElementById('currentLat').value = latitude;
+    document.getElementById('currentLon').value = longitude;
+
+}, function(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+    }
+});
+} else {
+alert("Geolocation is not supported by this browser.");
+}
+
+});
+
+
 
 document.getElementById('addBranchForm').addEventListener('submit',function(event){
   event.preventDefault();
@@ -112,6 +171,7 @@ var branchFormData = new FormData(this);
     }
 
     var br_address = document.getElementById('br_address').value;
+    // var br_address = $('#br_address').summernote('code');
     if(br_address == ''){
     Swal.fire({
             icon: "warning",
@@ -125,6 +185,18 @@ var branchFormData = new FormData(this);
     Swal.fire({
             icon: "warning",
             title: "Please Enter Branch Type",
+            });
+        return false;
+    }
+
+
+    var shop_branch_latitude = document.getElementById('currentLat').value;
+    var shop_branch_longitude = document.getElementById('currentLon').value;
+
+    if( (shop_branch_latitude == '') && (shop_branch_longitude == '') ){
+    Swal.fire({
+            icon: "warning",
+            title: "Location is required.",
             });
         return false;
     }

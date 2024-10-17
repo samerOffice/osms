@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2024 at 02:28 PM
+-- Generation Time: Oct 17, 2024 at 01:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -161,7 +161,8 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 (25, 1, '2024-06-27', '19:13:59', NULL, '2024-06-27 13:13:59', '2024-06-27 13:13:59'),
 (26, 1, '2024-07-25', '15:26:02', NULL, '2024-07-25 09:26:02', '2024-07-25 09:26:02'),
 (27, 1, '2024-08-01', '16:50:53', NULL, '2024-08-01 10:50:53', '2024-08-01 10:50:53'),
-(28, 1, '2024-08-01', '16:52:33', NULL, '2024-08-01 10:52:33', '2024-08-01 10:52:33');
+(28, 1, '2024-08-01', '16:52:33', '17:03:39', '2024-08-01 10:52:33', '2024-08-01 10:52:33'),
+(35, 1, '2024-10-17', '17:24:23', '17:24:30', '2024-10-17 11:24:23', '2024-10-17 11:24:23');
 
 -- --------------------------------------------------------
 
@@ -192,6 +193,8 @@ CREATE TABLE `branches` (
   `br_address` text DEFAULT NULL,
   `br_type` int(11) DEFAULT NULL COMMENT '1=Head Office, 2= Single branch',
   `br_status` int(11) DEFAULT NULL COMMENT '1= active, 2= inactive',
+  `longitude` text DEFAULT NULL,
+  `latitude` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -200,22 +203,23 @@ CREATE TABLE `branches` (
 -- Dumping data for table `branches`
 --
 
-INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, `br_status`, `created_at`, `updated_at`) VALUES
-(1, 11, 'Laalbagh Branch', '<p>LaalBagh<br></p>', 1, 2, '2024-06-10 07:52:15', '2024-06-10 07:52:15'),
-(2, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 2, '2024-06-10 07:52:34', '2024-06-10 07:52:34'),
-(3, 11, 'Mohammadpur Branch', 'Mohammadpur, Dhaka', 1, 1, '2024-06-10 07:52:46', '2024-06-10 07:52:46'),
-(4, 11, 'Gulshan Branch', 'Gulshan-1, Dhaka', 1, 1, '2024-06-10 07:52:58', '2024-06-10 07:52:58'),
-(6, NULL, NULL, NULL, NULL, 1, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
-(7, NULL, NULL, NULL, NULL, 1, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
-(8, 14, 'Rampura Branch', '<p>rampura bridge, dhaka<br></p>', 1, 1, '2024-06-12 10:32:19', '2024-06-12 10:32:19'),
-(9, NULL, 'Malibagh Branch', 'Malibagh, Dhaka', 1, 1, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
-(10, 16, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
-(11, 17, 'Head Branch', 'Gazipur', 1, 1, '2024-08-28 08:25:58', '2024-08-28 08:25:58'),
-(12, 18, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 05:52:17', '2024-09-07 05:52:17'),
-(13, 19, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
-(14, 20, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
-(15, 21, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
-(16, 22, 'Head Branch', NULL, 1, 1, '2024-10-08 09:32:57', '2024-10-08 09:32:57');
+INSERT INTO `branches` (`id`, `company_id`, `br_name`, `br_address`, `br_type`, `br_status`, `longitude`, `latitude`, `created_at`, `updated_at`) VALUES
+(1, 11, 'Laalbagh Branch', '<p>LaalBagh<br></p>', 1, 2, NULL, NULL, '2024-06-10 07:52:15', '2024-06-10 07:52:15'),
+(2, 11, 'Islampur Branch', 'Islampur, Dhaka', 2, 2, NULL, NULL, '2024-06-10 07:52:34', '2024-06-10 07:52:34'),
+(3, 11, 'Mohammadpur Branch', 'Mohammadpur, Dhaka', 1, 1, '90.4219535', '23.7745978', '2024-06-10 07:52:46', '2024-06-10 07:52:46'),
+(4, 11, 'Gulshan Branch', 'Gulshan-1, Dhaka', 1, 1, NULL, NULL, '2024-06-10 07:52:58', '2024-06-10 07:52:58'),
+(6, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2024-06-12 07:27:28', '2024-06-12 07:27:28'),
+(7, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2024-06-12 10:30:41', '2024-06-12 10:30:41'),
+(8, 14, 'Rampura Branch', '<p>rampura bridge, dhaka<br></p>', 1, 1, NULL, NULL, '2024-06-12 10:32:19', '2024-06-12 10:32:19'),
+(9, NULL, 'Malibagh Branch', 'Malibagh, Dhaka', 1, 1, NULL, NULL, '2024-06-12 10:54:42', '2024-06-12 10:54:42'),
+(10, 16, 'Azimpur Branch', 'Azimpur, Dhaka', 1, 1, NULL, NULL, '2024-06-12 10:59:53', '2024-06-12 10:59:53'),
+(11, 17, 'Head Branch', 'Gazipur', 1, 1, NULL, NULL, '2024-08-28 08:25:58', '2024-08-28 08:25:58'),
+(12, 18, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, NULL, NULL, '2024-09-07 05:52:17', '2024-09-07 05:52:17'),
+(13, 19, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, NULL, NULL, '2024-09-07 05:56:39', '2024-09-07 05:56:39'),
+(14, 20, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, NULL, NULL, '2024-09-07 05:57:43', '2024-09-07 05:57:43'),
+(15, 21, 'Khilgaon', '10 no. road, Khilgaon, Dhaka', 1, 1, NULL, NULL, '2024-09-07 06:57:08', '2024-09-07 06:57:08'),
+(16, 22, 'Head Branch', 'Gulshan-2, Dhaka, Bangladesh<br>', 1, 1, '90.4219535', '23.7745978', '2024-10-08 09:32:57', '2024-10-08 09:32:57'),
+(18, 22, 'Badda Branch', 'North Badda, Dhaka, Bangladesh<br>', 1, 1, '90.4158', '23.7731', '2024-10-17 07:31:09', '2024-10-17 07:31:09');
 
 -- --------------------------------------------------------
 
@@ -877,7 +881,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(521, 'App\\Models\\User', 1, 'myToken', '379e8b306ac997f0bfe069f177fbfa3c6721b838c252f3d19e90dba406178443', '[\"*\"]', NULL, NULL, '2024-10-16 04:36:48', '2024-10-16 04:36:48');
+(528, 'App\\Models\\User', 1, 'myToken', 'ab0e44facc8c9e99569ea20a2dcfcd4008b9e8992c9df1f53c64b81dfebbeda7', '[\"*\"]', NULL, NULL, '2024-10-17 08:07:21', '2024-10-17 08:07:21');
 
 -- --------------------------------------------------------
 
@@ -1361,7 +1365,7 @@ ALTER TABLE `asset_maintenance_logs`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `attendance_users`
@@ -1373,7 +1377,7 @@ ALTER TABLE `attendance_users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `business_types`
@@ -1481,7 +1485,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=522;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=529;
 
 --
 -- AUTO_INCREMENT for table `rents`

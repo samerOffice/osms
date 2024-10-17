@@ -21,7 +21,7 @@ Dashboard
 </a>
 </li>
 
-<li class="nav-item nav-link     
+{{-- <li class="nav-item nav-link     
 @if(Request::is('give_attendance')) nav-link active
 @endif" style="
 @if(Request::is('give_attendance')) background-color: #ff5d6c;
@@ -36,7 +36,37 @@ Dashboard
 @endif
 "> Give Attendance</p>
 </a>
+</li> --}}
+
+
+
+<li class="nav-item @if(Request::is('give_attendance')) menu-open 
+@elseif(Request::is('exit_attendance')) menu-open 
+@endif">
+<a href="#" class="nav-link">
+<i class="nav-icon fa-solid fa-person-chalkboard"></i>
+<p>
+ Attendance
+<i class="fas fa-angle-left right"></i>
+</p>
+</a>
+<ul class="nav nav-treeview">
+<li class="nav-item" style="padding-left : 15px">
+<a href="{{route('give_attendance')}}" class="nav-link {{ Request::is('give_attendance') ? 'nav-link active' : ''}}" style="{{ Request::is('give_attendance') ? 'background-color: #ff5d6c; !important' : ''}}">
+<i class="far fa-circle nav-icon" style="{{ Request::is('give_attendance') ? 'color: white; !important' : ''}}"></i>
+<p style="{{ Request::is('give_attendance') ? 'color: white; !important' : ''}}">Entry</p>
+</a>
 </li>
+
+<li class="nav-item" style="padding-left : 15px">
+<a href="{{route('exit_attendance')}}" class="nav-link {{ Request::is('exit_attendance') ? 'nav-link active' : ''}}" style="{{ Request::is('exit_attendance') ? 'background-color: #ff5d6c; !important' : ''}}">
+<i class="far fa-circle nav-icon" style="{{ Request::is('exit_attendance') ? 'color: white; !important' : ''}}"></i>
+<p style="{{ Request::is('exit_attendance') ? 'color: white; !important' : ''}}">Exit</p>
+</a>
+</li>
+</ul>
+</li>
+
 
 <li class="nav-item nav-link     
 @if(Request::is('attendance_list')) nav-link active

@@ -25,15 +25,12 @@ Welcome
           <!-- Profile Image -->
           <div class="card card-success card-outline">
             <form id="attendanceForm">
-              <div class="card-body">
+              <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="{{asset('/dist/img/avatar5.png')}}"
-                       alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/dist/img/avatar5.png') }}" alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
                 <p class="text-muted text-center">{{$designation->designation_name}}</p>
-                <p class="text-muted text-center">{{$branch_details->branch_name}}</p>
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                     <b>Date</b> <a class="float-right">{{ \Carbon\Carbon::now()->format('l, F j, Y') }}</a>
@@ -43,20 +40,24 @@ Welcome
                   </li>
                 </ul>
 
+
                 @if(!$canAttend)
-                {{-- <input type="number" name="attendance_id" id="attendance_id"> --}}
-                {{-- <button type="submit" id="attendance" class="btn btn-danger float-right ml-2">Exit From Office</button> --}}
                 <button class="btn btn-success float-right disabled" disabled>Already Attend</button>
                 @else
-                <button type="submit" id="submitBtn" class="btn btn-success float-right"><i class="fa-solid fa-right-to-bracket"></i> Give Attendance</button>
+                <button type="submit" id="submitBtn" class="btn btn-success float-right">Give Attendance</button>
                 @endif
+
               </div>
 
 
               <div id="locationDisplay" class="p-2 text-center">
                 Your Current Lat, Long: <span id="currentLat">Latitude: Not available</span> <span id="currentLon">Longitude: Not available</span>
               </div>
+
+
             </form>
+
+
           </div>
         </div>
       </div>
@@ -66,6 +67,13 @@ Welcome
   </div>
   <!-- /.content-header -->
 
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+    </div><!--/. container-fluid -->
+  </section>
+  <!-- /.content -->
 </div>
 
 @endsection
@@ -78,11 +86,8 @@ Welcome
     }
 
     // Coordinates of the predefined location
-    const officeLat = @json($branch_details->branch_latitude); //dynamic latitute
-    const officeLon = @json($branch_details->branch_longitude); //dynamic logitude
-
-    // const officeLat = 23.7745978; // Example latitude
-    // const officeLon = 90.4219535; // Example longitude
+    const officeLat = 83.7729724; // Example latitude
+    const officeLon = 90.415993; // Example longitude
 
     // Function to calculate distance between two coordinates
     function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -129,9 +134,6 @@ Welcome
           axios.get('/sanctum/csrf-cookie').then(() => {
             axios.post('/api/submit_attendance', attendanceFormData).then(response => {
               console.log(response);
-
-              // $('#attendance_id').val(response.data.attendance_id);
-
               Swal.fire({
                 icon: "success",
                 title: response.data.message,
@@ -154,7 +156,7 @@ Welcome
             });
           });
         });
-      } else{
+      } else {
         Swal.fire({
           icon: "error",
           title: "You are not within 100 meters of the designated location.",
