@@ -162,6 +162,7 @@ Route::middleware('auth:sanctum')->post('/new_password_set',[App\Http\Controller
 
 //attendance
 Route::middleware('auth:sanctum')->post('/submit_attendance',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_attendance']);
+Route::middleware('auth:sanctum')->post('/submit_exit_time/{attendance_id}',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_exit_time']);
 Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controllers\API\Emp\AttendanceController::class,'all_attendance_list']);
 
 //----- leave ------

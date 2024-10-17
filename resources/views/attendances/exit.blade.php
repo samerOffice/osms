@@ -42,16 +42,13 @@ Welcome
                     <b>Time</b> <a class="float-right">{{ \Carbon\Carbon::now()->format('h:i A') }}</a>
                   </li>
                 </ul>
-
-                @if(!$canAttend)
-                {{-- <input type="number" name="attendance_id" id="attendance_id"> --}}
-                {{-- <button type="submit" id="attendance" class="btn btn-danger float-right ml-2">Exit From Office</button> --}}
-                <button class="btn btn-success float-right disabled" disabled>Already Attend</button>
+                @if($attendance && $attendance->id)
+                <button type="submit" id="submitBtn" class="btn btn-danger float-right"><i class="fa-solid fa-right-from-bracket"></i> Leave</button>
                 @else
-                <button type="submit" id="submitBtn" class="btn btn-success float-right"><i class="fa-solid fa-right-to-bracket"></i> Give Attendance</button>
+                <button class="btn btn-danger float-right disabled" disabled>Leave</button>
                 @endif
-              </div>
 
+              </div>
 
               <div id="locationDisplay" class="p-2 text-center">
                 Your Current Lat, Long: <span id="currentLat">Latitude: Not available</span> <span id="currentLon">Longitude: Not available</span>
@@ -121,38 +118,48 @@ Welcome
 
           var attendanceFormData = new FormData(document.getElementById('attendanceForm'));
 
+          var attendance_id = @json($attendance ? $attendance->id : null);
+
           axios.defaults.withCredentials = true;
           axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
           console.log('CSRF Token:', getCsrfToken());
 
-          axios.get('/sanctum/csrf-cookie').then(() => {
-            axios.post('/api/submit_attendance', attendanceFormData).then(response => {
-              console.log(response);
+          if (attendance_id !== null) {
+                axios.get('/sanctum/csrf-cookie').then(() => {
+                axios.post('/api/submit_exit_time/'+ attendance_id, attendanceFormData).then(response => {
+                console.log(response);
 
-              // $('#attendance_id').val(response.data.attendance_id);
+                // $('#attendance_id').val(response.data.attendance_id);
 
-              Swal.fire({
-                icon: "success",
-                title: response.data.message,
-              });
-              setTimeout(() => {
-                window.location.reload();
-              }, 2000);
+                Swal.fire({
+                    icon: "success",
+                    title: response.data.message,
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+                }).catch(error => {
+                console.error('Submit error:', error.response);
+                Swal.fire({
+                    icon: "error",
+                    title: error.response ? error.response.data.message : 'An error occurred',
+                });
+                });
             }).catch(error => {
-              console.error('Submit error:', error.response);
-              Swal.fire({
+                console.error('CSRF token error:', error);
+                Swal.fire({
                 icon: "error",
-                title: error.response ? error.response.data.message : 'An error occurred',
-              });
+                title: 'CSRF token error',
+                });
             });
-          }).catch(error => {
-            console.error('CSRF token error:', error);
+          }else{
             Swal.fire({
-              icon: "error",
-              title: 'CSRF token error',
+                icon: "error",
+                title: "Attendance record not found",
             });
-          });
+          }
+
         });
       } else{
         Swal.fire({

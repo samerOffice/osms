@@ -105,7 +105,9 @@ class BranchController extends Controller
         'br_name'=>$request->br_name,
         'br_address'=>$request->br_address,
         'br_type'=>$request->br_type,
-        'br_status'=>$request->br_status
+        'br_status'=>$request->br_status,
+        'longitude'=>$request->longitude,
+        'latitude'=>$request->latitude
         ]);
 
         $response = [
@@ -152,15 +154,13 @@ class BranchController extends Controller
 
     public function update_branch(Request $request, $id){
 
-        $user_company_id = Auth::user()->company_id;
-
         $data = array();
-        $data['company_id'] = $user_company_id;
         $data['br_name'] = $request->input('br_name');
-        $data['br_address'] = $request->input('br_address');
+        $data['br_address'] = $request->br_address;
         $data['br_type'] = $request->input('br_type');
         $data['br_status'] = $request->input('br_status');
-
+        $data['longitude'] = $request->input('longitude');
+        $data['latitude'] = $request->input('latitude');
 
         try {
             // Update the branch record in the database

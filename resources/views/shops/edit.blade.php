@@ -97,11 +97,34 @@ Edit Shop
                                     </select>
                                     </div> 
                                   </div>
-
                               </div>
 
+                              <br>
+                              <h4>Set Office Geolocation</h4>
+                              <div class="row" id="locationDisplay">
+                                  <div class="col-md-5 col-sm-12">
+                                    <div class="form-group ">
+                                      <label>Latitude <small style="color: red">*</small></label>
+                                      <input readonly required type="text" id="currentLat" name="latitude" class="form-control">
+                                    </div> 
+                                  </div>
+
+                                  <div class="col-md-5 col-sm-12">
+                                    <div class="form-group ">
+                                      <label>Longitude <small style="color: red">*</small></label>
+                                      <input readonly required type="text" id="currentLon" name="longitude" class="form-control">
+                                    </div> 
+                                  </div>
+                                  
+                                  <div class="col-md-2 col-sm-12">
+                                    <div class="form-group mb-4">
+                                  <button type="button" id="getLocationBtn" class="btn btn-primary mt-4">Get Current Location</button>
+                                    </div>                          
+                                  </div>                          
+                              </div>
+                              <br>
                             <input type="hidden" value="{{$shop->id}}" name="id" id="shop_id">
-                            <button type="submit" id="sub" class="btn btn-info float-right mr-4">Update</button>
+                            <button type="submit" id="sub" class="btn btn-success float-right mr-4">Update</button>
                           </form>
                     </div>
                     <!-- /.card-body -->
@@ -126,9 +149,45 @@ Edit Shop
 //Initialize Select2 Elements
 $('.select2bs4').select2({
       theme: 'bootstrap4'
-    })
-     
+    })  
   });
+
+  document.getElementById('getLocationBtn').addEventListener('click', function() {
+
+    if (navigator.geolocation) {
+      // alert('hi');
+      navigator.geolocation.getCurrentPosition(function(position) {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+
+        // Update the span content with latitude and longitude
+        // document.getElementById('currentLat').textContent = "Latitude: " + latitude;
+        // document.getElementById('currentLon').textContent = "Longitude: " + longitude;
+
+        document.getElementById('currentLat').value = latitude;
+        document.getElementById('currentLon').value = longitude;
+
+    }, function(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    });
+} else {
+    alert("Geolocation is not supported by this browser.");
+}
+
+    });
 
 
     //division and district dependancy dropdown logic start
@@ -169,6 +228,17 @@ $('.select2bs4').select2({
     var updateShopFormData = new FormData(this);
     var shop_id = document.getElementById('shop_id').value;
     
+    var shop_latitude = document.getElementById('currentLat').value;
+    var shop_longitude = document.getElementById('currentLon').value;
+    if( (shop_latitude == '') && (shop_longitude == '') ){
+    Swal.fire({
+            icon: "warning",
+            title: "Location is required.",
+            });
+        return false;
+    }
+
+
     // Function to get CSRF token from meta tag
     function getCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');

@@ -24,6 +24,12 @@ class AttendanceController extends Controller
             ->select('designations.designation_name as designation_name')
             ->where('users.id', $user_id)
             ->first();
+
+        $branch_details = DB::table('users')
+                            ->leftJoin('branches','users.branch_id','=','branches.id')
+                            ->select('branches.br_name as branch_name','branches.longitude as branch_longitude','branches.latitude as branch_latitude')
+                            ->where('users.id', $user_id)
+                            ->first();
     
         // Get the last attendance record
         $attendances = DB::table('attendances')
@@ -43,25 +49,24 @@ class AttendanceController extends Controller
                 $canAttend = false;
             }
         }
-
-
         $menu_data = DB::table('menu_permissions')
               ->where('user_id',$user_id)
               ->first();
       if($menu_data == null){
-        return view('attendances.create', compact('current_module', 'designation', 'attendances', 'canAttend'));
+        return view('attendances.create', compact('current_module', 'designation', 'branch_details',  'canAttend'));
         }else{
           $permitted_menus = $menu_data->menus;
           $permitted_menus_array = explode(',', $permitted_menus);
 
-          return view('attendances.create', compact('current_module', 'designation', 'attendances', 'canAttend','permitted_menus_array'));
+          return view('attendances.create', compact('current_module', 'designation', 'branch_details', 'canAttend','permitted_menus_array'));
             }
-    
-        
+         
     }
-    
 
-    public function submit_attendance(Request $request){
+
+     // employee entry
+     public function submit_attendance(Request $request){
+
         $user_id = Auth::user()->id;
         $role_id = Auth::user()->role_id;
         $currentDate = Carbon::now()->toDateString();
@@ -76,7 +81,81 @@ class AttendanceController extends Controller
 
         $response = [
             'success' => true,
-            'message' => 'User attendance is submitted successfully'
+            'attendance_id' => $attendance,
+            'message' => 'Check-in successfully'
+        ];
+
+        return response()->json($response,200);
+
+    }
+
+
+    public function exit_attendance(){
+
+        $current_modules = ['module_status' => '2'];
+        DB::table('current_modules')->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+    
+        $user_id = Auth::user()->id;
+    
+        // Get user designation
+        $designation = DB::table('users')
+                            ->leftJoin('designations', 'users.designation', '=', 'designations.id')
+                            ->select('designations.designation_name as designation_name')
+                            ->where('users.id', $user_id)
+                            ->first();
+
+        $branch_details = DB::table('users')
+                            ->leftJoin('branches','users.branch_id','=','branches.id')
+                            ->select('branches.br_name as branch_name','branches.longitude as branch_longitude','branches.latitude as branch_latitude')
+                            ->where('users.id', $user_id)
+                            ->first();
+
+        $attendance = DB::table('attendances')
+                          ->whereDate('created_at', '=', \Carbon\Carbon::today())
+                          ->where('user_id',$user_id)
+                          ->first();
+
+
+        $menu_data = DB::table('menu_permissions')
+                        ->where('user_id',$user_id)
+                        ->first();
+
+      if($menu_data == null){
+        return view('attendances.exit', compact('current_module', 'designation', 'branch_details', 'attendance'));
+        }else{
+          $permitted_menus = $menu_data->menus;
+          $permitted_menus_array = explode(',', $permitted_menus);
+
+          return view('attendances.exit', compact('current_module', 'designation', 'branch_details', 'attendance','permitted_menus_array'));
+            }
+    }
+    
+
+   
+    public function submit_exit_time(Request $request, $id){
+
+        $user_id = Auth::user()->id;
+        $role_id = Auth::user()->role_id;
+        $currentDate = Carbon::now()->toDateString();
+        $currentTime = Carbon::now()->toTimeString();
+
+        // $attendance = DB::table('attendances')
+        //                 ->insertGetId([
+        //                 'user_id'=>$user_id,
+        //                 'attendance_date' =>$currentDate,
+        //                 'entry_time'=>$currentTime
+        //                 ]);
+
+
+        $attendance = DB::table('attendances')
+                         ->where('id',$id)
+                         ->update(['exit_time' => $currentTime]);
+
+
+        $response = [
+            'success' => true,
+            'message' => 'Check-out successfully'
         ];
 
         return response()->json($response,200);
@@ -97,18 +176,7 @@ class AttendanceController extends Controller
         $user_id = Auth::user()->id;
         $user_role_id = Auth::user()->role_id;
 
-        // if($user_role_id == 1){
-         
-        // $attendances = DB::table('attendances')
-        //                ->leftJoin('users','attendances.user_id','=','users.id')
-        //                ->select('attendances.*','users.name as member_name')
-        //                ->get();
-
-        // return view('attendances.index',compact('current_module','attendances'));
-
-        // }
         if($user_role_id == 2){
-
         $attendances = DB::table('attendances')
                        ->leftJoin('users','attendances.user_id','=','users.id')
                        ->select('attendances.*','users.name as member_name')
@@ -148,7 +216,7 @@ class AttendanceController extends Controller
 
     // attendance list (api purpose)
     public function all_attendance_list(){
-       
+
         $attendances = DB::table('attendances')
                        ->leftJoin('users','attendances.user_id','=','users.id')
                        ->select('attendances.*','users.name as member_name')

@@ -190,6 +190,7 @@ Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('g
 
 //attendance
 Route::get('/give_attendance', [AttendanceController::class, 'give_attendance'])->name('give_attendance');
+Route::get('/exit_attendance', [AttendanceController::class, 'exit_attendance'])->name('exit_attendance');
 Route::get('/attendance_list',[AttendanceController::class,'attendance_list'])->name('attendance_list');
 
 
