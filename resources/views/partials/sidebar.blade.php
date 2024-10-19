@@ -130,6 +130,9 @@
         
         <li class="nav-item @if(Request::is('rent_list')) menu-open 
          @elseif(Request::is('utility_list')) menu-open 
+         @elseif(Request::is('daily_expense_list')) menu-open 
+         @elseif(Request::is('monthly_expense_list')) menu-open 
+         @elseif(Request::is('yearly_expense_list')) menu-open 
         @endif">
       <a href="#" class="nav-link">
         <i class="nav-icon fa-solid fa-receipt"></i>
@@ -150,6 +153,27 @@
           <a href="{{route('utility_list')}}" class="nav-link {{ Request::is('utility_list') ? 'nav-link active' : ''}}" style="{{ Request::is('utility_list') ? 'background-color: #908ec4; !important' : ''}}">
             <i class="far fa-circle nav-icon" style="{{ Request::is('utility_list') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('utility_list') ? 'color: white; !important' : ''}}">Utilities</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('daily_expense_list')}}" class="nav-link {{ Request::is('daily_expense_list') ? 'nav-link active' : ''}}" style="{{ Request::is('daily_expense_list') ? 'background-color: #908ec4; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('daily_expense_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('daily_expense_list') ? 'color: white; !important' : ''}}">Daily Expense</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('monthly_expense_list')}}" class="nav-link {{ Request::is('monthly_expense_list') ? 'nav-link active' : ''}}" style="{{ Request::is('monthly_expense_list') ? 'background-color: #908ec4; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('monthly_expense_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('monthly_expense_list') ? 'color: white; !important' : ''}}">Monthly Expense</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('yearly_expense_list')}}" class="nav-link {{ Request::is('yearly_expense_list') ? 'nav-link active' : ''}}" style="{{ Request::is('yearly_expense_list') ? 'background-color: #908ec4; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('yearly_expense_list') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('yearly_expense_list') ? 'color: white; !important' : ''}}">Yearly Expense</p>
           </a>
         </li>
 

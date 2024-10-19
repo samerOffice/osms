@@ -205,9 +205,7 @@ class AccountsController extends Controller
                     ->sum('due_amount');
 
             }
-           
-          
-        //   dd($purchases_data);
+             
         return view('accounts.purchase_report_data',compact('current_module','purchases_data','total_paid','total_due','report_type'));
 
         // yearly
@@ -285,9 +283,7 @@ class AccountsController extends Controller
 
             }
 
-            
-            // dd($purchases_data);
-            return view('accounts.purchase_report_data',compact('current_module','purchases_data', 'total_paid', 'total_due', 'report_type'));
+        return view('accounts.purchase_report_data',compact('current_module','purchases_data', 'total_paid', 'total_due', 'report_type'));
         }
     }
 
@@ -343,6 +339,24 @@ class AccountsController extends Controller
                         ->sum('total_amount');
 
 
+        $total_daily_expense = DB::table('expenses')
+                               ->where('expense_type',1)
+                               ->whereMonth('expense_pay_date',$month)
+                               ->whereYear('expense_pay_date', $year)
+                               ->sum('expense_amount');
+
+        $total_monthly_other_expense = DB::table('expenses')
+                               ->where('expense_type',2)
+                               ->whereMonth('expense_pay_date',$month)
+                               ->whereYear('expense_pay_date', $year)
+                               ->sum('expense_amount');
+
+        $total_yearly_expense = DB::table('expenses')
+                               ->where('expense_type',3)
+                               ->whereYear('expense_pay_date', $year)
+                               ->sum('expense_amount');
+
+
         $total_rent = DB::table('rents')
                         ->where('company_id',$user_company_id)
                         ->whereYear('rent_pay_date', $year)
@@ -386,6 +400,9 @@ class AccountsController extends Controller
                 'total_sale' => $total_sale,
                 // 'total_customer_due' => $total_customer_due,
                 'total_purchase' => $total_purchase,
+                'total_daily_expense' => $total_daily_expense,
+                'total_monthly_other_expense' => $total_monthly_other_expense,
+                'total_yearly_expense' => $total_yearly_expense,
                 'total_rent' => $total_rent,
                 'total_utility' => $total_utility,
                 'total_salary' => $total_salary,
@@ -857,6 +874,211 @@ class AccountsController extends Controller
         
     }
     //------------- ******** sale report (end) *********--------------
+
+
+    //------------- ******** expense report (start) *********--------------
+    //daily expense
+    public function daily_expense_report(){
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('accounts.daily_expense_report',compact('current_module'));
+
+    }
+
+    public function daily_expense_report_submit(Request $request){
+    
+        $from_date = $request->from_date;
+        $to_date = $request->to_date;
+        $user_company_id = Auth::user()->company_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $expenses_data = DB::table('expenses')
+                   ->where('expense_type',1)
+                   ->where('company_id',$user_company_id)
+                   ->whereBetween('expense_pay_date', [$from_date, $to_date])
+                   ->get();
+ 
+     return view('accounts.daily_expense_report_data',compact('current_module','expenses_data', 'from_date', 'to_date'));
+
+    }
+
+    //monthly expense
+    public function monthly_expense_report(){
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('accounts.monthly_expense_report',compact('current_module'));
+
+    }
+
+    public function monthly_expense_report_submit(Request $request){
+    
+        $year = $request->year;
+        $month = $request->month;
+        $user_company_id = Auth::user()->company_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+
+
+        $rents =  DB::table('rents')
+                    ->where('company_id',$user_company_id)
+                    ->whereYear('rent_pay_date', $year)
+                    ->whereMonth('rent_pay_date', $month)
+                    ->get();
+
+
+        $total_rent = DB::table('rents')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('rent_pay_date', $year)
+                        ->whereMonth('rent_pay_date', $month)
+                        ->sum('rent_amount');
+
+        $utilities = DB::table('utilities')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('utility_pay_date', $year)
+                        ->whereMonth('utility_pay_date', $month)
+                        ->get();
+
+        $total_utility = DB::table('utilities')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('utility_pay_date', $year)
+                        ->whereMonth('utility_pay_date', $month)
+                        ->sum('utility_amount');
+
+
+        $salaries = DB::table('payrolls as p1')
+                        ->join(
+                            DB::raw('(SELECT employee, MAX(salary_date) as latest_salary_date 
+                                      FROM payrolls 
+                                      WHERE company = '.$user_company_id.' 
+                                      AND YEAR(salary_date) = '.$year.' 
+                                      AND MONTH(salary_date) = '.$month.' 
+                                      GROUP BY employee) as p2'),
+                            function($join) {
+                                $join->on('p1.employee', '=', 'p2.employee')
+                                     ->on('p1.salary_date', '=', 'p2.latest_salary_date');
+                            }
+                        )
+                        // Join users table
+                        ->leftJoin('users', 'p1.employee', '=', 'users.id')             
+                        // Join designation table
+                        ->leftJoin('designations', 'users.designation', '=', 'designations.id')
+                         // Join branch table
+                         ->leftJoin('branches', 'users.branch_id', '=', 'branches.id')
+                        
+                        ->where('p1.company', $user_company_id)
+                        ->select(
+                            'p1.employee as employee_id',
+                            'p1.final_pay_amount as final_pay_amount',
+                            'p2.latest_salary_date as last_salary_date',
+                            'users.name as employee_name',
+                            'branches.br_name as employee_branch_name',
+                            'designations.designation_name as designation_name')  // Select required fields
+                        ->get();
+                    
+
+        $total_salary = DB::table('payrolls as p1')
+                        ->join(
+                            DB::raw('(SELECT employee, MAX(salary_date) as latest_salary_date 
+                                      FROM payrolls 
+                                      WHERE company = '.$user_company_id.' 
+                                      AND YEAR(salary_date) = '.$year.' 
+                                      AND MONTH(salary_date) = '.$month.' 
+                                      GROUP BY employee) as p2'),
+                            function($join) {
+                                $join->on('p1.employee', '=', 'p2.employee')
+                                     ->on('p1.salary_date', '=', 'p2.latest_salary_date');
+                            }
+                        )
+                        ->where('p1.company', $user_company_id)
+                        ->sum('p1.final_pay_amount');
+
+        $expenses_data = DB::table('expenses')
+                   ->where('expense_type',2)
+                   ->where('company_id',$user_company_id)
+                   ->whereMonth('expense_pay_date', $month)
+                   ->whereYear('expense_pay_date', $year)
+                   ->get();
+
+        
+ 
+     return view('accounts.monthly_expense_report_data',compact(
+                                                                'current_module',
+                                                                'month',
+                                                                'year',
+                                                                'rents',
+                                                                'total_rent',
+                                                                'utilities',
+                                                                'total_utility',
+                                                                'salaries',
+                                                                'total_salary',
+                                                                'expenses_data'
+                                                            ));
+
+    }
+
+    //yearly expense
+    public function yearly_expense_report(){
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('accounts.yearly_expense_report',compact('current_module'));
+
+    }
+
+
+    public function yearly_expense_report_submit(Request $request){
+    
+        $year = $request->year;
+        $user_company_id = Auth::user()->company_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '6';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+
+
+        $expenses_data = DB::table('expenses')
+                   ->where('expense_type',3)
+                   ->where('company_id',$user_company_id)
+                   ->whereYear('expense_pay_date', $year)
+                   ->get();
+
+     return view('accounts.yearly_expense_report_data',compact('current_module','expenses_data','year'));
+
+    }
+
+    //------------- ******** expense report (end) *********--------------
+
+
 
 
 
