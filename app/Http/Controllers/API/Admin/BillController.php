@@ -263,8 +263,6 @@ class BillController extends Controller
     }
 
 
-
-    
     public function update_utility(Request $request, $id){    
         $data = array();
         $data['utility_pay_date'] = $request->utility_pay_date;
@@ -311,4 +309,446 @@ class BillController extends Controller
     }
 
     //--------------- utility end--------------------
+
+
+
+    //--------------- daily expense start--------------------
+    public function daily_expense_list(){
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        if($user_role_id == 1){
+
+            $daily_expenses = DB::table('expenses')
+                                ->where('expense_type', 1)
+                                ->get();
+                                          
+        return view('expenses.daily_expense.index',compact('current_module','daily_expenses'));
+
+        }else{
+
+            $daily_expenses = DB::table('expenses')
+                                ->where('expense_type', 1)
+                                ->where('company_id',$user_company_id)
+                                ->get();
+           
+        return view('expenses.daily_expense.index',compact('current_module','daily_expenses'));
+        }  
+    }
+
+    public function add_daily_expense(){
+    
+            $current_modules = array();
+            $current_modules['module_status'] = '1';
+            $update_module = DB::table('current_modules')
+                        // ->where('id', $request->id)
+                            ->update($current_modules);
+            $current_module = DB::table('current_modules')->first();
+    
+            return view('expenses.daily_expense.create',compact('current_module'));
+     
+    }
+
+    public function submit_daily_expense(Request $request){
+
+        $user_company_id = Auth::user()->company_id;
+        $expense_type = 1;
+        $expense_names = $request->expense_name;
+        $expense_amounts = $request->expense_amount;
+        $expense_pay_dates = $request->expense_pay_date;
+
+        foreach ($expense_names as $key => $expense_name) {
+           
+            $expense_amount = $expense_amounts[$key] ?? null;
+            $expense_pay_date = $expense_pay_dates[$key] ?? null;
+          
+            DB::table('expenses')
+                ->insert([
+                'company_id' => $user_company_id,
+                'expense_type' => $expense_type,
+                'expense_name' => $expense_name,
+                'expense_amount' => $expense_amount,
+                'expense_pay_date' => $expense_pay_date  
+            ]);
+        }
+
+        $response = [
+            'success' => true,
+            'message' => 'Expense is added successfully'
+        ];
+
+        return response()->json($response,200);
+    }
+
+
+     //for web
+     public function edit_daily_expense($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $expense = DB::table('expenses')
+                    ->where('id',$id)
+                    ->first();
+ 
+        return view('expenses.daily_expense.edit',compact('current_module','expense'));
+
+    }
+
+    //for api
+    public function edit_daily_expense_via_api($id){
+        $expense = DB::table('expenses')
+                    ->leftJoin('companies','expenses.company_id','companies.id')
+                    ->select('expenses.*','companies.company_name as company_name')
+                    ->where('expenses.id',$id)
+                    ->first();
+        
+        $response = [
+        'Company Name' => $expense->company_name,
+        'Company Id' => $expense->company_id,
+        'Expense Type (1 = Daily, 2 = Monthly, 3 = Yearly)' => $expense->expense_type,
+        'Expense Name' => $expense->expense_name,
+        'Expense Amount' => $expense->expense_amount,
+        'Expense Paid Date' => $expense->expense_pay_date
+        ];
+
+       return response()->json($response,200);
+
+    }
+
+
+    public function update_daily_expense(Request $request, $id){    
+        $data = array();
+        $data['expense_name'] = $request->expense_name;
+        $data['expense_amount'] = $request->expense_amount;
+        $data['expense_pay_date'] = $request->expense_pay_date;
+          
+        try {
+            // Update the outlet record in the database
+            $updated = DB::table('expenses')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Daily expense is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Daily Expense update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Daily Expense', 'details' => $e->getMessage()], 500);
+        }     
+    }
+
+    //--------------- daily expense end--------------------
+
+    //--------------- monthly expense start--------------------
+    public function monthly_expense_list(){
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        if($user_role_id == 1){
+
+            $monthly_expenses = DB::table('expenses')
+                                ->where('expense_type', 2)
+                                ->get();
+                                          
+        return view('expenses.monthly_expense.index',compact('current_module','monthly_expenses'));
+
+        }else{
+
+            $monthly_expenses = DB::table('expenses')
+                                ->where('expense_type', 2)
+                                ->where('company_id',$user_company_id)
+                                ->get();
+           
+        return view('expenses.monthly_expense.index',compact('current_module','monthly_expenses'));
+        }  
+    }
+
+    public function add_monthly_expense(){
+    
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('expenses.monthly_expense.create',compact('current_module'));
+ 
+    }
+
+    public function submit_monthly_expense(Request $request){
+
+        $user_company_id = Auth::user()->company_id;
+        $expense_type = 2;
+        $expense_names = $request->expense_name;
+        $expense_amounts = $request->expense_amount;
+        $expense_pay_dates = $request->expense_pay_date;
+
+        foreach ($expense_names as $key => $expense_name) {
+           
+            $expense_amount = $expense_amounts[$key] ?? null;
+            $expense_pay_date = $expense_pay_dates[$key] ?? null;
+          
+            DB::table('expenses')
+                ->insert([
+                'company_id' => $user_company_id,
+                'expense_type' => $expense_type,
+                'expense_name' => $expense_name,
+                'expense_amount' => $expense_amount,
+                'expense_pay_date' => $expense_pay_date  
+            ]);
+        }
+
+        $response = [
+            'success' => true,
+            'message' => 'Expense is added successfully'
+        ];
+
+        return response()->json($response,200);
+    }
+
+
+     //for web
+     public function edit_monthly_expense($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $expense = DB::table('expenses')
+                    ->where('id',$id)
+                    ->first();
+ 
+        return view('expenses.monthly_expense.edit',compact('current_module','expense'));
+
+    }
+
+    //for api
+    public function edit_monthly_expense_via_api($id){
+        $expense = DB::table('expenses')
+                    ->leftJoin('companies','expenses.company_id','companies.id')
+                    ->select('expenses.*','companies.company_name as company_name')
+                    ->where('expenses.id',$id)
+                    ->first();
+        
+        $response = [
+        'Company Name' => $expense->company_name,
+        'Company Id' => $expense->company_id,
+        'Expense Type (1 = Daily, 2 = Monthly, 3 = Yearly)' => $expense->expense_type,
+        'Expense Name' => $expense->expense_name,
+        'Expense Amount' => $expense->expense_amount,
+        'Expense Paid Date' => $expense->expense_pay_date
+        ];
+
+       return response()->json($response,200);
+
+    }
+
+
+    public function update_monthly_expense(Request $request, $id){    
+        $data = array();
+        $data['expense_name'] = $request->expense_name;
+        $data['expense_amount'] = $request->expense_amount;
+        $data['expense_pay_date'] = $request->expense_pay_date;
+          
+        try {
+            // Update the outlet record in the database
+            $updated = DB::table('expenses')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Monthly expense is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Monthly Expense update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Monthly Expense', 'details' => $e->getMessage()], 500);
+        }     
+    }
+    //--------------- monthly expense end--------------------
+
+    //--------------- yearly expense start--------------------
+    public function yearly_expense_list(){
+
+        $user_company_id = Auth::user()->company_id;
+        $user_role_id = Auth::user()->role_id;
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        if($user_role_id == 1){
+
+            $yearly_expenses = DB::table('expenses')
+                                ->where('expense_type', 3)
+                                ->get();
+                                          
+        return view('expenses.yearly_expense.index',compact('current_module','yearly_expenses'));
+
+        }else{
+
+            $yearly_expenses = DB::table('expenses')
+                                ->where('expense_type', 3)
+                                ->where('company_id',$user_company_id)
+                                ->get();
+           
+        return view('expenses.yearly_expense.index',compact('current_module','yearly_expenses'));
+        }  
+    }
+
+    public function add_yearly_expense(){
+    
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        return view('expenses.yearly_expense.create',compact('current_module'));
+ 
+    }
+
+    public function submit_yearly_expense(Request $request){
+
+        $user_company_id = Auth::user()->company_id;
+        $expense_type = 3;
+        $expense_names = $request->expense_name;
+        $expense_amounts = $request->expense_amount;
+        $expense_pay_dates = $request->expense_pay_date;
+
+        foreach ($expense_names as $key => $expense_name) {
+           
+            $expense_amount = $expense_amounts[$key] ?? null;
+            $expense_pay_date = $expense_pay_dates[$key] ?? null;
+          
+            DB::table('expenses')
+                ->insert([
+                'company_id' => $user_company_id,
+                'expense_type' => $expense_type,
+                'expense_name' => $expense_name,
+                'expense_amount' => $expense_amount,
+                'expense_pay_date' => $expense_pay_date  
+            ]);
+        }
+
+        $response = [
+            'success' => true,
+            'message' => 'Expense is added successfully'
+        ];
+
+        return response()->json($response,200);
+    }
+
+
+
+     //for web
+     public function edit_yearly_expense($id){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '1';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+        $expense = DB::table('expenses')
+                    ->where('id',$id)
+                    ->first();
+ 
+        return view('expenses.yearly_expense.edit',compact('current_module','expense'));
+
+    }
+
+    //for api
+    public function edit_yearly_expense_via_api($id){
+        $expense = DB::table('expenses')
+                    ->leftJoin('companies','expenses.company_id','companies.id')
+                    ->select('expenses.*','companies.company_name as company_name')
+                    ->where('expenses.id',$id)
+                    ->first();
+        
+        $response = [
+        'Company Name' => $expense->company_name,
+        'Company Id' => $expense->company_id,
+        'Expense Type (1 = Daily, 2 = Monthly, 3 = Yearly)' => $expense->expense_type,
+        'Expense Name' => $expense->expense_name,
+        'Expense Amount' => $expense->expense_amount,
+        'Expense Paid Date' => $expense->expense_pay_date
+        ];
+
+       return response()->json($response,200);
+
+    }
+
+
+    public function update_yearly_expense(Request $request, $id){    
+        $data = array();
+        $data['expense_name'] = $request->expense_name;
+        $data['expense_amount'] = $request->expense_amount;
+        $data['expense_pay_date'] = $request->expense_pay_date;
+          
+        try {
+            // Update the outlet record in the database
+            $updated = DB::table('expenses')
+                        ->where('id', $id)
+                        ->update($data);
+        
+            // Check if the update was successful
+            if ($updated) {
+                // Return a success response
+                return response()->json(['message' => 'Yearly expense is updated successfully'], 200);
+            } else {
+                // Return a failure response
+                return response()->json([
+                    'message' => 'Yearly Expense update failed or no changes were made'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'An error occurred while updating the Yearly Expense', 'details' => $e->getMessage()], 500);
+        }     
+    }
+    //--------------- yearly expense end--------------------
 }

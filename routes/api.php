@@ -121,12 +121,28 @@ Route::middleware('auth:sanctum')->get('/edit_rent/{rent_id}',[App\Http\Controll
 Route::middleware('auth:sanctum')->post('/update_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_rent']);
 Route::middleware('auth:sanctum')->post('/delete_rent/{rent_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_rent']);
 
-
 //utilities
 Route::middleware('auth:sanctum')->post('/submit_utility',[App\Http\Controllers\API\Admin\BillController::class,'submit_utility']);
 Route::middleware('auth:sanctum')->get('/edit_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_utility_via_api']);
 Route::middleware('auth:sanctum')->post('/update_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_utility']);
 Route::middleware('auth:sanctum')->post('/delete_utility/{utility_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_utility']);
+
+//--- *** expense ****-----
+
+//daily expense
+Route::middleware('auth:sanctum')->post('/submit_daily_expense',[App\Http\Controllers\API\Admin\BillController::class,'submit_daily_expense']);
+Route::middleware('auth:sanctum')->get('/edit_daily_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_daily_expense_via_api']);
+Route::middleware('auth:sanctum')->post('/update_daily_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_daily_expense']);
+
+//monthly expense
+Route::middleware('auth:sanctum')->post('/submit_monthly_expense',[App\Http\Controllers\API\Admin\BillController::class,'submit_monthly_expense']);
+Route::middleware('auth:sanctum')->get('/edit_monthly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_monthly_expense_via_api']);
+Route::middleware('auth:sanctum')->post('/update_monthly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_monthly_expense']);
+
+//yearly expense
+Route::middleware('auth:sanctum')->post('/submit_yearly_expense',[App\Http\Controllers\API\Admin\BillController::class,'submit_yearly_expense']);
+Route::middleware('auth:sanctum')->get('/edit_yearly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_yearly_expense_via_api']);
+Route::middleware('auth:sanctum')->post('/update_yearly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_yearly_expense']);
 
 //business type
 Route::middleware('auth:sanctum')->post('/business_type_store',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'business_type_store']);

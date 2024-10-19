@@ -77,8 +77,22 @@ Route::post('/account_purchase_report_submit', [AccountsController::class, 'acco
 Route::get('/account_sale_report', [AccountsController::class, 'account_sale_report'])->name('account_sale_report');
 Route::post('/account_sale_report_submit', [AccountsController::class, 'account_sale_report_submit'])->name('account_sale_report_submit');
 
+//----expense report----
+
+//daily expense report
+Route::get('/daily_expense_report', [AccountsController::class, 'daily_expense_report'])->name('daily_expense_report');
+Route::post('/daily_expense_report_submit', [AccountsController::class, 'daily_expense_report_submit'])->name('daily_expense_report_submit');
+//monthly expense report
+Route::get('/monthly_expense_report', [AccountsController::class, 'monthly_expense_report'])->name('monthly_expense_report');
+Route::post('/monthly_expense_report_submit', [AccountsController::class, 'monthly_expense_report_submit'])->name('monthly_expense_report_submit');
+
+//yearly expense report
+Route::get('/yearly_expense_report', [AccountsController::class, 'yearly_expense_report'])->name('yearly_expense_report');
+Route::post('/yearly_expense_report_submit', [AccountsController::class, 'yearly_expense_report_submit'])->name('yearly_expense_report_submit');
+
 //profit and loss report
 Route::get('/account_profit_and_loss_report', [AccountsController::class, 'account_profit_and_loss_report'])->name('account_profit_and_loss_report');
+
 
 //balance sheet report
 Route::get('/balance_sheet_report', [AccountsController::class, 'balance_sheet_report'])->name('balance_sheet_report');
@@ -151,6 +165,24 @@ Route::get('/edit_rent/{rent_id}', [BillController::class, 'edit_rent'])->name('
 Route::get('/utility_list', [BillController::class, 'utility_list'])->name('utility_list');
 Route::get('/add_utility', [BillController::class, 'add_utility'])->name('add_utility');
 Route::get('/edit_utility/{utility_id}', [BillController::class, 'edit_utility'])->name('edit_utility');
+
+
+// ---- **** expenses **** -------
+
+//daily expense
+Route::get('/daily_expense_list', [BillController::class, 'daily_expense_list'])->name('daily_expense_list');
+Route::get('/add_daily_expense', [BillController::class, 'add_daily_expense'])->name('add_daily_expense');
+Route::get('/edit_daily_expense/{expense_id}', [BillController::class, 'edit_daily_expense'])->name('edit_daily_expense');
+
+//monthly expense
+Route::get('/monthly_expense_list', [BillController::class, 'monthly_expense_list'])->name('monthly_expense_list');
+Route::get('/add_monthly_expense', [BillController::class, 'add_monthly_expense'])->name('add_monthly_expense');
+Route::get('/edit_monthly_expense/{expense_id}', [BillController::class, 'edit_monthly_expense'])->name('edit_monthly_expense');
+
+//yearly expense
+Route::get('/yearly_expense_list', [BillController::class, 'yearly_expense_list'])->name('yearly_expense_list');
+Route::get('/add_yearly_expense', [BillController::class, 'add_yearly_expense'])->name('add_yearly_expense');
+Route::get('/edit_yearly_expense/{expense_id}', [BillController::class, 'edit_yearly_expense'])->name('edit_yearly_expense');
 
 
 //business types

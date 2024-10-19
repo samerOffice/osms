@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2024 at 01:53 PM
+-- Generation Time: Oct 19, 2024 at 02:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -604,6 +604,36 @@ CREATE TABLE `employee_performances` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` int(11) NOT NULL,
+  `company_id` int(255) DEFAULT NULL,
+  `expense_type` int(10) DEFAULT NULL COMMENT '1 = daily, 2 = monthly, 3 = yearly',
+  `expense_name` varchar(100) DEFAULT NULL,
+  `expense_amount` varchar(100) DEFAULT NULL,
+  `expense_pay_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `company_id`, `expense_type`, `expense_name`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'Mobile Bill', '100', '2024-10-19', '2024-10-19 05:28:14', '2024-10-19 05:28:14'),
+(2, 11, 1, 'Snacks', '260', '2024-10-19', '2024-10-19 05:28:14', '2024-10-19 05:28:14'),
+(3, 11, 2, 'Market Member Fees', '540', '2024-10-19', '2024-10-19 05:41:34', '2024-10-19 05:41:34'),
+(4, 11, 2, 'others', '100', '2024-10-19', '2024-10-19 05:41:34', '2024-10-19 05:41:34'),
+(7, 11, 3, 'Zakat', '25800', '2024-10-19', '2024-10-19 08:51:31', '2024-10-19 08:51:31'),
+(8, 11, 3, 'Trade License', '1200', '2024-10-19', '2024-10-19 08:51:31', '2024-10-19 08:51:31'),
+(9, 11, 3, 'Domain and Hosting', '7200', '2024-10-19', '2024-10-19 08:51:31', '2024-10-19 08:51:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -881,7 +911,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(528, 'App\\Models\\User', 1, 'myToken', 'ab0e44facc8c9e99569ea20a2dcfcd4008b9e8992c9df1f53c64b81dfebbeda7', '[\"*\"]', NULL, NULL, '2024-10-17 08:07:21', '2024-10-17 08:07:21');
+(530, 'App\\Models\\User', 1, 'myToken', 'af892026030d840368ffa608d601a7542d8c8c524ae65ba333db8f72247691c0', '[\"*\"]', NULL, NULL, '2024-10-19 08:41:09', '2024-10-19 08:41:09');
 
 -- --------------------------------------------------------
 
@@ -1228,6 +1258,12 @@ ALTER TABLE `employee_performances`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1434,6 +1470,12 @@ ALTER TABLE `employee_performances`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1485,7 +1527,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=529;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=531;
 
 --
 -- AUTO_INCREMENT for table `rents`

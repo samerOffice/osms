@@ -35,9 +35,12 @@ Purchase Report
                 Yearly Purchase Report
                 @endif
             </h1>
+            <br>
             <div class="report-info">
                 <h6><strong>Report Date:</strong> {{ \Carbon\Carbon::now()->format('F j, Y') }}</h6>
-            </div>             
+            </div>   
+            
+              <div class="table-responsive">
                 <table style="font-family: 'Courier New', Courier, monospace; font-size: 18px;">
                     <thead>
                         <tr>
@@ -94,7 +97,9 @@ Purchase Report
                             <td></td>
                         </tr>
                     </tfoot>
-                </table>           
+                </table>
+              </div>
+                  
     </div>
 
         <!-- Print Button -->

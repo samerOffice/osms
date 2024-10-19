@@ -55,6 +55,42 @@
       </a>
     </li>
 
+    <li class="nav-item @if(Request::is('daily_expense_report')) menu-open 
+          @elseif(Request::is('monthly_expense_report')) menu-open 
+          @elseif(Request::is('yearly_expense_report')) menu-open 
+        @endif">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa-solid fa-file-pen"></i>
+        <p>
+          Expense Report
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('daily_expense_report')}}" class="nav-link {{ Request::is('daily_expense_report') ? 'nav-link active' : ''}}" style="{{ Request::is('daily_expense_report') ? 'background-color: #ff774d; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('daily_expense_report') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('daily_expense_report') ? 'color: white; !important' : ''}}">Daily Expense</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('monthly_expense_report')}}" class="nav-link {{ Request::is('monthly_expense_report') ? 'nav-link active' : ''}}" style="{{ Request::is('monthly_expense_report') ? 'background-color: #ff774d; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('monthly_expense_report') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('monthly_expense_report') ? 'color: white; !important' : ''}}">Monthly Expense</p>
+          </a>
+        </li>
+
+        <li class="nav-item" style="padding-left : 15px">
+          <a href="{{route('yearly_expense_report')}}" class="nav-link {{ Request::is('yearly_expense_report') ? 'nav-link active' : ''}}" style="{{ Request::is('yearly_expense_report') ? 'background-color: #ff774d; !important' : ''}}">
+            <i class="far fa-circle nav-icon" style="{{ Request::is('yearly_expense_report') ? 'color: white; !important' : ''}}"></i>
+            <p style="{{ Request::is('yearly_expense_report') ? 'color: white; !important' : ''}}">Yearly Expense</p>
+          </a>
+        </li>
+
+      </ul>
+      </li>
+
     <li class="nav-item nav-link 
           @if(Request::is('account_profit_and_loss_report')) nav-link active
           @endif
@@ -74,31 +110,14 @@
       </a>
     </li>
 
-    {{-- <li class="nav-item nav-link 
-          @if(Request::is('balance_sheet_report')) nav-link active
-          @endif
-          " style="@if(Request::is('balance_sheet_report')) background-color: #ff774d;
-            @endif
-            ">
-      <a href="{{route('balance_sheet_report')}}">
-        <i class="nav-icon fa-solid fa-file-pen" style="@if(Request::is('balance_sheet_report')) color: white;
-            @endif
-            ">
-        </i>
-        <p style="@if(Request::is('balance_sheet_report')) color:white;
-            @endif
-            ">
-          Balance Sheet
-        </p>
-      </a>
-    </li> --}}
+   
 
     <li class="nav-item @if(Request::is('add_balance_transaction')) menu-open 
          @elseif(Request::is('balance_transaction_list')) menu-open 
          @elseif(Request::is('balance_sheet_report')) menu-open 
         @endif">
       <a href="#" class="nav-link">
-        <i class="nav-icon fa-solid fa-receipt"></i>
+        <i class="nav-icon fa-solid fa-calculator"></i>
         <p>
           Accounts
           <i class="fas fa-angle-left right"></i>
@@ -120,7 +139,7 @@
         </li>
 
         <li class="nav-item" style="padding-left : 15px">
-          <a href="{{route('balance_sheet_report')}}" class="nav-link {{ Request::is('balance_sheet_report') ? 'nav-link active' : ''}}" style="{{ Request::is('balance_sheet_report') ? 'background-color: #908ec4; !important' : ''}}">
+          <a href="{{route('balance_sheet_report')}}" class="nav-link {{ Request::is('balance_sheet_report') ? 'nav-link active' : ''}}" style="{{ Request::is('balance_sheet_report') ? 'background-color: #ff774d; !important' : ''}}">
             <i class="far fa-circle nav-icon" style="{{ Request::is('balance_sheet_report') ? 'color: white; !important' : ''}}"></i>
             <p style="{{ Request::is('balance_sheet_report') ? 'color: white; !important' : ''}}">Balance Sheet Report</p>
           </a>

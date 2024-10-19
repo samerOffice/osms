@@ -133,6 +133,18 @@ Profiit & Loss Report
             </thead>
             <tbody>
                 <tr>
+                    <td>Total Daily Expenses</td>
+                    <td class="text-right" id="total_daily_expense">0.00</td>
+                </tr>
+                <tr>
+                    <td>Total Monthly Other Expenses</td>
+                    <td class="text-right" id="total_monthly_other_expense">0.00</td>
+                </tr>
+                <tr>
+                    <td>Yearly Expenses</td>
+                    <td class="text-right" id="total_yearly_expense">0.00</td>
+                </tr>
+                <tr>
                     <td>Rent</td>
                     <td class="text-right" id="total_rent">0.00</td>
                 </tr>
@@ -236,6 +248,9 @@ $('#search').on('click',function(){
             $('#total_sale').html(response.data.total_sale.toFixed(2));
             // $('#total_due').html(response.data.total_customer_due.toFixed(2));
             $('#total_purchase').html(response.data.total_purchase.toFixed(2));
+            $('#total_daily_expense').html(response.data.total_daily_expense.toFixed(2));
+            $('#total_monthly_other_expense').html(response.data.total_monthly_other_expense.toFixed(2));
+            $('#total_yearly_expense').html(response.data.total_yearly_expense.toFixed(2));
             $('#total_rent').html(response.data.total_rent.toFixed(2));
             $('#total_utility').html(response.data.total_utility.toFixed(2));
             $('#total_salary').html(response.data.total_salary.toFixed(2));
@@ -260,12 +275,15 @@ $('#search').on('click',function(){
             // Gross profit calculation end
 
             //total expense calculation start
+            var total_daily_expense = parseFloat(response.data.total_daily_expense);
+            var total_monthly_other_expense = parseFloat(response.data.total_monthly_other_expense);
+            var total_yearly_expense = parseFloat(response.data.total_yearly_expense);
             var rent = parseFloat(response.data.total_rent);
             var utility = parseFloat(response.data.total_utility);
             var salary = parseFloat(response.data.total_salary);
             var damage_or_burn = parseFloat(response.data.total_damaged_product_value);
 
-            var total_expense = rent+utility+salary+damage_or_burn;
+            var total_expense = total_daily_expense+total_monthly_other_expense+total_yearly_expense+rent+utility+salary+damage_or_burn;
             $('#total_expense').html(total_expense.toFixed(2));
             //total expense calculation end
 
