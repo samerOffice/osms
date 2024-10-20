@@ -323,20 +323,34 @@ class AccountsController extends Controller
                         ->sum('paid_amount');
 
 
-        // $total_customer_due = DB::connection('pos')
-        //                 ->table('invoices')
-        //                 ->where('company_id',$user_company_id)
-        //                 ->whereYear('invoice_date', $year)
-        //                 ->whereMonth('invoice_date', $month)
-        //                 ->sum('due_amount');
+        $total_customer_due = DB::connection('pos')
+                        ->table('invoices')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('invoice_date', $year)
+                        ->whereMonth('invoice_date', $month)
+                        ->sum('due_amount');
 
 
         $total_purchase = DB::connection('inventory')
-                        ->table('requisition_orders')
-                        ->where('company_id',$user_company_id)
-                        ->whereYear('requisition_deliver_date', $year)
-                        ->whereMonth('requisition_deliver_date', $month)
-                        ->sum('total_amount');
+                            ->table('requisition_orders')
+                            ->where('company_id',$user_company_id)
+                            ->whereYear('requisition_deliver_date', $year)
+                            ->whereMonth('requisition_deliver_date', $month)
+                            ->sum('total_amount');
+
+        $total_purchase_paid = DB::connection('inventory')
+                                ->table('requisition_orders')
+                                ->where('company_id',$user_company_id)
+                                ->whereYear('requisition_deliver_date', $year)
+                                ->whereMonth('requisition_deliver_date', $month)
+                                ->sum('paid_amount');
+
+        $total_purchase_due = DB::connection('inventory')
+                                ->table('requisition_orders')
+                                ->where('company_id', $user_company_id)
+                                ->whereYear('requisition_deliver_date', $year)
+                                ->whereMonth('requisition_deliver_date', $month)
+                                ->sum('due_amount');
 
 
         $total_daily_expense = DB::table('expenses')
@@ -398,7 +412,9 @@ class AccountsController extends Controller
           // Return the data as a JSON response
             return response()->json([
                 'total_sale' => $total_sale,
-                // 'total_customer_due' => $total_customer_due,
+                'total_customer_due' => $total_customer_due,
+                'total_purchase_paid' => $total_purchase_paid,
+                'total_purchase_due' => $total_purchase_due,
                 'total_purchase' => $total_purchase,
                 'total_daily_expense' => $total_daily_expense,
                 'total_monthly_other_expense' => $total_monthly_other_expense,
