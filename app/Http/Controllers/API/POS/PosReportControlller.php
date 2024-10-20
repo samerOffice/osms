@@ -54,6 +54,39 @@ class PosReportControlller extends Controller
                         ->whereMonth('requisition_deliver_date', $month)
                         ->sum('total_amount');
 
+        $total_purchase_paid = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        ->where('company_id',$user_company_id)
+                        ->whereYear('requisition_deliver_date', $year)
+                        ->whereMonth('requisition_deliver_date', $month)
+                        ->sum('paid_amount');
+
+        $total_purchase_due = DB::connection('inventory')
+                        ->table('requisition_orders')
+                        ->where('company_id', $user_company_id)
+                        ->whereYear('requisition_deliver_date', $year)
+                        ->whereMonth('requisition_deliver_date', $month)
+                        ->sum('due_amount');
+
+        // $total_purchase = $total_purchase_paid - $total_purchase_due;
+
+        $total_daily_expense = DB::table('expenses')
+                               ->where('expense_type',1)
+                               ->whereMonth('expense_pay_date',$month)
+                               ->whereYear('expense_pay_date', $year)
+                               ->sum('expense_amount');
+
+        $total_monthly_other_expense = DB::table('expenses')
+                               ->where('expense_type',2)
+                               ->whereMonth('expense_pay_date',$month)
+                               ->whereYear('expense_pay_date', $year)
+                               ->sum('expense_amount');
+
+        $total_yearly_expense = DB::table('expenses')
+                               ->where('expense_type',3)
+                               ->whereYear('expense_pay_date', $year)
+                               ->sum('expense_amount');
+
 
         $total_rent = DB::table('rents')
                         ->where('company_id',$user_company_id)
@@ -97,7 +130,12 @@ class PosReportControlller extends Controller
             return response()->json([
                 'total_sale' => $total_sale,
                 'total_customer_due' => $total_customer_due,
+                'total_purchase_paid' => $total_purchase_paid,
+                'total_purchase_due' => $total_purchase_due,
                 'total_purchase' => $total_purchase,
+                'total_daily_expense' => $total_daily_expense,
+                'total_monthly_other_expense' => $total_monthly_other_expense,
+                'total_yearly_expense' => $total_yearly_expense,
                 'total_rent' => $total_rent,
                 'total_utility' => $total_utility,
                 'total_salary' => $total_salary,

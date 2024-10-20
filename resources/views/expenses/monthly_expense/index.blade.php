@@ -142,7 +142,7 @@ function deleteOperation(row_id)
             axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
             axios.get('sanctum/csrf-cookie').then(response=>{
-            axios.post('/api/delete_rent/'+ row_id).then(response=>{
+            axios.post('/api/delete_monthly_expense/'+ row_id).then(response=>{
               console.log(response);
               setTimeout(function() {
                   window.location.reload();

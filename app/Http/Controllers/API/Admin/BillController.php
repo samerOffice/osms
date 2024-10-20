@@ -457,6 +457,23 @@ class BillController extends Controller
         }     
     }
 
+
+    public function delete_daily_expense(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('expenses')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Daily Expense is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Daily Expense Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
+    }
+
     //--------------- daily expense end--------------------
 
     //--------------- monthly expense start--------------------
@@ -602,6 +619,23 @@ class BillController extends Controller
             // Catch any exceptions and return an error response
             return response()->json(['error' => 'An error occurred while updating the Monthly Expense', 'details' => $e->getMessage()], 500);
         }     
+    }
+
+
+    public function delete_monthly_expense(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('expenses')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Monthly Expense is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Monthly Expense Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
     }
     //--------------- monthly expense end--------------------
 
@@ -749,6 +783,23 @@ class BillController extends Controller
             // Catch any exceptions and return an error response
             return response()->json(['error' => 'An error occurred while updating the Yearly Expense', 'details' => $e->getMessage()], 500);
         }     
+    }
+
+
+    public function delete_yearly_expense(Request $request, $id)
+    {
+    	// $id = $request->id;
+        $deleted = DB::table('expenses')
+                        ->where('id', $id)
+                        ->delete();
+
+        if ($deleted == true) {
+                    return response()->json(['success' => true, 'error' => false, 'message' => 'Yearly Expense is Deleted Successfully!']);
+                } else {
+                    return response()->json(['success' => false, 'error' => true, 'message' => 'Yearly Expense Failed To Deleted!']);
+                }
+
+        // return redirect('/divisions')->with('alert', 'Division is deleted successfully');
     }
     //--------------- yearly expense end--------------------
 }

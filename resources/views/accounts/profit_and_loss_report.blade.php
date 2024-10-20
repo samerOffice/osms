@@ -79,14 +79,14 @@ Profiit & Loss Report
             </thead>
             <tbody>
                 <tr>
-                    <td>Sales</td>
+                    <td>Total Sales (Paid)</td>
                     <td class="text-right" id="total_sale">0.00</td>
                 </tr>
                
-                {{-- <tr>
+                <tr>
                     <td>Total Due (from Customers)</td>
                     <td class="text-right" id="total_due">0.00</td>
-                </tr> --}}
+                </tr>
                 
                 <tr class="total-row">
                     <td>Total Revenue</td>
@@ -105,8 +105,18 @@ Profiit & Loss Report
             </thead>
             <tbody>
                 <tr>
-                    <td>Purchases</td>
+                    <td>Total Purchases</td>
                     <td class="text-right" id="total_purchase">0.00</td>
+                </tr>
+
+                <tr>
+                    <td>Total Purchases (Due Amount)</td>
+                    <td class="text-right" id="total_purchase_due">0.00</td>
+                </tr>
+
+                <tr>
+                    <td>Total Purchases (Paid Amount)</td>
+                    <td class="text-right" id="total_purchase_paid">0.00</td>
                 </tr>
                 <!-- <tr>
                     <td>Direct Labor</td>
@@ -246,7 +256,9 @@ $('#search').on('click',function(){
         }).then(response=>{
             console.log(response.data);
             $('#total_sale').html(response.data.total_sale.toFixed(2));
-            // $('#total_due').html(response.data.total_customer_due.toFixed(2));
+            $('#total_due').html(response.data.total_customer_due.toFixed(2));
+            $('#total_purchase_paid').html(response.data.total_purchase_paid.toFixed(2))
+            $('#total_purchase_due').html(response.data.total_purchase_due.toFixed(2))
             $('#total_purchase').html(response.data.total_purchase.toFixed(2));
             $('#total_daily_expense').html(response.data.total_daily_expense.toFixed(2));
             $('#total_monthly_other_expense').html(response.data.total_monthly_other_expense.toFixed(2));
@@ -258,19 +270,19 @@ $('#search').on('click',function(){
 
             /// Total revenue calculation start
             var total_sale = parseFloat(response.data.total_sale); // Ensure it's a number
-            // var total_due = parseFloat(response.data.total_customer_due); // Ensure it's a number
-            // var total_revenue = total_sale + total_due;
-            var total_revenue = total_sale;
+            var total_due = parseFloat(response.data.total_customer_due); // Ensure it's a number
+            var total_revenue = total_sale + total_due;
+            // var total_revenue = total_sale;
             $('#total_revenue').html(total_revenue.toFixed(2));
             // Total revenue calculation end
 
             // Total COGS calculation start
-            var total_purchase = parseFloat(response.data.total_purchase); // Ensure it's a number
-            $('#total_cogs').html(total_purchase.toFixed(2));
+            var total_cogs = parseFloat(response.data.total_purchase_paid); // Ensure it's a number
+            $('#total_cogs').html(total_cogs.toFixed(2));
             // Total COGS calculation end
 
             // Gross profit calculation start
-            var gross_profit = total_revenue - total_purchase;
+            var gross_profit = total_revenue - total_cogs;
             $('#gross_profit').html(gross_profit.toFixed(2));
             // Gross profit calculation end
 

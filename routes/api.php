@@ -133,16 +133,21 @@ Route::middleware('auth:sanctum')->post('/delete_utility/{utility_id}',[App\Http
 Route::middleware('auth:sanctum')->post('/submit_daily_expense',[App\Http\Controllers\API\Admin\BillController::class,'submit_daily_expense']);
 Route::middleware('auth:sanctum')->get('/edit_daily_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_daily_expense_via_api']);
 Route::middleware('auth:sanctum')->post('/update_daily_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_daily_expense']);
+Route::middleware('auth:sanctum')->post('/delete_daily_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_daily_expense']);
 
 //monthly expense
 Route::middleware('auth:sanctum')->post('/submit_monthly_expense',[App\Http\Controllers\API\Admin\BillController::class,'submit_monthly_expense']);
 Route::middleware('auth:sanctum')->get('/edit_monthly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_monthly_expense_via_api']);
 Route::middleware('auth:sanctum')->post('/update_monthly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_monthly_expense']);
+Route::middleware('auth:sanctum')->post('/delete_monthly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_monthly_expense']);
+
 
 //yearly expense
 Route::middleware('auth:sanctum')->post('/submit_yearly_expense',[App\Http\Controllers\API\Admin\BillController::class,'submit_yearly_expense']);
 Route::middleware('auth:sanctum')->get('/edit_yearly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'edit_yearly_expense_via_api']);
 Route::middleware('auth:sanctum')->post('/update_yearly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'update_yearly_expense']);
+Route::middleware('auth:sanctum')->post('/delete_yearly_expense/{expense_id}',[App\Http\Controllers\API\Admin\BillController::class,'delete_yearly_expense']);
+
 
 //business type
 Route::middleware('auth:sanctum')->post('/business_type_store',[App\Http\Controllers\API\SuperAdmin\BusinessTypeController::class,'business_type_store']);
