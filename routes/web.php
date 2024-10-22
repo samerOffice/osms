@@ -19,6 +19,7 @@ use App\Http\Controllers\API\Admin\ShopAssetController;
 use App\Http\Controllers\API\Admin\AccountsController;
 
 use App\Http\Controllers\API\Emp\EmpController;
+use App\Http\Controllers\API\Emp\ZKTecoController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Emp\LeaveController;
@@ -195,7 +196,15 @@ Route::get('/add_new_user', [AuthController::class, 'add_new_user'])->name('add_
 Route::get('/user_list', [AuthController::class, 'user_list'])->name('user_list');
 Route::get('/edit_user/{user_id}', [AuthController::class, 'edit_user'])->name('edit_user');
 
+
+
 //...............********* employee management module ********................
+
+//fingerprint
+Route::get('/set_fingerprint_device_ip', [ZKTecoController::class, 'set_fingerprint_device_ip'])->name('set_fingerprint_device_ip');
+Route::post('/submit_fingerprint_device_ip', [ZKTecoController::class, 'store_ip'])->name('store_ip');
+Route::get('/attendance-logs', [ZKTecoController::class, 'getAttendanceLogs'])->name('attendance.logs');
+
 //new employee add
 Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->name('add_new_employee');
 Route::get('/view_employee_details/{employee_id}', [EmpController::class, 'view_employee_details'])->name('view_employee_details');

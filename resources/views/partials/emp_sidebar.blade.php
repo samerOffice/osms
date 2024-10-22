@@ -38,9 +38,8 @@ Dashboard
 </a>
 </li> --}}
 
-
-
-<li class="nav-item @if(Request::is('give_attendance')) menu-open 
+<li class="nav-item @if(Request::is('set_fingerprint_device_ip')) menu-open 
+@elseif(Request::is('give_attendance')) menu-open 
 @elseif(Request::is('exit_attendance')) menu-open 
 @endif">
 <a href="#" class="nav-link">
@@ -51,6 +50,14 @@ Dashboard
 </p>
 </a>
 <ul class="nav nav-treeview">
+
+    <li class="nav-item" style="padding-left : 15px">
+        <a href="{{route('set_fingerprint_device_ip')}}" class="nav-link {{ Request::is('set_fingerprint_device_ip') ? 'nav-link active' : ''}}" style="{{ Request::is('set_fingerprint_device_ip') ? 'background-color: #ff5d6c; !important' : ''}}">
+        <i class="far fa-circle nav-icon" style="{{ Request::is('set_fingerprint_device_ip') ? 'color: white; !important' : ''}}"></i>
+        <p style="{{ Request::is('set_fingerprint_device_ip') ? 'color: white; !important' : ''}}">Set IP</p>
+        </a>
+    </li>
+
 <li class="nav-item" style="padding-left : 15px">
 <a href="{{route('give_attendance')}}" class="nav-link {{ Request::is('give_attendance') ? 'nav-link active' : ''}}" style="{{ Request::is('give_attendance') ? 'background-color: #ff5d6c; !important' : ''}}">
 <i class="far fa-circle nav-icon" style="{{ Request::is('give_attendance') ? 'color: white; !important' : ''}}"></i>
