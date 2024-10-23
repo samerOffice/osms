@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2024 at 12:17 PM
+-- Generation Time: Oct 23, 2024 at 01:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -172,8 +172,13 @@ INSERT INTO `attendances` (`id`, `user_id`, `attendance_date`, `entry_time`, `ex
 
 CREATE TABLE `attendance_users` (
   `id` int(100) NOT NULL,
-  `user_id` int(100) NOT NULL,
-  `role_id` int(11) NOT NULL,
+  `uid` int(100) DEFAULT NULL,
+  `system_user_id` int(100) DEFAULT NULL,
+  `machine_user_id` int(100) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `company_id` int(100) DEFAULT NULL,
+  `branch_id` int(100) DEFAULT NULL,
+  `user_create_date` date DEFAULT NULL,
   `password` varchar(500) DEFAULT NULL,
   `card_no` varchar(500) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -335,7 +340,7 @@ CREATE TABLE `current_modules` (
 --
 
 INSERT INTO `current_modules` (`id`, `module_status`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
+(1, 2, '2024-05-19 09:28:53', '2024-05-19 09:28:53');
 
 -- --------------------------------------------------------
 
@@ -908,7 +913,7 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (132, 'App\\Models\\User', 11, 'myToken', 'aa2382007c775560373b6eba13e5423cda1ecc5605f06a177cf08ac2952cc24c', '[\"*\"]', NULL, NULL, '2024-05-19 00:23:43', '2024-05-19 00:23:43'),
-(531, 'App\\Models\\User', 1, 'myToken', '4dd7ec8812c69aa70d3165b985ee24282f2b36f36ff621c241626875e9f49097', '[\"*\"]', NULL, NULL, '2024-10-20 04:29:22', '2024-10-20 04:29:22');
+(540, 'App\\Models\\User', 1, 'myToken', '2305bf7361f5de9fc873f61fd6d508d115e42664f87b4a51efa424d847722086', '[\"*\"]', NULL, NULL, '2024-10-23 08:56:58', '2024-10-23 08:56:58');
 
 -- --------------------------------------------------------
 
@@ -1524,7 +1529,7 @@ ALTER TABLE `payroll_reports`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=532;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=541;
 
 --
 -- AUTO_INCREMENT for table `rents`

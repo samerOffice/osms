@@ -11,18 +11,18 @@ use DB;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
-use App\Services\ZKTecoService;
+// use App\Services\ZKTecoService;
 use Jmrashed\Zkteco\Lib\ZKTeco;
 
 class ZKTecoController extends Controller
 {
     
-    protected $zktecoService;
+    // protected $zktecoService;
 
-    public function __construct(ZKTecoService $zktecoService)
-    {
-        $this->zktecoService = $zktecoService;
-    }
+    // public function __construct(ZKTecoService $zktecoService)
+    // {
+    //     $this->zktecoService = $zktecoService;
+    // }
 
     public function getAttendanceLogs()
     {
@@ -65,5 +65,35 @@ class ZKTecoController extends Controller
         // Store the IP in the session (or use a database)
         Session::put('zkteco_ip', $request->input('device_ip'));
         return redirect()->back()->with('message', 'IP Address saved successfully.');
+    }
+
+    public function add_fingerprint_user(){
+
+        $current_modules = array();
+        $current_modules['module_status'] = '2';
+        $update_module = DB::table('current_modules')
+                    // ->where('id', $request->id)
+                        ->update($current_modules);
+        $current_module = DB::table('current_modules')->first();
+
+
+        $user_id = Auth::user()->id;
+        $user_company_id = Auth::user()->company_id;
+
+        $users = DB::table('users')
+                    ->select('id','name')
+                    ->where('company_id',$user_company_id)
+                    ->get();
+
+        $menu_data = DB::table('menu_permissions')
+                ->where('user_id',$user_id)
+                ->first();
+        if($menu_data == null){
+            return view('fingerprints.create',compact('current_module','users'));
+            }else{
+            $permitted_menus = $menu_data->menus;
+            $permitted_menus_array = explode(',', $permitted_menus);
+            return view('fingerprints.create',compact('current_module','users','permitted_menus_array'));
+                }
     }
 }
