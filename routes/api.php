@@ -22,6 +22,7 @@ use App\Http\Controllers\API\Emp\EmpController;
 use App\Http\Controllers\API\Emp\AttendanceController;
 use App\Http\Controllers\API\Emp\PayrollController;
 use App\Http\Controllers\API\Emp\LeaveController;
+use App\Http\Controllers\API\Emp\ZKTecoController;
 
 use App\Http\Controllers\API\Inventory\ProductController;
 use App\Http\Controllers\API\Inventory\ProductRequisitionController;
@@ -185,6 +186,10 @@ Route::middleware('auth:sanctum')->post('/new_password_set',[App\Http\Controller
 Route::middleware('auth:sanctum')->post('/submit_attendance',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_attendance']);
 Route::middleware('auth:sanctum')->post('/submit_exit_time/{attendance_id}',[App\Http\Controllers\API\Emp\AttendanceController::class,'submit_exit_time']);
 Route::middleware('auth:sanctum')->get('/all_attendance_list',[App\Http\Controllers\API\Emp\AttendanceController::class,'all_attendance_list']);
+
+//fingerprint data
+Route::middleware('auth:sanctum')->post('/user_fingerprint_data_store',[App\Http\Controllers\API\Emp\ZKTecoController::class,'user_fingerprint_data_store']);
+
 
 //----- leave ------
 //leave type
