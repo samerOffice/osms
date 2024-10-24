@@ -204,7 +204,10 @@ Route::get('/edit_user/{user_id}', [AuthController::class, 'edit_user'])->name('
 Route::get('/set_fingerprint_device_ip', [ZKTecoController::class, 'set_fingerprint_device_ip'])->name('set_fingerprint_device_ip');
 Route::post('/submit_fingerprint_device_ip', [ZKTecoController::class, 'store_ip'])->name('store_ip');
 Route::get('/add_fingerprint_user', [ZKTecoController::class, 'add_fingerprint_user'])->name('add_fingerprint_user');
-Route::get('/attendance-logs', [ZKTecoController::class, 'getAttendanceLogs'])->name('attendance.logs');
+Route::get('/fingerprint_attendances', [ZKTecoController::class, 'fingerprint_attendances'])->name('fingerprint_attendances');
+
+Route::get('/select_attendance_type', [ZKTecoController::class, 'select_attendance_type'])->name('select_attendance_type');
+Route::post('/attendance_type_submit', [ZKTecoController::class, 'attendance_type_submit'])->name('attendance_type_submit');
 
 //new employee add
 Route::get('/add_new_employee', [EmpController::class, 'add_new_employee'])->name('add_new_employee');

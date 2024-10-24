@@ -39,8 +39,8 @@ Dashboard
 </li> --}}
 
 <li class="nav-item @if(Request::is('set_fingerprint_device_ip')) menu-open 
-@elseif(Request::is('give_attendance')) menu-open 
-@elseif(Request::is('exit_attendance')) menu-open 
+@elseif(Request::is('add_fingerprint_user')) menu-open 
+@elseif(Request::is('select_attendance_type')) menu-open 
 @endif">
 <a href="#" class="nav-link">
 <i class="nav-icon fa-solid fa-fingerprint"></i>
@@ -65,9 +65,9 @@ Dashboard
 </li>
 
 <li class="nav-item" style="padding-left : 15px">
-<a href="{{route('exit_attendance')}}" class="nav-link {{ Request::is('exit_attendance') ? 'nav-link active' : ''}}" style="{{ Request::is('exit_attendance') ? 'background-color: #ff5d6c; !important' : ''}}">
-<i class="far fa-circle nav-icon" style="{{ Request::is('exit_attendance') ? 'color: white; !important' : ''}}"></i>
-<p style="{{ Request::is('exit_attendance') ? 'color: white; !important' : ''}}">Attendance List</p>
+<a href="{{route('select_attendance_type')}}" class="nav-link {{ Request::is('select_attendance_type') ? 'nav-link active' : ''}}" style="{{ Request::is('select_attendance_type') ? 'background-color: #ff5d6c; !important' : ''}}">
+<i class="far fa-circle nav-icon" style="{{ Request::is('select_attendance_type') ? 'color: white; !important' : ''}}"></i>
+<p style="{{ Request::is('select_attendance_type') ? 'color: white; !important' : ''}}">Attendance List</p>
 </a>
 </li>
 </ul>

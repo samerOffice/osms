@@ -27,15 +27,15 @@ Add User FingerPrint
                         <div class="row">
 
                             <div class="col-md-12 col-sm-12">
-                                <div class="form-group mb-4">
-                                    <label>Admin/Employee <small style="color: red">*</small></label>
-                                    <select required class="form-control select2bs4" id="system_user_id" name="system_user_id" style="width: 100%;">
-                                    <option value="">Select</option>                              
-                                      @foreach ($users as $user)
-                                      <option value="{{$user->id}}">{{$user->name}}</option> 
-                                      @endforeach                           
-                                  </select>
-                                  </div> 
+                              <div class="form-group mb-4">
+                                  <label>Admin/Employee <small style="color: red">*</small></label>
+                                  <select required class="form-control select2bs4" id="system_user_id" name="system_user_id" style="width: 100%;">
+                                  <option value="">Select</option>                              
+                                    @foreach ($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option> 
+                                    @endforeach                           
+                                </select>
+                                </div> 
                             </div>
                             
                             <div class="col-md-12 col-sm-12">
@@ -48,7 +48,7 @@ Add User FingerPrint
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group mb-4">
                                     <label>User ID <small style="color: red">*</small></label>
-                                    <input type="number" required id="user_id" name="user_id" class="form-control form-control-lg" />
+                                    <input type="number" required id="machine_user_id" name="machine_user_id" class="form-control form-control-lg" />
                                 </div> 
                             </div>
                             
@@ -122,11 +122,11 @@ document.getElementById('addUserFingerPrintForm').addEventListener('submit',func
         return false;
       }
 
-      var user_id = document.getElementById('user_id').value;  
-      if(user_id.length > 9){
+      var machine_user_id = document.getElementById('machine_user_id').value;  
+      if(machine_user_id.length > 9){
         Swal.fire({
               icon: "warning",
-              title: "Password must be equal or less than 9 characters",
+              title: "User ID must be equal or less than 9 characters",
             });
         return false;
       }
@@ -152,7 +152,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
 
 
 axios.get('sanctum/csrf-cookie').then(response=>{
-axios.post('/api/asset_store',addUserFingerPrintFormData).then(response=>{
+axios.post('/api/user_fingerprint_data_store ',addUserFingerPrintFormData).then(response=>{
   console.log(response);
  window.location.reload();
 // window.location.href = "{{ route('asset_list') }}";
